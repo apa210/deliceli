@@ -12,7 +12,7 @@ export const Home = () => {
 <section>
   <div className="container-fluid bgimage text-center p-5 align-baseline">
  	<div className="container col-6 p-5 pt-5">
-        <h1 className="p-5">Encuentra en nuestra tienda ecológica alimentación bio sin añadidos, sin gluten, vegana.</h1>
+        <h1 className="p-2">Encuentra en nuestra tienda ecológica alimentación bio sin añadidos, sin gluten, vegana.</h1>
         <p>Buscamos facilitar la vida de las personas con Enfermedad Celíaca, intolerancia al gluten o alergias, y entregar lo mejor de nosotros mismos para atender cada desafío que la comunidad celíaca requiere, poniendo énfasis en ofrecer productos sanos y seguros.</p>
 		<form className="d-flex" role="search">
         <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar"/>

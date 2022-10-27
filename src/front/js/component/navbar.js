@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Login } from "./login";
 
 export const Navbar = () => {
 	return (
+    <>
 <nav className="navbar p-3 navbar-expand-lg bg-light">
   <div className="container-fluid">
     <Link className="navbar-brand" to="pages/home">DeliCeli.uy</Link>
@@ -35,7 +37,8 @@ export const Navbar = () => {
         <button className="btn btn-outline-success me-5" type="submit">Buscar</button>
       </form>
 
-      <button type="button" className="btn btn-outline-primary me-2">Iniciar Sesión</button>
+      <button type="button" className="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Iniciar Sesión</button>
+
       <button type="button" className="btn btn-primary me-2">Registrarse</button>
 
       <ul className="navbar-nav mb-2 mb-lg-0">
@@ -67,12 +70,14 @@ export const Navbar = () => {
         </li>
 
 
-     
+    
       </ul>
 
 
     </div>
   </div>
 </nav>
+<Login/>
+</>
 	);
 };
