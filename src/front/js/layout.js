@@ -3,8 +3,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+import { Contact } from "./pages/contact";
+import { Cart } from "./pages/cart";
+import { ClientAccount } from "./pages/client-account.js";
+import { KitchenAccount } from "./pages/kitchen-account.js";
+import { Kitchens } from "./pages/kitchens.js";
+import { Products } from "./pages/products.js";
+import { SingleKitchen } from "./pages/single-kitchen.js";
+import { SingleProduct } from "./pages/single-product.js";
+
+
+
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -23,8 +32,14 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Products />} path="/products" />
+                        <Route element={<Kitchens />} path="/kitchen" />
+                        <Route element={<Contact />} path="/contact" />
+                        <Route element={<SingleKitchen />} path="/single-kitchen" />
+                        <Route element={<SingleProduct />} path="/single-product" />
+                        <Route element={<Cart />} path="/cart" />
+                        <Route element={<ClientAccount />} path="/client-account" />
+                        <Route element={<KitchenAccount />} path="/kitchen-account" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
