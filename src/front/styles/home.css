@@ -1,7 +1,50 @@
-/*
-    home.css: This website contains selectors only used in home.css
+p {
+font-size: 16px !important;
+font-family: 'Nunito', sans-serif;
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+}
+
+body {
+    font-family: 'Itim', cursive;
+
+}
+
+
+
+
+a {
+    color: #363636 !important;
+
+}
+
+
+.main-color-bg {
+
+    background-color: #70908B !important;
+}
+
+.main-color {
+
+    color: #70908B !important;
+}
+
+.btn-outline-primary {
+    color: #70908B;
+    border-color: #70908B;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #70908B;
+    border-color: #70908B;
+}
+
+.bgimage {
+    width:100%;
+    height:700px;
+    background: url('https://sintropia.com.uy/desarrollo/home.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    background-attachment: fixed;
+  }
