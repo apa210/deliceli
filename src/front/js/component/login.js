@@ -34,8 +34,8 @@ export const Login = () => {
                             </div>
                             <div className="text-center m-3">
                                 <button type="submit" className="btn btn-primary w-75 col-12">Ingresar</button>
-                                <label className="mt-2">¿No estás registrado aún?</label> <Link to="" 
-                                    className="text-decoration-none">¡Regístrate ahora!</Link>
+                                <label className="mt-2">¿No estás registrado aún?</label> <Link  data-bs-target="#staticBackdropSignUp" 
+                                data-bs-toggle="modal" to="" className="text-decoration-none">¡Regístrate ahora!</Link>
                             </div>
                         </form>
                     </div>
