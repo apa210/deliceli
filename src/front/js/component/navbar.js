@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Login } from "./login";
+import { SignUp } from "./sign-up";
 
 export const Navbar = () => {
   return (
@@ -65,18 +66,9 @@ export const Navbar = () => {
               </button>
             </form>
 
-            <button
-              type="button"
-              className="btn btn-outline-primary me-2"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-            >
-              Iniciar Sesión
-            </button>
+            <button type="button" className="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Iniciar Sesión</button>
 
-            <button type="button" className="btn btn-primary me-2">
-              Registrarse
-            </button>
+            <button type="button" className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdropSignUp">Registrarse</button>
 
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item dropdown">
@@ -170,6 +162,7 @@ export const Navbar = () => {
         </div>
       </nav>
       <Login />
+      <SignUp/>
     </>
   );
 };
