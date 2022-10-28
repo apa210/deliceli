@@ -48,3 +48,15 @@ a {
     background-size:cover;
     background-attachment: fixed;
   }
+
+
+  .bgimage-about {
+    width:100%;
+    height:240px;
+    background: url('https://sintropia.com.uy/desarrollo/bg-t1.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size:contain;
+    background-color: #F4F5F7;
+
+  }
