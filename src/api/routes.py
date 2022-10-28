@@ -102,7 +102,16 @@ def login():
     # si el codigo no fue interrumpido hasta ahora,
     # retorna un token y el email, id del usuario (para ingresar a las rutas protegidas del usuario)
     access_token = create_access_token(identity=user.email)
-    return jsonify({"user": {"id":str(user.id), "email": str(user.email)}, "access_token":access_token}), 200
+    return jsonify({"user": {
+            "id":str(user.id), 
+            "email": str(user.email),
+            "user_name": str(user.user_name),
+            "first_name": str(user.first_name),
+            "last_name": str(user.last_name),
+            "rol": str(user.rol)
+        }, 
+        "access_token":access_token
+        }), 200
 
         # Registrarse (añadir una cuenta a la base de datos)
 @api.route('/signup', methods=['POST'])
