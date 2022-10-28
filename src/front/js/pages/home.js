@@ -168,7 +168,7 @@ export const Home = () => {
                       <p className="card-text">
                       Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
                       </p>
-					  <i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i>
+					  <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
 					  <h2>$ 350</h2>
 					  <button type="button" className="btn btn-primary me-2">
 					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
@@ -190,7 +190,7 @@ export const Home = () => {
                       <p className="card-text">
                       Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
                       </p>
-					  <i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i>
+                      <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
 					  <h2>$ 350</h2>
 					  <button type="button" className="btn btn-primary me-2">
 					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
@@ -212,7 +212,7 @@ export const Home = () => {
                       <p className="card-text">
                       Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
                       </p>
-					  <i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i>
+                      <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
 					  <h2>$ 350</h2>
 					  <button type="button" className="btn btn-primary me-2">
 					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
@@ -235,7 +235,7 @@ export const Home = () => {
                       <p className="card-text">
                       Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
                       </p>
-					  <i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i><i className="far fa-star"></i>
+                      <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
 					  <h2>$ 350</h2>
 					  <button type="button" className="btn btn-primary me-2">
 					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
