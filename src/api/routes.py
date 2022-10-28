@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import random
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, Usuarios
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -89,7 +90,7 @@ def login():
         raise APIException('You need to specify the password', status_code=400)
 
     # busca el usuario pedido en la tabla
-    user = User.query.filter_by(email=body["email"]).first()
+    user = Usuarios.query.filter_by(email=body["email"]).first()
 
     # comprueba si el usuario existe, en caso de que no exista le devuelve un error
     if user is None:
@@ -106,7 +107,54 @@ def login():
         # Registrarse (añadir una cuenta a la base de datos)
 @api.route('/signup', methods=['POST'])
 def signup():
-    return jsonify("ok"), 200
+
+    # trae la información del front
+    body = request.get_json()
+
+    # comprueba que existan los campos requeridos
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    elif 'user_name' not in body:
+        raise APIException("You need to specify the username", status_code=400)
+    elif 'first_name' not in body:
+        raise APIException("You need to specify the first name", status_code=400)
+    elif 'last_name' not in body:
+        raise APIException("You need to specify the last name", status_code=400)
+    elif 'password' not in body:
+        raise APIException("You need to specify the password", status_code=400)
+    elif 'email' not in body:
+        raise APIException("You need to specify the email", status_code=400)
+    elif 'phone' not in body:
+        raise APIException("You need to specify the phone", status_code=400)
+    elif 'rol' not in body:
+        raise APIException("You need to specify the rol", status_code=400)
+
+    # ve que el email no exista en la tabla
+    user = Usuarios.query.filter_by(email=body["email"]).first()
+
+    # si ese email no existe, crea un nuevo usuario
+    if user is None:
+        base_id = body["email"]
+        list_aux = []
+        for item_aux in base_id:
+            list_aux.append(str(ord(item_aux) - 96))
+        new_aux = ''.join(list_aux)
+        new_aux = new_aux.split("-")
+        new_id = ''.join(new_aux)
+        new_id = int(new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)])
+        user_id = Usuarios.query.filter_by(id=new_id).first()
+        if user_id is None:
+            new_id = new_id
+        else:
+            new_id = new_id+len(str(new_id))+ int(str(new_id)[random.randint(0, len(str(new_id))-3)])
+        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=body["password"], email=body["email"], telefono=body["phone"], rol=body["rol"])
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({"message": "Created user"}), 200
+    
+    # si el email ya esta registrado en la tabla, devuelve un error
+    raise APIException("This email address is already registered", status_code=400)
+
  
     # ------------------ User Client (ususario promedio o para todos los usuarios) -------------
 
