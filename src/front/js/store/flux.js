@@ -1,55 +1,52 @@
+import axios from "axios";
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+  return {
+    store: {
+      api_url:
+        "https://3001-apa210-deliceli-xcdlom3ykdn.ws-us73.gitpod.io/api/",
+      auth: false,
+      profile: {
+        email: "",
+        user_name: "",
+        first_name: "",
+        last_name: "",
+        rol: "",
+      },
+    },
+    actions: {
+      login: async (email, password) => {
+        let store = getStore();
 
-			// getMessage: async () => {
-			// 	try{
-			// 		fetching data from the backend
-			// 		const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-			// 		const data = await resp.json()
-			// 		setStore({ message: data.message })
-			// 		don't forget to return something, that is how the async resolves
-			// 		return data;
-			// 	}catch(error){
-			// 		console.log("Error loading message from backend", error)
-			// 	}
-			// },
-			
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+        try {
+          const response = await axios.post(store.api_url + "login", {
+            email: email,
+            password: password,
+          });
+          console.log(response);
+          if (response.status === 200) {
+            localStorage.setItem("token", response.data.access_token);
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
+            setStore({ auth: true });
+            setStore({
+              profile: {
+                email: response?.data?.user?.email,
+                user_name: response?.data?.user?.user_name,
+                first_name: response?.data?.user?.first_name,
+                last_name: response?.data?.user?.last_name,
+                rol: response?.data?.user?.rol,
+              },
+            });
+          } else {
+            alert("Wrong email or password");
+          }
+        } catch (error) {
+          if (error.code === "ERR_BAD_REQUEST") {
+            alert(error.response?.data?.message);
+          }
+        }
+      },
+    },
+  };
 };
 
 export default getState;
