@@ -33,15 +33,15 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<About />} path="/about" />
-                        <Route element={<Products />} path="/products" />
-                        <Route element={<Kitchens />} path="/kitchen" />
-                        <Route element={<Contact />} path="/contact" />
-                        <Route element={<SingleKitchen />} path="/single-kitchen" />
-                        <Route element={<SingleProduct />} path="/single-product" />
+                        <Route element={<About />} path="/pages/about" />
+                        <Route element={<Products />} path="/pages/products" />
+                        <Route element={<Kitchens />} path="/pages/kitchens" />
+                        <Route element={<Contact />} path="/pages/contact" />
+                        <Route element={<SingleKitchen />} path="/pages/single-kitchen" />
+                        <Route element={<SingleProduct />} path="/pages/single-product" />
                         <Route element={<Cart />} path="/cart" />
-                        <Route element={<ClientAccount />} path="/client-account" />
-                        <Route element={<KitchenAccount />} path="/kitchen-account" />
+                        <Route element={<ClientAccount />} path="/pages/client-account" />
+                        <Route element={<KitchenAccount />} path="/pages/kitchen-account" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
