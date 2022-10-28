@@ -94,10 +94,10 @@ def login():
 
     # comprueba si el usuario existe, en caso de que no exista le devuelve un error
     if user is None:
-        raise APIException('The user does not exist', status_code=404)
+        return APIException('The user does not exist', status_code=404)
     # comprueba que el email y la contraseña concuerden con las del usuario, devuelve error en el caso que no conincida alguno
     elif body["email"] != user.email or body["password"] != user.password:
-        raise APIException('Bad email or password', status_code=401)
+        return APIException('Bad email or password', status_code=401)
 
     # si el codigo no fue interrumpido hasta ahora,
     # retorna un token y el email, id del usuario (para ingresar a las rutas protegidas del usuario)
@@ -135,8 +135,6 @@ def signup():
         raise APIException("You need to specify the email", status_code=400)
     elif 'phone' not in body:
         raise APIException("You need to specify the phone", status_code=400)
-    elif 'rol' not in body:
-        raise APIException("You need to specify the rol", status_code=400)
 
     # ve que el email no exista en la tabla
     user = Usuarios.query.filter_by(email=body["email"]).first()
@@ -156,7 +154,7 @@ def signup():
             new_id = new_id
         else:
             new_id = new_id+len(str(new_id))+ int(str(new_id)[random.randint(0, len(str(new_id))-3)])
-        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=body["password"], email=body["email"], telefono=body["phone"], rol=body["rol"])
+        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=body["password"], email=body["email"], telefono=body["phone"], rol="Client")
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"message": "Created user"}), 200
