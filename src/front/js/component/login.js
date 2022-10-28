@@ -108,6 +108,9 @@ export const Login = () => {
                 <button
                   onClick={button_login}
                   className="btn btn-primary w-75 col-12"
+                  type="button"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
                 >
                   Ingresar
                 </button>

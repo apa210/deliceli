@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       api_url:
-        "https://3001-apa210-deliceli-xcdlom3ykdn.ws-us73.gitpod.io/api/",
+        "https://3001-apa210-deliceli-ximfxo8wkk1.ws-us73.gitpod.io/api/",
       auth: false,
       profile: {
         email: "",
