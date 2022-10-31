@@ -51,7 +51,7 @@ export const About = () => {
       <div className="bg-light p-5">
           <div className="p-5 text-center">
             <h1 className="p-2 ">
-              Nuestros Perfiles de Cocina Sin Gluten, Sin Lactosa, Vegana.
+            Nuestro Equipo de Desarrollo
             </h1>
             <p>
               Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
