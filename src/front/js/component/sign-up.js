@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useContext, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
@@ -12,8 +12,11 @@ export const SignUp = () => {
   const [password, set_password] = useState("");
   const [repitPassword, set_repitPassword] = useState("");
 
-  const { store, actions } = useContext(Context);
-  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState("");
+  const showAlert = useRef("")
+  const closeModal = useRef()
+
+  const { actions } = useContext(Context);
 
   const button_signup = () => {
     if (password == repitPassword) {
@@ -42,11 +45,16 @@ export const SignUp = () => {
         set_phone("");
         set_password("");
         set_repitPassword("");
+        closeModal.current.click() 
       } else {
-        alert("Completa todos los campos!");
+          setTimeout(() => {showAlert.current.classList.add('d-none')}, 5000);
+          showAlert.current.classList.remove('d-none');
+          setLoginError('Debe completar todos los campos.');
       }
     } else {
-      alert("Las contraseñas tienen que ser iguales");
+        setTimeout(() => {showAlert.current.classList.add('d-none')}, 5000);
+        showAlert.current.classList.remove('d-none');
+        setLoginError('Las contraseñas deben ser iguales.');
     }
   };
 
@@ -73,11 +81,13 @@ export const SignUp = () => {
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
+                ref={closeModal}
                 aria-label="Close"
               ></button>
             </div>
             <div>
               <div className="modal-body text-center">
+                <div className="alert alert-danger d-none" ref={showAlert} role="alert">{loginError}</div>
                 <div className="input-group mb-3">
                   <input
                     value={first_name}
