@@ -23,7 +23,7 @@ export const ClientAccount = (props) => {
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>Datos de tu cuenta</h3>
+                <h3>    <i className="fas fa-cog d-inline mx-2"></i> Datos de tu cuenta</h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
@@ -170,7 +170,7 @@ export const ClientAccount = (props) => {
                   <div className="col-xxl-4">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
-                        <h4 className="mb-4 mt-0">Dirección</h4>
+                        <h4 className="mb-4 mt-0">Tu foto de perfil</h4>
                         <div className="text-center">
                           {/* subir foto  */}
 

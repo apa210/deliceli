@@ -23,7 +23,7 @@ export const Orders = (props) => {
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>Tus Pedidos </h3>
+                <h3>   <i className="fas fa-utensils d-inline mx-2"></i> Tus Pedidos </h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
@@ -90,36 +90,48 @@ export const Orders = (props) => {
 
                 {/* producto  */}
 
-      <div className="card mt-4 col-3">
-        <img
-          src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-          className="card-img-top"
-        />
-        <div className="card-body p-3">
-          <h5 className="card-title">Medialunas Rellenas</h5>
-          <button type="button" className="btn btn-light">
-            {" "}
-            <i className="fas fa-heart mx-2"></i> FAVORITOS{" "}
-          </button>
+            {/* producto  */}
 
-          <p className="card-text">
-            Medialunas sin gluten rellenas de jamon y queso. El precio es por
-            docena. Las entregamos calentitas.
-          </p>
-          <i className="fa fa-star text-warning"></i>
+  <div className="card mb-5 mt-5">
+  <div className="row g-0">
+    <div className="col-md-3">
+      <img src="https://www.honestfoodtalks.com/wp-content/uploads/2021/11/Top-cooking-channels-1024x1024.jpeg" className="img-fluid rounded-start" alt="..."/>
+    </div>
+    <div className="col-md-8">
+      <div className="card-body p-4">
+        <h2 className="card-title">Milena Sin Gluten</h2>
+
+        <div class="text-muted mb-2"> La Cocina de Milena Sin Gluten <i className="fa fa-star text-warning"></i>
           <i className="fa fa-star text-warning"></i>
           <i className="fa fa-star text-warning"></i>
           <i className="far fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i>
-          <h2>$ 350</h2>
+          <i className="far fa-star text-warning"></i></div>
+      
+        <p className="card-text"><li>Medialunas sin gluten rellenas de jamon y queso</li>
+        <li>Pascualina Sin Gluten</li>
+        <li>Brownie de Chocolate sin Gluten</li></p>
+
+     
+          <h4>Total del pedido - $ 350</h4>
           <button type="button" className="btn btn-primary me-2">
-            <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al carrito
+            <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Repetir pedido
           </button>
           <button type="button" className="btn btn-outline-primary mt-2 mb-2">
-            Leer mas{" "}
+            Detalle del pedido {" "}
           </button>
-        </div>
+
+          <button type="button" className="btn btn-light m-2">
+            {" "}
+            <i className="fa fa-star text-warning mx-2"></i> DEJAR UNA VALORACIÓN{" "}
+          </button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+   
+      {/* pedidos */}
 
       {/* producto  */}
               
