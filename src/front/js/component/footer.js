@@ -13,10 +13,10 @@ export const Footer = () => (
 
   <div className="row">
     <div className="col-8">
-    <h1 className="text-light mt-4 px-5 mx-5 p-3">
+    <h2 className="text-light mt-4 px-5 mx-5 p-3">
               Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
               intolerancia al gluten o alergias.
-            </h1>
+            </h2>
 			
     </div>
     <div className="col">
