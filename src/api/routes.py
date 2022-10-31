@@ -94,10 +94,10 @@ def login():
 
     # comprueba si el usuario existe, en caso de que no exista le devuelve un error
     if user is None:
-        return APIException('The user does not exist', status_code=404)
+        raise APIException('The user does not exist', status_code=404)
     # comprueba que el email y la contraseña concuerden con las del usuario, devuelve error en el caso que no conincida alguno
     elif body["email"] != user.email or body["password"] != user.password:
-        return APIException('Bad email or password', status_code=401)
+        raise APIException('Bad email or password', status_code=401)
 
     # si el codigo no fue interrumpido hasta ahora,
     # retorna un token y el email, id del usuario (para ingresar a las rutas protegidas del usuario)
