@@ -8,6 +8,8 @@ import { Contact } from "./pages/contact";
 import { Cart } from "./pages/cart";
 import { ClientAccount } from "./pages/client-account.js";
 import { KitchenAccount } from "./pages/kitchen-account.js";
+import { KitchenPlates } from "./pages/kitchen-plates.js";
+import { KitchenOrders } from "./pages/kitchen-orders.js";
 import { Kitchens } from "./pages/kitchens.js";
 import { Products } from "./pages/products.js";
 import { SingleKitchen } from "./pages/single-kitchen.js";
@@ -39,13 +41,19 @@ const Layout = () => {
                         <Route element={<Products />} path="/pages/products" />
                         <Route element={<Kitchens />} path="/pages/kitchens" />
                         <Route element={<Contact />} path="/pages/contact" />
+
                         <Route element={<SingleKitchen />} path="/pages/single-kitchen" />
                         <Route element={<SingleProduct />} path="/pages/single-product" />
                         <Route element={<Cart />} path="/cart" />
+
                         <Route element={<ClientAccount />} path="/pages/client-account" />
-                        <Route element={<KitchenAccount />} path="/pages/kitchen-account" />
                         <Route element={<Favorites />} path="/pages/favorites" />
                         <Route element={<Orders />} path="/pages/orders" />
+
+                        <Route element={<KitchenAccount />} path="/pages/kitchen-account" />
+                        <Route element={<KitchenPlates />} path="/pages/kitchen-plates" />
+                        <Route element={<KitchenOrders />} path="/pages/kitchen-orders" />
+                        
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
