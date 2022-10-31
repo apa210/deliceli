@@ -29,9 +29,9 @@ export const ProductCardVertical = () => {
           <i className="far fa-star text-warning"></i>
           <h2>$ 350</h2>
           <button type="button" className="btn btn-primary me-2">
-            <i className="fa fa-cart-plus d-inline mb-2"></i> Agregar al carrito
+            <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al carrito
           </button>
-          <button type="button" class="btn btn-outline-primary mt-2">
+          <button type="button" className="btn btn-outline-primary mt-2 mb-2">
             Leer mas{" "}
           </button>
         </div>
