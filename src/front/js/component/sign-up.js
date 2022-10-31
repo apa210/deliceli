@@ -175,7 +175,7 @@ export const SignUp = () => {
                   Ingresa ahora
                 </Link>
               </div>
-              <div className="text-center m-3">
+              <div className="text-center m-3 mb-4">
                 <button
                   onClick={button_signup}
                   className="btn btn-primary w-25 col-12"
