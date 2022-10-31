@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { ProductCardVertical } from "../component/product-card-vertical";
+
 
 export const Products = (props) => {
   const { store, actions } = useContext(Context);
@@ -29,7 +31,7 @@ export const Products = (props) => {
         <div class="container">
           <div class="row">
             {/* sidebar  */}
-            <div class="col-3">
+            <div class="col-4">
               <div className="card mt-4">
                 <div className="card-body p-5">
                   <h5 className="card-title pb-4">Categorías </h5>
@@ -48,6 +50,8 @@ export const Products = (props) => {
 
                   <li>SIN GLUTEN</li>
                   <li>SIN LACTOSA</li>
+                  <li>SIN HUEVO</li>
+                  <li>SIN AZÚCAR</li>
                   <li>VEGANO</li>
                   <li>VEGETARIANO</li>
                   <li>ECOLÓGICO</li>
@@ -66,241 +70,52 @@ export const Products = (props) => {
            
 
 
-<div class="container  ">
-
-  <div class="row">
-
-{/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
-    </div>
-   {/* producto  */}
-   
-   {/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
-    </div>
-    {/* producto  */}
+            <section>
     
-    {/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
+       
+       
+
+          <div className="container">
+            <div className="row">
+            
+
+              {/* card  */}
+              <div className="col">
+                {/* producto  */}
+
+                <ProductCardVertical />
+
+                {/* producto  */}
               </div>
-    </div>
-  {/* producto  */}
 
+              {/* fin de card */}
 
-      {/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
+              {/* card  */}
+              <div className="col">
+                {/* producto  */}
+
+                <ProductCardVertical />
+
+                {/* producto  */}
               </div>
-    </div>
-  {/* producto  */}
 
+              {/* fin de card */}
 
-  {/* producto  */}
-  <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
+              {/* card  */}
+              <div className="col">
+                {/* producto  */}
+
+                <ProductCardVertical />
+
+                {/* producto  */}
               </div>
-    </div>
-   {/* producto  */}
-   
-   {/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
-    </div>
-    {/* producto  */}
 
-
-    {/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
-    </div>
-   {/* producto  */}
-   
-   {/* producto  */}
-    <div class="col-3">
-    <div className="card mt-4">
-                <img
-                  src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                  className="card-img-top"
-                />
-                <div className="card-body p-3">
-                  <h5 className="card-title">Medialunas Rellenas</h5>
-                  <p className="card-text">
-                    Medialunas sin gluten rellenas de jamon y queso. El precio
-                    es por docena. Las entregamos calentitas.
-                  </p>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <h2>$ 350</h2>
-                  <button type="button" className="btn btn-primary me-2">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
-    </div>
-    {/* producto  */}
-  
-  
-  </div>
-</div>
-
+              {/* fin de card */}
+           
+            </div>
+          </div>
+     
+      </section>
 
 
               
