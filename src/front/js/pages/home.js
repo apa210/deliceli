@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { ProductCardVertical } from "../component/product-card-vertical";
+import { KitchenCardProfile } from "../component/kitchen-card-profile";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -79,65 +81,19 @@ export const Home = () => {
               <div className="row">
                 {/* card  */}
                 <div className="col">
-                  <div className="card">
-                    <img
-                      src="https://cdn.winsightmedia.com/platform/files/public/800x420/chef-demo-cooking-saucing-dish.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">La Cocina de Romi</h5>
-                      <p className="card-text">
-                        La Cocina de Romi es una Gastropub que significa: Comida
-                        casera con un toque gourmet. Cocina Sin Gluten, Sin
-                        Lactosa, Vegana.
-                      </p>
-                      <button type="button" className="btn btn-primary me-2">
-                        Leer mas...
-                      </button>
-                    </div>
-                  </div>
+                  <KitchenCardProfile />
                 </div>
-
+                {/* card  */}
                 <div className="col">
-                  <div className="card">
-                    <img
-                      src="https://cdn.winsightmedia.com/platform/files/public/800x420/chef-demo-cooking-saucing-dish.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">La Cocina de Romi</h5>
-                      <p className="card-text">
-                        La Cocina de Romi es una Gastropub que significa: Comida
-                        casera con un toque gourmet. Cocina Sin Gluten, Sin
-                        Lactosa, Vegana.
-                      </p>
-                      <button type="button" className="btn btn-primary me-2">
-                        Leer mas...
-                      </button>
-                    </div>
-                  </div>
+                  <KitchenCardProfile />
                 </div>
-
+                {/* card  */}
                 <div className="col">
-                  <div className="card">
-                    <img
-                      src="https://cdn.winsightmedia.com/platform/files/public/800x420/chef-demo-cooking-saucing-dish.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">La Cocina de Romi</h5>
-                      <p className="card-text">
-                        La Cocina de Romi es una Gastropub que significa: Comida
-                        casera con un toque gourmet. Cocina Sin Gluten, Sin
-                        Lactosa, Vegana.
-                      </p>
-                      <button type="button" className="btn btn-primary me-2">
-                        Leer mas...
-                      </button>
-                    </div>
-                  </div>
+                  <KitchenCardProfile />
                 </div>
-              </div>{" "}
+                {/* card  */}
+                
+              </div>
             </div>
           </div>
         </div>
@@ -147,104 +103,46 @@ export const Home = () => {
         <div className="p-5">
           <div className="p-2 text-center">
             <h1 className="p-2 ">Productos Recientes</h1>
- 				<p>
+            <p>
               Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
               intolerancia al gluten o alergias.
             </p>
-			</div>
-            
-			<div className="container mt-5 mb-5">
-              <div className="row">
-          
-		        {/* card  */}
-                <div className="col">
-                  <div className="card">
-                    <img
-                      src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">Medialunas Rellenas</h5>
-                      <p className="card-text">
-                      Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
-                      </p>
-					  <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
-					  <h2>$ 350</h2>
-					  <button type="button" className="btn btn-primary me-2">
-					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
-                    </div>
-                  </div>
-                </div>
+          </div>
 
-				{/* fin de card */}
+          <div className="container mt-5 mb-5">
+            <div className="row">
+              {/* card  */}
+              <div className="col">
+                {/* producto  */}
 
-             		        {/* card  */}
-							 <div className="col">
-                  <div className="card">
-                    <img
-                      src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">Medialunas Rellenas</h5>
-                      <p className="card-text">
-                      Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
-                      </p>
-                      <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
-					  <h2>$ 350</h2>
-					  <button type="button" className="btn btn-primary me-2">
-					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
-                    </div>
-                  </div>
-                </div>
+                <ProductCardVertical />
 
-				{/* fin de card */}
+                {/* producto  */}
+              </div>
 
-               		        {/* card  */}
-							   <div className="col">
-                  <div className="card">
-                    <img
-                      src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">Medialunas Rellenas</h5>
-                      <p className="card-text">
-                      Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
-                      </p>
-                      <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
-					  <h2>$ 350</h2>
-					  <button type="button" className="btn btn-primary me-2">
-					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
-                    </div>
-                  </div>
-                </div>
+              {/* fin de card */}
 
-				{/* fin de card */}
+              {/* card  */}
+              <div className="col">
+                {/* producto  */}
 
+                <ProductCardVertical />
 
-						        {/* card  */}
-								<div className="col">
-                  <div className="card">
-                    <img
-                      src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
-                      className="card-img-top"
-                    />
-                    <div className="card-body p-5">
-                      <h5 className="card-title">Medialunas Rellenas</h5>
-                      <p className="card-text">
-                      Medialunas sin gluten rellenas de jamon y queso. El precio es por docena. Las entregamos calentitas.
-                      </p>
-                      <i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="fa fa-star text-warning"></i><i className="far fa-star text-warning"></i><i className="far fa-star text-warning"></i>
-					  <h2>$ 350</h2>
-					  <button type="button" className="btn btn-primary me-2">
-					  <i className="fa fa-cart-plus d-inline mx-2"></i> Agregar al carrito </button>
-                    </div>
-                  </div>
-                </div>
+                {/* producto  */}
+              </div>
 
-				{/* fin de card */}
-             
+              {/* fin de card */}
+
+              {/* card  */}
+              <div className="col">
+                {/* producto  */}
+
+                <ProductCardVertical />
+
+                {/* producto  */}
+              </div>
+
+              {/* fin de card */}
             </div>
           </div>
         </div>
