@@ -57,11 +57,9 @@ export const Login = () => {
             </div>
             <div>
               <div className="modal-body text-center">
-                <img
-                  className="w-25"
-                  src="https://assets.stickpng.com/images/585e4beacb11b227491c3399.png"
-                  alt="Imagen de usuario"
-                />
+                <div>
+                  <i className="fas fa-user-circle fa-7x"></i>
+                </div>
                 <div className="input-group mt-3 w-75 mx-auto">
                   <label
                     className="input-group-text"
@@ -100,11 +98,16 @@ export const Login = () => {
                     aria-describedby="inputGroup-sizing-lg"
                   />
                 </div>
-                <Link to="" className="text-center text-decoration-none">
+                <Link 
+                  data-bs-target="#staticBackdropForgetPassword"
+                  data-bs-toggle="modal"
+                  to="" 
+                  className="text-center text-decoration-none"
+                >
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
-              <div className="text-center m-3">
+              <div className="text-center m-3 mb-4">
                 <button
                   onClick={button_login}
                   className="btn btn-primary w-75 col-12"

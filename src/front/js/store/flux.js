@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       api_url:
-        "https://3001-apa210-deliceli-n608fx9zcpm.ws-us73.gitpod.io/api/",
+        "https://3001-apa210-deliceli-pxhg4fr43pu.ws-us73.gitpod.io/api/",
       auth: false,
       profile: {
         email: "",
@@ -103,6 +103,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             });
           }
         }
+      },
+      logout: () => {
+        localStorage.removeItem('token')
+        setStore({auth: false})
       },
     },
   };
