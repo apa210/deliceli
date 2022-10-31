@@ -354,10 +354,10 @@ export const ClientAccount = (props) => {
                 </div>
                 <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
                   <button type="button" className="btn btn-danger btn-lg">
-                    Borrar Perfil
+                    Eliminar Cuenta
                   </button>
                   <button type="button" className="btn btn-primary btn-lg">
-                    Actualizar Perfil
+                    Actualizar Cuenta
                   </button>
                 </div>
               </form>{" "}

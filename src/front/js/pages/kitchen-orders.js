@@ -3,19 +3,20 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Orders = (props) => {
+export const KitchenOrders = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
   return (
     <>
-      <section>
-        <div className="container bgimage-about2 p-5 align-baseline mt-5">
+   <section>
+        <div className="container bgimage-cocina p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-center">Tu Cuenta</h1>
+            <h1 className="mt-5 text-center">Cuenta tu cocina</h1>
           </div>
         </div>
       </section>
+
 
       <section>
         <div className="container">
@@ -23,14 +24,14 @@ export const Orders = (props) => {
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>   <i className="fas fa-utensils d-inline mx-2"></i> Tus Pedidos </h3>
+                <h3>  <i className="fas fa-utensils d-inline mx-2"></i> Tus Platos</h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                    Hola, Elías!
+                  Hola, Milena Sin Gluten!
                   </a>
 
                   <button
@@ -51,7 +52,7 @@ export const Orders = (props) => {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="/pages/client-account">
+                        <Link className="nav-link" to="/pages/kitchen-account">
                           {" "}
                           <i className="fas fa-cog d-inline mx-2"></i> Tu Cuenta
                         </Link>
@@ -59,17 +60,17 @@ export const Orders = (props) => {
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="/pages/orders">
+                        <Link className="nav-link" to="/pages/kitchen-orders">
                           <i className="fas fa-utensils d-inline mx-2"></i>Tus
-                          pedidos
+                          platos
                         </Link>
                       </li>
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="/pages/favorites">
+                        <Link className="nav-link" to="/pages/kitchen-orders">
                           <i className="fas fa-heart d-inline mx-2"></i> Tus
-                          Favoritos
+                          Pedidos
                         </Link>
                       </li>
 
@@ -88,24 +89,18 @@ export const Orders = (props) => {
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
 
-                {/* producto  */}
-
-            {/* producto  */}
+          {/* producto  */}
 
   <div className="card mb-5 mt-5">
   <div className="row g-0">
     <div className="col-md-3">
-      <img src="https://www.honestfoodtalks.com/wp-content/uploads/2021/11/Top-cooking-channels-1024x1024.jpeg" className="img-fluid rounded-start" alt="..."/>
+      <img src="https://lookaside.fbsbx.com/elementpath/media/?media_id=457061438537956&version=1637849981" className="img-fluid rounded-start" alt="..."/>
     </div>
     <div className="col-md-8">
       <div className="card-body p-4">
-        <h2 className="card-title">Milena Sin Gluten</h2>
+        <h2 className="card-title">Pedido Nro #000345</h2>
 
-        <div className="text-muted mb-2"> La Cocina de Milena Sin Gluten <i className="fa fa-star text-warning"></i>
-          <i className="fa fa-star text-warning"></i>
-          <i className="fa fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i></div>
+        <div className="text-muted mb-2"> Pedido de Noelia Irace  </div>
       
         <p className="card-text"><li>Medialunas sin gluten rellenas de jamon y queso</li>
         <li>Pascualina Sin Gluten</li>
@@ -114,27 +109,21 @@ export const Orders = (props) => {
      
           <h4>Total del pedido - $ 350</h4>
           <button type="button" className="btn btn-primary me-2">
-            <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Repetir pedido
+             Pedido Pendiente
           </button>
           <button type="button" className="btn btn-outline-primary mt-2 mb-2">
-            Detalle del pedido {" "}
+           Pedido Entregado {" "}
           </button>
 
-          <button type="button" className="btn btn-light m-2">
-            {" "}
-            <i className="fa fa-star text-warning mx-2"></i> DEJAR UNA VALORACIÓN{" "}
-          </button>
+        
       </div>
     </div>
   </div>
 </div>
 
+   {/* producto  */}
 
-   
-      {/* pedidos */}
 
-      {/* producto  */}
-              
             </div>
           </div>
         </div>
@@ -143,6 +132,6 @@ export const Orders = (props) => {
   );
 };
 
-Orders.propTypes = {
+KitchenOrders.propTypes = {
   match: PropTypes.object,
 };
