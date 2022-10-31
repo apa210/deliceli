@@ -47,6 +47,8 @@ a {
     background-attachment: fixed;
   }
 
+  
+
 
   .bgimage-about {
     width:100%;
@@ -55,6 +57,17 @@ a {
     background-repeat: no-repeat;
     background-position: left;
     background-size:contain;
+    background-color: #F4F5F7;
+
+  }
+
+  .bgimage-about2 {
+    width:100%;
+    height:240px;
+    background: url('https://sintropia.com.uy/desarrollo/about2.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size:cover;
     background-color: #F4F5F7;
 
   }
