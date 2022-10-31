@@ -22,11 +22,14 @@ export const ProductCardVertical = () => {
             Medialunas sin gluten rellenas de jamon y queso. El precio es por
             docena. Las entregamos calentitas.
           </p>
-          <i className="fa fa-star text-warning"></i>
+
+          <div class="text-muted mb-2"> La Cocina de Milena Sin Gluten <i className="fa fa-star text-warning"></i>
           <i className="fa fa-star text-warning"></i>
           <i className="fa fa-star text-warning"></i>
           <i className="far fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i>
+          <i className="far fa-star text-warning"></i></div>
+
+          
           <h2>$ 350</h2>
           <button type="button" className="btn btn-primary me-2">
             <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al carrito
