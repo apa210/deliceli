@@ -7,6 +7,10 @@ export const Contact = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
+  const button_submit = () => {
+    console.log("formulario enviado");
+  };
+
   return (
     <>
       <section>
@@ -63,14 +67,22 @@ export const Contact = (props) => {
 
                       <div className="mt-3 d-flex flex-row gap-2">
                         <label className="radio">
-                          <input type="radio" />
+                          <input
+                            type="radio"
+                            name="flexRadioDefault"
+                            className="form-check-input"
+                          />
                           <span>
                             <i className="fas fa-heart d-inline mx-2"></i>
                             Quiero vender mis platos
                           </span>
                         </label>
                         <label className="radio">
-                          <input type="radio" />
+                          <input
+                            type="radio"
+                            name="flexRadioDefault"
+                            className="form-check-input"
+                          />
                           <span>
                             <i className="fas fa-utensils d-inline mx-2"></i>
                             Quiero comprar un plato
@@ -125,7 +137,10 @@ export const Contact = (props) => {
                       </div>
 
                       <div className="mt-3">
-                        <button className="button btn btn-primary w-100 d-flex justify-content-center align-items-center">
+                        <button
+                          onClick={button_submit}
+                          className="button btn btn-primary w-100 d-flex justify-content-center align-items-center"
+                        >
                           <span>Enviar mensaje</span>
                         </button>
                       </div>
