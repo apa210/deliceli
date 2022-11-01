@@ -17,7 +17,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions.validateToken();
         try {
           if (store.auth == true) {
-            console.log("estoy en el try de getProfile");
             const response = await axios.get(store.api_url + "user/profile", {
               headers: {
                 Authorization: "Bearer " + userToken,
@@ -26,7 +25,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               profile: response?.data,
             });
-            console.log(response);
           }
         } catch (error) {
           console.log(error);
@@ -58,7 +56,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const response = await axios.get(store.api_url + "kitchens");
           setStore({ AllKitchens: response.data });
-          console.log(response);
         } catch (error) {
           console.log(error);
         }
@@ -117,7 +114,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             email: email,
             password: password,
           });
-          console.log(response);
           if (response.status === 200) {
             localStorage.setItem("token", response.data.access_token);
 

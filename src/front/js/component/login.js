@@ -9,9 +9,11 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
+  // Muestra alerta si hay campos vacios o incorrectos
   const [loginError, setLoginError] = useState("");
-  const showAlert = useRef("")
-  const closeModal = useRef()
+  const showAlert = useRef("");
+  const closeModal = useRef();
+  // 
 
   const { store, actions } = useContext(Context);
 
@@ -24,16 +26,20 @@ export const Login = () => {
         closeModal.current.click();
         setEmail("");
         setPassword("");
-      }
-      else if ((email=="") || (password=="")) {
-        setTimeout(() => {showAlert.current.classList.add('d-none')}, 3000);
-        showAlert.current.classList.remove('d-none');
-        setLoginError('Hay campos vacíos.');
-      }
-      else {
-        setTimeout(() => {showAlert.current.classList.add('d-none')}, 3000);
-        showAlert.current.classList.remove('d-none');
-        setLoginError('Usuario y/o contraseña incorrectos.')
+      } else if (email == "" || password == "") {
+        // Mensaje de alerta si hay campos vacíos
+        setTimeout(() => {
+          showAlert.current.classList.add("d-none");
+        }, 3000);
+        showAlert.current.classList.remove("d-none");
+        setLoginError("Hay campos vacíos.");
+      } else {
+        // Mensaje de alerta si hay campos incorrectos
+        setTimeout(() => {
+          showAlert.current.classList.add("d-none");
+        }, 3000);
+        showAlert.current.classList.remove("d-none");
+        setLoginError("Usuario y/o contraseña incorrectos.");
       }
     }, 1000);
   };
@@ -52,11 +58,13 @@ export const Login = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
+               {/* Inicio de Título */}
               <label>
                 <h1 className="modal-title fs-5" id="staticBackdropLabel">
                   <b>Inicio de Sesión</b>
                 </h1>
               </label>
+               {/* fIN de Título */}
               <button
                 type="button"
                 className="btn-close"
@@ -67,12 +75,21 @@ export const Login = () => {
             </div>
             <div>
               <div className="modal-body text-center">
-              <div className="alert alert-danger d-none" ref={showAlert} role="alert">{loginError}</div>
+                {/* Inicio de mensaje de alerta */}
+                <div
+                  className="alert alert-danger d-none"
+                  ref={showAlert}
+                  role="alert"
+                >
+                  {loginError}
+                </div>
+                {/* fIN de mensaje de alerta */}
                 <img
                   className="w-25"
                   src="https://assets.stickpng.com/images/585e4beacb11b227491c3399.png"
                   alt="Imagen de usuario"
                 />
+                {/* Inicio de campo Email */}
                 <div className="input-group mt-3 w-75 mx-auto">
                   <label
                     className="input-group-text"
@@ -92,6 +109,9 @@ export const Login = () => {
                     aria-describedby="inputGroup-sizing-lg"
                   />
                 </div>
+                {/* fIN de campo Email */}
+
+                {/* Inicio de campo contraseña */}
                 <div className="input-group my-2 w-75 mx-auto">
                   <label
                     className="input-group-text"
@@ -111,6 +131,8 @@ export const Login = () => {
                     aria-describedby="inputGroup-sizing-lg"
                   />
                 </div>
+                {/* fIN de campo contraseña */}
+                
                 <Link to="" className="text-center text-decoration-none">
                   ¿Olvidaste tu contraseña?
                 </Link>
@@ -120,7 +142,6 @@ export const Login = () => {
                   onClick={button_login}
                   className="btn btn-primary w-75 col-12"
                   type="button"
-                  // data-bs-dismiss="modal"
                   aria-label="Close"
                 >
                   Ingresar

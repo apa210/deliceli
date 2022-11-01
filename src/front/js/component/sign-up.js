@@ -12,9 +12,11 @@ export const SignUp = () => {
   const [password, set_password] = useState("");
   const [repitPassword, set_repitPassword] = useState("");
 
+  // Muestra alerta si hay campos vacios o incorrectos
   const [loginError, setLoginError] = useState("");
-  const showAlert = useRef("")
-  const closeModal = useRef()
+  const showAlert = useRef("");
+  const closeModal = useRef();
+  // 
 
   const { actions } = useContext(Context);
 
@@ -45,16 +47,22 @@ export const SignUp = () => {
         set_phone("");
         set_password("");
         set_repitPassword("");
-        closeModal.current.click() 
+        closeModal.current.click();
       } else {
-          setTimeout(() => {showAlert.current.classList.add('d-none')}, 5000);
-          showAlert.current.classList.remove('d-none');
-          setLoginError('Debe completar todos los campos.');
+        // Mensaje de alerta si hay campos vacíos
+        setTimeout(() => {
+          showAlert.current.classList.add("d-none");
+        }, 5000);
+        showAlert.current.classList.remove("d-none");
+        setLoginError("Debe completar todos los campos.");
       }
     } else {
-        setTimeout(() => {showAlert.current.classList.add('d-none')}, 5000);
-        showAlert.current.classList.remove('d-none');
-        setLoginError('Las contraseñas deben ser iguales.');
+      // Mensaje de alerta si hay campos incorrectos
+      setTimeout(() => {
+        showAlert.current.classList.add("d-none");
+      }, 5000);
+      showAlert.current.classList.remove("d-none");
+      setLoginError("Las contraseñas deben ser iguales.");
     }
   };
 
@@ -72,11 +80,13 @@ export const SignUp = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
+              {/* Inicio de Título */}
               <label>
                 <h1 className="modal-title fs-5" id="staticBackdropLabel">
                   <b>Registrarte</b>
                 </h1>
               </label>
+              {/* fIN de Título */}
               <button
                 type="button"
                 className="btn-close"
@@ -87,8 +97,18 @@ export const SignUp = () => {
             </div>
             <div>
               <div className="modal-body text-center">
-                <div className="alert alert-danger d-none" ref={showAlert} role="alert">{loginError}</div>
+                {/* Inicio de mensaje de alerta */}
+                <div
+                  className="alert alert-danger d-none"
+                  ref={showAlert}
+                  role="alert"
+                >
+                  {loginError}
+                </div>
+                {/* fIN de mensaje de alerta */}
+                
                 <div className="input-group mb-3">
+                  {/* Inicio de campo Nombre */}
                   <input
                     value={first_name}
                     onChange={(e) => set_first_name(e.target.value)}
@@ -100,7 +120,9 @@ export const SignUp = () => {
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-lg"
                   />
+                  {/* fIN de campo Nombre */}
 
+                  {/* Inicio de campo Apellido */}
                   <input
                     value={last_name}
                     onChange={(e) => set_last_name(e.target.value)}
@@ -112,7 +134,9 @@ export const SignUp = () => {
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-lg"
                   />
+                  {/* fIN de campo Apellido */}
                 </div>
+                {/* Inicio de campo Email */}
                 <div className="mb-3">
                   <input
                     value={email}
@@ -125,8 +149,10 @@ export const SignUp = () => {
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-lg"
                   />
+                  {/* fIN de campo Email */}
                 </div>
                 <div className="input-group mb-3">
+                  {/* Inicio de campo Nombre de usuario */}
                   <input
                     value={user_name}
                     onChange={(e) => set_user_name(e.target.value)}
@@ -138,7 +164,9 @@ export const SignUp = () => {
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-lg"
                   />
+                  {/* fIN de campo Nombre de usuario */}
 
+                  {/* Inicio de campo Teléfono */}
                   <input
                     value={phone}
                     onChange={(e) => set_phone(e.target.value)}
@@ -150,8 +178,10 @@ export const SignUp = () => {
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-lg"
                   />
+                  {/* fIN de campo Teléfono */}
                 </div>
                 <div className="mb-3">
+                  {/* Inicio de campo contraseña */}
                   <input
                     value={password}
                     onChange={(e) => set_password(e.target.value)}
@@ -163,7 +193,9 @@ export const SignUp = () => {
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-lg"
                   />
+                  {/* fIN de campo contraseña */}
                 </div>
+                {/* Inicio de campo repetir contraseña */}
                 <input
                   value={repitPassword}
                   onChange={(e) => set_repitPassword(e.target.value)}
@@ -175,7 +207,11 @@ export const SignUp = () => {
                   aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-lg"
                 />
+                {/* fIN de campo repetir contraseña */}
+
                 <label className="mt-2">¿Ya tienes una cuenta?</label>{" "}
+
+                {/* Inicio de link para abrir modal de inicio sesión */}
                 <Link
                   data-bs-target="#staticBackdrop"
                   data-bs-toggle="modal"
@@ -184,6 +220,8 @@ export const SignUp = () => {
                 >
                   Ingresa ahora
                 </Link>
+                {/* fIN de link para abrir modal de inicio sesión */}
+                
               </div>
               <div className="text-center m-3 mb-4">
                 <button
