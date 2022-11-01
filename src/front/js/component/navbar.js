@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import { Context } from "../store/appContext";
 
@@ -9,6 +9,7 @@ import { ForgetPassword } from "./forget-password";
 export const Navbar = () => {
 
   const {store, actions}= useContext(Context);
+  const [name, setName] = useState("sin nombre");
 
   const navigate = useNavigate();
 
@@ -18,6 +19,12 @@ export const Navbar = () => {
       navigate("/");
     }
   }
+
+useEffect ( () =>
+{
+  setName(store?.profile?.first_name)
+}
+,[store.profile])
 
   return (
     <>
@@ -134,7 +141,7 @@ export const Navbar = () => {
                   >
                     {" "}
                     <i className="fas fa-user-circle d-inline mx-2"></i>
-                    Hola, {store.profile.first_name}!
+                    Hola, {name}!
                   </Link>
                   <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
                     <li>

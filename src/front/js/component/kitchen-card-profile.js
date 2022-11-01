@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export const KitchenCardProfile = (props) => {
-  console.log(props);
 
   return (
     <div className="card">

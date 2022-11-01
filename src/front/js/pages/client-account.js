@@ -9,6 +9,14 @@ export const ClientAccount = (props) => {
 
   const navigate = useNavigate();
 
+    // Función para cerrar sesión
+    const handleLogout = ()=>{
+      let onLogged = actions.logout();
+      if(!onLogged){
+        navigate("/");
+      }
+    }
+
   useEffect(() => {
     actions.validateToken();
 
@@ -91,7 +99,7 @@ export const ClientAccount = (props) => {
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="#">
+                        <Link className="nav-link" to="" onClick={() => handleLogout()}>
                           {" "}
                           <i className="fas fa-sign-out-alt d-inline mx-2"></i>
                           Cerrar Sesión
@@ -133,15 +141,15 @@ export const ClientAccount = (props) => {
                             defaultValue={store.profile.last_name}
                           />
                         </div>
-                        {/* Teléfono  */}
+                        {/* Nombre de usuario  */}
                         <div className="col-md-6">
-                          <label className="form-label">Teléfono *</label>
+                          <label className="form-label">Nombre de usuario *</label>
                           <input
                             type="text"
                             className="form-control"
                             placeholder=""
-                            aria-label="Telefono"
-                            defaultValue={store.profile.phone}
+                            aria-label="Nombre_usuario"
+                            defaultValue={store.profile.user_name}
                           />
                         </div>
                         {/* Celular  */}
@@ -152,7 +160,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Celular"
-                            defaultValue="(+598) 99 614 240"
+                            defaultValue={store.profile.telefono}
                           />
                         </div>
                         {/* Mail  */}
@@ -175,11 +183,11 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Direccion"
-                            defaultValue="Calle 13 y 4, La Paloma, Rocha UY"
+                            defaultValue={store.profile.direccion}
                           />
                         </div>
                       </div>{" "}
-                      {/* fon del formulario  */}
+                      {/* fin del formulario  */}
                     </div>
                   </div>
                   {/* Dirección  */}
@@ -242,7 +250,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Facebook"
-                            defaultValue="http://www.facebook.com"
+                            defaultValue={store.profile.facebook}
                           />
                         </div>
                         {/*Twitter  */}
@@ -256,7 +264,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Twitter"
-                            defaultValue="http://www.twitter.com"
+                            defaultValue={store.profile.twitter}
                           />
                         </div>
                         {/*Linkedin  */}
@@ -270,7 +278,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Linkedin"
-                            defaultValue="http://www.linkedin.com"
+                            defaultValue={store.profile.linkedin}
                           />
                         </div>
                         {/*Instragram  */}
@@ -284,7 +292,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Instragram"
-                            defaultValue="http://www.instragram.com"
+                            defaultValue={store.profile.instragram}
                           />
                         </div>
                         {/*Dribble  */}
@@ -298,7 +306,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Dribble"
-                            defaultValue="http://www.dribble.com"
+                            defaultValue={store.profile.dribble}
                           />
                         </div>
                         {/*Pinterest  */}
@@ -312,7 +320,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Pinterest"
-                            defaultValue="http://www.pinterest.com"
+                            defaultValue={store.profile.pinterest}
                           />
                         </div>
                       </div>{" "}
