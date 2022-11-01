@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       auth: false,
       profile: {},
       AllProducts: [],
+      AllKitchens: [],
     },
     actions: {
       getProfile: async () => {
@@ -44,12 +45,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             auth: response.data.status,
           });
         } catch (error) {
-          console.log(error);
           if (error.code === "ERR_BAD_REQUEST") {
             setStore({
               auth: false,
             });
           }
+        }
+      },
+      getAllKitchens: async () => {
+        let store = getStore();
+
+        try {
+          const response = await axios.get(store.api_url + "kitchens");
+          setStore({ AllKitchens: response.data });
+          console.log(response);
+        } catch (error) {
+          console.log(error);
         }
       },
       getAllProducts: async () => {

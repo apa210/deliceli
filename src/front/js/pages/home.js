@@ -18,6 +18,16 @@ export const Home = () => {
     }
   });
 
+  const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
+    if (index < num_max) {
+      return (
+        <div className="col" key={item + index}>
+          <KitchenCardProfile obj={item} />
+        </div>
+      );
+    }
+  });
+
   return (
     <>
       <section>
@@ -91,19 +101,7 @@ export const Home = () => {
             <div className="container text-center mt-5">
               <div className="row">
                 {/* map de tres cocinas al azar */}
-
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
+                {map_kitchens}
               </div>
             </div>
           </div>
