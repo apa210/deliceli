@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import random
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Usuarios
+from api.models import db, Usuarios, Productos, Categorias_Productos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -13,37 +13,65 @@ api = Blueprint('api', __name__)
 
 # ----------                                Web app rutes                           ----------
 
-    # ------------- Cocinas --------------------
+# ------------- Cocinas --------------------
         # Ver todas las cocinas - GET
 @api.route('/kitchens', methods=['GET'])
 def get_all_kitchens():
-    return jsonify("All kitchens"), 200
+    usuarios = Usuarios.query.filter_by(rol='cocina').all() # se obtienen todas los usuarios con rol cocina de la tabla Usuarios
+    results = list(map(lambda item: item.serialize(), usuarios)) #serializa los datos del arrays usuarios
+
+    return jsonify(results), 200
 
     # Ver todas las cocinas segun su categoria
-@api.route('/kitchen/<int:kitchen_category>', methods=['GET'])
+@api.route('/kitchenCategory/<int:kitchen_category>', methods=['GET'])
 def get_filter_kitchens(kitchen_category):
     return jsonify("Filter kitchens"), 200
 
         # Ver una cocina - GET
 @api.route('/kitchen/<int:kitchen_id>', methods=['GET'])
 def get_kitchen(kitchen_id):
-    return jsonify("One kitchen"), 200
+    usuario = Usuarios.query.filter_by(id=kitchen_id, rol='cocina').first()
 
-    # ---------------- Productos ------------------
+    if usuario is None:
+        return jsonify("vacio"), 200
+    return jsonify(usuario.serialize()), 200
+
+
+
+# ---------------- Productos ------------------
         # Ver todas los productos - GET
 @api.route('/products', methods=['GET'])
 def get_all_products():
-    return jsonify("All products"), 200
+    productos = Productos.query.all()
+    results = list(map(lambda item: item.serialize(), productos))
 
-    # Ver todos los productos segun su categoria
-@api.route('/product/<string:product_category>', methods=['GET'])
-def get_filter_products(product_category):
-    return jsonify("Filter products"), 200
+    return jsonify(results), 200
+
+    # Ver todos los productos segun su categoria(NO FUNCIONA!)
+    # SELECT Productos.nombre 
+    # FROM Productos INNER_JOIN Categorias_Productos ON Productos.id = Categorias_Productos.producto_id
+    # WHERE Categorias_Productos.categoria_id = cat_id
+@api.route('/productsCategory/<int:cat_id>', methods=['GET'])
+def get_all_products_category(cat_id):
+    # productos = Productos(Categorias_Productos.query.filter_by(categoria_id=cat_id)).query.filter_by(producto_id=Categorias_Productos.producto_id).all()
+    productos = db.session.query(Productos, Categorias_Productos).join(Categorias_Productos).all()
+    print("-------------------ProductsCategory: " + str(productos))
+    results = list(map(lambda item: item.serialize(), productos))
+
+    return jsonify(results), 200
 
         # Ver un producto - GET
 @api.route('/product/<int:product_id>', methods=['GET'])
 def get_product(product_id):
-    return jsonify("One product"), 200
+    producto = Productos.query.filter_by(id=product_id).first()
+
+    if producto is None:
+        return jsonify("vacio"), 200
+    return jsonify(producto.serialize()), 200
+
+
+
+
 
     # ------------------- Carrito de compras -----------------
 
