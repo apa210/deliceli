@@ -14,9 +14,9 @@ export const Contact = (props) => {
   return (
     <>
       <section>
-        <div className="container-fluid bgimage-about   p-5 align-baseline">
+        <div className="container bgimage-contacto p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-center">Nuestras Cocinas</h1>
+            <h1 className="mt-5 text-center">Contactanos!</h1>
           </div>
         </div>
       </section>
@@ -93,16 +93,16 @@ export const Contact = (props) => {
                       <hr />
 
                       <div className="mt-2">
-                        <div className="form">
+                        <div className="form pb-3">
                           <label>
-                            <i className="fa fa-user  d-inline mx-2"></i>Nombre
+                            <i className="fa fa-user  d-inline mx-2 "></i>Nombre
                             Completo
                           </label>
                           <input type="text" className="form-control" />
                         </div>
                       </div>
 
-                      <div className="mt-2">
+                      <div className="mt-2 pb-3">
                         <div className="form">
                           <label>
                             <i className="fa fa-map  d-inline mx-2"></i>
@@ -112,7 +112,7 @@ export const Contact = (props) => {
                         </div>
                       </div>
 
-                      <div className="mt-2">
+                      <div className="mt-2 pb-3">
                         <div className="form">
                           <label>
                             <i className="fa fa-phone  d-inline mx-2"></i>
@@ -124,17 +124,34 @@ export const Contact = (props) => {
                         </div>
                       </div>
 
-                      <div className="mt-2">
+                      <div className="mt-2 pb-3">
                         <div className="form">
                           <label>
                             <i className="fa fa-envelope  d-inline mx-2"></i>
                             Mail
                           </label>
-                          <div className="mail">
+                          <div className="mail pb-3">
                             <input type="text" className="form-control" />
                           </div>
                         </div>
                       </div>
+
+
+                      <div className="col-md-12 pb-2">
+                      <label>
+                            <i className="fa fa-comment  d-inline mx-2"></i>
+                           Mensaje
+                          </label>
+                          <textarea
+                            type="text"
+                            className="form-control"
+                            placeholder=""
+                            aria-label="Descripcion"
+                            defaultValue="Escribi acá tu mensaje ..."
+                          />
+
+                          
+                        </div>
 
                       <div className="mt-3">
                         <button

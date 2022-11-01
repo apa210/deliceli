@@ -75,6 +75,7 @@ export const SingleProduct = (props) => {
           <i className="far fa-star text-warning"></i>
           <i className="far fa-star text-warning"></i></div>
 
+
           
           <h2>$ 350</h2>
           <button type="button" className="btn btn-primary me-2 mb-3">
