@@ -26,8 +26,16 @@ class Usuarios(db.Model):
     last_name = db.Column(db.String(250), nullable=False)
     password = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(250), nullable=False)
-    telefono = db.Column(db.String(250), nullable=False)
+    telefono = db.Column(db.String(250), nullable=True)
     rol = db.Column(db.String(250), nullable=False)
+    foto = db.Column(db.String(250), nullable=True)
+    direccion = db.Column(db.String(250), nullable=True)
+    facebook = db.Column(db.String(250), nullable=True)
+    twitter = db.Column(db.String(250), nullable=True)
+    linkedin = db.Column(db.String(250), nullable=True)
+    instragram = db.Column(db.String(250), nullable=True)
+    dribble = db.Column(db.String(250), nullable=True)
+    pinterest = db.Column(db.String(250), nullable=True)
     
     def __repr__(self):
         return '<Usuarios %r>' % self.id
@@ -41,16 +49,24 @@ class Usuarios(db.Model):
             "email": self.email,
             "telefono": self.telefono,
             "rol": self.rol,
+            "foto": self.foto,
+            "direccion": self.direccion,
+            "facebook": self.facebook,
+            "twitter": self.twitter,
+            "linkedin": self.linkedin,
+            "instragram": self.instragram,
+            "dribble": self.dribble,
+            "pinterest": self.pinterest,
             # do not serialize the password, its a security breach
         }
 
 class Productos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(250), nullable=False)
-    descripcion = db.Column(db.String(250), nullable=False)
+    descripcion = db.Column(db.String(250), nullable=True)
     precio = db.Column(db.Float, nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
-    foto = db.Column(db.String(250), nullable=False)
+    foto = db.Column(db.String(250), nullable=True)
     cocina_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
     usuarios = db.relationship('Usuarios', foreign_keys='Productos.cocina_id')
     
@@ -138,5 +154,63 @@ class Puntuaciones(db.Model):
             "usuario_id": self.usuario_id,
             "cocina_id": self.cocina_id,
             "puntuacion": self.puntuacion,
+            # do not serialize the password, its a security breach
+        }
+
+class Categorias(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(250), nullable=False)
+
+    def __repr__(self):
+        return '<Categorias %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            # do not serialize the password, its a security breach
+        }
+
+class Categorias_Productos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    categoria_id = db.Column(db.Integer, db.ForeignKey("categorias.id"))
+    producto_id = db.Column(db.Integer, db.ForeignKey("productos.id"))
+    categorias = db.relationship('Categorias', foreign_keys='Categorias_Productos.categoria_id')
+    productos = db.relationship('Productos', foreign_keys='Categorias_Productos.producto_id')
+
+    def __repr__(self):
+        return '<Categorias_Productos %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "categoria_id": self.categoria_id,
+            "producto_id": self.producto_id,
+            # do not serialize the password, its a security breach
+        }
+
+class Contactos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(250), nullable=False)
+    departamento = db.Column(db.String(250), nullable=True)
+    telefono = db.Column(db.String(250), nullable=True)
+    mail = db.Column(db.String(250), nullable=True)
+    foto = db.Column(db.String(250), nullable=True)
+    opcion = db.Column(db.String(250), nullable=False)
+    mensaje = db.Column(db.String(250), nullable=True)
+    
+    def __repr__(self):
+        return '<Contactos %r>' % self.nombre
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            "departamento": self.departamento,
+            "telefono": self.telefono,
+            "mail": self.mail,
+            "foto": self.foto,
+            "opcion": self.opcion,
+            "mensaje": self.mensaje,
             # do not serialize the password, its a security breach
         }
