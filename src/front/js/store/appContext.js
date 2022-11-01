@@ -31,6 +31,7 @@ const injectContext = (PassedComponent) => {
       // state.actions.getMessage(); // <---- calling this function from the flux.js actions
 
       state.actions.getAllProducts();
+      state.actions.getAllKitchens();
 
       state.actions.validateToken();
       setTimeout(() => {
