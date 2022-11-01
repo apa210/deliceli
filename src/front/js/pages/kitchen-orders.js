@@ -108,10 +108,13 @@ export const KitchenOrders = (props) => {
 
      
           <h4>Total del pedido - $ 350</h4>
-          <button type="button" className="btn btn-primary me-2">
+          <button type="button" className="btn btn-danger me-2">
              Pedido Pendiente
           </button>
-          <button type="button" className="btn btn-outline-primary mt-2 mb-2">
+          <button type="button" className="btn btn-outline-warning me-2 mt-2 mb-2">
+           Pedido Confirmado {" "}
+          </button>
+          <button type="button" className="btn btn-outline-success me-2 mt-2 mb-2">
            Pedido Entregado {" "}
           </button>
 
