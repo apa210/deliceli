@@ -9,13 +9,55 @@ const getState = ({ getStore, getActions, setStore }) => {
       AllProducts: [],
     },
     actions: {
+      getProfile: async () => {
+        const userToken = localStorage.getItem("token");
+        const store = getStore();
+        const actions = getActions();
+        actions.validateToken();
+        try {
+          if (store.auth == true) {
+            console.log("estoy en el try de getProfile");
+            const response = await axios.get(store.api_url + "user/profile", {
+              headers: {
+                Authorization: "Bearer " + userToken,
+              },
+            });
+            setStore({
+              profile: response?.data,
+            });
+            console.log(response);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      validateToken: async () => {
+        const userToken = localStorage.getItem("token");
+        const store = getStore();
+        try {
+          const response = await axios.get(store.api_url + "valid-token", {
+            headers: {
+              Authorization: "Bearer " + userToken,
+            },
+          });
+          setStore({
+            auth: response.data.status,
+          });
+        } catch (error) {
+          console.log(error);
+          if (error.code === "ERR_BAD_REQUEST") {
+            setStore({
+              auth: false,
+            });
+          }
+        }
+      },
       getAllProducts: async () => {
         let store = getStore();
 
         try {
           const response = await axios.get(store.api_url + "products");
           setStore({ AllProducts: response.data });
-          console.log(response);
         } catch (error) {
           console.log(error);
         }
@@ -95,7 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         } catch (error) {
           if (error.code === "ERR_BAD_REQUEST") {
-            alert(error.response?.data?.message);
+            // alert(error.response?.data?.message);
             setStore({
               auth: false,
             });
