@@ -1,11 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const ClientAccount = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    actions.validateToken();
+
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  }, []);
 
   return (
     <>
@@ -23,7 +35,11 @@ export const ClientAccount = (props) => {
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>    <i className="fas fa-cog d-inline mx-2"></i> Datos de tu cuenta</h3>
+                <h3>
+                  {" "}
+                  <i className="fas fa-cog d-inline mx-2"></i> Datos de tu
+                  cuenta
+                </h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
@@ -114,7 +130,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Apellido"
-                            defaultValue= {store.profile.last_name}
+                            defaultValue={store.profile.last_name}
                           />
                         </div>
                         {/* Teléfono  */}
@@ -125,7 +141,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Telefono"
-                            defaultValue= {store.profile.phone}
+                            defaultValue={store.profile.phone}
                           />
                         </div>
                         {/* Celular  */}
