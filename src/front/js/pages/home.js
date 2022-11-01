@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { ProductCardVertical } from "../component/product-card-vertical";
@@ -6,6 +6,17 @@ import { KitchenCardProfile } from "../component/kitchen-card-profile";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+
+  let num_max = 3;
+  const map_products = store?.AllProducts.reverse().map((item, index) => {
+    if (index < num_max) {
+      return (
+        <div className="col" key={item + index + item}>
+          <ProductCardVertical obj={item} />
+        </div>
+      );
+    }
+  });
 
   return (
     <>
@@ -79,6 +90,8 @@ export const Home = () => {
             </p>
             <div className="container text-center mt-5">
               <div className="row">
+                {/* map de tres cocinas al azar */}
+
                 {/* card  */}
                 <div className="col">
                   <KitchenCardProfile />
@@ -91,8 +104,6 @@ export const Home = () => {
                 <div className="col">
                   <KitchenCardProfile />
                 </div>
-                {/* card  */}
-                
               </div>
             </div>
           </div>
@@ -111,38 +122,8 @@ export const Home = () => {
 
           <div className="container mt-5 mb-5">
             <div className="row">
-              {/* card  */}
-              <div className="col">
-                {/* producto  */}
-
-                <ProductCardVertical />
-
-                {/* producto  */}
-              </div>
-
-              {/* fin de card */}
-
-              {/* card  */}
-              <div className="col">
-                {/* producto  */}
-
-                <ProductCardVertical />
-
-                {/* producto  */}
-              </div>
-
-              {/* fin de card */}
-
-              {/* card  */}
-              <div className="col">
-                {/* producto  */}
-
-                <ProductCardVertical />
-
-                {/* producto  */}
-              </div>
-
-              {/* fin de card */}
+              {/* map de los últimos tres productos agregados. */}
+              {map_products}
             </div>
           </div>
         </div>

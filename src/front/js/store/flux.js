@@ -3,17 +3,24 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       api_url:
-        "https://3001-apa210-deliceli-pxhg4fr43pu.ws-us73.gitpod.io/api/",
+        "https://3001-apa210-deliceli-cfusbv71ezu.ws-us73.gitpod.io/api/",
       auth: false,
-      profile: {
-        email: "",
-        user_name: "",
-        first_name: "",
-        last_name: "",
-        rol: "",
-      },
+      profile: {},
+      AllProducts: [],
     },
     actions: {
+      getAllProducts: async () => {
+        let store = getStore();
+
+        try {
+          const response = await axios.get(store.api_url + "products");
+          setStore({ AllProducts: response.data });
+          console.log(response);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
       signup: async (
         first_name,
         last_name,
@@ -76,15 +83,15 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               auth: false,
             });
-            setStore({
-              profile: {
-                email: "",
-                user_name: "",
-                first_name: "",
-                last_name: "",
-                rol: "",
-              },
-            });
+            // setStore({
+            //   profile: {                         // pasarlo a getProfile(), añadir el validate-token
+            //     email: "",
+            //     user_name: "",
+            //     first_name: "",
+            //     last_name: "",
+            //     rol: "",
+            //   },
+            // });
           }
         } catch (error) {
           if (error.code === "ERR_BAD_REQUEST") {
@@ -105,8 +112,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       logout: () => {
-        localStorage.removeItem('token')
-        setStore({auth: false})
+        localStorage.removeItem("token");
+        setStore({ auth: false });
+        setStore({ profile: {} });
       },
     },
   };
