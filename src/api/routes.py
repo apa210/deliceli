@@ -48,13 +48,14 @@ def get_all_products():
     return jsonify(results), 200
 
     # Ver todos los productos segun su categoria(NO FUNCIONA!)
-    # SELECT Productos.nombre 
+    # SELECT Productos.* 
     # FROM Productos INNER_JOIN Categorias_Productos ON Productos.id = Categorias_Productos.producto_id
     # WHERE Categorias_Productos.categoria_id = cat_id
 @api.route('/productsCategory/<int:cat_id>', methods=['GET'])
 def get_all_products_category(cat_id):
     # productos = Productos(Categorias_Productos.query.filter_by(categoria_id=cat_id)).query.filter_by(producto_id=Categorias_Productos.producto_id).all()
-    productos = db.session.query(Productos, Categorias_Productos).join(Categorias_Productos).all()
+    productos = db.session.query(Productos).join(Categorias_Productos).filter_by(categoria_id=cat_id)
+    #productos = db.session.query(Productos).all()
     print("-------------------ProductsCategory: " + str(productos))
     results = list(map(lambda item: item.serialize(), productos))
 
@@ -82,24 +83,25 @@ def get_product(product_id):
 # ----------                                User rutes                              ----------
 
     # ------------- login validation (conmprueba si el usuario esta logeado) ----------- 
-
+#desde el front cada vez que se actualiza la app se llama a la funcion de la api valid_token 
 @api.route("/valid-token", methods=["GET"])
-@jwt_required()
+@jwt_required() # para proteger datos
 def valid_token():  
     
-    current_user = get_jwt_identity()
-    login_user = User.query.filter_by(email=current_user).first()
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
     if login_user is None:
         return jsonify({"status": False}), 404
     response_body={
         "status": True,
-        "user":{
-            # "name": str(login_user.name),
-            # "email": str(login_user.email),
-            # "id": str(login_user.id)
+        "usuario":{
+            "id": login_user.id,
+            "nombre": login_user.user_name,
+            "email": login_user.email
         }
     }
     return jsonify(response_body), 200
+
 
     # -----------------   Get In (entrar en la app) ---------------
 
@@ -132,10 +134,10 @@ def login():
     access_token = create_access_token(identity=user.email)
     return jsonify({"user": {
             "id":str(user.id), 
-            "email": str(user.email),
-            "user_name": str(user.user_name),
-            "first_name": str(user.first_name),
-            "last_name": str(user.last_name),
+            # "email": str(user.email),
+            # "user_name": str(user.user_name),
+            # "first_name": str(user.first_name),
+            # "last_name": str(user.last_name),
             "rol": str(user.rol)
         }, 
         "access_token":access_token
@@ -182,7 +184,7 @@ def signup():
             new_id = new_id
         else:
             new_id = new_id+len(str(new_id))+ int(str(new_id)[random.randint(0, len(str(new_id))-3)])
-        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=body["password"], email=body["email"], telefono=body["phone"], rol="Client")
+        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=body["password"], email=body["email"], telefono=body["phone"], rol="cliente")
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"message": "Created user"}), 200
@@ -211,14 +213,22 @@ def add_favorite():
 def add_remove():
     return jsonify("ok"), 200
 
-        # Profile
 
-            # Ver el perfil
-@api.route('/user/<int:user_id>', methods=['GET'])
-def get_profile(user_id):
-    return jsonify("ok"), 200
 
-            # Editar perfil
+# ------------------------ Profile ------------------------
+
+    # Ver el perfil
+@api.route('/user/profile', methods=['GET'])
+@jwt_required() # para proteger datos - se encarga de valida por el email si existe en la BD
+def get_profile():
+
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+    return jsonify(login_user.serialize()), 200
+
+
+
+    # Editar perfil
 @api.route('/user/<int:user_id>', methods=['PUT'])
 def edit_username(user_id):
         # Crear condicional para deternimar que se está editando o que se editara:
@@ -243,7 +253,7 @@ def edit_username(user_id):
 def get_rateds(user_id):
     return jsonify("ok"), 200
 
-            # Cocinas putuadas
+            # Cocinas puntuadas
 @api.route('/user/<int:user_id>/rated/kitchens', methods=['GET'])
 def get_rated_kitchens(user_id):
     return jsonify("ok"), 200
