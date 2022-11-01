@@ -30,7 +30,7 @@ export const ClientAccount = (props) => {
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                    Hola, Elías!
+                    Hola, {store.profile.first_name}!
                   </a>
 
                   <button
@@ -103,7 +103,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Nombre"
-                            defaultValue="Noelia"
+                            defaultValue={store.profile.first_name}
                           />
                         </div>
                         {/* Apellido  */}
@@ -114,7 +114,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Apellido"
-                            defaultValue="Irace"
+                            defaultValue= {store.profile.last_name}
                           />
                         </div>
                         {/* Teléfono  */}
@@ -125,7 +125,7 @@ export const ClientAccount = (props) => {
                             className="form-control"
                             placeholder=""
                             aria-label="Telefono"
-                            defaultValue="(+598) 3399 64 22"
+                            defaultValue= {store.profile.phone}
                           />
                         </div>
                         {/* Celular  */}
@@ -148,7 +148,7 @@ export const ClientAccount = (props) => {
                             type="email"
                             className="form-control"
                             id="inputEmail4"
-                            defaultValue="noe.irace@gmail.com"
+                            defaultValue={store.profile.email}
                           />
                         </div>
                         {/*  Dirección  */}

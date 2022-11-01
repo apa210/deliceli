@@ -124,7 +124,6 @@ export const Navbar = () => {
                     </li>
                   </ul>
                 </li>
-
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
@@ -135,7 +134,7 @@ export const Navbar = () => {
                   >
                     {" "}
                     <i className="fas fa-user-circle d-inline mx-2"></i>
-                    Hola, Elías!
+                    Hola, {store.profile.first_name}!
                   </Link>
                   <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
                     <li>

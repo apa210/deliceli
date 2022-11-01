@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
@@ -9,6 +9,10 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
+  const [loginError, setLoginError] = useState("");
+  const showAlert = useRef("")
+  const closeModal = useRef()
+
   const { store, actions } = useContext(Context);
 
   const button_login = () => {
@@ -16,15 +20,20 @@ export const Login = () => {
 
     setTimeout(() => {
       if (store.auth === true) {
+        navigate("/");
+        closeModal.current.click();
         setEmail("");
         setPassword("");
-
-        console.log(store.profile);
-        if (store.profile.rol == "Client") {
-          navigate("/pages/client-account");
-        } else if (store.profile.rol == "Kitchen") {
-          navigate("/pages/kitchen-account");
-        }
+      }
+      else if ((email=="") || (password=="")) {
+        setTimeout(() => {showAlert.current.classList.add('d-none')}, 3000);
+        showAlert.current.classList.remove('d-none');
+        setLoginError('Hay campos vacíos.');
+      }
+      else {
+        setTimeout(() => {showAlert.current.classList.add('d-none')}, 3000);
+        showAlert.current.classList.remove('d-none');
+        setLoginError('Usuario y/o contraseña incorrectos.')
       }
     }, 1000);
   };
@@ -52,11 +61,13 @@ export const Login = () => {
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
+                ref={closeModal}
                 aria-label="Close"
               ></button>
             </div>
             <div>
               <div className="modal-body text-center">
+              <div className="alert alert-danger d-none" ref={showAlert} role="alert">{loginError}</div>
                 <img
                   className="w-25"
                   src="https://assets.stickpng.com/images/585e4beacb11b227491c3399.png"
@@ -109,7 +120,7 @@ export const Login = () => {
                   onClick={button_login}
                   className="btn btn-primary w-75 col-12"
                   type="button"
-                  data-bs-dismiss="modal"
+                  // data-bs-dismiss="modal"
                   aria-label="Close"
                 >
                   Ingresar
