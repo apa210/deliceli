@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export const KitchenCardProfile = (props) => {
-
   return (
-    <div className="card">
+    <div className="card" style={{ width: "18rem" }}>
       <img src={props?.obj?.foto} className="card-img-top img-thumbnail" />
       <div className="card-body p-5">
         <h5 className="card-title">{props?.obj?.user_name}</h5>
