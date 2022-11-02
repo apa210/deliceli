@@ -8,7 +8,6 @@ export const KitchenAccount = (props) => {
   const params = useParams();
 
   return (
-    
     <>
       <section>
         <div className="container bgimage-cocina p-5 align-baseline mt-5">
@@ -24,7 +23,11 @@ export const KitchenAccount = (props) => {
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>    <i className="fas fa-cog d-inline mx-2"></i> Datos de tu cuenta</h3>
+                <h3>
+                  {" "}
+                  <i className="fas fa-cog d-inline mx-2"></i> Datos de tu
+                  cuenta
+                </h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
@@ -163,12 +166,12 @@ export const KitchenAccount = (props) => {
                             defaultValue="Calle 13 y 4, La Paloma, Rocha UY"
                           />
                         </div>
-            
-
 
                         {/*  Dirección  */}
                         <div className="col-md-12">
-                          <label className="form-label">Descripción de tu empresa *</label>
+                          <label className="form-label">
+                            Descripción de tu empresa *
+                          </label>
                           <textarea
                             type="text"
                             className="form-control"
@@ -176,12 +179,9 @@ export const KitchenAccount = (props) => {
                             aria-label="Descripcion"
                             defaultValue="Milena Sin Gluten es una Gastropub que significa: Comida casera con un toque gourmet. Cocina Sin Gluten, Sin Lactosa, Vegana."
                           />
-
-                          
                         </div>
-                          {/*  Dirección  */}
+                        {/*  Dirección  */}
                       </div>
-
 
                       {/* fin del formulario  */}
                     </div>
@@ -386,6 +386,7 @@ export const KitchenAccount = (props) => {
           </div>
         </div>
       </section>
+      <hr style={{ width: "100%" }} />
     </>
   );
 };

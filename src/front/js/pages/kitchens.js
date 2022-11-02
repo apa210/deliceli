@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { KitchenCardProfile } from "../component/kitchen-card-profile";
+import Footer_contact from "../component/footer_contact";
 
 export const Kitchens = (props) => {
   const { store, actions } = useContext(Context);
@@ -42,6 +43,7 @@ export const Kitchens = (props) => {
           </div>
         </div>
       </section>
+      <Footer_contact />
     </>
   );
 };

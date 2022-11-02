@@ -136,22 +136,19 @@ export const Contact = (props) => {
                         </div>
                       </div>
 
-
                       <div className="col-md-12 pb-2">
-                      <label>
-                            <i className="fa fa-comment  d-inline mx-2"></i>
-                           Mensaje
-                          </label>
-                          <textarea
-                            type="text"
-                            className="form-control"
-                            placeholder=""
-                            aria-label="Descripcion"
-                            defaultValue="Escribi acá tu mensaje ..."
-                          />
-
-                          
-                        </div>
+                        <label>
+                          <i className="fa fa-comment  d-inline mx-2"></i>
+                          Mensaje
+                        </label>
+                        <textarea
+                          type="text"
+                          className="form-control"
+                          placeholder=""
+                          aria-label="Descripcion"
+                          defaultValue="Escribi acá tu mensaje ..."
+                        />
+                      </div>
 
                       <div className="mt-3">
                         <button
@@ -169,6 +166,7 @@ export const Contact = (props) => {
           </div>
         </div>
       </section>
+      <hr style={{ width: "100%" }} />
     </>
   );
 };

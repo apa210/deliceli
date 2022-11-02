@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import Footer_contact from "../component/footer_contact";
 
 import { ProductCardVertical } from "../component/product-card-vertical";
 import { KitchenCardProfile } from "../component/kitchen-card-profile";
@@ -33,24 +34,30 @@ export const SingleKitchen = (props) => {
               <div className="col-md-6 p-5 bg-light ">
                 <div className="card-body  ">
                   <h1 className="card-title">Milena Sin Gluten</h1>
-                  <hr /><br/>
+                  <hr />
+                  <br />
                   <p className="card-text">
                     Milena Sin Gluten es una Gastropub que significa: Comida
                     casera con un toque gourmet.El lugar cuenta con dos sectores
-                    definidos. </p> 
-                    
-                    <p className="card-text"> La planta baja, que recibe con un cómodo living
-                    como para disfrutar de algún trago y picada, o por qué no
-                    una pizzeta acompañada por alguna de la gran variedad de
-                    cervezas heladas. </p>
-                    
-                    <p className="card-text"> En su gran barra reinan los tragos con y
-                    sin alcohol, variedad de licuados y happy hour diarias
-                    acompañadas de música en vivo. En la planta alta se
-                    encuentra el sector destinado más que nada a reservas de
-                    grupos y mesas de comensales que buscan mayor intimidad y
-                    luz más tenue, ideal para una cena romántica o una comida en
-                    grupo.{" "}
+                    definidos.{" "}
+                  </p>
+
+                  <p className="card-text">
+                    {" "}
+                    La planta baja, que recibe con un cómodo living como para
+                    disfrutar de algún trago y picada, o por qué no una pizzeta
+                    acompañada por alguna de la gran variedad de cervezas
+                    heladas.{" "}
+                  </p>
+
+                  <p className="card-text">
+                    {" "}
+                    En su gran barra reinan los tragos con y sin alcohol,
+                    variedad de licuados y happy hour diarias acompañadas de
+                    música en vivo. En la planta alta se encuentra el sector
+                    destinado más que nada a reservas de grupos y mesas de
+                    comensales que buscan mayor intimidad y luz más tenue, ideal
+                    para una cena romántica o una comida en grupo.{" "}
                   </p>
                   <h4 className="pt-4 pb-4">
                     Seguilos en Redes <i className="fab fa-facebook m-2"></i>{" "}
@@ -75,60 +82,47 @@ export const SingleKitchen = (props) => {
             </p>
           </div>
 
-
-
           <section>
-    
-       
-       
+            <div className="container">
+              <div className="row">
+                {/* card  */}
+                <div className="col">
+                  {/* producto  */}
 
-    <div className="container">
-      <div className="row">
-      
+                  <ProductCardVertical />
 
-        {/* card  */}
-        <div className="col">
-          {/* producto  */}
+                  {/* producto  */}
+                </div>
 
-          <ProductCardVertical />
+                {/* fin de card */}
 
-          {/* producto  */}
-        </div>
+                {/* card  */}
+                <div className="col">
+                  {/* producto  */}
 
-        {/* fin de card */}
+                  <ProductCardVertical />
 
-        {/* card  */}
-        <div className="col">
-          {/* producto  */}
+                  {/* producto  */}
+                </div>
 
-          <ProductCardVertical />
+                {/* fin de card */}
 
-          {/* producto  */}
-        </div>
+                {/* card  */}
+                <div className="col">
+                  {/* producto  */}
 
-        {/* fin de card */}
+                  <ProductCardVertical />
 
-        {/* card  */}
-        <div className="col">
-          {/* producto  */}
+                  {/* producto  */}
+                </div>
 
-          <ProductCardVertical />
-
-          {/* producto  */}
-        </div>
-
-        {/* fin de card */}
-     
-      </div>
-    </div>
-
-</section>
-
+                {/* fin de card */}
+              </div>
+            </div>
+          </section>
 
           <div className="container mt-5 mb-5">
-            <div className="row">
-           
-            </div>
+            <div className="row"></div>
           </div>
         </div>
       </section>
@@ -137,7 +131,7 @@ export const SingleKitchen = (props) => {
         <div className="bg-dark  p-5">
           <div className="p-5 text-center ">
             <h1 className="p-2 text-light ">
-             Otras Cocinas que podés encontrar en DeliCeli
+              Otras Cocinas que podés encontrar en DeliCeli
             </h1>
             <p className="text-light">
               Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
@@ -164,9 +158,7 @@ export const SingleKitchen = (props) => {
           </div>
         </div>
       </section>
-
-
-
+      <Footer_contact />
     </>
   );
 };
