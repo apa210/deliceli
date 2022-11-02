@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import axios from "axios";
-import { ProductCardVertical } from "../component/product-card-vertical";
 import Footer_contact from "../component/footer_contact";
 
-export const SingleProduct = (props) => {
+export const SingleProduct = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
@@ -19,23 +18,16 @@ export const SingleProduct = (props) => {
       );
       setKitchen(response?.data?.user_name);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
 useEffect(() => {
   actions.getProduct(params?.id);
-  // setTimeout(() => {
-  //     kitchen_api()
-  // }, 10000);
-
 }, [params?.id]);
 
-useEffect(() => {
-  setInterval(() => {
-    kitchen_api()
-  }, 5000);
-}, [kitchen]);
+kitchen_api()
+
   return (
     <>
       <section>
