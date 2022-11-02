@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ProductCardVertical } from "../component/product-card-vertical";
-
+import { Sidebar } from "../component/sidebar";
 
 export const Products = (props) => {
   const { store, actions } = useContext(Context);
@@ -30,97 +30,31 @@ export const Products = (props) => {
 
         <div class="container">
           <div class="row">
-            {/* sidebar  */}
-            <div class="col-4">
-              <div className="card mt-4">
-                <div className="card-body p-5">
-                  <h5 className="card-title pb-4">Categorías </h5>
-
-                  <form className="d-flex mt-2 mb-5" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Buscar"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Buscar
-              </button>
-            </form>
-
-                  <li>SIN GLUTEN</li>
-                  <li>SIN LACTOSA</li>
-                  <li>SIN HUEVO</li>
-                  <li>SIN AZÚCAR</li>
-                  <li>VEGANO</li>
-                  <li>VEGETARIANO</li>
-                  <li>ECOLÓGICO</li>
-                  <li>CONGELADOS</li>
-
-                  <button type="button" className="btn btn-primary me-2 mt-5">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Ver
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
+            <div class="col-3">
+              <Sidebar />
             </div>
-            {/* sidebar  */}
+            <div class="col">
+              {/* producto  */}
+
+              <ProductCardVertical />
+
+              {/* producto  */}
+            </div>
 
             <div class="col">
-           
+              {/* producto  */}
 
+              <ProductCardVertical />
 
-            <section>
-    
-       
-       
-
-          <div className="container">
-            <div className="row">
-            
-
-              {/* card  */}
-              <div className="col">
-                {/* producto  */}
-
-                <ProductCardVertical />
-
-                {/* producto  */}
-              </div>
-
-              {/* fin de card */}
-
-              {/* card  */}
-              <div className="col">
-                {/* producto  */}
-
-                <ProductCardVertical />
-
-                {/* producto  */}
-              </div>
-
-              {/* fin de card */}
-
-              {/* card  */}
-              <div className="col">
-                {/* producto  */}
-
-                <ProductCardVertical />
-
-                {/* producto  */}
-              </div>
-
-              {/* fin de card */}
-           
+              {/* producto  */}
             </div>
-          </div>
-     
-      </section>
 
+            <div class="col">
+              {/* producto  */}
 
-              
-   
+              <ProductCardVertical />
 
+              {/* producto  */}
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ export const KitchenCardProfile = (props) => {
 
   return (
     <div className="card">
-      <img src={props?.obj?.foto} className="card-img-top" />
+      <img src={props?.obj?.foto} className="card-img-top img-thumbnail" />
       <div className="card-body p-5">
         <h5 className="card-title">{props?.obj?.user_name}</h5>
         <p className="card-text">
