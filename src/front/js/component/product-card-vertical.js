@@ -26,7 +26,7 @@ export const ProductCardVertical = (props) => {
     <>
       {/* producto  */}
 
-      <div className="card mt-4">
+      <div className="card mt-4" style={{ width: "18rem" }}>
         <img src={props?.obj?.foto} className="card-img-top" />
         <div className="card-body p-3">
           <h5 className="card-title">{props?.obj?.nombre}</h5>
