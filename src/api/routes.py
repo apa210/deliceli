@@ -75,11 +75,10 @@ def get_product(product_id):
 def delete_cart_user(user_id):
     body = json.loads(request.data)
 
-    query_carritos = Carritos.query.filter_by(usuario_id=user_id).first()
+    query_carritos = Carritos.query.filter_by(usuario_id=user_id, confirmado=False).first()
     print(query_carritos)
     
     if query_carritos is not None:
-        #guardar datos recibidos a la tabla Favorito
         db.session.delete(query_carritos)
         db.session.commit()
         response_body = {
@@ -132,22 +131,18 @@ def add_product_to_cart():
     return jsonify(response_body), 200
 
 
-
-        # Ver todas los productos - GET
-@api.route('/carts', methods=['GET'])
-def get_all_carts():
-    productos = Productos.query.all()
-    results = list(map(lambda item: item.serialize(), productos))
-
-    return jsonify(results), 200
-
         # Ver todos los productos de un carrito de un usuario
-    # SELECT Productos.* 
-    # FROM Productos INNER_JOIN Categorias_Productos ON Productos.id = Categorias_Productos.producto_id
-    # WHERE Categorias_Productos.categoria_id = cat_id
 @api.route('/cart/productsCart/<int:user_id>', methods=['GET'])
 def get_all_products_cart_to_user(user_id):
-    productos = db.session.query(Productos).join(Categorias_Productos).filter_by(categoria_id=cat_id)
+
+    productos = db.session.query(Productos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
+
+    if productos is None:
+        response_body = {
+                    "msg": "El carrito no tiene productos"
+                }
+        return jsonify(response_body), 400
+
     results = list(map(lambda item: item.serialize(), productos))
     return jsonify(results), 200
 
