@@ -9,6 +9,14 @@ export const Products = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
+  const map_products = store?.AllProducts.map((item, index) => {
+    return (
+      <div className="col" key={item + index + item}>
+        <ProductCardVertical obj={item} />
+      </div>
+    );
+  });
+
   return (
     <>
       <section>
@@ -28,34 +36,12 @@ export const Products = (props) => {
           </p>
         </div>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
+        <div className="container">
+          <div className="d-flex">
+            <div className="col-3">
               <Sidebar />
             </div>
-            <div class="col">
-              {/* producto  */}
-
-              <ProductCardVertical />
-
-              {/* producto  */}
-            </div>
-
-            <div class="col">
-              {/* producto  */}
-
-              <ProductCardVertical />
-
-              {/* producto  */}
-            </div>
-
-            <div class="col">
-              {/* producto  */}
-
-              <ProductCardVertical />
-
-              {/* producto  */}
-            </div>
+            <div className="row">{map_products}</div>
           </div>
         </div>
       </div>
