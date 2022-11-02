@@ -16,6 +16,7 @@ import { SingleKitchen } from "./pages/single-kitchen.js";
 import { SingleProduct } from "./pages/single-product.js";
 import { Favorites } from "./pages/favorites.js";
 import { Orders } from "./pages/orders.js";
+import { SearchResults } from "./pages/search-results.js";
 
 
 
@@ -44,7 +45,7 @@ const Layout = () => {
 
                         <Route element={<SingleKitchen />} path="/pages/single-kitchen" />
                         <Route element={<SingleProduct />} path="/pages/single-product" />
-                        <Route element={<Cart />} path="/cart" />
+                        <Route element={<Cart />} path="/pages/cart" />
 
                         <Route element={<ClientAccount />} path="/pages/client-account" />
                         <Route element={<Favorites />} path="/pages/favorites" />
@@ -53,6 +54,7 @@ const Layout = () => {
                         <Route element={<KitchenAccount />} path="/pages/kitchen-account" />
                         <Route element={<KitchenPlates />} path="/pages/kitchen-plates" />
                         <Route element={<KitchenOrders />} path="/pages/kitchen-orders" />
+                        <Route element={<SearchResults />} path="/pages/search-results" />
                         
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

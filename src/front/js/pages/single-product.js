@@ -22,10 +22,10 @@ export const SingleProduct = (props) => {
       <div className=" container">
         <div className="pt-5"></div>
 
-        <div class="container mb-5">
-          <div class="row">
+        <div className="container mb-5">
+          <div className="row">
             {/* single product  */}
-            <div class="col">
+            <div className="col">
               {/* producto  */}
 
               <div className="card border-0 mb-5 mt-5">
@@ -33,15 +33,15 @@ export const SingleProduct = (props) => {
                   <div className="col-md-7">
                     <div
                       id="carouselExampleIndicators"
-                      class="carousel slide"
+                      className="carousel slide"
                       data-bs-ride="true"
                     >
-                      <div class="carousel-indicators">
+                      <div className="carousel-indicators">
                         <button
                           type="button"
                           data-bs-target="#carouselExampleIndicators"
                           data-bs-slide-to="0"
-                          class="active"
+                          className="active"
                           aria-current="true"
                           aria-label="Slide 1"
                         ></button>
@@ -58,52 +58,52 @@ export const SingleProduct = (props) => {
                           aria-label="Slide 3"
                         ></button>
                       </div>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
+                      <div className="carousel-inner">
+                        <div className="carousel-item active">
                           <img
                             src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                            class="d-block w-100"
+                            className="d-block w-100"
                             alt="..."
                           />
                         </div>
-                        <div class="carousel-item">
+                        <div className="carousel-item">
                           <img
                             src="https://images.unsplash.com/photo-1625248442085-10a1a2563dd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            class="d-block w-100"
+                            className="d-block w-100"
                             alt="..."
                           />
                         </div>
-                        <div class="carousel-item">
+                        <div className="carousel-item">
                           <img
                             src="https://images.unsplash.com/photo-1546069901-04dcb46a5e26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
-                            class="d-block w-100"
+                            className="d-block w-100"
                             alt="..."
                           />
                         </div>
                       </div>
                       <button
-                        class="carousel-control-prev"
+                        className="carousel-control-prev"
                         type="button"
                         data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev"
                       >
                         <span
-                          class="carousel-control-prev-icon"
+                          className="carousel-control-prev-icon"
                           aria-hidden="true"
                         ></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span className="visually-hidden">Previous</span>
                       </button>
                       <button
-                        class="carousel-control-next"
+                        className="carousel-control-next"
                         type="button"
                         data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="next"
                       >
                         <span
-                          class="carousel-control-next-icon"
+                          className="carousel-control-next-icon"
                           aria-hidden="true"
                         ></span>
-                        <span class="visually-hidden">Next</span>
+                        <span className="visually-hidden">Next</span>
                       </button>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ export const SingleProduct = (props) => {
             </div>{" "}
             {/* single product  */}
             {/* col-sidebar  */}
-            <div class="col-3">
+            <div className="col-3">
               {/* sidebar  */}
 
               <div className="card mt-4">
