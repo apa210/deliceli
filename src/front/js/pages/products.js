@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ProductCardVertical } from "../component/product-card-vertical";
 import { Sidebar } from "../component/sidebar";
+import Footer_contact from "../component/footer_contact";
 
 export const Products = (props) => {
   const { store, actions } = useContext(Context);
@@ -45,6 +46,7 @@ export const Products = (props) => {
           </div>
         </div>
       </div>
+      <Footer_contact />
     </>
   );
 };

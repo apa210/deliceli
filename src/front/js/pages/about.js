@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import Footer_contact from "../component/footer_contact";
 
 export const About = () => {
   const { store, actions } = useContext(Context);
@@ -46,118 +47,115 @@ export const About = () => {
       </section>
 
       <section>
-
-     
-      <div className="bg-light p-5">
+        <div className="bg-light p-5">
           <div className="p-5 text-center">
-            <h1 className="p-2 ">
-            Nuestro Equipo de Desarrollo
-            </h1>
+            <h1 className="p-2 ">Nuestro Equipo de Desarrollo</h1>
             <p>
               Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
               intolerancia al gluten o alergias.
             </p>
-            </div>
+          </div>
 
-      <div className="container text-center mt-5 mb-5">
-  <div className="row mt-5">  
-    <div className="col-3 ">
-    {/* perfil  */}
+          <div className="container text-center mt-5 mb-5">
+            <div className="row mt-5">
+              <div className="col-3 ">
+                {/* perfil  */}
 
-    <div className="card border-0">
-              <img
-                src="https://sintropia.design/wp-content/uploads/2022/08/analia.png"
-                className="card-img-top p-4 rounded-circle"
-              />
-              <div className="card-body">
-                <h5 className="card-title">Analía Corcino</h5>
-                <p className="card-text">
-                  Diseñadora Industrial especializada en Branding, Diseño Web y
-                  Experiencias Digitales. Actualmente cursando una
-                  especialización en Full Stack Developer.
-                </p>
+                <div className="card border-0">
+                  <img
+                    src="https://sintropia.design/wp-content/uploads/2022/08/analia.png"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Analía Corcino</h5>
+                    <p className="card-text">
+                      Diseñadora Industrial especializada en Branding, Diseño
+                      Web y Experiencias Digitales. Actualmente cursando una
+                      especialización en Full Stack Developer.
+                    </p>
 
-                <p className="card-text">
-                  <small className="text-muted">Seguir en Github</small>
-                </p>
+                    <p className="card-text">
+                      <small className="text-muted">Seguir en Github</small>
+                    </p>
+                  </div>
+                </div>
+
+                {/* perfil  */}
+              </div>
+              <div className="col-3">
+                {/* perfil  */}
+
+                <div className="card border-0">
+                  <img
+                    src="https://ca.slack-edge.com/T0BFXMWMV-U04202NMD99-af3997d0b29b-512"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Aparicio Baptista</h5>
+                    <p className="card-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      In congue consequat diam, sed dictum nisl molestie ac.
+                    </p>
+
+                    <p className="card-text">
+                      <small className="text-muted">Seguir en Github</small>
+                    </p>
+                  </div>
+                </div>
+
+                {/* perfil  */}
+              </div>
+              <div className="col-3">
+                {/* perfil  */}
+
+                <div className="card border-0">
+                  <img
+                    src="https://talentosremotos.uy/wp-content/uploads/avatars/348/60e338e57840d-bpfull.jpg"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Noelia Irace</h5>
+                    <p className="card-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      In congue consequat diam, sed dictum nisl molestie ac.
+                    </p>
+
+                    <p className="card-text">
+                      <small className="text-muted">Seguir en Github</small>
+                    </p>
+                  </div>
+                </div>
+
+                {/* perfil  */}
+              </div>
+              <div className="col-3">
+                {/* perfil  */}
+
+                <div className="card border-0">
+                  <img
+                    src="https://ca.slack-edge.com/T0BFXMWMV-U0426RW6CR5-d401cb12cfd8-512"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Elías Fernández</h5>
+                    <p className="card-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      In congue consequat diam, sed dictum nisl molestie ac.
+                    </p>
+
+                    <p className="card-text">
+                      <small className="text-muted">Seguir en Github</small>
+                    </p>
+                  </div>
+                </div>
+
+                {/* perfil  */}
               </div>
             </div>
-
-            {/* perfil  */}
-    </div>
-    <div className="col-3">
-      {/* perfil  */}
-
-      <div className="card border-0">
-              <img
-                src="https://ca.slack-edge.com/T0BFXMWMV-U04202NMD99-af3997d0b29b-512"
-                className="card-img-top p-4 rounded-circle"
-              />
-              <div className="card-body">
-                <h5 className="card-title">Aparicio Baptista</h5>
-                <p className="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In congue consequat diam, sed dictum nisl molestie ac. 
-                </p>
-
-                <p className="card-text">
-                  <small className="text-muted">Seguir en Github</small>
-                </p>
-              </div>
-            </div>
-
-            {/* perfil  */}
-    </div>
-    <div className="col-3">
-     {/* perfil  */}
-
-     <div className="card border-0">
-              <img
-                src="https://talentosremotos.uy/wp-content/uploads/avatars/348/60e338e57840d-bpfull.jpg"
-                className="card-img-top p-4 rounded-circle"
-              />
-              <div className="card-body">
-                <h5 className="card-title">Noelia Irace</h5>
-                <p className="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In congue consequat diam, sed dictum nisl molestie ac.
-                </p>
-
-                <p className="card-text">
-                  <small className="text-muted">Seguir en Github</small>
-                </p>
-              </div>
-            </div>
-
-            {/* perfil  */}
-    </div>
-    <div className="col-3">
-    {/* perfil  */}
-
-    <div className="card border-0">
-              <img
-                src="https://ca.slack-edge.com/T0BFXMWMV-U0426RW6CR5-d401cb12cfd8-512"
-                className="card-img-top p-4 rounded-circle"
-              />
-              <div className="card-body">
-                <h5 className="card-title">Elías Fernández</h5>
-                <p className="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In congue consequat diam, sed dictum nisl molestie ac. 
-                </p>
-
-                <p className="card-text">
-                  <small className="text-muted">Seguir en Github</small>
-                </p>
-              </div>
-            </div>
-
-            {/* perfil  */}
-    </div>
-  </div>
-</div>
-</div>
-
-      
-  
+          </div>
+        </div>
       </section>
+      <Footer_contact />
     </>
   );
 };
