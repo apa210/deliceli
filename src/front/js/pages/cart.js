@@ -92,9 +92,9 @@ export const Cart = (props) => {
                           <div class="col mt-3 ">
                             <button
                               type="button"
-                              className="btn btn-primary me-2"
+                              className="btn btn-light me-2"
                             >
-                              <i className="fa fa-cart-plus d-inline mt-2"></i>{" "}
+                              <i className="far fa-trash-alt d-inline mt-2"></i>{" "}
                               Eliminar del carrito
                             </button>
                           </div>
@@ -123,9 +123,7 @@ export const Cart = (props) => {
                     <div className="card-body">
                       <h5 className="card-title">Medialunas Rellenas</h5>
 
-                      <div className="text-muted mb-2">
-                        {" "}
-                        La Cocina de Milena Sin Gluten{" "}
+                      <div className="text-muted mb-2">La Cocina de Milena Sin Gluten 
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
@@ -175,9 +173,9 @@ export const Cart = (props) => {
                           <div class="col mt-3">
                             <button
                               type="button"
-                              className="btn btn-primary me-2"
+                              className="btn btn-light me-2"
                             >
-                              <i className="fa fa-cart-plus d-inline mt-2"></i>{" "}
+                              <i className="far fa-trash-alt d-inline mt-2"></i>{" "}
                               Eliminar del carrito
                             </button>
                           </div>
@@ -199,19 +197,20 @@ export const Cart = (props) => {
 
               <div className="card">
                 <div className="card-body p-4">
-                  <h5 className="card-title pb-4">Resumen del Total</h5>
+                  <h3 className="card-title pb-4">Resumen del Total</h3>
+                  <hr />
                   <li>Total $ 34500</li>
                   <li>Descuento -20% - 233</li>
                   <li>Cargo por envio $ 190</li>
                   <hr />
                   <li>Total $ 4000</li>
 
-                  <button type="button" className="btn btn-primary me-2 mt-3 ">
+                  <button type="button" className="btn btn-light me-2 mt-3 ">
                     <i className="fa fa-cart-plus d-inline mx-2"></i>Seguir
                     comprando
                   </button>
 
-                  <button type="button" className="btn btn-light mt-3">
+                  <button type="button" className="btn btn-primary mt-3">
                     <i className="fas fa-money-check mx-2"></i>Pagar
                   </button>
                 </div>

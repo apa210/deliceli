@@ -129,7 +129,15 @@ useEffect ( () =>
                         Total - $ 2330
                       </Link>
                     </li>
+                
+                    
+                    <Link className="nav-link" to="pages/cart">    <button type="button" className="btn btn-primary mt-2 ms-4 mb-2 ps-2 pe-4">
+                   <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Ver carrito
+          </button></Link>
                   </ul>
+     
+
+
                 </li>
                 <li className="nav-item dropdown">
                   <Link
