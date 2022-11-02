@@ -14,9 +14,9 @@ export const KitchenCardProfile = (props) => {
           Milena Sin Gluten es una Gastropub que significa: Comida casera con un
           toque gourmet. Cocina Sin Gluten, Sin Lactosa, Vegana.
         </p>
-        <button type="button" className="btn btn-primary me-2">
+        <Link to={"/pages/single-kitchen/" + props?.obj?.id} className="btn btn-primary me-2">
           Leer mas...
-        </button>
+        </Link>
       </div>
     </div>
   );

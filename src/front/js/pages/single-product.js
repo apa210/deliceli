@@ -2,19 +2,38 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { ProductCardVertical } from "../component/product-card-vertical";
+import axios from "axios";
 import Footer_contact from "../component/footer_contact";
 
-export const SingleProduct = (props) => {
+export const SingleProduct = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+
+  const [kitchen, setKitchen] = useState("");
+
+  let kitchen_api = async () => {
+    try {
+      const response = await axios.get(
+        store.api_url + "kitchen/" + store?.product?.cocina_id
+      );
+      setKitchen(response?.data?.user_name);
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+useEffect(() => {
+  actions.getProduct(params?.id);
+}, [params?.id]);
+
+kitchen_api()
 
   return (
     <>
       <section>
         <div className="container bgimage-single-cocina p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-end">Medialunas Rellenas</h1>
+            <h1 className="mt-5 text-end">{store?.product?.nombre}</h1>
           </div>
         </div>
       </section>
@@ -107,18 +126,18 @@ export const SingleProduct = (props) => {
                       </button>
                     </div>
                   </div>
-                  <div className="col-md-4 p-3">
+                  <div className="col-md-5 p-3">
                     <div className="card-body">
-                      <h1 className="card-title">Medialunas Rellenas </h1>
+                      <h1 className="card-title">{store?.product?.nombre}</h1>
 
                       <p className="card-text">
-                        Medialunas sin gluten rellenas de jamon y queso. El
-                        precio es por docena. Las entregamos calentitas.
+                        {store?.product?.descripcion}
                       </p>
 
                       <div className="text-muted mb-2">
                         {" "}
-                        La Cocina de Milena Sin Gluten{" "}
+                        {kitchen}
+                        <br />
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
@@ -126,7 +145,7 @@ export const SingleProduct = (props) => {
                         <i className="far fa-star text-warning"></i>
                       </div>
 
-                      <h2>$ 350</h2>
+                      <h2>$ {store?.product?.precio}</h2>
                       <button
                         type="button"
                         className="btn btn-primary me-2 mb-3"
@@ -143,49 +162,9 @@ export const SingleProduct = (props) => {
                   </div>
                 </div>
               </div>
-
               {/* producto  */}
             </div>{" "}
             {/* single product  */}
-            {/* col-sidebar  */}
-            <div className="col-3">
-              {/* sidebar  */}
-
-              <div className="card mt-4">
-                <div className="card-body p-5">
-                  <h5 className="card-title pb-4">Categorías </h5>
-
-                  <form className="d-flex mt-2 mb-5" role="search">
-                    <input
-                      className="form-control me-2"
-                      type="search"
-                      placeholder="Buscar"
-                      aria-label="Buscar"
-                    />
-                    <button className="btn btn-outline-success" type="submit">
-                      Buscar
-                    </button>
-                  </form>
-
-                  <li>SIN GLUTEN</li>
-                  <li>SIN LACTOSA</li>
-                  <li>SIN HUEVO</li>
-                  <li>SIN AZÚCAR</li>
-                  <li>VEGANO</li>
-                  <li>VEGETARIANO</li>
-                  <li>ECOLÓGICO</li>
-                  <li>CONGELADOS</li>
-
-                  <button type="button" className="btn btn-primary me-2 mt-5">
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Ver
-                    carrito{" "}
-                  </button>
-                </div>
-              </div>
-
-              {/* sidebar  */}
-            </div>{" "}
-            {/* col-sidebar  */}
           </div>
         </div>
       </div>

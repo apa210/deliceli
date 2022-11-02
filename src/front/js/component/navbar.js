@@ -5,6 +5,8 @@ import { Context } from "../store/appContext";
 import { Login } from "./login";
 import { SignUp } from "./sign-up";
 import { ForgetPassword } from "./forget-password";
+// import { Search } from "react-router-dom";
+import { Search } from "./search";
 
 export const Navbar = () => {
 
@@ -76,17 +78,7 @@ useEffect ( () =>
                 </Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Buscar"
-              />
-              <button className="btn btn-outline-success me-5" type="submit">
-                Buscar
-              </button>
-            </form>
+            { <Search/> }
             {store.auth ?
               <ul className="navbar-nav mb-2 mb-lg-0">
                 <li className="nav-item dropdown">
