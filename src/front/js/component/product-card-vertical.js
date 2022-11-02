@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const ProductCardVertical = (props) => {
   const { store, actions } = useContext(Context);

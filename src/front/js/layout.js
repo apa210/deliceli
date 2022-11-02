@@ -43,14 +43,9 @@ const Layout = () => {
                         <Route element={<Kitchens />} path="/pages/kitchens" />
                         <Route element={<Contact />} path="/pages/contact" />
 
-                        <Route element={<SingleKitchen />} path="/pages/single-kitchen" />
-<<<<<<< HEAD
+                        <Route element={<SingleKitchen />} path="/pages/single-kitchen/:id" />
                         <Route element={<SingleProduct />} path="/pages/single-product/:id" />
-                        <Route element={<Cart />} path="/cart" />
-=======
-                        <Route element={<SingleProduct />} path="/pages/single-product" />
                         <Route element={<Cart />} path="/pages/cart" />
->>>>>>> 7bed319b5aa6ba4156174c4e311f0760c6f0a3f5
 
                         <Route element={<ClientAccount />} path="/pages/client-account" />
                         <Route element={<Favorites />} path="/pages/favorites" />
