@@ -8,6 +8,14 @@ export const Kitchens = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
+  const map_kitchens = store?.AllKitchens.map((item, index) => {
+    return (
+      <div className="col" key={item + index}>
+        <KitchenCardProfile obj={item} />
+      </div>
+    );
+  });
+
   return (
     <>
       <section>
@@ -29,21 +37,7 @@ export const Kitchens = (props) => {
               intolerancia al gluten o alergias.
             </p>
             <div className="container text-center mt-5">
-              <div className="row">
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-              </div>
+              <div className="row">{map_kitchens}</div>
             </div>
           </div>
         </div>
