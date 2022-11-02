@@ -7,7 +7,13 @@ import { ProductCardVertical } from "../component/product-card-vertical";
 export const SingleProduct = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+  console.log(params);
 
+  useEffect (() => {
+    actions.getProduct(params?.id)
+  }, 
+  [params?.id])
+  console.log(store?.product);
   return (
     <>
       <section>
@@ -23,10 +29,10 @@ export const SingleProduct = (props) => {
          
         </div>
 
-        <div class="container mb-5">
-          <div class="row">
+        <div className="container mb-5">
+          <div className="row">
             {/* single product  */}
-            <div class="col"> 
+            <div className="col"> 
 
           
           
@@ -35,41 +41,43 @@ export const SingleProduct = (props) => {
   <div className="card border-0 mb-5 mt-5">
   <div className="row g-0">
     <div className="col-md-7">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="true">
+  <div className="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" class="d-block w-100" alt="..."/>
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" className="d-block w-100" alt="..."/>
     </div>
-    <div class="carousel-item">
-      <img src="https://images.unsplash.com/photo-1625248442085-10a1a2563dd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="d-block w-100" alt="..."/>
+    <div className="carousel-item">
+      <img src="https://images.unsplash.com/photo-1625248442085-10a1a2563dd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" className="d-block w-100" alt="..."/>
     </div>
-    <div class="carousel-item">
-      <img src="https://images.unsplash.com/photo-1546069901-04dcb46a5e26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80" class="d-block w-100" alt="..."/>
+    <div className="carousel-item">
+      <img src="https://images.unsplash.com/photo-1546069901-04dcb46a5e26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80" className="d-block w-100" alt="..."/>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Next</span>
   </button>
 </div>
     </div>
-    <div className="col-md-4 p-3">
+    <div className="col-md-5 p-3">
       <div className="card-body">
         <h1 className="card-title">Medialunas Rellenas  </h1>
       
         <p className="card-text">Medialunas sin gluten rellenas de jamon y queso. El precio es por
             docena. Las entregamos calentitas.</p>
 
-            <div className="text-muted mb-2"> La Cocina de Milena Sin Gluten <i className="fa fa-star text-warning"></i>
+            <div className="text-muted mb-2"> La Cocina de Milena Sin Gluten 
+          <br/>
+          <i className="fa fa-star text-warning"></i>
           <i className="fa fa-star text-warning"></i>
           <i className="fa fa-star text-warning"></i>
           <i className="far fa-star text-warning"></i>
@@ -101,48 +109,7 @@ export const SingleProduct = (props) => {
           
           </div> {/* single product  */}
          
-            {/* col-sidebar  */}
 
-
-
-            <div class="col-3">
-              {/* sidebar  */}
-  
-                <div className="card mt-4">
-                  <div className="card-body p-5">
-                    <h5 className="card-title pb-4">Categorías </h5>
-
-                    <form className="d-flex mt-2 mb-5" role="search">
-                      <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Buscar"
-                        aria-label="Buscar"
-                      />
-                      <button className="btn btn-outline-success" type="submit">
-                        Buscar
-                      </button>
-                    </form>
-
-                    <li>SIN GLUTEN</li>
-                    <li>SIN LACTOSA</li>
-                    <li>SIN HUEVO</li>
-                    <li>SIN AZÚCAR</li>
-                    <li>VEGANO</li>
-                    <li>VEGETARIANO</li>
-                    <li>ECOLÓGICO</li>
-                    <li>CONGELADOS</li>
-
-                    <button type="button" className="btn btn-primary me-2 mt-5">
-                      <i className="fa fa-cart-plus d-inline mx-2"></i> Ver
-                      carrito{" "}
-                    </button>
-                  </div>
-                </div>
- 
-              {/* sidebar  */}
-            </div>{" "}
-            {/* col-sidebar  */}
           </div>
         </div>
       </div>

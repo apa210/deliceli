@@ -8,6 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       profile: {},
       AllProducts: [],
       AllKitchens: [],
+      product: {},
+      kitchen: {}
     },
     actions: {
       getProfile: async () => {
@@ -60,12 +62,36 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+      getKitchen: async (id) => {
+        let store = getStore();
+
+        try {
+          const response = await axios.get(store.api_url + "kitchen/" + id);
+          setStore({kitchen: response.data});
+          console.log(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
       getAllProducts: async () => {
         let store = getStore();
 
         try {
           const response = await axios.get(store.api_url + "products");
           setStore({ AllProducts: response.data });
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      getProduct: async (id) => {
+        let store = getStore();
+
+        try {
+          const response = await axios.get(store.api_url + "product/" + id);
+          setStore({product: response.data});
+          console.log(response.data);
         } catch (error) {
           console.log(error);
         }
