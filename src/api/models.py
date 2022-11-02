@@ -108,6 +108,7 @@ class Favoritos(db.Model):
 
 class Carritos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    id_carrito = db.Column(db.Integer, nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
     producto_id = db.Column(db.Integer, db.ForeignKey("productos.id"))
     cocina_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
@@ -126,6 +127,7 @@ class Carritos(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "id_carrito": self.id_carrito,
             "usuario_id": self.usuario_id,
             "producto_id": self.producto_id,
             "cocina_id": self.cocina_id,
