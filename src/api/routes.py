@@ -2,12 +2,14 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import random
+import json
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Usuarios, Productos, Categorias_Productos
+from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from sqlalchemy import func, text
 
 api = Blueprint('api', __name__)
 
@@ -22,10 +24,6 @@ def get_all_kitchens():
 
     return jsonify(results), 200
 
-    # Ver todas las cocinas segun su categoria
-@api.route('/kitchenCategory/<int:kitchen_category>', methods=['GET'])
-def get_filter_kitchens(kitchen_category):
-    return jsonify("Filter kitchens"), 200
 
         # Ver una cocina - GET
 @api.route('/kitchen/<int:kitchen_id>', methods=['GET'])
@@ -47,19 +45,16 @@ def get_all_products():
 
     return jsonify(results), 200
 
-    # Ver todos los productos segun su categoria(NO FUNCIONA!)
+    # Ver todos los productos segun su categoria
     # SELECT Productos.* 
     # FROM Productos INNER_JOIN Categorias_Productos ON Productos.id = Categorias_Productos.producto_id
     # WHERE Categorias_Productos.categoria_id = cat_id
 @api.route('/productsCategory/<int:cat_id>', methods=['GET'])
 def get_all_products_category(cat_id):
-    # productos = Productos(Categorias_Productos.query.filter_by(categoria_id=cat_id)).query.filter_by(producto_id=Categorias_Productos.producto_id).all()
     productos = db.session.query(Productos).join(Categorias_Productos).filter_by(categoria_id=cat_id)
-    #productos = db.session.query(Productos).all()
-    print("-------------------ProductsCategory: " + str(productos))
     results = list(map(lambda item: item.serialize(), productos))
-
     return jsonify(results), 200
+
 
         # Ver un producto - GET
 @api.route('/product/<int:product_id>', methods=['GET'])
@@ -74,11 +69,90 @@ def get_product(product_id):
 
 
 
-    # ------------------- Carrito de compras -----------------
+# ------------------- Carrito de compras -----------------
 
-        # a completar !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@api.route('/cart/deleted/<int:user_id>', methods=['DELETE'])
+def delete_cart_user(user_id):
+    body = json.loads(request.data)
+
+    query_carritos = Carritos.query.filter_by(usuario_id=user_id).first()
+    print(query_carritos)
+    
+    if query_carritos is not None:
+        #guardar datos recibidos a la tabla Favorito
+        db.session.delete(query_carritos)
+        db.session.commit()
+        response_body = {
+                "msg": "deleted cart"
+            }
+
+        return jsonify(response_body), 200
+
+    response_body = {
+            "msg": "Not exist cart"
+        }
+    return jsonify(response_body), 400
+
+
+        # Crear un carrito - POST
+# Ejemplo POST:
+# {"usuario_id":"2","producto_id": "1","cocina_id": "1","fecha": "2/11/2022 15:36","cantidad": "2","precio_unitario": "200","total": "400"}
+@api.route('/cart/addProduct', methods=['POST'])
+def add_product_to_cart():
+    body = json.loads(request.data)
+
+    #Se obtiene el maximo id
+    id = db.session.query(func.max(Carritos.id)).scalar()
+    if id is None:
+        id = 1
+    else:
+        id = id + 1
+
+    # Si existe un carrito activo para el usuario
+    query_cart = Carritos.query.filter_by(usuario_id=body["usuario_id"],confirmado=False).first()
+
+    if query_cart is None: # Nuevo carrito
+        cart_id = db.session.query(func.max(Carritos.id_carrito)).scalar()
+        if cart_id is None:
+            cart_id = 1
+        else:
+            cart_id = cart_id + 1
+
+    else: # Tiene un carrito activo
+        cart_aux = query_cart.serialize()
+        cart_id = cart_aux["id_carrito"]
+    
+    cart = Carritos(id=id, id_carrito=cart_id, usuario_id=body["usuario_id"], producto_id=body["producto_id"], cocina_id=body["cocina_id"], fecha=body["fecha"], cantidad=body["cantidad"], precio_unitario=body["precio_unitario"], total=body["total"], confirmado=False )
+
+    db.session.add(cart)
+    db.session.commit()
+    response_body = {
+            "msg": cart.serialize()
+        }
+    return jsonify(response_body), 200
+
+
+
+        # Ver todas los productos - GET
+@api.route('/carts', methods=['GET'])
+def get_all_carts():
+    productos = Productos.query.all()
+    results = list(map(lambda item: item.serialize(), productos))
+
+    return jsonify(results), 200
+
+        # Ver todos los productos de un carrito de un usuario
+    # SELECT Productos.* 
+    # FROM Productos INNER_JOIN Categorias_Productos ON Productos.id = Categorias_Productos.producto_id
+    # WHERE Categorias_Productos.categoria_id = cat_id
+@api.route('/cart/productsCart/<int:user_id>', methods=['GET'])
+def get_all_products_cart_to_user(user_id):
+    productos = db.session.query(Productos).join(Categorias_Productos).filter_by(categoria_id=cat_id)
+    results = list(map(lambda item: item.serialize(), productos))
+    return jsonify(results), 200
+
+
+
 
 # ----------                                User rutes                              ----------
 
