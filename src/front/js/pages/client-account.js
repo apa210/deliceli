@@ -9,13 +9,13 @@ export const ClientAccount = (props) => {
 
   const navigate = useNavigate();
 
-    // Función para cerrar sesión
-    const handleLogout = ()=>{
-      let onLogged = actions.logout();
-      if(!onLogged){
-        navigate("/");
-      }
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    let onLogged = actions.logout();
+    if (!onLogged) {
+      navigate("/");
     }
+  };
 
   useEffect(() => {
     actions.validateToken();
@@ -99,7 +99,11 @@ export const ClientAccount = (props) => {
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="" onClick={() => handleLogout()}>
+                        <Link
+                          className="nav-link"
+                          to=""
+                          onClick={() => handleLogout()}
+                        >
                           {" "}
                           <i className="fas fa-sign-out-alt d-inline mx-2"></i>
                           Cerrar Sesión
@@ -143,7 +147,9 @@ export const ClientAccount = (props) => {
                         </div>
                         {/* Nombre de usuario  */}
                         <div className="col-md-6">
-                          <label className="form-label">Nombre de usuario *</label>
+                          <label className="form-label">
+                            Nombre de usuario *
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -390,6 +396,7 @@ export const ClientAccount = (props) => {
           </div>
         </div>
       </section>
+      <hr style={{ width: "100%" }} />
     </>
   );
 };

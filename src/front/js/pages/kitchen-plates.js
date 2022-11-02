@@ -9,7 +9,7 @@ export const KitchenPlates = (props) => {
 
   return (
     <>
-   <section>
+      <section>
         <div className="container bgimage-cocina p-5 align-baseline mt-5">
           <div className="container">
             <h1 className="mt-5 text-center">Cuenta tu cocina</h1>
@@ -17,21 +17,23 @@ export const KitchenPlates = (props) => {
         </div>
       </section>
 
-
       <section>
         <div className="container">
           <div className="row">
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>  <i className="fas fa-utensils d-inline mx-2"></i> Tus Platos</h3>
+                <h3>
+                  {" "}
+                  <i className="fas fa-utensils d-inline mx-2"></i> Tus Platos
+                </h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                  Hola, Milena Sin Gluten!
+                    Hola, Milena Sin Gluten!
                   </a>
 
                   <button
@@ -89,83 +91,92 @@ export const KitchenPlates = (props) => {
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
 
-                {/* producto  */}
+              {/* producto  */}
 
-  <div className="card mb-5 mt-5">
-  <div className="row g-0">
-    <div className="col-md-4">
-      <img src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg" className="img-fluid rounded-start" alt="..."/>
-    </div>
-    <div className="col-md-8">
-      <div className="card-body">
-        <h5 className="card-title">Medialunas Rellenas</h5>
-      
-        <p className="card-text">Medialunas sin gluten rellenas de jamon y queso. El precio es por
-            docena. Las entregamos calentitas.</p>
+              <div className="card mb-5 mt-5">
+                <div className="row g-0">
+                  <div className="col-md-4">
+                    <img
+                      src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
+                      className="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <div className="card-body">
+                      <h5 className="card-title">Medialunas Rellenas</h5>
 
-            <div className="text-muted mb-2"> La Cocina de Milena Sin Gluten <i className="fa fa-star text-warning"></i>
-          <i className="fa fa-star text-warning"></i>
-          <i className="fa fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i></div>
+                      <p className="card-text">
+                        Medialunas sin gluten rellenas de jamon y queso. El
+                        precio es por docena. Las entregamos calentitas.
+                      </p>
 
-          
-          <h2>$ 350</h2>
-          <button type="button" className="btn btn-primary me-2">
-           Editar Producto
-          </button>
-           
+                      <div className="text-muted mb-2">
+                        {" "}
+                        La Cocina de Milena Sin Gluten{" "}
+                        <i className="fa fa-star text-warning"></i>
+                        <i className="fa fa-star text-warning"></i>
+                        <i className="fa fa-star text-warning"></i>
+                        <i className="far fa-star text-warning"></i>
+                        <i className="far fa-star text-warning"></i>
+                      </div>
 
-         
-      </div>
-    </div>
-  </div>
-</div>
+                      <h2>$ 350</h2>
+                      <button type="button" className="btn btn-primary me-2">
+                        Editar Producto
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              {/* producto  */}
 
-   
-      {/* producto  */}
+              {/* producto  */}
 
-           {/* producto  */}
+              <div className="card mb-5 mt-5">
+                <div className="row g-0">
+                  <div className="col-md-4">
+                    <img
+                      src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg"
+                      className="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <div className="card-body">
+                      <h5 className="card-title">Medialunas Rellenas</h5>
 
-  <div className="card mb-5 mt-5">
-  <div className="row g-0">
-    <div className="col-md-4">
-      <img src="https://www.cronista.com/files/image/362/362962/6148bafa0b969.jpg" className="img-fluid rounded-start" alt="..."/>
-    </div>
-    <div className="col-md-8">
-      <div className="card-body">
-        <h5 className="card-title">Medialunas Rellenas</h5>
-        
-      
-        <p className="card-text">Medialunas sin gluten rellenas de jamon y queso. El precio es por
-            docena. Las entregamos calentitas.</p>
-            <div className="text-muted mb-2"> La Cocina de Milena Sin Gluten <i className="fa fa-star text-warning"></i>
-          <i className="fa fa-star text-warning"></i>
-          <i className="fa fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i>
-          <i className="far fa-star text-warning"></i></div>
-           
-          <h2>$ 350</h2>
-        
-          <button type="button" className="btn btn-primary me-2">
-           Editar Producto
-          </button>
-           
-          
-      </div>
-    </div>
-  </div>
-</div>
+                      <p className="card-text">
+                        Medialunas sin gluten rellenas de jamon y queso. El
+                        precio es por docena. Las entregamos calentitas.
+                      </p>
+                      <div className="text-muted mb-2">
+                        {" "}
+                        La Cocina de Milena Sin Gluten{" "}
+                        <i className="fa fa-star text-warning"></i>
+                        <i className="fa fa-star text-warning"></i>
+                        <i className="fa fa-star text-warning"></i>
+                        <i className="far fa-star text-warning"></i>
+                        <i className="far fa-star text-warning"></i>
+                      </div>
 
+                      <h2>$ 350</h2>
 
-   
-      {/* producto  */}
+                      <button type="button" className="btn btn-primary me-2">
+                        Editar Producto
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              {/* producto  */}
             </div>
           </div>
         </div>
       </section>
+      <hr style={{ width: "100%" }} />
     </>
   );
 };

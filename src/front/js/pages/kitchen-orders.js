@@ -9,7 +9,7 @@ export const KitchenOrders = (props) => {
 
   return (
     <>
-   <section>
+      <section>
         <div className="container bgimage-cocina p-5 align-baseline mt-5">
           <div className="container">
             <h1 className="mt-5 text-center">Cuenta tu cocina</h1>
@@ -17,21 +17,23 @@ export const KitchenOrders = (props) => {
         </div>
       </section>
 
-
       <section>
         <div className="container">
           <div className="row">
             <div className="col-12">
               {/* titulo  */}
               <div className="my-5">
-                <h3>  <i className="fas fa-utensils d-inline mx-2"></i> Tus Platos</h3>
+                <h3>
+                  {" "}
+                  <i className="fas fa-utensils d-inline mx-2"></i> Tus Platos
+                </h3>
                 <hr />
               </div>
               {/* navegación de usuario */}
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                  Hola, Milena Sin Gluten!
+                    Hola, Milena Sin Gluten!
                   </a>
 
                   <button
@@ -89,48 +91,59 @@ export const KitchenOrders = (props) => {
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
 
-          {/* producto  */}
+              {/* producto  */}
 
-  <div className="card mb-5 mt-5">
-  <div className="row g-0">
-    <div className="col-md-3">
-      <img src="https://lookaside.fbsbx.com/elementpath/media/?media_id=457061438537956&version=1637849981" className="img-fluid rounded-start" alt="..."/>
-    </div>
-    <div className="col-md-8">
-      <div className="card-body p-4">
-        <h2 className="card-title">Pedido Nro #000345</h2>
+              <div className="card mb-5 mt-5">
+                <div className="row g-0">
+                  <div className="col-md-3">
+                    <img
+                      src="https://lookaside.fbsbx.com/elementpath/media/?media_id=457061438537956&version=1637849981"
+                      className="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <div className="card-body p-4">
+                      <h2 className="card-title">Pedido Nro #000345</h2>
 
-        <div className="text-muted mb-2"> Pedido de Noelia Irace  </div>
-      
-        <p className="card-text"><li>Medialunas sin gluten rellenas de jamon y queso</li>
-        <li>Pascualina Sin Gluten</li>
-        <li>Brownie de Chocolate sin Gluten</li></p>
+                      <div className="text-muted mb-2">
+                        {" "}
+                        Pedido de Noelia Irace{" "}
+                      </div>
 
-     
-          <h4>Total del pedido - $ 350</h4>
-          <button type="button" className="btn btn-danger me-2">
-             Pedido Pendiente
-          </button>
-          <button type="button" className="btn btn-outline-warning me-2 mt-2 mb-2">
-           Pedido Confirmado {" "}
-          </button>
-          <button type="button" className="btn btn-outline-success me-2 mt-2 mb-2">
-           Pedido Entregado {" "}
-          </button>
+                      <p className="card-text">
+                        <li>Medialunas sin gluten rellenas de jamon y queso</li>
+                        <li>Pascualina Sin Gluten</li>
+                        <li>Brownie de Chocolate sin Gluten</li>
+                      </p>
 
-        
-      </div>
-    </div>
-  </div>
-</div>
+                      <h4>Total del pedido - $ 350</h4>
+                      <button type="button" className="btn btn-danger me-2">
+                        Pedido Pendiente
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-outline-warning me-2 mt-2 mb-2"
+                      >
+                        Pedido Confirmado{" "}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-outline-success me-2 mt-2 mb-2"
+                      >
+                        Pedido Entregado{" "}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-   {/* producto  */}
-
-
+              {/* producto  */}
             </div>
           </div>
         </div>
       </section>
+      <hr style={{ width: "100%" }} />
     </>
   );
 };

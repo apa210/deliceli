@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { ProductCardVertical } from "../component/product-card-vertical";
 import { KitchenCardProfile } from "../component/kitchen-card-profile";
+import Footer_contact from "../component/footer_contact";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -126,6 +127,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
+      <Footer_contact />
     </>
   );
 };
