@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import random
 import json
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos
+from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -365,4 +365,38 @@ def edit_dish(user_id):
 
 @api.route('/contact', methods=['POST'])
 def add_user_contact():
-    return jsonify("ok"), 200
+
+    body = request.get_json()
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    elif 'nombre' not in body:
+        raise APIException("You need to specify the 'nombre'", status_code=400)
+    elif 'departamento' not in body:
+        raise APIException("You need to specify the 'departamento'", status_code=400)
+    elif 'telefono' not in body:
+        raise APIException("You need to specify the 'telefono'", status_code=400)
+    elif 'mail' not in body:
+        raise APIException("You need to specify the 'mail'", status_code=400)
+    elif 'opcion' not in body:
+        raise APIException("You need to specify the 'opcion'", status_code=400)
+    elif 'mensaje' not in body:
+        raise APIException("You need to specify the 'mensaje'", status_code=400)
+
+    contact = Contactos.query.filter_by(mail=body["mail"]).first()
+
+    if contact is None:
+        contact_id = db.session.query(func.max(Contactos.id)).scalar()
+        if contact_id is None:
+            contact_id = 1
+        else:
+            contact_id = contact_id + 1
+
+        new_contact = Contactos(id=contact_id, nombre=body["nombre"], departamento=body["departamento"], telefono=body["telefono"], mail=body["mail"], opcion=body["opcion"], mensaje=body["mensaje"])
+        db.session.add(new_contact)
+        db.session.commit()
+        return jsonify({"message": "Saved contact"}), 200
+        
+
+
+    raise APIException("This email address is already registered", status_code=400)
