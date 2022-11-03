@@ -3,8 +3,9 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       api_url:
-        "https://3001-apa210-deliceli-cfusbv71ezu.ws-us73.gitpod.io/api/",
+        "https://3001-apa210-deliceli-cfusbv71ezu.ws-us74.gitpod.io/api/",
       auth: false,
+      val: false,
       profile: {},
       AllProducts: [],
       AllKitchens: [],
@@ -117,15 +118,19 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
 
           if (response.status === 200) {
-            alert("Registrado con exito");
+            setStore({
+              val: true,
+            });
           } else {
             setStore({
               auth: false,
             });
+            setStore({
+              val: false,
+            });
           }
         } catch (error) {
           if (error.code === "ERR_BAD_REQUEST") {
-            alert(error.response?.data?.message);
             setStore({
               auth: false,
             });
