@@ -1,22 +1,75 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const Contact = (props) => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
+
+  const navigate = useNavigate();
+
+  const [nombre, setNombre] = useState("");
+  const [departamento, setDepartamento] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [mail, setMail] = useState("");
+  const [opcion, setOpcion] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const [loginError, setLoginError] = useState("");
+  const showAlert = useRef("");
+
+  const [loginEnd, setLoginEnd] = useState("");
+  const showAlertEnd = useRef("");
 
   const button_submit = () => {
-    console.log("formulario enviado");
+    if (
+      nombre != "" &&
+      departamento != "" &&
+      telefono != "" &&
+      mail != "" &&
+      opcion != "" &&
+      mensaje != ""
+    ) {
+      console.log(nombre, departamento, telefono, mail, opcion, mensaje);
+      actions
+        .savedContact(nombre, departamento, telefono, mail, opcion, mensaje)
+        .then(() => {
+          if (store.val_contact == true) {
+            // limpieza de inputs
+            setNombre("");
+            setDepartamento("");
+            setTelefono("");
+            setMail("");
+            setOpcion("");
+            setMensaje("");
+            setTimeout(() => {
+              showAlertEnd.current.classList.add("d-none");
+              navigate("/");
+            }, 5000);
+            showAlertEnd.current.classList.remove("d-none");
+            setLoginEnd("Se ha registrado exitosamente su contacto");
+          } else {
+            // Mensaje de alerta por email ya registrado
+            setTimeout(() => {
+              showAlert.current.classList.add("d-none");
+            }, 3000);
+            showAlert.current.classList.remove("d-none");
+            setLoginError("Este email ya ha enviado su contacto");
+          }
+        });
+    } else {
+      setTimeout(() => {
+        showAlert.current.classList.add("d-none");
+      }, 3000);
+      showAlert.current.classList.remove("d-none");
+      setLoginError("Hay campos sin completar!");
+    }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-
-  
   return (
     <>
       <section>
@@ -71,9 +124,30 @@ export const Contact = (props) => {
                         </p>
                       </div>
 
+                      {/* Inicio de mensaje de alerta */}
+                      <div
+                        className="alert alert-danger d-none"
+                        ref={showAlert}
+                        role="alert"
+                      >
+                        {loginError}
+                      </div>
+
+                      {/* Inicio de mensaje de registro exitoso */}
+                      <div
+                        className="alert alert-success d-none"
+                        ref={showAlertEnd}
+                        role="alert"
+                      >
+                        {loginEnd}
+                      </div>
+
                       <div className="mt-3 d-flex flex-row gap-2">
                         <label className="radio">
                           <input
+                            onChange={() => {
+                              setOpcion("0");
+                            }}
                             type="radio"
                             name="flexRadioDefault"
                             className="form-check-input"
@@ -85,6 +159,9 @@ export const Contact = (props) => {
                         </label>
                         <label className="radio">
                           <input
+                            onChange={() => {
+                              setOpcion("1");
+                            }}
                             type="radio"
                             name="flexRadioDefault"
                             className="form-check-input"
@@ -104,7 +181,12 @@ export const Contact = (props) => {
                             <i className="fa fa-user  d-inline mx-2 "></i>Nombre
                             Completo
                           </label>
-                          <input type="text" className="form-control" />
+                          <input
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                            type="text"
+                            className="form-control"
+                          />
                         </div>
                       </div>
 
@@ -114,7 +196,12 @@ export const Contact = (props) => {
                             <i className="fa fa-map  d-inline mx-2"></i>
                             Departamento
                           </label>
-                          <input type="text" className="form-control" />
+                          <input
+                            value={departamento}
+                            onChange={(e) => setDepartamento(e.target.value)}
+                            type="text"
+                            className="form-control"
+                          />
                         </div>
                       </div>
 
@@ -125,7 +212,12 @@ export const Contact = (props) => {
                             Teléfono
                           </label>
                           <div className="phone">
-                            <input type="text" className="form-control" />
+                            <input
+                              value={telefono}
+                              onChange={(e) => setTelefono(e.target.value)}
+                              type="text"
+                              className="form-control"
+                            />
                           </div>
                         </div>
                       </div>
@@ -137,7 +229,12 @@ export const Contact = (props) => {
                             Mail
                           </label>
                           <div className="mail pb-3">
-                            <input type="text" className="form-control" />
+                            <input
+                              value={mail}
+                              onChange={(e) => setMail(e.target.value)}
+                              type="text"
+                              className="form-control"
+                            />
                           </div>
                         </div>
                       </div>
@@ -148,11 +245,12 @@ export const Contact = (props) => {
                           Mensaje
                         </label>
                         <textarea
+                          value={mensaje}
+                          onChange={(e) => setMensaje(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder=""
                           aria-label="Descripcion"
-                          defaultValue="Escribi acá tu mensaje ..."
+                          placeholder="Escribi acá tu mensaje ..."
                         />
                       </div>
 
