@@ -18,7 +18,7 @@ export const SignUp = () => {
   const showAlert = useRef("");
   const showAlertEnd = useRef("");
   const closeModal = useRef();
-  // 
+  //
 
   const { store, actions } = useContext(Context);
 
@@ -33,45 +33,36 @@ export const SignUp = () => {
         password != "" &&
         repitPassword != ""
       ) {
-        actions.signup(
-          first_name,
-          last_name,
-          email,
-          user_name,
-          phone,
-          password
-        ).then(() => {
-          if (store.val == true) {
+        actions
+          .signup(first_name, last_name, email, user_name, phone, password)
+          .then(() => {
+            if (store.val == true) {
+              set_first_name("");
+              set_last_name("");
+              set_email("");
+              set_user_name("");
+              set_phone("");
+              set_password("");
+              set_repitPassword("");
 
-            set_first_name("");
-            set_last_name("");
-            set_email("");
-            set_user_name("");
-            set_phone("");
-            set_password("");
-            set_repitPassword("");
-
-            // Mensaje de alerta por registro exitoso
-            setTimeout(() => {
-              showAlertEnd.current.classList.add("d-none");
-            }, 5000);
-            showAlertEnd.current.classList.remove("d-none");
-            setLoginEnd("Registro exitoso.");
-            setTimeout(() => {
-              closeModal.current.click();
-            }, 2000);
-        }
-        else {
-          // Mensaje de alerta por registro exitoso
-          setTimeout(() => {
-            showAlert.current.classList.add("d-none");
-          }, 3000);
-          showAlert.current.classList.remove("d-none");
-          setLoginError("El email ya está registrado.");
-        }
-        } )
-
-        
+              // Mensaje de alerta por registro exitoso
+              setTimeout(() => {
+                showAlertEnd.current.classList.add("d-none");
+              }, 5000);
+              showAlertEnd.current.classList.remove("d-none");
+              setLoginEnd("Registro exitoso.");
+              setTimeout(() => {
+                closeModal.current.click();
+              }, 2000);
+            } else {
+              // Mensaje de alerta por email ya registrado
+              setTimeout(() => {
+                showAlert.current.classList.add("d-none");
+              }, 3000);
+              showAlert.current.classList.remove("d-none");
+              setLoginError("El email ya está registrado.");
+            }
+          });
       } else {
         // Mensaje de alerta si hay campos vacíos
         setTimeout(() => {
@@ -139,7 +130,6 @@ export const SignUp = () => {
                   {loginEnd}
                 </div>
                 {/* fIN de mensaje de registro exitoso */}
-
                 <div className="input-group mb-3">
                   {/* Inicio de campo Nombre */}
                   <input
@@ -241,9 +231,7 @@ export const SignUp = () => {
                   aria-describedby="inputGroup-sizing-lg"
                 />
                 {/* fIN de campo repetir contraseña */}
-
                 <label className="mt-2">¿Ya tienes una cuenta?</label>{" "}
-
                 {/* Inicio de link para abrir modal de inicio sesión */}
                 <Link
                   data-bs-target="#staticBackdrop"
@@ -254,7 +242,6 @@ export const SignUp = () => {
                   Ingresa ahora
                 </Link>
                 {/* fIN de link para abrir modal de inicio sesión */}
-                
               </div>
               <div className="text-center m-3 mb-4">
                 <button

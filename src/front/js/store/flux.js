@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         "https://3001-apa210-deliceli-cfusbv71ezu.ws-us74.gitpod.io/api/",
       auth: false,
       val: false,
+      val_contact: false,
       profile: {},
       AllProducts: [],
       AllKitchens: [],
@@ -15,6 +16,37 @@ const getState = ({ getStore, getActions, setStore }) => {
       AllProductsOfKitchen: [],
     },
     actions: {
+      savedContact: async (
+        nombre,
+        departamento,
+        telefono,
+        mail,
+        opcion,
+        mensaje
+      ) => {
+        let store = getStore();
+        try {
+          const response = await axios.post(store.api_url + "contact", {
+            nombre: nombre,
+            departamento: departamento,
+            telefono: telefono,
+            mail: mail,
+            opcion: opcion,
+            mensaje: mensaje,
+          });
+          if (response.status === 200) {
+            setStore({
+              val_contact: true,
+            });
+          } else {
+            setStore({
+              val_contact: false,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getAllProductsOfKitchen: async (kitchen_id) => {
         let store = getStore();
         try {
