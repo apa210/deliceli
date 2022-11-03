@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import Footer_contact from "../component/footer_contact";
 
 export const About = () => {
   const { store, actions } = useContext(Context);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -133,7 +137,7 @@ export const About = () => {
 
                 <div className="card border-0">
                   <img
-                    src="https://ca.slack-edge.com/T0BFXMWMV-U0426RW6CR5-d401cb12cfd8-512"
+                    src="https://ca.slack-edge.com/T0BFXMWMV-U0426RW6CR5-a53ac16aaa20-512"
                     className="card-img-top p-4 rounded-circle"
                   />
                   <div className="card-body">

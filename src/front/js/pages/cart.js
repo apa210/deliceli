@@ -52,9 +52,9 @@ export const Cart = (props) => {
 
                       <h2>$ 350</h2>
 
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-4 mt-3">
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-4 mt-3">
                             <div className="col">
                               <div className="input-group">
                                 <span className="input-group-btn">
@@ -64,15 +64,16 @@ export const Cart = (props) => {
                                     data-type="minus"
                                     data-field=""
                                   >
-                                    <i class="fa fa-minus-circle"></i>
+                                    <i className="fa fa-minus-circle"></i>
                                   </button>
                                 </span>
                                 <input
+                                  onChange={() => {}}
                                   type="text"
-                                  id="quantity"
+                                  // id="quantity"
                                   name="quantity"
                                   className="form-control input-number"
-                                  value="10"
+                                  value={"10"}
                                   min="1"
                                   max="100"
                                 />
@@ -89,7 +90,7 @@ export const Cart = (props) => {
                               </div>
                             </div>
                           </div>
-                          <div class="col mt-3 ">
+                          <div className="col mt-3 ">
                             <button
                               type="button"
                               className="btn btn-light me-2"
@@ -107,10 +108,9 @@ export const Cart = (props) => {
 
               {/* producto  */}
 
+              {/* producto  */}
 
-                          {/* producto  */}
-
-                          <div className="card mb-5">
+              <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col-md-3">
                     <img
@@ -123,7 +123,8 @@ export const Cart = (props) => {
                     <div className="card-body">
                       <h5 className="card-title">Medialunas Rellenas</h5>
 
-                      <div className="text-muted mb-2">La Cocina de Milena Sin Gluten 
+                      <div className="text-muted mb-2">
+                        La Cocina de Milena Sin Gluten
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
@@ -133,9 +134,9 @@ export const Cart = (props) => {
 
                       <h2>$ 350</h2>
 
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-4 mt-3">
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-4 mt-3">
                             <div className="col">
                               <div className="input-group">
                                 <span className="input-group-btn">
@@ -145,15 +146,16 @@ export const Cart = (props) => {
                                     data-type="minus"
                                     data-field=""
                                   >
-                                    <i class="fa fa-minus-circle"></i>
+                                    <i className="fa fa-minus-circle"></i>
                                   </button>
                                 </span>
                                 <input
+                                  onChange={() => {}}
                                   type="text"
-                                  id="quantity"
+                                  // id="quantity"
                                   name="quantity"
                                   className="form-control input-number"
-                                  value="10"
+                                  value={"10"}
                                   min="1"
                                   max="100"
                                 />
@@ -170,7 +172,7 @@ export const Cart = (props) => {
                               </div>
                             </div>
                           </div>
-                          <div class="col mt-3">
+                          <div className="col mt-3">
                             <button
                               type="button"
                               className="btn btn-light me-2"
@@ -187,8 +189,6 @@ export const Cart = (props) => {
               </div>
 
               {/* producto  */}
-
-
             </div>{" "}
             {/* single product  */}
             {/* col-sidebar  */}
