@@ -14,11 +14,13 @@ export const SignUp = () => {
 
   // Muestra alerta si hay campos vacios o incorrectos
   const [loginError, setLoginError] = useState("");
+  const [loginEnd, setLoginEnd] = useState("");
   const showAlert = useRef("");
+  const showAlertEnd = useRef("");
   const closeModal = useRef();
   // 
 
-  const { actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
   const button_signup = () => {
     if (password == repitPassword) {
@@ -38,16 +40,38 @@ export const SignUp = () => {
           user_name,
           phone,
           password
-        );
+        ).then(() => {
+          if (store.val == true) {
 
-        set_first_name("");
-        set_last_name("");
-        set_email("");
-        set_user_name("");
-        set_phone("");
-        set_password("");
-        set_repitPassword("");
-        closeModal.current.click();
+            set_first_name("");
+            set_last_name("");
+            set_email("");
+            set_user_name("");
+            set_phone("");
+            set_password("");
+            set_repitPassword("");
+
+            // Mensaje de alerta por registro exitoso
+            setTimeout(() => {
+              showAlertEnd.current.classList.add("d-none");
+            }, 5000);
+            showAlertEnd.current.classList.remove("d-none");
+            setLoginEnd("Registro exitoso.");
+            setTimeout(() => {
+              closeModal.current.click();
+            }, 2000);
+        }
+        else {
+          // Mensaje de alerta por registro exitoso
+          setTimeout(() => {
+            showAlert.current.classList.add("d-none");
+          }, 3000);
+          showAlert.current.classList.remove("d-none");
+          setLoginError("El email ya está registrado.");
+        }
+        } )
+
+        
       } else {
         // Mensaje de alerta si hay campos vacíos
         setTimeout(() => {
@@ -106,7 +130,16 @@ export const SignUp = () => {
                   {loginError}
                 </div>
                 {/* fIN de mensaje de alerta */}
-                
+                {/* Inicio de mensaje de registro exitoso */}
+                <div
+                  className="alert alert-success d-none"
+                  ref={showAlertEnd}
+                  role="alert"
+                >
+                  {loginEnd}
+                </div>
+                {/* fIN de mensaje de registro exitoso */}
+
                 <div className="input-group mb-3">
                   {/* Inicio de campo Nombre */}
                   <input
