@@ -8,6 +8,10 @@ import Footer_contact from "../component/footer_contact";
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   let num_max = 3;
   const map_products = store?.AllProducts.reverse().map((item, index) => {
     if (index < num_max) {
