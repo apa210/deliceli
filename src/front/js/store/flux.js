@@ -9,9 +9,29 @@ const getState = ({ getStore, getActions, setStore }) => {
       AllProducts: [],
       AllKitchens: [],
       product: {},
-      kitchen: {}
+      kitchen: {},
+      cart: [],
     },
     actions: {
+      getCart: async (user_id) => {
+        const userToken = localStorage.getItem("token");
+        const store = getStore();
+        const actions = getActions();
+        actions.validateToken();
+        try {
+          if (store.auth == true) {
+            const response = await axios.get(
+              store.api_url + "cart/productsCart/" + user_id
+            );
+            setStore({
+              cart: response?.data,
+            });
+            console.log(response);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getProfile: async () => {
         const userToken = localStorage.getItem("token");
         const store = getStore();
@@ -27,6 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               profile: response?.data,
             });
+            console.log(response?.data?.id);
           }
         } catch (error) {
           console.log(error);
@@ -67,7 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await axios.get(store.api_url + "kitchen/" + id);
-          setStore({kitchen: response.data});
+          setStore({ kitchen: response.data });
           console.log(response.data);
         } catch (error) {
           console.log(error);
@@ -90,7 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await axios.get(store.api_url + "product/" + id);
-          setStore({product: response.data});
+          setStore({ product: response.data });
           console.log(response.data);
         } catch (error) {
           console.log(error);
