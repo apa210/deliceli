@@ -7,6 +7,11 @@ export const Orders = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  
   return (
     <>
       <section>

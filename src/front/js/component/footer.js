@@ -10,31 +10,32 @@ export const Footer = () => {
             <div className="col-5">
               <h3>DeliCeli.uy</h3>
               <p> Alimentación bio sin añadidos, sin gluten, vegana.</p>
-              <p>
-                Rivera 3344, Apto 103, Oficina 134
+              <p>Rivera 3344, Apto 103, Oficina 134
                 <br />
-                Tel. +598 33 44 66
+                Tel.  <Link to="tel:+59899644266">+598 99 644 266</Link> 
                 <br />
-                Mail. hola@deliceli.uy
+                Mail.   <Link to="mailto:hola@deliceli.uy">hola@deliceli.uy</Link>
               </p>
             </div>
 
             <div className="col">
               <h5> CUENTA</h5> <br />
-              <p> Mi Cuenta</p>
-              <p> Favoritos</p>
+              <Link to="/pages/client-account">Mi Cuenta</Link><br />
+              <Link to="/pages/favorites">Favoritos</Link>
+         
             </div>
 
             <div className="col">
               <h5> SOBRE</h5> <br />
-              <p> Preguntas Frecuentes</p>
-              <p> Contacto</p>
+              <Link to="/pages/about">Sobre Nosotros</Link><br />
+              <Link to="/pages/contact">Contacto</Link>
+         
             </div>
 
             <div className="col">
               <h5> POLÍTICAS </h5> <br />
-              <p> Política de Privacidad </p>
-              <p> Términos y Condiciones</p>
+              <Link to="/pages/politicas">Política de Privacidad</Link>   <br />
+              <Link to="/pages/terminos">Términos y Condiciones</Link>    
             </div>
           </div>
         </div>
