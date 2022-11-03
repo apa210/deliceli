@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Footer_contact from "../component/footer_contact";
 
-// import { ProductCardVertical } from "../component/product-card-vertical";
+import { ProductCardVertical } from "../component/product-card-vertical";
 import { KitchenCardProfile } from "../component/kitchen-card-profile";
 
 export const SingleKitchen = () => {
@@ -15,33 +15,60 @@ export const SingleKitchen = () => {
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
 
-useEffect(() => {
-  actions.getKitchen(params?.id);
-}, [params?.id]);
+  const scrollRef = useRef(null);
 
-useEffect ( () =>
-{
-  setTimeout(() => {
-    setFacebook(store?.kitchen?.facebook)
-    setInstagram(store?.kitchen?.instragram)
-    setLinkedin(store?.kitchen?.linkedin)
-    setTwitter(store?.kitchen?.twitter)
-  }, 1000);
-}
-,[store.kitchen])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    actions.getKitchen(params?.id);
+    actions.getAllProductsOfKitchen(params?.id);
+  }, [params?.id]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFacebook(store?.kitchen?.facebook);
+      setInstagram(store?.kitchen?.instragram);
+      setLinkedin(store?.kitchen?.linkedin);
+      setTwitter(store?.kitchen?.twitter);
+    }, 1000);
+  }, [store.kitchen]);
+
+  const map_products = store?.AllProductsOfKitchen.map((item, index) => {
+    if (store?.AllProductsOfKitchen != []) {
+      return (
+        <div className="col" key={item + index + item}>
+          <ProductCardVertical obj={item} />
+        </div>
+      );
+    } else {
+      return false;
+    }
+  });
+
+  let num_max = 3;
+  const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
+    if (index < num_max) {
+      return (
+        <div className="col" key={item + index}>
+          <KitchenCardProfile obj={item} />
+        </div>
+      );
+    }
+  });
 
   return (
     <>
-      <section>
+      <section ref={scrollRef}>
         <div className="container bgimage-single-cocina2 p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-light text-end">Nuestras Cocinas</h1>
+            <h1 className="mt-5 text-light text-end">
+              Cocina de {store?.kitchen?.user_name}
+            </h1>
           </div>
         </div>
       </section>
 
-      <section className="pt-5 pb-5">
-        <div className="container mt-5 mb-5 p-2 ">
+      <section className="pt-5">
+        <div className="container mt-5 p-2 ">
           <div className="card mb-3">
             <div className="row g-0">
               <div className="col-md-6">
@@ -82,7 +109,8 @@ useEffect ( () =>
                     para una cena romántica o una comida en grupo.{" "}
                   </p>
                   <h4 className="pt-4 pb-4">
-                    Seguilos en Redes 
+                    Sigue a {store?.kitchen?.user_name} en redes
+                    <br />
                     <a href={facebook}>
                       <i className="fab fa-facebook m-2"></i>
                     </a>
@@ -106,49 +134,16 @@ useEffect ( () =>
       <section>
         <div className="p-5 bg-light ">
           <div className="p-2 text-center">
-            <h1 className="p-2 ">Productos de Milena Sin Gluten</h1>
+            <h1 className="p-2 ">Productos de {store?.kitchen?.user_name}</h1>
             <p>
-              Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
-              intolerancia al gluten o alergias.
+              Encuentra las comidas que {store?.kitchen?.user_name} ha preparado
+              especialmente para ti
             </p>
           </div>
 
           <section>
             <div className="container">
-              <div className="row">
-                {/* card  */}
-                <div className="col">
-                  {/* producto  */}
-
-                  {/* <ProductCardVertical /> */}
-
-                  {/* producto  */}
-                </div>
-
-                {/* fin de card */}
-
-                {/* card  */}
-                <div className="col">
-                  {/* producto  */}
-
-                  {/* <ProductCardVertical /> */}
-
-                  {/* producto  */}
-                </div>
-
-                {/* fin de card */}
-
-                {/* card  */}
-                <div className="col">
-                  {/* producto  */}
-
-                  {/* <ProductCardVertical /> */}
-
-                  {/* producto  */}
-                </div>
-
-                {/* fin de card */}
-              </div>
+              <div className="row">{map_products}</div>
             </div>
           </section>
 
@@ -169,22 +164,7 @@ useEffect ( () =>
               intolerancia al gluten o alergias.
             </p>
             <div className="container text-center mt-5">
-              <div className="row">
-                {/* map de tres cocinas al azar */}
-
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-                {/* card  */}
-                <div className="col">
-                  <KitchenCardProfile />
-                </div>
-              </div>
+              <div className="row">{map_kitchens}</div>
             </div>
           </div>
         </div>

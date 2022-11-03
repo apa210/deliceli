@@ -36,7 +36,9 @@ const injectContext = (PassedComponent) => {
       state.actions.validateToken();
 
       if (state.store.auth == true) {
-        state.actions.getProfile();
+        state.actions
+          .getProfile()
+          .then(() => state.actions.getCart(state.store.profile?.id));
       }
     }, [state.store.auth]);
 

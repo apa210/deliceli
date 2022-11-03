@@ -10,9 +10,49 @@ const getState = ({ getStore, getActions, setStore }) => {
       AllProducts: [],
       AllKitchens: [],
       product: {},
-      kitchen: {}
+      kitchen: {},
+      cart: [],
+      AllProductsOfKitchen: [],
     },
     actions: {
+      getAllProductsOfKitchen: async (kitchen_id) => {
+        let store = getStore();
+        try {
+          const response = await axios.get(store.api_url + "products");
+          const aux = response.data.map((item) => {
+            if (item.cocina_id == kitchen_id) {
+              return item;
+            }
+          });
+          let result = aux.filter((item) => {
+            if (item != undefined) {
+              return item;
+            }
+          });
+          setStore({ AllProductsOfKitchen: result });
+          console.log(store.AllProductsOfKitchen);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      getCart: async (user_id) => {
+        const userToken = localStorage.getItem("token");
+        const store = getStore();
+        const actions = getActions();
+        actions.validateToken();
+        try {
+          if (store.auth == true) {
+            const response = await axios.get(
+              store.api_url + "cart/productsCart/" + user_id
+            );
+            setStore({
+              cart: response?.data,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getProfile: async () => {
         const userToken = localStorage.getItem("token");
         const store = getStore();
@@ -68,8 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await axios.get(store.api_url + "kitchen/" + id);
-          setStore({kitchen: response.data});
-          console.log(response.data);
+          setStore({ kitchen: response.data });
         } catch (error) {
           console.log(error);
         }
@@ -91,8 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await axios.get(store.api_url + "product/" + id);
-          setStore({product: response.data});
-          console.log(response.data);
+          setStore({ product: response.data });
         } catch (error) {
           console.log(error);
         }
