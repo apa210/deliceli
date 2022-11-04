@@ -66,6 +66,14 @@ def get_product(product_id):
     return jsonify(producto.serialize()), 200
 
 
+        # Obtener todos los productos por nombre- GET
+@api.route('/products/find/<string:cadena>', methods=['GET'])
+def get_all_products_find_name(cadena):
+    # query.filter(User.name.like('%ed%'))
+    productos = Productos.query.filter(Productos.nombre.like('%'+cadena+'%')).all()
+    results = list(map(lambda item: item.serialize(), productos))
+
+    return jsonify(results), 200
 
 
 
