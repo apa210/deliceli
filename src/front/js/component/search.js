@@ -1,20 +1,33 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Search = () => {
+
+    const [searchProduct, setSearchProduct] = useState("");
+    const navigate = useNavigate();
+    const { store, actions } = useContext(Context);
+
+    const searchButton = () => {
+        actions.search(searchProduct)
+        setSearchProduct("");
+        navigate("/pages/search-results")
+    };
+
     return (
-        <form className="d-flex mb-4" role="search">
+        <div className="d-flex" role="search">
             <input
+                value={searchProduct}
+                onChange={(e) => setSearchProduct(e.target.value)}
                 className="form-control me-2"
-                type="search"
+                type="text"
                 placeholder="Buscar"
                 aria-label="Buscar"
             />
-            <button className="btn btn-outline-success me-5" type="submit">
+            <button onClick={searchButton} className="btn btn-outline-success me-5">
                 Buscar
             </button>
-        </form>
+        </div>
     );
 };
