@@ -69,7 +69,6 @@ def get_product(product_id):
         # Obtener todos los productos por nombre- GET
 @api.route('/products/find/<string:cadena>', methods=['GET'])
 def get_all_products_find_name(cadena):
-    # query.filter(User.name.like('%ed%'))
     productos = Productos.query.filter(Productos.nombre.like('%'+cadena+'%')).all()
     results = list(map(lambda item: item.serialize(), productos))
 
@@ -126,7 +125,7 @@ def delete_product_cart_user(user_id,product_id):
 
 
         # Crear un carrito - POST
-# Ejemplo POST:
+# Ejemplo Body JSON POST:
 # {"usuario_id":"2","producto_id": "1","cocina_id": "1","fecha": "2/11/2022 15:36","cantidad": "2","precio_unitario": "200","total": "400"}
 @api.route('/cart/addProduct', methods=['POST'])
 def add_product_to_cart():
@@ -183,6 +182,35 @@ def get_all_products_cart_to_user(user_id):
                                     "total": item[1].total,
                                     }, productos))
     return jsonify(results), 200
+
+
+
+
+        # Editar un producto de un carrito de un usuario
+# Ejemplo Body JSON PUT:
+# {"usuario_id":"2","producto_id": "2","cantidad": "333","total": "999"}
+@api.route('/cart/editProduct', methods=['PUT'])
+def edit_product_cart_user():
+    body = json.loads(request.data)
+
+    carrito = Carritos.query.filter_by(usuario_id=body["usuario_id"], producto_id=body["producto_id"], confirmado=False).first()
+    
+    if carrito is not None:
+        carrito.cantidad = body["cantidad"]
+        carrito.total = body["total"]
+        db.session.commit()
+        response_body = {
+                "msg": "update product cart"
+            }
+
+        return jsonify(response_body), 200
+
+    response_body = {
+            "msg": "Not exist"
+        }
+    return jsonify(response_body), 400
+
+
 
 
 
