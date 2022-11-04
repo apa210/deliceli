@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { Search } from "../component/search";
 import { ProductCardVertical } from "../component/product-card-vertical";
 import { KitchenCardProfile } from "../component/kitchen-card-profile";
 import Footer_contact from "../component/footer_contact";
@@ -44,25 +45,15 @@ export const Home = () => {
               Encuentra en nuestra tienda ecológica alimentación bio sin
               añadidos, sin gluten, vegana.
             </h1>
-            <p>
+            <p className="mb-5">
               Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
               intolerancia al gluten o alergias, y entregar lo mejor de nosotros
               mismos para atender cada desafío que la comunidad celíaca
               requiere, poniendo énfasis en ofrecer productos sanos y seguros.
             </p>
 
-            <form className="d-flex mt-5" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Buscar"
-                aria-label="Buscar"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Buscar
-              </button>
-            </form>
-       
+            {/* Trae componente search */}
+            { <Search />}
 
           </div>
         </div>

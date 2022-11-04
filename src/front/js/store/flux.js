@@ -14,8 +14,21 @@ const getState = ({ getStore, getActions, setStore }) => {
       kitchen: {},
       cart: [],
       AllProductsOfKitchen: [],
+      search: "",
+      searchResults: []
     },
     actions: {
+      search: async (texto) => {
+        let store = getStore();
+        try {
+          const response = await axios.get(store.api_url + "products/find/"+ texto);
+          setStore({ searchResults: response.data })
+          setStore({search: texto})
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
       quit_product: (prod) => {
         let store = getStore();
         store.cart.splice(prod, 1);
