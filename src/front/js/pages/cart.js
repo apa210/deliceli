@@ -11,12 +11,7 @@ export const Cart = (props) => {
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState("");
 
-  // console.log(store.cart);
-  // console.log(store.profile);
-  // console.log(count);
-
   const products = [];
-  // console.log(products);
 
   const pay = () => {
     console.log("has pagado");
@@ -43,7 +38,7 @@ export const Cart = (props) => {
                 <div className="col-md-3">
                   <img
                     // imgane del producto
-                    src="https://www.196flavors.com/wp-content/uploads/2021/10/croquetas-de-pollo-2fp.jpg"
+                    src={item?.foto_producto}
                     className="img-fluid rounded-start"
                     alt="..."
                   />
@@ -67,7 +62,7 @@ export const Cart = (props) => {
 
                     <div className="container">
                       <div className="row">
-                        <div className="col-4 mt-3">
+                        <div className="col-6 col-lg-4 mt-3">
                           <div className="col">
                             <div className="input-group">
                               <span className="input-group-btn">
@@ -87,7 +82,7 @@ export const Cart = (props) => {
                                 // id="quantity"
                                 name="quantity"
                                 className="form-control input-number"
-                                value={"10"}
+                                value={item?.cantidad_carrito}
                                 min="1"
                                 max="100"
                               />
@@ -179,7 +174,7 @@ export const Cart = (props) => {
         <div className="container mb-5">
           <div className="row">
             <div className="col">{map_products}</div> {/* col-sidebar  */}
-            <div className="col-4">
+            <div className="col-lg-4">
               {/* sidebar  */}
               <div className="card">
                 <div className="card-body p-4">

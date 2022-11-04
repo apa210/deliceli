@@ -9,14 +9,13 @@ export const Kitchens = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const map_kitchens = store?.AllKitchens.map((item, index) => {
     return (
-      <div className="col" key={item + index}>
+      <div className="col-lg-4" key={item + index}>
         <KitchenCardProfile obj={item} />
       </div>
     );
