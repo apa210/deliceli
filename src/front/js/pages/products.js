@@ -18,18 +18,26 @@ export const Products = (props) => {
     );
   });
 
+  const map_products_Category = store?.AllProductsOfCategory.map(
+    (item, index) => {
+      return (
+        <div className="col" key={item + index + item}>
+          <ProductCardVertical obj={item} />
+        </div>
+      );
+    }
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  
   return (
     <>
       <section>
         <div className="container-fluid bgimage-about   p-5 align-baseline">
           <div className="container">
             <h1 className="mt-5 text-center">Nuestros Productos</h1>
-            
           </div>
         </div>
       </section>
@@ -48,8 +56,12 @@ export const Products = (props) => {
             <div className="col-lg-3 me-5">
               <Sidebar />
             </div>
-           
-            <div className="row">{map_products}</div>
+
+            <div className="row">
+              {store.val_category == false
+                ? map_products
+                : map_products_Category}
+            </div>
           </div>
         </div>
       </div>

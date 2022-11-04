@@ -32,6 +32,7 @@ const injectContext = (PassedComponent) => {
 
       state.actions.getAllProducts();
       state.actions.getAllKitchens();
+      state.actions.getCategories();
 
       state.actions.validateToken();
 

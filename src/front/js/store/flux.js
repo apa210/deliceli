@@ -15,15 +15,48 @@ const getState = ({ getStore, getActions, setStore }) => {
       cart: [],
       AllProductsOfKitchen: [],
       search: "",
-      searchResults: []
+      searchResults: [],
+      categories: [],
+      AllProductsOfCategory: [],
+      val_category: false,
     },
     actions: {
+      getProductsOfCategory: async (category_id) => {
+        let store = getStore();
+        console.log(category_id);
+
+        if (category_id === 0) {
+          setStore({ val_category: false });
+        } else {
+          try {
+            const response = await axios.get(
+              store.api_url + "productsCategory/" + category_id
+            );
+            setStore({ AllProductsOfCategory: response?.data });
+            setStore({ val_category: true });
+          } catch (error) {
+            console.log(error);
+            setStore({ val_category: false });
+          }
+        }
+      },
+      getCategories: async () => {
+        let store = getStore();
+        try {
+          const response = await axios.get(store.api_url + "category");
+          setStore({ categories: response?.data });
+        } catch (error) {
+          console.log(error);
+        }
+      },
       search: async (texto) => {
         let store = getStore();
         try {
-          const response = await axios.get(store.api_url + "products/find/"+ texto);
-          setStore({ searchResults: response.data })
-          setStore({search: texto})
+          const response = await axios.get(
+            store.api_url + "products/find/" + texto
+          );
+          setStore({ searchResults: response.data });
+          setStore({ search: texto });
         } catch (error) {
           console.log(error);
         }
