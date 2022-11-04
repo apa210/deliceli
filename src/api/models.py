@@ -49,7 +49,7 @@ class Usuarios(db.Model):
             "email": self.email,
             "telefono": self.telefono,
             "rol": self.rol,
-            "foto": self.foto,
+            "foto_usuario": self.foto,
             "direccion": self.direccion,
             "facebook": self.facebook,
             "twitter": self.twitter,
@@ -79,8 +79,8 @@ class Productos(db.Model):
             "nombre": self.nombre,
             "descripcion": self.descripcion,
             "precio": self.precio,
-            "cantidad": self.cantidad,
-            "foto": self.foto,
+            "cantidad_producto": self.cantidad,
+            "foto_producto": self.foto,
             "cocina_id": self.cocina_id,
             # do not serialize the password, its a security breach
         }
@@ -132,12 +132,18 @@ class Carritos(db.Model):
             "producto_id": self.producto_id,
             "cocina_id": self.cocina_id,
             "fecha": self.fecha,
-            "cantidad": self.cantidad,
+            "cantidad_carrito": self.cantidad,
             "precio_unitario": self.precio_unitario,
             "total": self.total,
             "confirmado": self.confirmado,
             # do not serialize the password, its a security breach
         }
+    def serialize_cocinero(self):
+        cocina = Usuarios.query.filter_by(id=self.cocina_id).first()
+        return cocina.serialize()
+    def serialize_producto(self):
+        producto = Productos.query.filter_by(id=self.producto_id).first()
+        return producto.serialize()
 
 class Puntuaciones(db.Model):
     id = db.Column(db.Integer, primary_key=True)

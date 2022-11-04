@@ -166,24 +166,29 @@ def add_product_to_cart():
 @api.route('/cart/productsCart/<int:user_id>', methods=['GET'])
 def get_all_products_cart_to_user(user_id):
 
-    productos = db.session.query(Productos,Carritos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
+    # productos = db.session.query(Productos,Carritos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
 
-    if productos is None:
+    carritos = Carritos.query.filter_by(usuario_id=user_id, confirmado=False).all()
+    print("$$$$$$$$Carritos: " + str(carritos))
+
+    if carritos is None:
         response_body = {
                     "msg": "El carrito no tiene productos"
                 }
         return jsonify(response_body), 400
     
-    results = list(map(lambda item: {
-                                    "nombre": item[0].nombre,
-                                    "descripcion": item[0].descripcion,
-                                    "cantidad_user": item[1].cantidad,
-                                    "precio_unitario": item[1].precio_unitario,
-                                    "total": item[1].total,
-                                    "cocina_id": item[0].cocina_id,
-                                    "foto": item[0].foto,
-                                    "cantidad_stock": item[0].cantidad
-                                    }, productos))
+    results = list(map(lambda item: {**item.serialize(),**item.serialize_cocinero(),**item.serialize_producto()}, carritos))
+    # results = list(map(lambda item: {
+    #                                 "nombre": item[0].nombre,
+    #                                 "descripcion": item[0].descripcion,
+    #                                 "cantidad_user": item[1].cantidad,
+    #                                 "precio_unitario": item[1].precio_unitario,
+    #                                 "total": item[1].total,
+    #                                 "cocina_id": item[0].cocina_id,
+    #                                 "foto": item[0].foto,
+    #                                 "cantidad_stock": item[0].cantidad
+    #                                 }, productos))
+
     return jsonify(results), 200
 
 
