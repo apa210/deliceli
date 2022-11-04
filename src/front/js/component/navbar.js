@@ -30,7 +30,9 @@ useEffect ( () =>
 
   return (
     <>
-      <nav className="navbar p-3 navbar-expand-lg bg-light">
+
+    
+      <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             DeliCeli.uy
@@ -44,7 +46,7 @@ useEffect ( () =>
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"><i className="fas fa-bars"></i></span> 
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">

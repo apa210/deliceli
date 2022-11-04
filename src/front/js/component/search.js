@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const Search = () => {
     return (
-        <form className="d-flex" role="search">
+        <form className="d-flex mb-4" role="search">
             <input
                 className="form-control me-2"
                 type="search"

@@ -36,9 +36,11 @@ export const Home = () => {
   return (
     <>
       <section>
-        <div className="container-fluid bgimage text-center p-5 align-baseline">
-          <div className="container col-6 p-5 pt-5 mt-5">
-            <h1 className="p-2">
+        <div className="container-fluid bgimage text-center">
+          <div className="container col-lg-6">
+        
+            <h1 className="p-5">
+              <br/><br/>
               Encuentra en nuestra tienda ecológica alimentación bio sin
               añadidos, sin gluten, vegana.
             </h1>
@@ -48,6 +50,7 @@ export const Home = () => {
               mismos para atender cada desafío que la comunidad celíaca
               requiere, poniendo énfasis en ofrecer productos sanos y seguros.
             </p>
+
             <form className="d-flex mt-5" role="search">
               <input
                 className="form-control me-2"
@@ -59,6 +62,8 @@ export const Home = () => {
                 Buscar
               </button>
             </form>
+       
+
           </div>
         </div>
       </section>

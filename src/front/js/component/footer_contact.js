@@ -7,7 +7,7 @@ const Footer_contact = () => {
       <section>
         <div className="p-2 main-color-bg p-5">
           <div className="row">
-            <div className="col-8">
+            <div className="col-lg-8">
               <h2 className="text-light mt-4 px-5 mx-5 p-3">
                 Buscamos facilitar la vida de las personas con Enfermedad
                 Celíaca, intolerancia al gluten o alergias.
