@@ -93,6 +93,30 @@ def delete_cart_user(user_id):
     return jsonify(response_body), 400
 
 
+
+@api.route('/cart/deletedProduct/<int:user_id>/<int:product_id>', methods=['DELETE'])
+def delete_product_cart_user(user_id,product_id):
+    body = json.loads(request.data)
+
+    query_carritos = Carritos.query.filter_by(usuario_id=user_id, producto_id=product_id, confirmado=False).first()
+    print(query_carritos)
+    
+    if query_carritos is not None:
+        db.session.delete(query_carritos)
+        db.session.commit()
+        response_body = {
+                "msg": "deleted product cart"
+            }
+
+        return jsonify(response_body), 200
+
+    response_body = {
+            "msg": "Not exist"
+        }
+    return jsonify(response_body), 400
+
+
+
         # Crear un carrito - POST
 # Ejemplo POST:
 # {"usuario_id":"2","producto_id": "1","cocina_id": "1","fecha": "2/11/2022 15:36","cantidad": "2","precio_unitario": "200","total": "400"}
