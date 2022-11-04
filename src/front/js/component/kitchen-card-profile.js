@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 
 export const KitchenCardProfile = (props) => {
   return (
-    <div className="card mb-5" style={{ width: "24rem" }}>
-      <img src={props?.obj?.foto} className="card-img-top img-thumbnail" />
+    <div className="card mb-5">
+      <img
+        src={props?.obj?.foto_usuario}
+        className="card-img-top img-thumbnail"
+      />
       <div className="card-body p-5">
         <h5 className="card-title">{props?.obj?.user_name}</h5>
         <p className="card-text">
@@ -14,7 +17,10 @@ export const KitchenCardProfile = (props) => {
           Milena Sin Gluten es una Gastropub que significa: Comida casera con un
           toque gourmet. Cocina Sin Gluten, Sin Lactosa, Vegana.
         </p>
-        <Link to={"/pages/single-kitchen/" + props?.obj?.id} className="btn btn-primary me-2">
+        <Link
+          to={"/pages/single-kitchen/" + props?.obj?.id}
+          className="btn btn-primary me-2"
+        >
           Leer mas...
         </Link>
       </div>

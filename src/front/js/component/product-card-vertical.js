@@ -19,7 +19,7 @@ export const ProductCardVertical = (props) => {
   };
 
   useEffect(() => {
-    kitchen_api()
+    kitchen_api();
   }, [kitchen]);
 
   return (
@@ -27,7 +27,7 @@ export const ProductCardVertical = (props) => {
       {/* producto  */}
 
       <div className="card mt-4" style={{ width: "18rem" }}>
-        <img src={props?.obj?.foto} className="card-img-top" />
+        <img src={props?.obj?.foto_producto} className="card-img-top" />
         <div className="card-body p-3">
           <h5 className="card-title">{props?.obj?.nombre}</h5>
           <button type="button" className="btn btn-light">
@@ -54,7 +54,10 @@ export const ProductCardVertical = (props) => {
             <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al
             carrito
           </button>
-          <Link to={"/pages/single-product/" + props?.obj?.id} className="btn btn-outline-primary mt-2 mb-2">
+          <Link
+            to={"/pages/single-product/" + props?.obj?.id}
+            className="btn btn-outline-primary mt-2 mb-2"
+          >
             Leer mas{" "}
           </Link>
         </div>
