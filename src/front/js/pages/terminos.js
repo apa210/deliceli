@@ -27,7 +27,7 @@ export const Terminos = () => {
           <br /> <hr />
           <br />
           <div className="row">
-            <div className="col">
+            <div className="col-lg-6">
               Gracias por visitar la página de términos y condiciones (los
               Términos y Condiciones”) de DELICELI.UY. El acceso a y uso de
               cualquiera de nuestros sitios web, DELICELI.UY, y/o a todos los
@@ -61,7 +61,7 @@ export const Terminos = () => {
               <br />
               <br />
             </div>
-            <div className="col">
+            <div className="col-lg-6">
               Ningún vínculo a cualquiera de los Sitios web de DELICELI.UY puede
               crearse sin autorización expresa y por escrito de DELICELI.UY .
               Los usuarios de cualquiera de los Sitios web de DELICELI.UY pueden

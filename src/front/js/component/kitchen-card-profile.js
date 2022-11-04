@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const KitchenCardProfile = (props) => {
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card mb-5" style={{ width: "24rem" }}>
       <img src={props?.obj?.foto} className="card-img-top img-thumbnail" />
       <div className="card-body p-5">
         <h5 className="card-title">{props?.obj?.user_name}</h5>

@@ -111,7 +111,7 @@ export const Contact = (props) => {
               </div>
             </div>
 
-            <div className="col-8 mt-4">
+            <div className="col-lg-8 mt-4">
               <div className="container">
                 <div className="row d-flex justify-content-center">
                   <div>
