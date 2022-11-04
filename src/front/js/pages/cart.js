@@ -61,7 +61,7 @@ export const Cart = (props) => {
 
                       <div className="container">
                         <div className="row">
-                          <div className="col-4 mt-3">
+                          <div className="col-6 col-lg-4 mt-3">
                             <div className="col">
                               <div className="input-group">
                                 <span className="input-group-btn">
@@ -143,7 +143,7 @@ export const Cart = (props) => {
 
                       <div className="container">
                         <div className="row">
-                          <div className="col-4 mt-3">
+                          <div className="col-6 col-lg-4 mt-3">
                             <div className="col">
                               <div className="input-group">
                                 <span className="input-group-btn">
@@ -199,7 +199,7 @@ export const Cart = (props) => {
             </div>{" "}
             {/* single product  */}
             {/* col-sidebar  */}
-            <div className="col-4">
+            <div className="col-lg-4">
               {/* sidebar  */}
 
               <div className="card">

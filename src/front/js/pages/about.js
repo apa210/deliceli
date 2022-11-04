@@ -62,7 +62,7 @@ export const About = () => {
 
           <div className="container text-center mt-5 mb-5">
             <div className="row mt-5">
-              <div className="col-3 ">
+              <div className="col-lg-3 mb-5 ">
                 {/* perfil  */}
 
                 <div className="card border-0">
@@ -86,7 +86,7 @@ export const About = () => {
 
                 {/* perfil  */}
               </div>
-              <div className="col-3">
+              <div className="col-lg-3 mb-5">
                 {/* perfil  */}
 
                 <div className="card border-0">
@@ -109,7 +109,7 @@ export const About = () => {
 
                 {/* perfil  */}
               </div>
-              <div className="col-3">
+              <div className="col-lg-3 mb-5">
                 {/* perfil  */}
 
                 <div className="card border-0">
@@ -132,7 +132,7 @@ export const About = () => {
 
                 {/* perfil  */}
               </div>
-              <div className="col-3">
+              <div className="col-lg-3 mb-5">
                 {/* perfil  */}
 
                 <div className="card border-0">

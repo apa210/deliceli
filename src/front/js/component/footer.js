@@ -42,25 +42,33 @@ export const Footer = () => {
 
         <hr />
 
-        <div className="container ">
-          <div className="row">
-            <div className="col-10">
-              <p className="pt-4 pb-4">
+
+        <div className="container">
+  <div className="row">
+    <div className="col-8">
+    <p className="pt-4 pb-4">
                 Hecho con <i className="fa fa-heart text-danger" /> por{" "}
                 <Link to="/pages/about">Noelia, Analía, Elías y Aparicio.</Link>
               </p>
-            </div>
+    </div>
+    <div className="col">
+    <h4 className="pt-4 pb-4">
 
-            <div className="col text-right">
-              <h4 className="pt-4 pb-4">
-                <i className="fab fa-facebook m-2"></i>{" "}
-                <i className="fab fa-instagram m-2"></i>{" "}
-                <i className="fab fa-linkedin m-2"></i>{" "}
-                <i className="fab fa-whatsapp m-2"></i>
-              </h4>
-            </div>
-          </div>
-        </div>
+<ul className="list-group list-group-horizontal">
+<li className="list-group-item"><i className="fab fa-facebook m-2"></i></li>
+<li className="list-group-item"> <i className="fab fa-instagram m-2"></i></li>
+<li className="list-group-item"><i className="fab fa-linkedin m-2"></i></li>
+<li className="list-group-item"><i className="fab fa-whatsapp m-2"></i></li>
+</ul>
+
+</h4>
+    </div>
+
+  </div>
+</div>
+
+
+        
       </footer>
     </>
   );
