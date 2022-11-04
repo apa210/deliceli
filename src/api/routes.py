@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import random
 import json
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos
+from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -175,6 +175,19 @@ def get_all_products_cart_to_user(user_id):
                                     "total": item[1].total,
                                     }, productos))
     return jsonify(results), 200
+
+
+
+# ------------------- Categorias -----------------
+
+@api.route('/category', methods=['GET'])
+def get_all_categorys():
+    categorias = Categorias.query.all()
+    results = list(map(lambda item: item.serialize(), categorias))
+
+    return jsonify(results), 200
+
+
 
 # ----------                                User rutes                              ----------
 
