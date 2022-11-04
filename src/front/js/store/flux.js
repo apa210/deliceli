@@ -16,6 +16,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       AllProductsOfKitchen: [],
     },
     actions: {
+      quit_product: (prod) => {
+        let store = getStore();
+        store.cart.splice(prod, 1);
+        setStore({
+          cart: store.cart,
+        });
+      },
       savedContact: async (
         nombre,
         departamento,
@@ -233,19 +240,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               auth: false,
             });
-            // setStore({
-            //   profile: {                         // pasarlo a getProfile(), añadir el validate-token
-            //     email: "",
-            //     user_name: "",
-            //     first_name: "",
-            //     last_name: "",
-            //     rol: "",
-            //   },
-            // });
           }
         } catch (error) {
           if (error.code === "ERR_BAD_REQUEST") {
-            // alert(error.response?.data?.message);
             setStore({
               auth: false,
             });
