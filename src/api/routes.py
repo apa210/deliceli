@@ -135,19 +135,22 @@ def add_product_to_cart():
 @api.route('/cart/productsCart/<int:user_id>', methods=['GET'])
 def get_all_products_cart_to_user(user_id):
 
-    productos = db.session.query(Productos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
+    productos = db.session.query(Productos,Carritos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
 
     if productos is None:
         response_body = {
                     "msg": "El carrito no tiene productos"
                 }
         return jsonify(response_body), 400
-
-    results = list(map(lambda item: item.serialize(), productos))
+    
+    results = list(map(lambda item: {
+                                    "nombre": item[0].nombre,
+                                    "descripcion": item[0].descripcion,
+                                    "cantidad": item[1].cantidad,
+                                    "precio_unitario": item[1].precio_unitario,
+                                    "total": item[1].total,
+                                    }, productos))
     return jsonify(results), 200
-
-
-
 
 # ----------                                User rutes                              ----------
 
