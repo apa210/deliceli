@@ -177,9 +177,12 @@ def get_all_products_cart_to_user(user_id):
     results = list(map(lambda item: {
                                     "nombre": item[0].nombre,
                                     "descripcion": item[0].descripcion,
-                                    "cantidad": item[1].cantidad,
+                                    "cantidad_user": item[1].cantidad,
                                     "precio_unitario": item[1].precio_unitario,
                                     "total": item[1].total,
+                                    "cocina_id": item[0].cocina_id,
+                                    "foto": item[0].foto,
+                                    "cantidad_stock": item[0].cantidad
                                     }, productos))
     return jsonify(results), 200
 
