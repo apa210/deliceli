@@ -29,6 +29,7 @@ export const Products = (props) => {
         <div className="container-fluid bgimage-about   p-5 align-baseline">
           <div className="container">
             <h1 className="mt-5 text-center">Nuestros Productos</h1>
+            
           </div>
         </div>
       </section>
@@ -44,9 +45,10 @@ export const Products = (props) => {
 
         <div className="container">
           <div className="d-flex">
-            <div className="col-3">
+            <div className="col-lg-3 me-5">
               <Sidebar />
             </div>
+           
             <div className="row">{map_products}</div>
           </div>
         </div>

@@ -2,125 +2,104 @@
   background-color: #67807c !important;
 }
 
-
 p {
-    font-size: 16px !important;
-    font-family: 'Nunito', sans-serif;
-    
-    }
-    
-    body {
-        font-family: 'Mali', cursive;
-    
-    }
-
-
-a {
-    color: #363636 !important;
-
+  font-size: 16px !important;
+  font-family: "Nunito", sans-serif;
 }
 
+body {
+  font-family: "Mali", cursive;
+}
+
+a {
+  color: #363636 !important;
+}
 
 .main-color-bg {
-
-    background-color: #70908B !important;
+  background-color: #70908b !important;
 }
 
 .main-color {
-
-    color: #70908B !important;
+  color: #70908b !important;
 }
 
 .btn-outline-primary {
-    color: #70908B;
-    border-color: #70908B;
+  color: #70908b;
+  border-color: #70908b;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #70908B;
-    border-color: #70908B;
+  color: #fff;
+  background-color: #70908b;
+  border-color: #70908b;
 }
 
 .bgimage-contacto {
-  width:100%;
-  height:240px;
-  background: url('https://sintropia.com.uy/desarrollo/contacto.png');
+  width: 100%;
+  height: 240px;
+  background: url("https://sintropia.com.uy/desarrollo/contacto.png");
   background-repeat: no-repeat;
   background-position: left;
-  background-size:cover;
-  background-color: #F4F5F7;
-
+  background-size: cover;
+  background-color: #f4f5f7;
 }
 
-
 .bgimage {
-    width:100%;
-    height:700px;
-    background: url('https://sintropia.com.uy/desarrollo/home.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size:cover;
-    background-attachment: fixed;
-  }
+  width: 100%;
+  height: 700px;
+  background: url("https://sintropia.com.uy/desarrollo/home.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
 
-  
+.bgimage-about {
+  width: 100%;
+  height: 240px;
+  background: url("https://sintropia.com.uy/desarrollo/bg-t1.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: cover;
+  background-color: #f4f5f7;
+}
 
+.bgimage-about2 {
+  width: 100%;
+  height: 240px;
+  background: url("https://sintropia.com.uy/desarrollo/about2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #f4f5f7;
+}
 
-  .bgimage-about {
-    width:100%;
-    height:240px;
-    background: url('https://sintropia.com.uy/desarrollo/bg-t1.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size:contain;
-    background-color: #F4F5F7;
+.bgimage-single-cocina2 {
+  width: 100%;
+  height: 240px;
+  background: url("https://www.theculinaryacademy.org/wp-content/uploads/2020/02/shutterstock_562219663.jpg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+  background-color: #f4f5f7;
+}
 
-  }
+.bgimage-cocina {
+  width: 100%;
+  height: 240px;
+  background: url("https://sintropia.com.uy/desarrollo/cocina.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #f4f5f7;
+}
 
-  .bgimage-about2 {
-    width:100%;
-    height:240px;
-    background: url('https://sintropia.com.uy/desarrollo/about2.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size:cover;
-    background-color: #F4F5F7;
-
-  }
-
-  
-  .bgimage-single-cocina2 {
-    width:100%;
-    height:240px;
-    background: url('https://www.theculinaryacademy.org/wp-content/uploads/2020/02/shutterstock_562219663.jpg');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size:cover;
-    background-color: #F4F5F7;
-
-  }
-
-
-  .bgimage-cocina {
-    width:100%;
-    height:240px;
-    background: url('https://sintropia.com.uy/desarrollo/cocina.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size:cover;
-    background-color: #F4F5F7;
-
-  }
-
-
-  .bgimage-single-cocina {
-    width:100%;
-    height:240px;
-    background: url('https://sintropia.com.uy/desarrollo/bg-t1.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size:cover;
-    background-color: #F4F5F7;
-
-  }
+.bgimage-single-cocina {
+  width: 100%;
+  height: 240px;
+  background: url("https://sintropia.com.uy/desarrollo/bg-t1.png");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+  background-color: #f4f5f7;
+}
