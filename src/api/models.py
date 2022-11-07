@@ -36,7 +36,7 @@ class Usuarios(db.Model):
     instragram = db.Column(db.String(250), nullable=True)
     dribble = db.Column(db.String(250), nullable=True)
     pinterest = db.Column(db.String(250), nullable=True)
-    descripcion = db.Column(db.String(250), nullable=True)
+    descripcion = db.Column(db.String(1000), nullable=True)
     
     def __repr__(self):
         return '<Usuarios %r>' % self.id
