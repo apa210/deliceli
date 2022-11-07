@@ -18,7 +18,6 @@ export const SearchResults = () => {
       </div>
     );
   });
-
   return (
     <>
       <section>
@@ -29,7 +28,15 @@ export const SearchResults = () => {
         </div>
       </section>
       <section className="container">
-        <div className="row p-5">{map_products}</div>
+        {map_products.length == 0 ? (
+          <div className="text-center pb-5">
+            <h5>
+              No hemos encontrado ningún resultado que coincida con la búsqueda.
+            </h5>
+          </div>
+        ) : (
+          <div className="row p-5">{map_products}</div>
+        )}
       </section>
 
       <Footer_contact />
