@@ -36,6 +36,7 @@ class Usuarios(db.Model):
     instragram = db.Column(db.String(250), nullable=True)
     dribble = db.Column(db.String(250), nullable=True)
     pinterest = db.Column(db.String(250), nullable=True)
+    descripcion = db.Column(db.String(250), nullable=True)
     
     def __repr__(self):
         return '<Usuarios %r>' % self.id
@@ -54,9 +55,10 @@ class Usuarios(db.Model):
             "facebook": self.facebook,
             "twitter": self.twitter,
             "linkedin": self.linkedin,
-            "instragram": self.instragram,
+            "instagram": self.instragram,
             "dribble": self.dribble,
             "pinterest": self.pinterest,
+            "descripcion": self.descripcion,
             # do not serialize the password, its a security breach
         }
 
