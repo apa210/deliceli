@@ -32,18 +32,18 @@ export const Sidebar = () => {
           <div className="card-body p-5">
             <h5 className="card-title pb-4">Categorías </h5>
 
+         
+            {map_categories}
+
             <li
               onClick={() => button_category(0)}
-              className="mt-2"
+              className="btn btn-primary mt-4"
               type="button"
             >
               Mostrar todos
             </li>
-            {map_categories}
 
-            <button type="button" className="btn btn-primary me-2 mt-5">
-              <i className="fa fa-cart-plus d-inline mx-2"></i> Ver carrito{" "}
-            </button>
+         
           </div>
         </div>
       </div>

@@ -68,7 +68,7 @@ export const SingleKitchen = () => {
       </section>
 
       <section className="pt-5">
-        <div className="container mt-5 p-2 ">
+        <div className="container mt-3 mb-5 p-5 p-2 ">
           <div className="card mb-3">
             <div className="row g-0">
               <div className="col-md-6">
