@@ -28,12 +28,12 @@ export const Search = () => {
         placeholder="Buscar"
         aria-label="Buscar"
       />
-      <button onClick={searchButton} className="btn btn-outline-success me-5 rounded-pill ps-4 pe-4">
-      <i class="fas fa-search"></i> 
+      <button
+        onClick={searchButton}
+        className="btn btn-outline-success me-5 rounded-pill ps-4 pe-4"
+      >
+        <i className="fas fa-search"></i>
       </button>
-
-
-       
     </div>
   );
 };

@@ -21,6 +21,29 @@ const getState = ({ getStore, getActions, setStore }) => {
       val_category: false,
     },
     actions: {
+      update_cart: async (prod_id, quantity, price) => {
+        console.log("holaa");
+        let store = getStore();
+        const actions = getActions();
+        actions.validateToken();
+        try {
+          if (store.auth == true) {
+            const response = await axios.put(
+              store.api_url + "cart/editProduct",
+              {
+                usuario_id: store?.profile?.id,
+                producto_id: prod_id,
+                cantidad: quantity,
+                total: price,
+              }
+            );
+            console.log(response);
+            window.location.reload();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
       getProductsOfCategory: async (category_id) => {
         let store = getStore();
         console.log(category_id);
@@ -62,12 +85,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      quit_product: (prod) => {
+      quit_product: async (prod, prod_id) => {
         let store = getStore();
-        store.cart.splice(prod, 1);
-        setStore({
-          cart: store.cart,
-        });
+
+        try {
+          const response = await fetch(
+            store.api_url +
+              "cart/deletedProduct/" +
+              store?.profile?.id +
+              "/" +
+              prod_id,
+            {
+              method: "DELETE",
+              body: JSON.stringify({
+                prod_id: prod_id,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if (response.status === 200) {
+            store.cart.splice(prod, 1);
+            setStore({
+              cart: store.cart,
+            });
+          } else {
+            window.location.reload();
+          }
+        } catch (err) {
+          console.log(err);
+        }
       },
       savedContact: async (
         nombre,

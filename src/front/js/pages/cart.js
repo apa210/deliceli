@@ -4,11 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Footer_contact from "../component/footer_contact";
 
-export const Cart = (props) => {
+export const Cart = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
-
-  const [count, setCount] = useState(0);
   const [total, setTotal] = useState("");
 
   const products = [];
@@ -17,25 +14,75 @@ export const Cart = (props) => {
     console.log("has pagado");
   };
 
-  const delete_product = (prod) => {
-    console.log("has eliminado el producto: " + prod);
-    actions?.quit_product(prod);
+  const update_cart = () => {
+    for (let index = 0; index < products.length; index++) {
+      // const element = array[index];
+      setTimeout(() => {
+        actions.update_cart(
+          products[index]?.id,
+          products[index]?.quantity,
+          products[index]?.price
+        );
+      }, 1000);
+    }
   };
 
-  const mod_quantity = (prod, operation) => {
-    console.log("has " + operation + " al " + prod);
+  const delete_product = (prod, prod_id) => {
+    actions?.quit_product(prod, prod_id);
   };
 
-  // console.log(store?.cart[0]);
+  const mod_quantity = (prod, operation, value_1, max_quantity) => {
+    if (operation === "add") {
+      if (document.getElementById(prod).value < max_quantity) {
+        return (
+          document.getElementById(prod).value++,
+          (products[prod].price =
+            document.getElementById(prod).value * products[prod].price_unit),
+          console.log(products[prod].price),
+          (products[prod].quantity = document.getElementById(prod).value),
+          console.log(products[prod].quantity)
+        );
+      }
+    }
+    if (operation === "remove") {
+      if (document.getElementById(prod).value > 1) {
+        return (
+          document.getElementById(prod).value--,
+          (products[prod].price =
+            document.getElementById(prod).value * products[prod].price_unit),
+          console.log(products[prod].price),
+          (products[prod].quantity = document.getElementById(prod).value),
+          console.log(products[prod].quantity)
+        );
+      }
+    }
+    if (operation === "initial") {
+      let theInput = document.getElementById(prod);
+      return (theInput.value = value_1);
+    }
+  };
+
   const map_products = store?.cart.map((item, index) => {
-    if (store?.cart[0] !== []) {
+    if (store?.cart[0] !== [] && store?.cart.length > 0) {
       return (
-        products.push({ name: item?.nombre, price: item?.total }),
+        products.push({
+          name: item?.nombre,
+          price:
+            item?.cantidad_carrito > item?.cantidad_producto
+              ? item?.precio_unitario * item?.cantidad_producto
+              : item?.total,
+          price_unit: item?.precio_unitario,
+          id: item?.id,
+          quantity:
+            item?.cantidad_carrito > item?.cantidad_producto
+              ? item?.cantidad_producto
+              : item?.cantidad_carrito,
+        }),
         (
           <div key={index + item + index}>
             <div className="card mb-5">
               <div className="row g-0">
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <img
                     // imgane del producto
                     src={item?.foto_producto}
@@ -50,7 +97,7 @@ export const Cart = (props) => {
                     <div className="text-muted mb-2">
                       {" "}
                       {/* nombre de la cocina */}
-                      La Cocina de Milena Sin Gluten{" "}
+                      {item?.user_name}{" "}
                       <i className="fa fa-star text-warning"></i>
                       <i className="fa fa-star text-warning"></i>
                       <i className="fa fa-star text-warning"></i>
@@ -77,18 +124,36 @@ export const Cart = (props) => {
                                 </button>
                               </span>
                               <input
+                                id={index}
                                 onChange={() => {}}
                                 type="text"
                                 // id="quantity"
                                 name="quantity"
                                 className="form-control input-number"
-                                value={item?.cantidad_carrito}
+                                value={setTimeout(() => {
+                                  mod_quantity(
+                                    index,
+                                    "initial",
+                                    item?.cantidad_carrito >
+                                      item?.cantidad_producto
+                                      ? item?.cantidad_producto
+                                      : item?.cantidad_carrito
+                                  );
+                                }, 200)}
                                 min="1"
                                 max="100"
+                                disabled
                               />
                               <span className="input-group-btn">
                                 <button
-                                  onClick={() => mod_quantity(index, "add")}
+                                  onClick={() =>
+                                    mod_quantity(
+                                      index,
+                                      "add",
+                                      undefined,
+                                      item?.cantidad_producto
+                                    )
+                                  }
                                   type="button"
                                   className="quantity-right-plus btn btn-success btn-number"
                                   data-type="plus"
@@ -102,7 +167,7 @@ export const Cart = (props) => {
                         </div>
                         <div className="col mt-3 ">
                           <button
-                            onClick={() => delete_product(index)}
+                            onClick={() => delete_product(index, item?.id)}
                             type="button"
                             className="btn btn-light me-2"
                           >
@@ -119,35 +184,26 @@ export const Cart = (props) => {
           </div>
         )
       );
-    } else {
-      console.log("entre en el else");
     }
   });
-
-  const map_price = products.map((item, index) => {
-    return (
-      <div key={index + item + item}>
-        <li>
-          {item?.name} $ {item?.price}
-        </li>
-      </div>
-    );
-  });
-
-  // console.log(map_products);
-  // console.log(map_price);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    setCount(count + 1);
-  }, [store.cart]);
+  const map_price = products.map((item, index) => {
+    return (
+      <div key={index + item + item}>
+        <li>
+          {item?.name} $ <b>{item?.price}</b>
+        </li>
+      </div>
+    );
+  });
 
   useEffect(() => {
     setTotal(() => {
-      let map_ = products.map((item, index) => {
+      let map_ = products.map((item) => {
         return item.price;
       });
       let total_aux = 0;
@@ -182,7 +238,9 @@ export const Cart = (props) => {
                   <hr />
                   {map_price}
                   <hr />
-                  <li>Total $ {total}</li>
+                  <li>
+                    Total $ <b>{total}</b>
+                  </li>
 
                   <Link to="/pages/products">
                     <button type="button" className="btn btn-light me-2 mt-3 ">
@@ -190,6 +248,13 @@ export const Cart = (props) => {
                       Seguir comprando
                     </button>
                   </Link>
+
+                  <button
+                    onClick={() => update_cart()}
+                    className="btn me-2 mt-3 border-success"
+                  >
+                    Actualizar carrito
+                  </button>
 
                   <button
                     onClick={pay}
@@ -201,10 +266,7 @@ export const Cart = (props) => {
                   </button>
                 </div>
               </div>
-
-              {/* sidebar  */}
             </div>{" "}
-            {/* col-sidebar  */}
           </div>
         </div>
       </div>
