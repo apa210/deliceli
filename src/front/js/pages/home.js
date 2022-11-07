@@ -17,7 +17,7 @@ export const Home = () => {
   const map_products = store?.AllProducts.reverse().map((item, index) => {
     if (index < num_max) {
       return (
-        <div className="col" key={item + index + item}>
+        <div className="col-lg-4 col-sm-12" key={item + index + item}>
           <ProductCardVertical obj={item} />
         </div>
       );
@@ -27,7 +27,7 @@ export const Home = () => {
   const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
     if (index < num_max) {
       return (
-        <div className="col" key={item + index}>
+        <div className="col-lg-4 col-sm-12" key={item + index}>
           <KitchenCardProfile obj={item} />
         </div>
       );
@@ -90,7 +90,7 @@ export const Home = () => {
       </section>
 
       <section>
-        <div className="bg-light p-5">
+        <div className="bg-light p-lg-5">
           <div className="p-5 text-center">
             <h1 className="p-2 ">
               Nuestros Perfiles de Cocina Sin Gluten, Sin Lactosa, Vegana.

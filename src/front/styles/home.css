@@ -1,3 +1,19 @@
+.text-about {
+  margin-top: 30px;;
+  display: block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.img-fluid {
+height: 100%;
+}
+
+
 .bg-dark {
   background-color: #67807c !important;
 }

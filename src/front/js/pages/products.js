@@ -12,7 +12,7 @@ export const Products = (props) => {
 
   const map_products = store?.AllProducts.map((item, index) => {
     return (
-      <div className="col" key={item + index + item}>
+      <div className="col-sm-12 col-lg-4" key={item + index + item}>
         <ProductCardVertical obj={item} />
       </div>
     );
@@ -21,7 +21,7 @@ export const Products = (props) => {
   const map_products_Category = store?.AllProductsOfCategory.map(
     (item, index) => {
       return (
-        <div className="col" key={item + index + item}>
+        <div className="col-sm-12 col-lg-4" key={item + index + item}>
           <ProductCardVertical obj={item} />
         </div>
       );
@@ -51,19 +51,29 @@ export const Products = (props) => {
           </p>
         </div>
 
-        <div className="container">
-          <div className="d-flex">
-            <div className="col-lg-3 me-5">
-              <Sidebar />
-            </div>
-
-            <div className="row">
-              {store.val_category == false
+        <div class="container">
+  <div class="row">
+  
+       {/* col sidebar  */}
+    <div class="col col-lg-3 me-5">
+    <Sidebar />
+    </div>
+     {/* col sidebar  */}
+  
+   {/* col - productos  */}
+    <div class="col">
+    <div class="row">
+    {store.val_category == false
                 ? map_products
                 : map_products_Category}
-            </div>
-          </div>
-        </div>
+    </div>
+    </div>
+     {/* col - productos  */}
+  
+  </div>
+</div>
+
+       
       </div>
       <Footer_contact />
     </>

@@ -19,18 +19,21 @@ export const Search = () => {
   };
 
   return (
-    <div className="d-flex" role="search">
+    <div className="d-flex " role="search">
       <input
         value={searchProduct}
         onChange={(e) => setSearchProduct(e.target.value)}
-        className="form-control me-2"
+        className="form-control me-2 rounded-pill ps-5 pe-5 p-2"
         type="text"
         placeholder="Buscar"
         aria-label="Buscar"
       />
-      <button onClick={searchButton} className="btn btn-outline-success me-5">
-        Buscar
+      <button onClick={searchButton} className="btn btn-outline-success me-5 rounded-pill ps-4 pe-4">
+      <i class="fas fa-search"></i> 
       </button>
+
+
+       
     </div>
   );
 };

@@ -26,7 +26,7 @@ export const ProductCardVertical = (props) => {
     <>
       {/* producto  */}
 
-      <div className="card mt-4" style={{ width: "18rem" }}>
+      <div className="card mt-4">
         <img src={props?.obj?.foto_producto} className="card-img-top" />
         <div className="card-body p-3">
           <h5 className="card-title">{props?.obj?.nombre}</h5>
@@ -35,7 +35,7 @@ export const ProductCardVertical = (props) => {
             <i className="fas fa-heart mx-2"></i>AGREGAR A FAVORITOS{" "}
           </button>
 
-          <p className="card-text">{props?.obj?.descripcion}</p>
+          <p className="card-text text-about">{props?.obj?.descripcion}</p>
 
           <div className="text-muted mb-2">
             {" "}
