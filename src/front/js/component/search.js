@@ -4,30 +4,33 @@ import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Search = () => {
+  const [searchProduct, setSearchProduct] = useState("");
+  const navigate = useNavigate();
+  const { store, actions } = useContext(Context);
 
-    const [searchProduct, setSearchProduct] = useState("");
-    const navigate = useNavigate();
-    const { store, actions } = useContext(Context);
+  const searchButton = () => {
+    if (searchProduct == "") {
+      navigate("/");
+    } else {
+      actions.search(searchProduct);
+      setSearchProduct("");
+      navigate("/pages/search-results");
+    }
+  };
 
-    const searchButton = () => {
-        actions.search(searchProduct)
-        setSearchProduct("");
-        navigate("/pages/search-results")
-    };
-
-    return (
-        <div className="d-flex" role="search">
-            <input
-                value={searchProduct}
-                onChange={(e) => setSearchProduct(e.target.value)}
-                className="form-control me-2"
-                type="text"
-                placeholder="Buscar"
-                aria-label="Buscar"
-            />
-            <button onClick={searchButton} className="btn btn-outline-success me-5">
-                Buscar
-            </button>
-        </div>
-    );
+  return (
+    <div className="d-flex" role="search">
+      <input
+        value={searchProduct}
+        onChange={(e) => setSearchProduct(e.target.value)}
+        className="form-control me-2"
+        type="text"
+        placeholder="Buscar"
+        aria-label="Buscar"
+      />
+      <button onClick={searchButton} className="btn btn-outline-success me-5">
+        Buscar
+      </button>
+    </div>
+  );
 };
