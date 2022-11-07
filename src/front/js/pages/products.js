@@ -55,7 +55,7 @@ export const Products = (props) => {
   <div class="row">
   
        {/* col sidebar  */}
-    <div class="col col-lg-3 me-5">
+    <div class="col col-lg-3 me-2">
     <Sidebar />
     </div>
      {/* col sidebar  */}
