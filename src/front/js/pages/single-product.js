@@ -52,7 +52,7 @@ kitchen_api()
                 <div className="row g-0">
                   <div className="col-md-7">
                     <img
-                      src={store?.product?.foto}
+                      src={store?.product?.foto_producto}
                       className="img-fluid rounded-start"
                     />
                   </div>
@@ -84,7 +84,7 @@ kitchen_api()
                         Agregar al carrito
                       </button>
 
-                      <button type="button" className="btn btn-light">
+                      <button type="button" className="btn btn-light mb-3">
                         <i className="fas fa-heart d-inline"></i> Agregar a
                         Favoritos
                       </button>

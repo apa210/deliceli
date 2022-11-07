@@ -32,7 +32,7 @@ export const Kitchens = (props) => {
       </section>
 
       <section>
-        <div className="bg-light p-5">
+        <div className="bg-light p-lg-5">
           <div className="p-5 text-center">
             <h1 className="p-2 ">
               Nuestros Perfiles de Cocina Sin Gluten, Sin Lactosa, Vegana.

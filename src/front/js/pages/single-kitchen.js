@@ -73,7 +73,7 @@ export const SingleKitchen = () => {
             <div className="row g-0">
               <div className="col-md-6">
                 <img
-                  src={store?.kitchen?.foto}
+                  src={store?.kitchen?.foto_usuario}
                   className="img-fluid rounded-start"
                 />
               </div>
@@ -82,31 +82,9 @@ export const SingleKitchen = () => {
                   <h1 className="card-title">{store?.kitchen?.user_name}</h1>
                   <hr />
                   <br />
-                  {/* esto (lo de abajo) a desarrollar en la tabla Usuarios */}
-                  {/* {store?.kitchen?.descripcion} */}
-                  {/* texto(abajo) de ejemplo mientras no se desarrolle la descripcion de la cocina en el back */}
+            
                   <p className="card-text">
-                    Milena Sin Gluten es una Gastropub que significa: Comida
-                    casera con un toque gourmet.El lugar cuenta con dos sectores
-                    definidos.{" "}
-                  </p>
-
-                  <p className="card-text">
-                    {" "}
-                    La planta baja, que recibe con un cómodo living como para
-                    disfrutar de algún trago y picada, o por qué no una pizzeta
-                    acompañada por alguna de la gran variedad de cervezas
-                    heladas.{" "}
-                  </p>
-
-                  <p className="card-text">
-                    {" "}
-                    En su gran barra reinan los tragos con y sin alcohol,
-                    variedad de licuados y happy hour diarias acompañadas de
-                    música en vivo. En la planta alta se encuentra el sector
-                    destinado más que nada a reservas de grupos y mesas de
-                    comensales que buscan mayor intimidad y luz más tenue, ideal
-                    para una cena romántica o una comida en grupo.{" "}
+                  {store?.kitchen?.descripcion}
                   </p>
                   <h4 className="pt-4 pb-4">
                     Sigue a {store?.kitchen?.user_name} en redes

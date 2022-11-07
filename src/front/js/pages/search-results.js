@@ -21,18 +21,18 @@ export const SearchResults = () => {
   return (
     <>
       <section>
-        <div className="container-fluid bgimage-about text-center p-5 align-baseline mb-5">
+        <div className="container-fluid bgimage-about text-end p-5 align-baseline mb-5">
           <div className="container">
             <h1 className="mt-5">Resultados de la búsqueda: {store.search}</h1>
           </div>
         </div>
       </section>
-      <section className="container">
+      <section className="container mt-lg-5 mb-lg-5 pt-lg-5 pb-lg-5">
         {map_products.length == 0 ? (
-          <div className="text-center pb-5">
-            <h5>
+          <div className="text-center m-lg-5 p-lg-5">
+            <h1 className="text-center p-lg-5" >
               No hemos encontrado ningún resultado que coincida con la búsqueda.
-            </h5>
+            </h1>
           </div>
         ) : (
           <div className="row p-5">{map_products}</div>
