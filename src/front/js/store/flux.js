@@ -13,6 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       product: {},
       kitchen: {},
       cart: [],
+      total: "0",
       AllProductsOfKitchen: [],
       search: "",
       searchResults: [],
@@ -21,27 +22,69 @@ const getState = ({ getStore, getActions, setStore }) => {
       val_category: false,
     },
     actions: {
-      update_cart: async (prod_id, quantity, price) => {
-        console.log("holaa");
+      update_total: (operation, value) => {
+        let store = getStore();
+        let actions = getActions();
+        actions.validateToken();
+        if (store.auth == true) {
+          operation == "update" ? setStore({ total: value }) : null;
+          if (operation == "initial") {
+            let aux = () => {
+              let map_ = store.cart.map((item) => {
+                return item.total;
+              });
+              let total_aux = 0;
+              for (let i of map_) {
+                total_aux += i;
+              }
+              return total_aux;
+            };
+
+            setStore({ total: aux() });
+          }
+        }
+      },
+      update_cart: async (
+        prod_id,
+        quantity,
+        price,
+        unit_price,
+        operation,
+        value
+      ) => {
         let store = getStore();
         const actions = getActions();
         actions.validateToken();
-        try {
-          if (store.auth == true) {
-            const response = await axios.put(
-              store.api_url + "cart/editProduct",
-              {
-                usuario_id: store?.profile?.id,
-                producto_id: prod_id,
-                cantidad: quantity,
-                total: price,
-              }
-            );
-            console.log(response);
-            window.location.reload();
+        if (operation == "update") {
+          try {
+            if (store.auth == true) {
+              const response = await axios.put(
+                store.api_url + "cart/editProduct",
+                {
+                  usuario_id: store?.profile?.id,
+                  producto_id: prod_id,
+                  cantidad: quantity,
+                  total: price,
+                  precio_unitario: unit_price,
+                }
+              );
+              console.log(response);
+            }
+          } catch (error) {
+            console.log(error);
           }
-        } catch (error) {
-          console.log(error);
+          if (operation == "initial") {
+            if (store.auth == true) {
+              if (value != []) {
+                setStore({ cart: value });
+              }
+            }
+          }
+          if (operation == "update_flux") {
+            if (store.auth == true) {
+              setStore({ cart: value });
+            }
+          }
         }
       },
       getProductsOfCategory: async (category_id) => {

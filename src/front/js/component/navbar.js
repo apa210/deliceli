@@ -1,5 +1,5 @@
-import React, {useContext, useEffect, useState} from "react";
-import { Link, useNavigate  } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 import { Login } from "./login";
@@ -9,29 +9,50 @@ import { ForgetPassword } from "./forget-password";
 import { Search } from "./search";
 
 export const Navbar = () => {
-
-  const {store, actions}= useContext(Context);
+  const { store, actions } = useContext(Context);
   const [name, setName] = useState("sin nombre");
 
   const navigate = useNavigate();
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     let onLogged = actions.logout();
-    if(!onLogged){
+    if (!onLogged) {
       navigate("/");
     }
-  }
+  };
 
-useEffect ( () =>
-{
-  setName(store?.profile?.first_name)
-}
-,[store.profile])
+  useEffect(() => {
+    setName(store?.profile?.first_name);
+  }, [store.profile]);
+
+  const delete_product = (prod, prod_id) => {
+    actions?.quit_product(prod, prod_id);
+  };
+
+  const map_cart = store.cart.map((item, index) => {
+    return (
+      <li key={index + item?.nombre + index + index}>
+        <div className="d-flex justify-content-between">
+          <Link
+            className="dropdown-item "
+            to={"/pages/single-product/" + item?.producto_id}
+          >
+            <div>
+              {item?.nombre}: {item?.cantidad_carrito} ${" "}
+              {item?.precio * item?.cantidad_carrito}{" "}
+            </div>
+          </Link>
+          <i
+            onClick={() => delete_product(index, item?.id)}
+            className="far fa-trash-alt d-inline ms-2 pe-2 mt-2 align-items-center"
+          ></i>
+        </div>
+      </li>
+    );
+  });
 
   return (
     <>
-
-    
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
@@ -46,16 +67,14 @@ useEffect ( () =>
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"><i className="fas fa-bars"></i></span> 
+            <span className="navbar-toggler-icon">
+              <i className="fas fa-bars"></i>
+            </span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/"
-                >
+                <Link className="nav-link active" aria-current="page" to="/">
                   Inicio
                 </Link>
               </li>
@@ -80,8 +99,8 @@ useEffect ( () =>
                 </Link>
               </li>
             </ul>
-            { <Search/> }
-            {store.auth ?
+            {<Search />}
+            {store.auth ? (
               <ul className="navbar-nav mb-2 mb-lg-0">
                 <li className="nav-item dropdown">
                   <Link
@@ -96,42 +115,24 @@ useEffect ( () =>
                   </Link>
 
                   <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Empanadas: $ 320{" "}
-                        <i className="far fa-trash-alt d-inline mx-2"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Empanadas: $ 320{" "}
-                        <i className="far fa-trash-alt d-inline mx-2"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Empanadas: $ 320{" "}
-                        <i className="far fa-trash-alt d-inline mx-2"></i>
-                      </Link>
-                    </li>
+                    {map_cart}
 
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Total - $ 2330
-                      </Link>
-                    </li>
-                
-                    
-                    <Link className="nav-link" to="pages/cart">    <button type="button" className="btn btn-primary mt-2 ms-4 mb-2 ps-2 pe-4">
-                   <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Ver carrito
-          </button></Link>
+                    <li className="dropdown-item">Total - $ {store.total}</li>
+
+                    <Link className="nav-link" to="pages/cart">
+                      {" "}
+                      <button
+                        type="button"
+                        className="btn btn-primary mt-2 ms-4 mb-2 ps-2 pe-4"
+                      >
+                        <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
+                        Ver carrito
+                      </button>
+                    </Link>
                   </ul>
-     
-
-
                 </li>
                 <li className="nav-item dropdown">
                   <Link
@@ -147,32 +148,39 @@ useEffect ( () =>
                   </Link>
                   <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
                     <li>
-                      <Link className="dropdown-item" to="/pages/client-account">
+                      <Link
+                        className="dropdown-item"
+                        to="/pages/client-account"
+                      >
                         {" "}
-                        <i className="fas fa-cog d-inline mx-2"></i> 
+                        <i className="fas fa-cog d-inline mx-2"></i>
                         Tu Cuenta
                       </Link>
                     </li>
                     <li>
-                        <Link className="dropdown-item" to="/pages/orders">
-                          {" "}
-                          <i className="fas fa-utensils d-inline mx-2"></i>
-                          Tus pedidos
-                        </Link>
-                      </li>
-                    <li> 
-                        <Link className="dropdown-item" to="/pages/favorites">
-                          {" "}
-                          <i className="fas fa-heart d-inline mx-2"></i> 
-                          Tus Favoritos
-                        </Link>
+                      <Link className="dropdown-item" to="/pages/orders">
+                        {" "}
+                        <i className="fas fa-utensils d-inline mx-2"></i>
+                        Tus pedidos
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/pages/favorites">
+                        {" "}
+                        <i className="fas fa-heart d-inline mx-2"></i>
+                        Tus Favoritos
+                      </Link>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
                       {" "}
-                      <Link className="dropdown-item" to="" onClick={() => handleLogout()}>
+                      <Link
+                        className="dropdown-item"
+                        to=""
+                        onClick={() => handleLogout()}
+                      >
                         {" "}
                         <i className="fas fa-sign-out-alt d-inline mx-2"></i>
                         Cerrar Sesión
@@ -181,22 +189,43 @@ useEffect ( () =>
                   </ul>
                 </li>
               </ul>
-            :
+            ) : (
               <>
-                <button type="button" className="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Iniciar Sesión</button>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  Iniciar Sesión
+                </button>
 
-                <button type="button" className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdropSignUp">Registrarse</button>
+                <button
+                  type="button"
+                  className="btn btn-primary me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdropSignUp"
+                >
+                  Registrarse
+                </button>
 
                 {/* Boton de restablecer contraseña, necesario para que funcione modal */}
-                <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdropForgetPassword">Recuperar contraseña</button>
+                <button
+                  type="button"
+                  className="btn btn-primary d-none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdropForgetPassword"
+                >
+                  Recuperar contraseña
+                </button>
               </>
-            }
+            )}
           </div>
         </div>
       </nav>
       <Login />
-      <SignUp/>
-      <ForgetPassword/>
+      <SignUp />
+      <ForgetPassword />
     </>
   );
 };
