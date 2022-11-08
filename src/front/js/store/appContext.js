@@ -39,7 +39,37 @@ const injectContext = (PassedComponent) => {
       if (state.store.auth == true) {
         state.actions
           .getProfile()
-          .then(() => state.actions.getCart(state.store.profile?.id));
+          .then(() => state.actions.getCart(state.store.profile?.id))
+          .then(() => {
+            if (window.location.pathname !== "/pages/cart") {
+              console.log("ok");
+              state.actions.update_total("initial", undefined);
+            }
+          });
+        // .then(() =>
+        //   console.log(state.store.total, () => {
+        //     let map_ = state.store.cart.map((item) => {
+        //       return item.total;
+        //     });
+        //     let total_aux = 0;
+        //     for (let i of map_) {
+        //       total_aux += i;
+        //     }
+        //     return total_aux;
+        //   })
+        // );
+        // .then(() =>
+        //   state.actions.update_total(() => {
+        //     let map_ = state.store.cart.map((item) => {
+        //       return item.total;
+        //     });
+        //     let total_aux = 0;
+        //     for (let i of map_) {
+        //       total_aux += i;
+        //     }
+        //     return total_aux;
+        //   })
+        // );
       }
     }, [state.store.auth]);
 
