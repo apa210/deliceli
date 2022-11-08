@@ -5,7 +5,6 @@ import { Context } from "../store/appContext";
 import { Login } from "./login";
 import { SignUp } from "./sign-up";
 import { ForgetPassword } from "./forget-password";
-// import { Search } from "react-router-dom";
 import { Search } from "./search";
 
 export const Navbar = () => {
@@ -14,6 +13,7 @@ export const Navbar = () => {
 
   const navigate = useNavigate();
 
+  // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
     if (!onLogged) {
@@ -29,6 +29,7 @@ export const Navbar = () => {
     actions?.quit_product(prod, prod_id);
   };
 
+  // Se obtienen productos del carrito
   const map_cart = store.cart.map((item, index) => {
     return (
       <li key={index + item?.nombre + index + index}>
@@ -53,6 +54,9 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* Inicio de Navbar */}
+
+      {/* Inicio del navbar que se muestra a todos */}
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
@@ -100,95 +104,160 @@ export const Navbar = () => {
               </li>
             </ul>
             {<Search />}
+            {/* fIN del navbar que se muestra a todos */}
+
             {store.auth ? (
-              <ul className="navbar-nav mb-2 mb-lg-0">
-                <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    to="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {" "}
-                    <i className="fa fa-cart-plus d-inline mx-2"></i> Carrito
-                  </Link>
-
-                  <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
-                    {map_cart}
-
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li className="dropdown-item">Total - $ {store.total}</li>
-
-                    <Link className="nav-link" to="pages/cart">
+              store?.profile?.rol == "cliente" ? (
+                // Inicio del navbar de clientes
+                <ul className="navbar-nav mb-2 mb-lg-0">
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
                       {" "}
-                      <button
-                        type="button"
-                        className="btn btn-primary mt-2 ms-4 mb-2 ps-2 pe-4"
-                      >
-                        <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
-                        Ver carrito
-                      </button>
+                      <i className="fa fa-cart-plus d-inline mx-2"></i> Carrito
                     </Link>
-                  </ul>
-                </li>
-                <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    to="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {" "}
-                    <i className="fas fa-user-circle d-inline mx-2"></i>
-                    Hola, {name}!
-                  </Link>
-                  <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        to="/pages/client-account"
-                      >
+
+                    <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
+                      {map_cart}
+
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li className="dropdown-item">Total - $ {store.total}</li>
+
+                      <Link className="nav-link" to="pages/cart">
                         {" "}
-                        <i className="fas fa-cog d-inline mx-2"></i>
-                        Tu Cuenta
+                        <button
+                          type="button"
+                          className="btn btn-primary mt-2 ms-4 mb-2 ps-2 pe-4"
+                        >
+                          <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
+                          Ver carrito
+                        </button>
                       </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/pages/orders">
-                        {" "}
-                        <i className="fas fa-utensils d-inline mx-2"></i>
-                        Tus pedidos
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/pages/favorites">
-                        {" "}
-                        <i className="fas fa-heart d-inline mx-2"></i>
-                        Tus Favoritos
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
+                    </ul>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
                       {" "}
-                      <Link
-                        className="dropdown-item"
-                        to=""
-                        onClick={() => handleLogout()}
-                      >
+                      <i className="fas fa-user-circle d-inline mx-2"></i>
+                      Hola, {name}!
+                    </Link>
+                    <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          to="/pages/client-account"
+                        >
+                          {" "}
+                          <i className="fas fa-cog d-inline mx-2"></i>
+                          Tu Cuenta
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/pages/orders">
+                          {" "}
+                          <i className="fas fa-utensils d-inline mx-2"></i>
+                          Tus pedidos
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/pages/favorites">
+                          {" "}
+                          <i className="fas fa-heart d-inline mx-2"></i>
+                          Tus Favoritos
+                        </Link>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
                         {" "}
-                        <i className="fas fa-sign-out-alt d-inline mx-2"></i>
-                        Cerrar Sesión
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+                        <Link
+                          className="dropdown-item"
+                          to=""
+                          onClick={() => handleLogout()}
+                        >
+                          {" "}
+                          <i className="fas fa-sign-out-alt d-inline mx-2"></i>
+                          Cerrar Sesión
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              ) : (
+                // fIN del navbar de clientes
+                // Inicio del navbar de cocina
+                <ul className="navbar-nav mb-2 mb-lg-0">
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {" "}
+                      <i className="fas fa-user-circle d-inline mx-2"></i>
+                      Hola, {name}!
+                    </Link>
+                    <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          to="/pages/kitchen-account"
+                        >
+                          {" "}
+                          <i className="fas fa-cog d-inline mx-2"></i>
+                          Tu Cuenta
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/pages/kitchen-plates">
+                          {" "}
+                          <i class="fas fa-store d-inline mx-2"></i>
+                          Tu menú
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/pages/kitchen-orders">
+                          {" "}
+                          <i className="fas fa-utensils d-inline mx-2"></i>
+                          Tus pedidos
+                        </Link>
+                      </li>
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        {" "}
+                        <Link
+                          className="dropdown-item"
+                          to=""
+                          onClick={() => handleLogout()}
+                        >
+                          {" "}
+                          <i className="fas fa-sign-out-alt d-inline mx-2"></i>
+                          Cerrar Sesión
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              )
+              // fIN del navbar de cocina
             ) : (
               <>
                 <button
@@ -226,6 +295,7 @@ export const Navbar = () => {
       <Login />
       <SignUp />
       <ForgetPassword />
+      {/* fIN de Navbar */}
     </>
   );
 };
