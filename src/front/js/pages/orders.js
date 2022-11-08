@@ -1,17 +1,36 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Orders = (props) => {
+export const Orders = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
+  const navigate = useNavigate();
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    let onLogged = actions.logout();
+    if (!onLogged) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  };
+
   useEffect(() => {
+    // No da acceso a favoritos sin estar logueado
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+
+    // Al cargar la página, se desplaza hacia arriba
     window.scrollTo(0, 0);
   }, []);
 
-  
   return (
     <>
       <section>
@@ -38,7 +57,7 @@ export const Orders = (props) => {
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                    Hola, Elías!
+                    Hola, {store.profile.first_name}!
                   </a>
 
                   <button
@@ -50,7 +69,9 @@ export const Orders = (props) => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                   >
-                    <span className="navbar-toggler-icon"><i className="fas fa-bars"></i></span>
+                    <span className="navbar-toggler-icon">
+                      <i className="fas fa-bars"></i>
+                    </span>
                   </button>
                   <div
                     className="collapse navbar-collapse"
@@ -83,7 +104,11 @@ export const Orders = (props) => {
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="#">
+                        <Link
+                          className="nav-link"
+                          to="#"
+                          onClick={() => handleLogout()}
+                        >
                           {" "}
                           <i className="fas fa-sign-out-alt d-inline mx-2"></i>
                           Cerrar Sesión

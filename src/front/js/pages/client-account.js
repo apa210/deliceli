@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const ClientAccount = (props) => {
+export const ClientAccount = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
@@ -13,22 +13,21 @@ export const ClientAccount = (props) => {
   const handleLogout = () => {
     let onLogged = actions.logout();
     if (!onLogged) {
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
     }
   };
 
   useEffect(() => {
-    actions.validateToken();
-
+    // No da acceso a la cuenta del cliente sin estar logueado
     if (store.auth == false) {
       setTimeout(() => {
         navigate("/");
       }, 100);
     }
-  }, []);
 
-
-  useEffect(() => {
+    // Al cargar la página, se desplaza hacia arriba
     window.scrollTo(0, 0);
   }, []);
 
@@ -71,7 +70,9 @@ export const ClientAccount = (props) => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                   >
-                    <span className="navbar-toggler-icon"><i className="fas fa-bars"></i></span>
+                    <span className="navbar-toggler-icon">
+                      <i className="fas fa-bars"></i>
+                    </span>
                   </button>
                   <div
                     className="collapse navbar-collapse"
@@ -388,7 +389,7 @@ export const ClientAccount = (props) => {
                   </div>
                 </div>
                 <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
-                <button type="button" className="btn btn-danger btn-lg mb-3">
+                  <button type="button" className="btn btn-danger btn-lg mb-3">
                     Eliminar Cuenta
                   </button>
                   <button type="button" className="btn btn-primary btn-lg mb-3">
