@@ -26,7 +26,7 @@ export const SingleKitchen = () => {
   useEffect(() => {
     setTimeout(() => {
       setFacebook(store?.kitchen?.facebook);
-      setInstagram(store?.kitchen?.instragram);
+      setInstagram(store?.kitchen?.instagram);
       setLinkedin(store?.kitchen?.linkedin);
       setTwitter(store?.kitchen?.twitter);
     }, 1000);

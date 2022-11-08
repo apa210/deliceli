@@ -227,7 +227,7 @@ export const Navbar = () => {
                       <li>
                         <Link className="dropdown-item" to="/pages/kitchen-plates">
                           {" "}
-                          <i class="fas fa-store d-inline mx-2"></i>
+                          <i className="fas fa-store d-inline mx-2"></i>
                           Tu menú
                         </Link>
                       </li>
