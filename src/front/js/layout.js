@@ -20,6 +20,7 @@ import { SearchResults } from "./pages/search-results.js";
 import { Politicas } from "./pages/politicas.js";
 import { Terminos } from "./pages/terminos.js";
 import { OrderConfirmed } from "./pages/order-confirmed.js";
+import { Checkout } from "./pages/checkout";
 
 
 
@@ -62,6 +63,7 @@ const Layout = () => {
                         <Route element={<Politicas />} path="/pages/politicas" />
                         <Route element={<Terminos />} path="/pages/terminos" />
                         <Route element={<OrderConfirmed />} path="/pages/order-confirmed" />
+                        <Route element={<Checkout />} path="/pages/checkout" />
                         
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
