@@ -22,6 +22,17 @@ export const ProductCardVertical = (props) => {
     kitchen_api();
   }, [kitchen]);
 
+  const addCart = () => {
+    // console.log("has añadido un producto al carrito");
+    // console.log(props?.obj);
+    // console.log(props?.obj?.id, props?.obj?.cocina_id, props?.obj?.precio);
+    actions.buy_product(
+      props?.obj?.id,
+      props?.obj?.cocina_id,
+      props?.obj?.precio
+    );
+  };
+
   return (
     <>
       {/* producto  */}
@@ -50,7 +61,11 @@ export const ProductCardVertical = (props) => {
           </div>
 
           <h2>$ {props?.obj?.precio}</h2>
-          <button type="button" className="btn btn-primary me-2">
+          <button
+            onClick={addCart}
+            type="button"
+            className="btn btn-primary me-2"
+          >
             <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al
             carrito
           </button>

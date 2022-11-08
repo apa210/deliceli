@@ -51,29 +51,25 @@ export const Products = (props) => {
           </p>
         </div>
 
-        <div class="container">
-  <div class="row">
-  
-       {/* col sidebar  */}
-    <div class="col col-lg-3 me-2">
-    <Sidebar />
-    </div>
-     {/* col sidebar  */}
-  
-   {/* col - productos  */}
-    <div class="col">
-    <div class="row">
-    {store.val_category == false
-                ? map_products
-                : map_products_Category}
-    </div>
-    </div>
-     {/* col - productos  */}
-  
-  </div>
-</div>
+        <div className="container">
+          <div className="row">
+            {/* col sidebar  */}
+            <div className="col col-lg-3 me-2">
+              <Sidebar />
+            </div>
+            {/* col sidebar  */}
 
-       
+            {/* col - productos  */}
+            <div className="col">
+              <div className="row">
+                {store.val_category == false
+                  ? map_products
+                  : map_products_Category}
+              </div>
+            </div>
+            {/* col - productos  */}
+          </div>
+        </div>
       </div>
       <Footer_contact />
     </>

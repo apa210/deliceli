@@ -73,17 +73,22 @@ const InvoiceCart = (props) => {
             </button>
           </Link>
 
-          <button
+          {/* <button
             onClick={() => update_cart()}
             className="btn me-2 mt-3 border-success"
           >
             Guardar borrador
-          </button>
+          </button> */}
 
-          <button onClick={pay} type="button" className="btn btn-primary mt-3">
+          <Link
+            to="/pages/checkout"
+            onClick={() => update_cart()}
+            type="button"
+            className="btn btn-primary mt-3 text-light"
+          >
             <i className="fas fa-money-check mx-2"></i>
             Pagar
-          </button>
+          </Link>
         </div>
       </div>
     </>

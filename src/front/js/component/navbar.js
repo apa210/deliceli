@@ -10,6 +10,11 @@ import { Search } from "./search";
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const [name, setName] = useState("sin nombre");
+  const [total, setTotal] = useState("");
+
+  useEffect(() => {
+    setTotal(store.total);
+  }, [store.total]);
 
   const navigate = useNavigate();
 
@@ -128,7 +133,7 @@ export const Navbar = () => {
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
-                      <li className="dropdown-item">Total - $ {store.total}</li>
+                      <li className="dropdown-item">Total - $ {total}</li>
 
                       <Link className="nav-link" to="pages/cart">
                         {" "}
@@ -225,14 +230,20 @@ export const Navbar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/pages/kitchen-plates">
+                        <Link
+                          className="dropdown-item"
+                          to="/pages/kitchen-plates"
+                        >
                           {" "}
                           <i className="fas fa-store d-inline mx-2"></i>
                           Tu menú
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/pages/kitchen-orders">
+                        <Link
+                          className="dropdown-item"
+                          to="/pages/kitchen-orders"
+                        >
                           {" "}
                           <i className="fas fa-utensils d-inline mx-2"></i>
                           Tus pedidos
@@ -257,8 +268,8 @@ export const Navbar = () => {
                   </li>
                 </ul>
               )
-              // fIN del navbar de cocina
             ) : (
+              // fIN del navbar de cocina
               <>
                 <button
                   type="button"
