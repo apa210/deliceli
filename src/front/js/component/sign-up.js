@@ -23,7 +23,7 @@ export const SignUp = () => {
   const { store, actions } = useContext(Context);
 
   const button_signup = () => {
-    if (password == repitPassword) {
+    if (password == repitPassword || password == "" || repitPassword == "") {
       if (
         first_name != "" &&
         last_name != "" &&
@@ -48,11 +48,12 @@ export const SignUp = () => {
               // Mensaje de alerta por registro exitoso
               setTimeout(() => {
                 showAlertEnd.current.classList.add("d-none");
-              }, 5000);
+              }, 3000);
               showAlertEnd.current.classList.remove("d-none");
               setLoginEnd("Registro exitoso.");
               setTimeout(() => {
                 closeModal.current.click();
+                location.reload();
               }, 2000);
             } else {
               // Mensaje de alerta por email ya registrado
@@ -67,7 +68,7 @@ export const SignUp = () => {
         // Mensaje de alerta si hay campos vacíos
         setTimeout(() => {
           showAlert.current.classList.add("d-none");
-        }, 5000);
+        }, 3000);
         showAlert.current.classList.remove("d-none");
         setLoginError("Debe completar todos los campos.");
       }
