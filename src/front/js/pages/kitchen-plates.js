@@ -8,27 +8,27 @@ export const KitchenPlates = (props) => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // // Función para cerrar sesión
-  // const handleLogout = () => {
-  //   let onLogged = actions.logout();
-  //   if (!onLogged) {
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 100);
-  //   }
-  // };
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    let onLogged = actions.logout();
+    if (!onLogged) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  };
 
-  // useEffect(() => {
-  //   // No da acceso a los platos sin estar logueado
-  //   if (store.auth == false) {
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 100);
-  //   }
+  useEffect(() => {
+    // No da acceso a los platos sin estar logueado
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
 
-  //   // Al cargar la página, se desplaza hacia arriba
-  //   window.scrollTo(0, 0);
-  // }, []);
+    // Al cargar la página, se desplaza hacia arriba
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -48,7 +48,7 @@ export const KitchenPlates = (props) => {
               <div className="my-5">
                 <h3>
                   {" "}
-                  <i className="fas fa-utensils d-inline mx-2"></i> Tus Platos
+                  <i className="fas fa-store d-inline mx-2"></i>Tu menú
                 </h3>
                 <hr />
               </div>
@@ -56,7 +56,7 @@ export const KitchenPlates = (props) => {
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                    Hola, Milena Sin Gluten!
+                    Hola, {store?.profile?.first_name}!
                   </a>
 
                   <button
@@ -87,16 +87,16 @@ export const KitchenPlates = (props) => {
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="/pages/kitchen-orders">
-                          <i className="fas fa-utensils d-inline mx-2"></i>Tus
-                          platos
+                        <Link className="nav-link" to="/pages/kitchen-plates">
+                          <i className="fas fa-store d-inline mx-2"></i>
+                          Tu menú
                         </Link>
                       </li>
 
                       <li className="nav-item">
                         {" "}
                         <Link className="nav-link" to="/pages/kitchen-orders">
-                          <i className="fas fa-heart d-inline mx-2"></i> Tus
+                          <i className="fas fa-utensils d-inline mx-2"></i> Tus
                           Pedidos
                         </Link>
                       </li>
@@ -106,7 +106,7 @@ export const KitchenPlates = (props) => {
                         <Link
                           className="nav-link"
                           to="#"
-                          // onClick={() => handleLogout()}
+                          onClick={() => handleLogout()}
                         >
                           {" "}
                           <i className="fas fa-sign-out-alt d-inline mx-2"></i>

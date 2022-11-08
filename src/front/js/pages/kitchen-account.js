@@ -8,27 +8,27 @@ export const KitchenAccount = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // // Función para cerrar sesión
-  // const handleLogout = () => {
-  //   let onLogged = actions.logout();
-  //   if (!onLogged) {
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 100);
-  //   }
-  // };
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    let onLogged = actions.logout();
+    if (!onLogged) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  };
 
-  // useEffect(() => {
-  //   // No da acceso a la cuenta de la cocina sin estar logueado
-  //   if (store.auth == false) {
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 100);
-  //   }
+  useEffect(() => {
+    // No da acceso a la cuenta de la cocina sin estar logueado
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
 
-  //   // Al cargar la página, se desplaza hacia arriba
-  //   window.scrollTo(0, 0);
-  // }, []);
+    // Al cargar la página, se desplaza hacia arriba
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -57,7 +57,7 @@ export const KitchenAccount = () => {
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                    Hola, Milena Sin Gluten!
+                    Hola, {store?.profile?.first_name}!
                   </a>
 
                   <button
@@ -89,15 +89,15 @@ export const KitchenAccount = () => {
                       <li className="nav-item">
                         {" "}
                         <Link className="nav-link" to="/pages/kitchen-plates">
-                          <i className="fas fa-utensils d-inline mx-2"></i>Tus
-                          platos
+                          <i className="fas fa-store d-inline mx-2"></i>
+                          Tu menú
                         </Link>
                       </li>
 
                       <li className="nav-item">
                         {" "}
                         <Link className="nav-link" to="/pages/kitchen-orders">
-                          <i className="fas fa-heart d-inline mx-2"></i> Tus
+                          <i className="fas fa-utensils d-inline mx-2"></i> Tus
                           Pedidos
                         </Link>
                       </li>
@@ -107,7 +107,7 @@ export const KitchenAccount = () => {
                         <Link
                           className="nav-link"
                           to="#"
-                          // onClick={() => handleLogout()}
+                          onClick={() => handleLogout()}
                         >
                           {" "}
                           <i className="fas fa-sign-out-alt d-inline mx-2"></i>
@@ -136,7 +136,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Nombre"
-                            defaultValue="Noelia"
+                            defaultValue={store?.profile?.first_name}
                           />
                         </div>
                         {/* Apellido  */}
@@ -147,18 +147,18 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Apellido"
-                            defaultValue="Irace"
+                            defaultValue={store?.profile?.last_name}
                           />
                         </div>
-                        {/* Teléfono  */}
+                        {/* Nombre de Usuario  */}
                         <div className="col-md-6">
-                          <label className="form-label">Teléfono *</label>
+                          <label className="form-label">Nombre de Usuario *</label>
                           <input
                             type="text"
                             className="form-control"
                             placeholder=""
-                            aria-label="Telefono"
-                            defaultValue="(+598) 3399 64 22"
+                            aria-label="NombreDeUsuario"
+                            defaultValue={store?.profile?.user_name}
                           />
                         </div>
                         {/* Celular  */}
@@ -169,7 +169,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Celular"
-                            defaultValue="(+598) 99 614 240"
+                            defaultValue={store?.profile?.telefono}
                           />
                         </div>
                         {/* Mail  */}
@@ -181,7 +181,7 @@ export const KitchenAccount = () => {
                             type="email"
                             className="form-control"
                             id="inputEmail4"
-                            defaultValue="noe.irace@gmail.com"
+                            defaultValue={store?.profile?.email}
                           />
                         </div>
                         {/*  Dirección  */}
@@ -192,7 +192,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Direccion"
-                            defaultValue="Calle 13 y 4, La Paloma, Rocha UY"
+                            defaultValue={store?.profile?.direccion}
                           />
                         </div>
 
@@ -206,7 +206,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Descripcion"
-                            defaultValue="Milena Sin Gluten es una Gastropub que significa: Comida casera con un toque gourmet. Cocina Sin Gluten, Sin Lactosa, Vegana."
+                            defaultValue={store?.profile?.descripcion}
                           />
                         </div>
                         {/*  Dirección  */}
@@ -275,7 +275,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Facebook"
-                            defaultValue="http://www.facebook.com"
+                            defaultValue={store?.profile?.facebook}
                           />
                         </div>
                         {/*Twitter  */}
@@ -289,7 +289,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Twitter"
-                            defaultValue="http://www.twitter.com"
+                            defaultValue={store?.profile?.twitter}
                           />
                         </div>
                         {/*Linkedin  */}
@@ -303,10 +303,10 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Linkedin"
-                            defaultValue="http://www.linkedin.com"
+                            defaultValue={store?.profile?.linkedin}
                           />
                         </div>
-                        {/*Instragram  */}
+                        {/*Instagram  */}
                         <div className="col-md-6">
                           <label className="form-label">
                             <i className="fab fa-fw fa-instagram text-instagram me-2"></i>
@@ -316,8 +316,8 @@ export const KitchenAccount = () => {
                             type="text"
                             className="form-control"
                             placeholder=""
-                            aria-label="Instragram"
-                            defaultValue="http://www.instragram.com"
+                            aria-label="Instagram"
+                            defaultValue={store?.profile?.instagram}
                           />
                         </div>
                         {/*Dribble  */}
@@ -331,7 +331,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Dribble"
-                            defaultValue="http://www.dribble.com"
+                            defaultValue={store.profile.dribble}
                           />
                         </div>
                         {/*Pinterest  */}
@@ -345,7 +345,7 @@ export const KitchenAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Pinterest"
-                            defaultValue="http://www.pinterest.com"
+                            defaultValue={store.profile.pinterest}
                           />
                         </div>
                       </div>{" "}

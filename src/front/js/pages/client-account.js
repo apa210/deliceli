@@ -58,7 +58,7 @@ export const ClientAccount = () => {
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
                   <a className="navbar-brand" href="#">
-                    Hola, {store.profile.first_name}!
+                    Hola, {store?.profile?.first_name}!
                   </a>
 
                   <button
@@ -137,7 +137,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Nombre"
-                            defaultValue={store.profile.first_name}
+                            defaultValue={store?.profile?.first_name}
                           />
                         </div>
                         {/* Apellido  */}
@@ -148,7 +148,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Apellido"
-                            defaultValue={store.profile.last_name}
+                            defaultValue={store?.profile?.last_name}
                           />
                         </div>
                         {/* Nombre de usuario  */}
@@ -161,7 +161,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Nombre_usuario"
-                            defaultValue={store.profile.user_name}
+                            defaultValue={store?.profile?.user_name}
                           />
                         </div>
                         {/* Celular  */}
@@ -172,7 +172,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Celular"
-                            defaultValue={store.profile.telefono}
+                            defaultValue={store?.profile?.telefono}
                           />
                         </div>
                         {/* Mail  */}
@@ -184,7 +184,7 @@ export const ClientAccount = () => {
                             type="email"
                             className="form-control"
                             id="inputEmail4"
-                            defaultValue={store.profile.email}
+                            defaultValue={store?.profile?.email}
                           />
                         </div>
                         {/*  Dirección  */}
@@ -195,7 +195,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Direccion"
-                            defaultValue={store.profile.direccion}
+                            defaultValue={store?.profile?.direccion}
                           />
                         </div>
                       </div>{" "}
@@ -262,7 +262,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Facebook"
-                            defaultValue={store.profile.facebook}
+                            defaultValue={store?.profile?.facebook}
                           />
                         </div>
                         {/*Twitter  */}
@@ -276,7 +276,7 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Twitter"
-                            defaultValue={store.profile.twitter}
+                            defaultValue={store?.profile?.twitter}
                           />
                         </div>
                         {/*Linkedin  */}
@@ -290,10 +290,10 @@ export const ClientAccount = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Linkedin"
-                            defaultValue={store.profile.linkedin}
+                            defaultValue={store?.profile?.linkedin}
                           />
                         </div>
-                        {/*Instragram  */}
+                        {/*Instagram  */}
                         <div className="col-md-6">
                           <label className="form-label">
                             <i className="fab fa-fw fa-instagram text-instagram me-2"></i>
@@ -303,8 +303,8 @@ export const ClientAccount = () => {
                             type="text"
                             className="form-control"
                             placeholder=""
-                            aria-label="Instragram"
-                            defaultValue={store.profile.instragram}
+                            aria-label="Instagram"
+                            defaultValue={store?.profile?.instagram}
                           />
                         </div>
                         {/*Dribble  */}
