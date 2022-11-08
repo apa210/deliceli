@@ -127,7 +127,7 @@ export const Checkout = () => {
                       aria-expanded="true"
                       aria-controls="collapseOne"
                     >
-                      Pago en efectivo
+                      Pago con tarjetas mediante MERCADO PAGO
                     </button>
                   </h2>
                   <div
@@ -137,9 +137,7 @@ export const Checkout = () => {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                      PagoEfectivo es el medio de pago para comprar por internet
-                      y pagar sin tarjeta. Realiza depósitos en efectivo en
-                      agencias o agentes o pagá tu entrega al repartidor.
+                      <img src="https://sintropia.com.uy/desarrollo/mpago.png" />
                     </div>
                   </div>
                 </div>
@@ -153,7 +151,7 @@ export const Checkout = () => {
                       aria-expanded="false"
                       aria-controls="collapseTwo"
                     >
-                      Transferencia bancaria directa
+                      Pago en efectivo
                     </button>
                   </h2>
                   <div
@@ -163,12 +161,10 @@ export const Checkout = () => {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                      Realiza tu pago directamente en nuestra cuenta bancaria.
-                      Tienes tiempo de hacerlo hasta 30 minutos después del
-                      pedido. Por favor, usa el número del pedido como
-                      referencia de pago y envía foto del comprobante de
-                      depósito a nuestro whatsapp. Tu pedido no se procesará
-                      hasta que se haya recibido el importe en nuestra cuenta.
+                      PagoEfectivo es el medio de pago para comprar por internet
+                      y pagar sin tarjeta. <br />
+                      <br /> Realiza depósitos en efectivo en agencias o agentes
+                      o pagá tu entrega al repartidor.
                     </div>
                   </div>
                 </div>
@@ -182,7 +178,7 @@ export const Checkout = () => {
                       aria-expanded="false"
                       aria-controls="collapseThree"
                     >
-                      Pago con tarjetas mediante MERCADO PAGO
+                      Transferencia bancaria directa
                     </button>
                   </h2>
                   <div
@@ -192,7 +188,15 @@ export const Checkout = () => {
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">
-                      <img src="https://sintropia.com.uy/desarrollo/mpago.png" />
+                      Realiza tu pago directamente en nuestra cuenta bancaria.
+                      Tienes tiempo de hacerlo hasta 30 minutos después del
+                      pedido. <br />
+                      <br />
+                      Por favor, usa el número del pedido como referencia de
+                      pago y envía foto del comprobante de depósito a nuestro
+                      whatsapp. <br /> <br />
+                      Tu pedido no se procesará hasta que se haya recibido el
+                      importe en nuestra cuenta.
                     </div>
                   </div>
                 </div>
