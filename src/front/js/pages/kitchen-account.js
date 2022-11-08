@@ -1,18 +1,35 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const KitchenAccount = (props) => {
+export const KitchenAccount = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+  const navigate = useNavigate();
 
+  // // Función para cerrar sesión
+  // const handleLogout = () => {
+  //   let onLogged = actions.logout();
+  //   if (!onLogged) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 100);
+  //   }
+  // };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   // No da acceso a la cuenta de la cocina sin estar logueado
+  //   if (store.auth == false) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 100);
+  //   }
 
-  
+  //   // Al cargar la página, se desplaza hacia arriba
+  //   window.scrollTo(0, 0);
+  // }, []);
+
   return (
     <>
       <section>
@@ -52,7 +69,9 @@ export const KitchenAccount = (props) => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                   >
-                    <span className="navbar-toggler-icon"><i className="fas fa-bars"></i></span>
+                    <span className="navbar-toggler-icon">
+                      <i className="fas fa-bars"></i>
+                    </span>
                   </button>
                   <div
                     className="collapse navbar-collapse"
@@ -85,7 +104,11 @@ export const KitchenAccount = (props) => {
 
                       <li className="nav-item">
                         {" "}
-                        <Link className="nav-link" to="#">
+                        <Link
+                          className="nav-link"
+                          to="#"
+                          // onClick={() => handleLogout()}
+                        >
                           {" "}
                           <i className="fas fa-sign-out-alt d-inline mx-2"></i>
                           Cerrar Sesión
