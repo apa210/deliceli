@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       api_url:
-        "https://3001-apa210-deliceli-cfusbv71ezu.ws-us74.gitpod.io/api/",
+        "https://3001-apa210-deliceli-cfusbv71ezu.ws-us75.gitpod.io/api/",
       auth: false,
       val: false,
       val_contact: false,
@@ -20,8 +20,100 @@ const getState = ({ getStore, getActions, setStore }) => {
       categories: [],
       AllProductsOfCategory: [],
       val_category: false,
+      auxBuy: undefined,
     },
     actions: {
+      buy_product: async (producto_id, cocina_id, precio_unitario) => {
+        let store = getStore();
+        let actions = getActions();
+        actions.validateToken();
+        if (store.auth == true) {
+          if (store.cart !== [] && store.cart.length != 0) {
+            console.log(store.cart);
+            store.cart.filter((item) => {
+              if (producto_id == item?.producto_id) {
+                setStore({ auxBuy: [item] });
+              }
+            });
+            // console.log(store.auxBuy);
+
+            if (
+              producto_id ===
+              (store.auxBuy == undefined
+                ? store.auxBuy
+                : store.auxBuy[0]?.producto_id)
+            ) {
+              // si el producto ya existe en el carrito
+              console.log("Filtro exitoso");
+
+              console.log(store.auxBuy);
+              let auxFunction = () => {
+                if (store.auxBuy != undefined) {
+                  let aux_aux = store.auxBuy.map((item) => {
+                    let aux_quantity = item.cantidad_carrito + 1;
+                    item.cantidad_carrito = aux_quantity;
+                    return item;
+                  });
+                  return aux_aux;
+                }
+              };
+
+              setStore({ auxBuy: auxFunction() });
+              actions.update_cart(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                "update_flux",
+                store.cart.filter((item, index) => {
+                  if (item !== store.auxBuy) {
+                    return item;
+                  }
+                })
+              );
+              actions.update_total("initial", undefined);
+            } else {
+              try {
+                const response = await axios.post(
+                  store.api_url + "cart/addProduct",
+                  {
+                    usuario_id: store?.profile?.id,
+                    producto_id: producto_id,
+                    cocina_id: cocina_id,
+                    cantidad: 1,
+                    precio_unitario: precio_unitario,
+                    total: precio_unitario,
+                  }
+                );
+                console.log(response);
+                window.location.reload();
+              } catch (error) {
+                console.log(error);
+              }
+            }
+          } else {
+            try {
+              const response = await axios.post(
+                store.api_url + "cart/addProduct",
+                {
+                  usuario_id: store?.profile?.id,
+                  producto_id: producto_id,
+                  cocina_id: cocina_id,
+                  cantidad: 1,
+                  precio_unitario: precio_unitario,
+                  total: precio_unitario,
+                }
+              );
+              console.log(response);
+              window.location.reload();
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        } else {
+          alert("Precisas logearte para añadir productos al carrito");
+        }
+      },
       update_total: (operation, value) => {
         let store = getStore();
         let actions = getActions();
@@ -31,7 +123,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (operation == "initial") {
             let aux = () => {
               let map_ = store.cart.map((item) => {
-                return item.total;
+                return item.cantidad_carrito * item.precio;
               });
               let total_aux = 0;
               for (let i of map_) {
@@ -73,23 +165,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           } catch (error) {
             console.log(error);
           }
-          if (operation == "initial") {
-            if (store.auth == true) {
-              if (value != []) {
-                setStore({ cart: value });
-              }
-            }
-          }
-          if (operation == "update_flux") {
-            if (store.auth == true) {
+        }
+        if (operation == "initial") {
+          if (store.auth == true) {
+            if (value != []) {
               setStore({ cart: value });
             }
+          }
+        }
+        if (operation == "update_flux") {
+          if (store.auth == true) {
+            setStore({ cart: value });
+            console.log("cart modificado");
+            console.log(value);
           }
         }
       },
       getProductsOfCategory: async (category_id) => {
         let store = getStore();
-        console.log(category_id);
 
         if (category_id === 0) {
           setStore({ val_category: false });
@@ -206,7 +299,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           });
           setStore({ AllProductsOfKitchen: result });
-          console.log(store.AllProductsOfKitchen);
         } catch (error) {
           console.log(error);
         }
