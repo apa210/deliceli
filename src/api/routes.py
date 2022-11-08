@@ -10,6 +10,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from sqlalchemy import func, text
+from datetime import datetime
 
 api = Blueprint('api', __name__)
 
@@ -126,7 +127,7 @@ def delete_product_cart_user(user_id,product_id):
 
         # Crear un carrito - POST
 # Ejemplo Body JSON POST:
-# {"usuario_id":"2","producto_id": "1","cocina_id": "1","fecha": "2/11/2022 15:36","cantidad": "2","precio_unitario": "200","total": "400"}
+# {"usuario_id":"2","producto_id": "1","cocina_id": "1","cantidad": "2","precio_unitario": "200","total": "400"}
 @api.route('/cart/addProduct', methods=['POST'])
 def add_product_to_cart():
     body = json.loads(request.data)
@@ -152,7 +153,9 @@ def add_product_to_cart():
         cart_aux = query_cart.serialize()
         cart_id = cart_aux["id_carrito"]
     
-    cart = Carritos(id=id, id_carrito=cart_id, usuario_id=body["usuario_id"], producto_id=body["producto_id"], cocina_id=body["cocina_id"], fecha=body["fecha"], cantidad=body["cantidad"], precio_unitario=body["precio_unitario"], total=body["total"], confirmado=False )
+    fecha_hora = datetime.now()
+
+    cart = Carritos(id=id, id_carrito=cart_id, usuario_id=body["usuario_id"], producto_id=body["producto_id"], cocina_id=body["cocina_id"], fecha=fecha_hora, cantidad=body["cantidad"], precio_unitario=body["precio_unitario"], total=body["total"], confirmado=False )
 
     db.session.add(cart)
     db.session.commit()
@@ -196,7 +199,7 @@ def get_all_products_cart_to_user(user_id):
 
         # Editar un producto de un carrito de un usuario
 # Ejemplo Body JSON PUT:
-# {"usuario_id":"2","producto_id": "2","cantidad": "333","total": "999"}
+# {"usuario_id":"2","producto_id": "2","cantidad": "333","precio_unitario": "250","total": "999"}
 @api.route('/cart/editProduct', methods=['PUT'])
 def edit_product_cart_user():
     body = json.loads(request.data)
@@ -205,6 +208,7 @@ def edit_product_cart_user():
     
     if carrito is not None:
         carrito.cantidad = body["cantidad"]
+        carrito.precio_unitario = body["precio_unitario"]
         carrito.total = body["total"]
         db.session.commit()
         response_body = {
