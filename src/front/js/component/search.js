@@ -3,11 +3,13 @@ import axios from "axios";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 
+// Función que muestra el buscador en el navbar y en home
 export const Search = () => {
   const [searchProduct, setSearchProduct] = useState("");
-  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
 
+  // Si buscador está vacío, te redirecciona a home y sino, realiza la búsqueda
   const searchButton = () => {
     if (searchProduct == "") {
       navigate("/");

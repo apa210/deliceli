@@ -1,40 +1,44 @@
 import React, { useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Context } from "../store/appContext";
 
+// Función que abre modal para iniciar sesión
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
-  // Muestra alerta si hay campos vacios o incorrectos
+  // estado que guarda mensaje de error
   const [loginError, setLoginError] = useState("");
-  const showAlert = useRef("");
-  const closeModal = useRef();
-  // 
 
-  const { store, actions } = useContext(Context);
+  // useRef que acciona alerta
+  const showAlert = useRef("");
+
+  // useRef que acciona boton de cerrar modal
+  const closeModal = useRef();
 
   const button_login = () => {
     actions.login(email, password);
 
     setTimeout(() => {
+      // Si el usuario es válido, redirecciona a home, cierra modal y limpia input
       if (store.auth === true) {
         navigate("/");
         closeModal.current.click();
         setEmail("");
         setPassword("");
-      } else if (email == "" || password == "") {
-        // Mensaje de alerta si hay campos vacíos
+      }
+      // Si hay campos vacíos, muestra alerta de campos vacíos
+      else if (email == "" || password == "") {
         setTimeout(() => {
           showAlert.current.classList.add("d-none");
         }, 3000);
         showAlert.current.classList.remove("d-none");
         setLoginError("Hay campos vacíos.");
-      } else {
-        // Mensaje de alerta si hay campos incorrectos
+      }
+      // Si hay campos incorrectos, muestra alerta de campos incorrectos
+      else {
         setTimeout(() => {
           showAlert.current.classList.add("d-none");
         }, 3000);
@@ -58,13 +62,15 @@ export const Login = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-               {/* Inicio de Título */}
+              {/* Inicio de Título */}
               <label>
                 <h1 className="modal-title fs-5" id="staticBackdropLabel">
                   <b>Inicio de Sesión</b>
                 </h1>
               </label>
-               {/* fIN de Título */}
+              {/* fIN de Título */}
+
+              {/* Botón que hace el cierre de modal */}
               <button
                 type="button"
                 className="btn-close"
@@ -130,11 +136,11 @@ export const Login = () => {
                   />
                 </div>
                 {/* fIN de campo contraseña */}
-                
-                <Link 
+
+                <Link
                   data-bs-target="#staticBackdropForgetPassword"
                   data-bs-toggle="modal"
-                  to="" 
+                  to=""
                   className="text-center text-decoration-none"
                 >
                   ¿Olvidaste tu contraseña?

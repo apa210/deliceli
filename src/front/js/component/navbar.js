@@ -7,17 +7,13 @@ import { SignUp } from "./sign-up";
 import { ForgetPassword } from "./forget-password";
 import { Search } from "./search";
 
+// Función que muestra el navbar principal de la página
 export const Navbar = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const [name, setName] = useState("sin nombre");
   const [total, setTotal] = useState("");
-
-  useEffect(() => {
-    setTotal(store.total);
-  }, [store.total]);
-
-  const navigate = useNavigate();
-
+  
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -25,14 +21,22 @@ export const Navbar = () => {
       navigate("/");
     }
   };
-
-  useEffect(() => {
-    setName(store?.profile?.first_name);
-  }, [store.profile]);
-
+  
+  // activa función del flux.js, donde elimina un producto segú su ID
   const delete_product = (prod, prod_id) => {
     actions?.quit_product(prod, prod_id);
   };
+
+  //  trae el total del carrito y lo guarda en el estado setTotal
+  useEffect(() => {
+    setTotal(store.total);
+  }, [store.total]);
+
+
+  // trae el nombre del perfil y lo guarda en el estado setName
+  useEffect(() => {
+    setName(store?.profile?.first_name);
+  }, [store.profile]);
 
   // Se obtienen productos del carrito
   const map_cart = store.cart.map((item, index) => {
@@ -61,7 +65,7 @@ export const Navbar = () => {
     <>
       {/* Inicio de Navbar */}
 
-      {/* Inicio del navbar que se muestra a todos */}
+      {/* Inicio del navbar que se muestra a persona no logueada (Parte 1/2) */}
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
@@ -109,7 +113,7 @@ export const Navbar = () => {
               </li>
             </ul>
             {<Search />}
-            {/* fIN del navbar que se muestra a todos */}
+            {/* fIN del navbar que se muestra a persona no logueada (Parte 1/2) */}
 
             {store.auth ? (
               store?.profile?.rol == "cliente" ? (
@@ -270,6 +274,7 @@ export const Navbar = () => {
               )
             ) : (
               // fIN del navbar de cocina
+              // Inicio del navbar que se muestra a persona no logueada (Parte 2/2)
               <>
                 <button
                   type="button"
@@ -289,7 +294,9 @@ export const Navbar = () => {
                   Registrarse
                 </button>
 
-                {/* Boton de restablecer contraseña, necesario para que funcione modal */}
+                {/* Boton de restablecer contraseña, está oculto porque está 
+                conectado a modal de inicio de sesión pero es necesario para 
+                que funcione modal */}
                 <button
                   type="button"
                   className="btn btn-primary d-none"
@@ -299,6 +306,7 @@ export const Navbar = () => {
                   Recuperar contraseña
                 </button>
               </>
+              // fIN del navbar que se muestra a persona no logueada (Parte 2/2)
             )}
           </div>
         </div>
