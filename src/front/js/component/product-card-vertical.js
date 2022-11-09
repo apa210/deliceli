@@ -3,10 +3,14 @@ import axios from "axios";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
+// este componente de la pagina es el que se llena en varias Vistas para "mostrar"
+// varios productos en la misma. Permite interacciones con el usuario, como agregar al carrito
+// y a favoritos.
 export const ProductCardVertical = (props) => {
   const { store, actions } = useContext(Context);
-  const [kitchen, setKitchen] = useState();
 
+  // A CAMBIAR - pasarlo al flux; es una peticion a la API... consigue el nombre de la cocina
+  const [kitchen, setKitchen] = useState();
   let kitchen_api = async () => {
     try {
       const response = await axios.get(
@@ -21,11 +25,11 @@ export const ProductCardVertical = (props) => {
   useEffect(() => {
     kitchen_api();
   }, [kitchen]);
+  // mudar al flux.js   ^^^^^^^^^^^
 
+  // este "boton" llama a una funcion del flux.js... añade un producto al carrito
+  // más detallado en el flux.js
   const addCart = () => {
-    // console.log("has añadido un producto al carrito");
-    // console.log(props?.obj);
-    // console.log(props?.obj?.id, props?.obj?.cocina_id, props?.obj?.precio);
     actions.buy_product(
       props?.obj?.id,
       props?.obj?.cocina_id,
