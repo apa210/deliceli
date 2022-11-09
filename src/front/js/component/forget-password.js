@@ -1,8 +1,10 @@
 import React from "react";
 
+// Función que sirve para recuperar contraseña en usuario no logueado
 export const ForgetPassword = () => {
   return (
     <div
+      // Modal
       className="modal fade"
       id="staticBackdropForgetPassword"
       data-bs-backdrop="static"
@@ -14,9 +16,11 @@ export const ForgetPassword = () => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
+            {/* Inicio de Título */}
             <h1 className="modal-title fs-5" id="staticBackdropLabel">
               Recupera tu cuenta
             </h1>
+            {/* fIN de Título */}
             <button
               type="button"
               className="btn-close"
@@ -24,6 +28,7 @@ export const ForgetPassword = () => {
               aria-label="Close"
             ></button>
           </div>
+          {/* Inicio del cuerpo del modal */}
           <div className="modal-body text-center w-75 mx-auto">
             <i className="fas fa-user-lock fa-3x mb-3"></i>
             <h5 className="mb-3">¿Tienes problemas para entrar?</h5>
@@ -39,6 +44,7 @@ export const ForgetPassword = () => {
               aria-describedby="emailHelp"
             />
           </div>
+          {/* fIN del cuerpo del modal */}
           <div className="modal-footer justify-content-center p-3 mb-2">
             <button
               type="button"
