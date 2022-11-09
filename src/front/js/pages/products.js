@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ProductCardVertical } from "../component/product-card-vertical";
 import { Sidebar } from "../component/sidebar";
 import Footer_contact from "../component/footer_contact";
 
-export const Products = (props) => {
+export const Products = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
+  
+  // Al cargar la página, se desplaza hacia arriba
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
+  // trae los productos de la store del flux.js
   const map_products = store?.AllProducts.map((item, index) => {
     return (
       <div className="col-sm-12 col-lg-4" key={item + index + item}>
@@ -18,6 +22,7 @@ export const Products = (props) => {
     );
   });
 
+  // trae los productos según su categoría de la store del flux.js
   const map_products_Category = store?.AllProductsOfCategory.map(
     (item, index) => {
       return (
@@ -27,10 +32,6 @@ export const Products = (props) => {
       );
     }
   );
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>
@@ -62,6 +63,8 @@ export const Products = (props) => {
             {/* col - productos  */}
             <div className="col">
               <div className="row">
+                {/* Si se filtra aparecen los productos pertenecientes a esa categoría y
+                   si no se filtra, aparecen todos los productos */}
                 {store.val_category == false
                   ? map_products
                   : map_products_Category}

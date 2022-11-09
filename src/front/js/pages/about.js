@@ -1,11 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { Context } from "../store/appContext";
+import React, { useEffect } from "react";
 import "../../styles/home.css";
 import Footer_contact from "../component/footer_contact";
 
 export const About = () => {
-  const { store, actions } = useContext(Context);
-
+  // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -63,7 +61,7 @@ export const About = () => {
           <div className="container text-center mt-5 mb-5">
             <div className="row mt-5">
               <div className="col-lg-3 mb-5 ">
-                {/* perfil  */}
+                {/* Inicio de perfil de Analía */}
 
                 <div className="card border-0">
                   <img
@@ -84,10 +82,10 @@ export const About = () => {
                   </div>
                 </div>
 
-                {/* perfil  */}
+                {/* fIN de perfil de Analía  */}
               </div>
               <div className="col-lg-3 mb-5">
-                {/* perfil  */}
+                {/* Inicio de perfil de Aparicio  */}
 
                 <div className="card border-0">
                   <img
@@ -107,10 +105,10 @@ export const About = () => {
                   </div>
                 </div>
 
-                {/* perfil  */}
+                {/* fIN de perfil de Aparicio  */}
               </div>
               <div className="col-lg-3 mb-5">
-                {/* perfil  */}
+                {/* Inicio de perfil de Noelia  */}
 
                 <div className="card border-0">
                   <img
@@ -130,10 +128,10 @@ export const About = () => {
                   </div>
                 </div>
 
-                {/* perfil  */}
+                {/*  fIN de perfil de Noelia  */}
               </div>
               <div className="col-lg-3 mb-5">
-                {/* perfil  */}
+                {/*  Inicio de perfil de Elías  */}
 
                 <div className="card border-0">
                   <img
@@ -153,7 +151,7 @@ export const About = () => {
                   </div>
                 </div>
 
-                {/* perfil  */}
+                {/* fIN de perfil de Elías  */}
               </div>
             </div>
           </div>

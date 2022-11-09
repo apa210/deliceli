@@ -6,6 +6,7 @@ import Footer_contact from "../component/footer_contact";
 export const Politicas = () => {
   const { store, actions } = useContext(Context);
 
+   // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

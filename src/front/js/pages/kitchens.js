@@ -5,14 +5,16 @@ import { Context } from "../store/appContext";
 import { KitchenCardProfile } from "../component/kitchen-card-profile";
 import Footer_contact from "../component/footer_contact";
 
-export const Kitchens = (props) => {
+export const Kitchens = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
+   // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // trae las cocinas de la store del flux.js
   const map_kitchens = store?.AllKitchens.map((item, index) => {
     return (
       <div className="col-lg-4" key={item + index}>

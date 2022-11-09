@@ -7,10 +7,12 @@ import { ProductCardVertical } from "../component/product-card-vertical";
 export const SearchResults = () => {
   const { store, actions } = useContext(Context);
 
+  // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // trae los productos de la store del flux.js que coincidan con la búsqueda
   const map_products = store?.searchResults.map((item, index) => {
     return (
       <div className="col" key={item + index + item}>
@@ -28,6 +30,8 @@ export const SearchResults = () => {
         </div>
       </section>
       <section className="container mt-lg-5 mb-lg-5 pt-lg-5 pb-lg-5">
+        {/* El map devuelve 0, si en el buscador se ingresa algo que no existe en productos. 
+          Si existe devuelve el resultado del map*/}
         {map_products.length == 0 ? (
           <div className="text-center m-lg-5 p-lg-5">
             <h1 className="text-center p-lg-5" >
