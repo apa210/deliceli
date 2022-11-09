@@ -1,9 +1,10 @@
 import React, { useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-
 import { Context } from "../store/appContext";
 
+//  Función que abre modal para registrar un nuevo usuario
 export const SignUp = () => {
+  const { store, actions } = useContext(Context);
   const [first_name, set_first_name] = useState("");
   const [last_name, set_last_name] = useState("");
   const [email, set_email] = useState("");
@@ -12,17 +13,24 @@ export const SignUp = () => {
   const [password, set_password] = useState("");
   const [repitPassword, set_repitPassword] = useState("");
 
-  // Muestra alerta si hay campos vacios o incorrectos
+  // estado que guarda mensaje de error
   const [loginError, setLoginError] = useState("");
-  const [loginEnd, setLoginEnd] = useState("");
-  const showAlert = useRef("");
-  const showAlertEnd = useRef("");
-  const closeModal = useRef();
-  //
 
-  const { store, actions } = useContext(Context);
+  // estado que guarda mensaje de éxito
+  const [loginEnd, setLoginEnd] = useState("");
+
+  // useRef que acciona alerta de error
+  const showAlert = useRef("");
+
+  // useRef que acciona alerta de éxito
+  const showAlertEnd = useRef("");
+
+  // useRef que acciona boton de cerrar modal
+  const closeModal = useRef();
+
 
   const button_signup = () => {
+    // Verifica si las contraseñas coinciden
     if (password == repitPassword || password == "" || repitPassword == "") {
       if (
         first_name != "" &&
@@ -36,6 +44,7 @@ export const SignUp = () => {
         actions
           .signup(first_name, last_name, email, user_name, phone, password)
           .then(() => {
+            // Verifica si el email no está registrado
             if (store.val == true) {
               set_first_name("");
               set_last_name("");
@@ -45,7 +54,7 @@ export const SignUp = () => {
               set_password("");
               set_repitPassword("");
 
-              // Mensaje de alerta por registro exitoso
+              // Mensaje de alerta de éxito por registro y cierre de modal
               setTimeout(() => {
                 showAlertEnd.current.classList.add("d-none");
               }, 3000);
@@ -55,8 +64,9 @@ export const SignUp = () => {
                 closeModal.current.click();
                 location.reload();
               }, 2000);
-            } else {
-              // Mensaje de alerta por email ya registrado
+            } 
+            // Mensaje de alerta de error, si el email ya está registrado
+            else {
               setTimeout(() => {
                 showAlert.current.classList.add("d-none");
               }, 3000);
@@ -64,16 +74,18 @@ export const SignUp = () => {
               setLoginError("El email ya está registrado.");
             }
           });
-      } else {
-        // Mensaje de alerta si hay campos vacíos
+      } 
+      // Mensaje de alerta de error, si hay campos vacíos
+      else {
         setTimeout(() => {
           showAlert.current.classList.add("d-none");
         }, 3000);
         showAlert.current.classList.remove("d-none");
         setLoginError("Debe completar todos los campos.");
       }
-    } else {
-      // Mensaje de alerta si hay campos incorrectos
+    } 
+    // Mensaje de alerta de error, si las contraseñas no son iguales
+    else {
       setTimeout(() => {
         showAlert.current.classList.add("d-none");
       }, 5000);
@@ -113,7 +125,7 @@ export const SignUp = () => {
             </div>
             <div>
               <div className="modal-body text-center">
-                {/* Inicio de mensaje de alerta */}
+                {/* Inicio de mensaje de alerta de error */}
                 <div
                   className="alert alert-danger d-none"
                   ref={showAlert}
@@ -121,8 +133,8 @@ export const SignUp = () => {
                 >
                   {loginError}
                 </div>
-                {/* fIN de mensaje de alerta */}
-                {/* Inicio de mensaje de registro exitoso */}
+                {/* fIN de mensaje de alerta de error */}
+                {/* Inicio de alerta de éxito */}
                 <div
                   className="alert alert-success d-none"
                   ref={showAlertEnd}
@@ -130,7 +142,7 @@ export const SignUp = () => {
                 >
                   {loginEnd}
                 </div>
-                {/* fIN de mensaje de registro exitoso */}
+                {/* fIN de alerta de éxito */}
                 <div className="input-group mb-3">
                   {/* Inicio de campo Nombre */}
                   <input
