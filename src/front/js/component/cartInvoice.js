@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
 import { Context } from "../store/appContext";
 
+// este componente es la factura de la Vista Carrito que va actualizando segun la cantidad de productos
+// que contiene el carrito el precio total de los mismos y el precio total del conjunto de los productos.
 const InvoiceCart = (props) => {
   const { store, actions } = useContext(Context);
+
+  // el total (que va a pagar el usuario por su compra) de la suma del total de cada producto
   const [total, setTotal] = useState("");
 
-  const pay = () => {
-    console.log("has pagado");
-  };
-
   const update_cart = () => {
-    console.log("que se prenda todo >.<");
+    // esta funcion envia a la base el registro de como esta actualmente el carrito del usuario
+    // esta definida en el flux.js
     for (let index = 0; index < props.products.length; index++) {
       setTimeout(() => {
         actions.update_cart(
@@ -26,6 +26,7 @@ const InvoiceCart = (props) => {
     }
   };
 
+  // este map imprime el nombre del producto y su precio "total" segun la cantidad que especifique el usuario
   const map_price = props.products.map((item, index) => {
     return (
       <div key={index + item + item}>
@@ -37,6 +38,8 @@ const InvoiceCart = (props) => {
     );
   });
 
+  // este useEffect esta pendiente de los cambios en la variable "products" (cart.js)
+  // al este cambiar llama al setTotal para actualizar el total que muestra en pantalla
   useEffect(() => {
     setTotal(() => {
       let map_ = props.products.map((item) => {
@@ -50,6 +53,7 @@ const InvoiceCart = (props) => {
     });
   }, [props.products]);
 
+  // actualiza el total mostrado en el carrito del navbar.js
   useEffect(() => {
     actions.update_total("update", total);
   }, [total]);
@@ -60,9 +64,11 @@ const InvoiceCart = (props) => {
         <div className="card-body p-4">
           <h3 className="card-title pb-4">Resumen del Total</h3>
           <hr />
+          {/* el mapa */}
           {map_price}
           <hr />
           <li>
+            {/* el estado "total" */}
             Total $ <b>{total}</b>
           </li>
 
@@ -73,15 +79,9 @@ const InvoiceCart = (props) => {
             </button>
           </Link>
 
-          {/* <button
-            onClick={() => update_cart()}
-            className="btn me-2 mt-3 border-success"
-          >
-            Guardar borrador
-          </button> */}
-
           <Link
             to="/pages/checkout"
+            // llamada a una funcion
             onClick={() => update_cart()}
             type="button"
             className="btn btn-primary mt-3 text-light"

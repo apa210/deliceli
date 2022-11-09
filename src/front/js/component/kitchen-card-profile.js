@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
+// es una card que se imprime atraves de map's situados en varias Vistas
+// esta card se llena con el perfil del cocinero o chef o empresa que vende.
 export const KitchenCardProfile = (props) => {
   return (
     <div className="card mb-5">
