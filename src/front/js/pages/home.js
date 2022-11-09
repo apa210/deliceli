@@ -8,12 +8,14 @@ import Footer_contact from "../component/footer_contact";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+  let num_max = 3;
 
+  // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  let num_max = 3;
+  // trae los productos de la store del flux.js
   const map_products = store?.AllProducts.reverse().map((item, index) => {
     if (index < num_max) {
       return (
@@ -24,6 +26,7 @@ export const Home = () => {
     }
   });
 
+  // trae las cocinas de la store del flux.js
   const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
     if (index < num_max) {
       return (

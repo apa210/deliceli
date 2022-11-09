@@ -14,12 +14,16 @@ export const SingleKitchen = () => {
   const [instagram, setInstagram] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
-
+  
+  let num_max = 3;
   const scrollRef = useRef(null);
 
   useEffect(() => {
+    // Al cargar la página, se desplaza hacia arriba
     window.scrollTo(0, 0);
+    // usa la funcion del flux.js para traer los datos de una cocina con el ID
     actions.getKitchen(params?.id);
+    // usa la funcion del flux.js para traer los productos de una cocina con el ID
     actions.getAllProductsOfKitchen(params?.id);
   }, [params?.id]);
 
@@ -44,7 +48,6 @@ export const SingleKitchen = () => {
     }
   });
 
-  let num_max = 3;
   const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
     if (index < num_max) {
       return (

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const KitchenPlates = (props) => {
+export const KitchenPlates = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export const KitchenPlates = (props) => {
       <section>
         <div className="container bgimage-cocina p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-center">Cuenta tu cocina</h1>
+            <h1 className="mt-5 text-center">Tu cocina</h1>
           </div>
         </div>
       </section>

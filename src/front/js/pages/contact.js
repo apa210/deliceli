@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
-export const Contact = (props) => {
+export const Contact = () => {
   const { store, actions } = useContext(Context);
 
   const navigate = useNavigate();
@@ -15,13 +15,20 @@ export const Contact = (props) => {
   const [opcion, setOpcion] = useState("");
   const [mensaje, setMensaje] = useState("");
 
+  // estado que guarda mensaje de error
   const [loginError, setLoginError] = useState("");
+
+  // useRef que acciona alerta de error
   const showAlert = useRef("");
 
+  // estado que guarda mensaje de éxito
   const [loginEnd, setLoginEnd] = useState("");
+
+  // useRef que acciona alerta de éxito
   const showAlertEnd = useRef("");
 
   const button_submit = () => {
+    // Verifica si hay campos vacíos
     if (
       nombre != "" &&
       departamento != "" &&
@@ -42,14 +49,17 @@ export const Contact = (props) => {
             setMail("");
             setOpcion("");
             setMensaje("");
+
+            // Mensaje de alerta de éxito por el registro 
             setTimeout(() => {
               showAlertEnd.current.classList.add("d-none");
               navigate("/");
             }, 5000);
             showAlertEnd.current.classList.remove("d-none");
             setLoginEnd("Se ha registrado exitosamente su contacto");
-          } else {
-            // Mensaje de alerta por email ya registrado
+          } 
+          // Mensaje de alerta por email ya registrado
+          else {
             setTimeout(() => {
               showAlert.current.classList.add("d-none");
             }, 3000);
@@ -57,7 +67,9 @@ export const Contact = (props) => {
             setLoginError("Este email ya ha enviado su contacto");
           }
         });
-    } else {
+    } 
+    // Mensaje de alerta si hay campos sin completar
+    else {
       setTimeout(() => {
         showAlert.current.classList.add("d-none");
       }, 3000);
@@ -66,6 +78,7 @@ export const Contact = (props) => {
     }
   };
 
+  // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -83,7 +96,7 @@ export const Contact = (props) => {
       <section>
         <div className="container mt-5 mb-5">
           <div className="row">
-            {/* card  */}
+            {/* Inicio de datos de DeliCeli  */}
             <div className="col mt-4">
               <div className="card">
                 <img
@@ -110,7 +123,7 @@ export const Contact = (props) => {
                 </div>
               </div>
             </div>
-
+            {/* fIN de datos de DeliCeli  */}
             <div className="col-lg-8 mt-4">
               <div className="container">
                 <div className="row d-flex justify-content-center">
@@ -142,6 +155,7 @@ export const Contact = (props) => {
                         {loginEnd}
                       </div>
 
+                      {/* Contacto */}
                       <div className="mt-3 d-flex flex-row gap-2">
                         <label className="radio">
                           <input
@@ -262,6 +276,7 @@ export const Contact = (props) => {
                           <span>Enviar mensaje</span>
                         </button>
                       </div>
+                      {/* Contacto */}
                     </div>
                   </div>
                 </div>

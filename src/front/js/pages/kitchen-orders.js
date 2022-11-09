@@ -35,7 +35,7 @@ export const KitchenOrders = () => {
       <section>
         <div className="container bgimage-cocina p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-center">Cuenta tu cocina</h1>
+            <h1 className="mt-5 text-center">Tu cocina</h1>
           </div>
         </div>
       </section>

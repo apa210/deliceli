@@ -10,6 +10,8 @@ export const Cart = () => {
 
   let aux_ = undefined;
 
+  // Al mapear se llama esta función, sirve como auxiliar para actualizar la
+  // variable products
   const updateItem = (productIndex) => {
     aux_ = products.map((item, index) => {
       if (productIndex == index) {
@@ -26,19 +28,17 @@ export const Cart = () => {
       return item;
     });
   };
-
-  useEffect(() => {
-    setProducts(store.cart);
-  }, [store.cart]);
-
+  // trae del flux.js para eliminar el producto según ID
   const delete_product = (prod, prod_id) => {
     actions?.quit_product(prod, prod_id);
   };
 
+  // Modifica el producto y el input de la cantidad de producto
   const mod_products = (prod) => {
     aux_[prod].total =
-      document.getElementById(prod).value * aux_[prod].precio_unitario;
+    document.getElementById(prod).value * aux_[prod].precio_unitario;
     aux_[prod].cantidad_carrito = document.getElementById(prod).value;
+    // Empieza la brujería
     setProducts(aux_);
     actions.update_cart(
       undefined,
@@ -47,26 +47,39 @@ export const Cart = () => {
       undefined,
       "update_flux",
       aux_
-    );
-  };
-
-  const mod_quantity = (prod, operation, value_1, max_quantity) => {
-    if (operation === "add") {
-      if (document.getElementById(prod).value < max_quantity) {
-        return document.getElementById(prod).value++, mod_products(prod);
+      );
+    };
+    // Termina la brujería
+    
+    // Modifica el valor de los input de los productos
+    const mod_quantity = (prod, operation, value_1, max_quantity) => {
+      if (operation === "add") {
+        if (document.getElementById(prod).value < max_quantity) {
+          return document.getElementById(prod).value++, mod_products(prod);
+        }
       }
-    }
-    if (operation === "remove") {
-      if (document.getElementById(prod).value > 1) {
-        return document.getElementById(prod).value--, mod_products(prod);
+      if (operation === "remove") {
+        if (document.getElementById(prod).value > 1) {
+          return document.getElementById(prod).value--, mod_products(prod);
+        }
       }
-    }
-    if (operation === "initial") {
-      let theInput = document.getElementById(prod);
-      return (theInput.value = value_1);
-    }
-  };
+      if (operation === "initial") {
+        let theInput = document.getElementById(prod);
+        return (theInput.value = value_1);
+      }
+    };
 
+    // trae los productos del carrito de la store y se guarda en el estado setProducts
+    useEffect(() => {
+      setProducts(store.cart);
+    }, [store.cart]);
+  
+    // Al cargar la página, se desplaza hacia arriba
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+    
+  // trae los productos de la store
   const map_products = store?.cart.map((item, index) => {
     if (store?.cart[0] !== [] && store?.cart.length > 0) {
       updateItem(index);
@@ -177,10 +190,6 @@ export const Cart = () => {
     }
   });
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <>
       <section>
@@ -198,7 +207,6 @@ export const Cart = () => {
           <div className="row">
             <div className="col">{map_products}</div>
             <div className="col-lg-4">
-              {/* sidebar  */}
               <InvoiceCart products={products} />
             </div>{" "}
           </div>
