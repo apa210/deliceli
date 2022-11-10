@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import axios from "axios";
 import Footer_contact from "../component/footer_contact";
+import { ProductCardVertical } from "../component/product-card-vertical";
 
 export const SingleProduct = () => {
   const { store, actions } = useContext(Context);
@@ -20,16 +21,29 @@ export const SingleProduct = () => {
         setKitchen(response?.data?.user_name);
       }
     } catch (error) {
-      // console.log(error);
+      setKitchen("ERROR: al cargar el nombre");
     }
   };
 
+  const map_products = store?.AllProductsOfKitchen.map((item, index) => {
+    if (store?.AllProductsOfKitchen != []) {
+      return (
+        <div className="col-4" key={item + index + item}>
+          <ProductCardVertical obj={item} />
+        </div>
+      );
+    } else {
+      return false;
+    }
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    actions.getProduct(params?.id);
+    actions
+      .getProduct(params?.id)
+      .then(() => kitchen_api())
+      .then(() => actions.getAllProductsOfKitchen(store.product?.cocina_id));
   }, [params?.id]);
-
-  kitchen_api();
 
   const addCart = () => {
     actions.buy_product(
@@ -107,6 +121,21 @@ export const SingleProduct = () => {
           </div>
         </div>
       </div>
+      <hr className="m-auto" style={{ width: "80%" }} />
+      <section>
+        <div className="p-5 bg-light ">
+          <div className="p-2 text-center">
+            <h1 className="p-2 ">Productos de {store?.kitchen?.user_name}</h1>
+            <p>
+              Encuentra las comidas que {store?.kitchen?.user_name} ha preparado
+              especialmente para ti
+            </p>
+          </div>
+        </div>
+        <div className="container">
+          <div className="row">{map_products}</div>
+        </div>
+      </section>
       <Footer_contact />
     </>
   );

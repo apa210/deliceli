@@ -16,9 +16,11 @@ export const ProductCardVertical = (props) => {
       const response = await axios.get(
         store.api_url + "kitchen/" + props?.obj?.cocina_id
       );
-      setKitchen(response?.data?.user_name);
+      if (kitchen != response?.data?.user_name) {
+        setKitchen(response?.data?.user_name);
+      }
     } catch (error) {
-      console.log(error);
+      setKitchen("ERROR: al cargar el nombre");
     }
   };
 
