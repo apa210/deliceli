@@ -14,7 +14,7 @@ export const SingleKitchen = () => {
   const [instagram, setInstagram] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
-  
+
   let num_max = 3;
   const scrollRef = useRef(null);
 
@@ -39,7 +39,7 @@ export const SingleKitchen = () => {
   const map_products = store?.AllProductsOfKitchen.map((item, index) => {
     if (store?.AllProductsOfKitchen != []) {
       return (
-        <div className="col" key={item + index + item}>
+        <div className="col-4" key={item + index + item}>
           <ProductCardVertical obj={item} />
         </div>
       );
@@ -85,10 +85,8 @@ export const SingleKitchen = () => {
                   <h1 className="card-title">{store?.kitchen?.user_name}</h1>
                   <hr />
                   <br />
-            
-                  <p className="card-text">
-                  {store?.kitchen?.descripcion}
-                  </p>
+
+                  <p className="card-text">{store?.kitchen?.descripcion}</p>
                   <h4 className="pt-4 pb-4">
                     Sigue a {store?.kitchen?.user_name} en redes
                     <br />
