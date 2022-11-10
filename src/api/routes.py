@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import random
 import json
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias
+from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias, Favoritos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -42,7 +42,7 @@ def get_kitchen(kitchen_id):
 @api.route('/products', methods=['GET'])
 def get_all_products():
     productos = Productos.query.all()
-    results = list(map(lambda item: item.serialize(), productos))
+    results = list(map(lambda item: {**item.serialize(),**item.serialize_cocinero()}, productos))
 
     return jsonify(results), 200
 
@@ -53,7 +53,7 @@ def get_all_products():
 @api.route('/productsCategory/<int:cat_id>', methods=['GET'])
 def get_all_products_category(cat_id):
     productos = db.session.query(Productos).join(Categorias_Productos).filter_by(categoria_id=cat_id)
-    results = list(map(lambda item: item.serialize(), productos))
+    results = list(map(lambda item: {**item.serialize(),**item.serialize_cocinero()}, productos))
     return jsonify(results), 200
 
 
@@ -64,7 +64,7 @@ def get_product(product_id):
 
     if producto is None:
         return jsonify("vacio"), 200
-    return jsonify(producto.serialize()), 200
+    return jsonify({"product":producto.serialize(), "User": producto.serialize_cocinero()}), 200
 
 
         # Obtener todos los productos por nombre- GET
@@ -355,18 +355,27 @@ def signup():
         # Favorites
 
             # Ver todos los favoritos
-@api.route('/favorites', methods=['GET'])
+@api.route('/user/favorites', methods=['GET'])
+@jwt_required()
 def get_all_favorite():
-    return jsonify("ok"), 200
+
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    favorites_user = Favoritos.query.filter_by(usuario_id=login_user.id).all()
+
+    results = list(map(lambda item: {**item.serialize(),**item.serialize_cocinero(),**item.serialize_producto()}, favorites_user))
+
+    return jsonify(results), 200
         
             # Agregar un favorito - POST
 
-@api.route('/favorite', methods=['POST'])
+@api.route('/user/favorite', methods=['POST'])
 def add_favorite():
     return jsonify("ok"), 200
 
             # Eliminar un favorito - DELETE
-@api.route('/favorite', methods=['DELETE'])
+@api.route('/user/favorite', methods=['DELETE'])
 def add_remove():
     return jsonify("ok"), 200
 
