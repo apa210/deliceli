@@ -32,6 +32,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       auxBuy: undefined, // relacionada al carrito, sirve como auxiliar para el funcionamiento interno de algunas funciones.
       search: "", // relacionada al buscador
     },
+    //
+    //
+
+    //
+    //
+
+    //
     actions: {
       // lugar especifico donde se almacenan "funciones" que "modifican" los datos de la store o hacen "llamadas" a la API
       //
@@ -186,6 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               cart: response?.data,
             });
+            actions.update_total("initial");
           }
         } catch (error) {
           console.log(error);
@@ -461,93 +469,105 @@ const getState = ({ getStore, getActions, setStore }) => {
       buy_product: async (producto_id, cocina_id, precio_unitario) => {
         let store = getStore();
         let actions = getActions();
-        actions.validateToken();
-        if (store.auth == true) {
-          if (store.cart !== [] && store.cart.length != 0) {
-            console.log(store.cart);
-            store.cart.filter((item) => {
-              if (producto_id == item?.producto_id) {
-                setStore({ auxBuy: [item] });
-              }
-            });
-            // console.log(store.auxBuy);
-
-            if (
-              producto_id ===
-              (store.auxBuy == undefined
-                ? store.auxBuy
-                : store.auxBuy[0]?.producto_id)
-            ) {
-              // si el producto ya existe en el carrito
-              console.log("Filtro exitoso");
-
-              console.log(store.auxBuy);
-              let auxFunction = () => {
-                if (store.auxBuy != undefined) {
-                  let aux_aux = store.auxBuy.map((item) => {
-                    let aux_quantity = item.cantidad_carrito + 1;
-                    item.cantidad_carrito = aux_quantity;
-                    return item;
-                  });
-                  return aux_aux;
+        actions.validateToken().then(async () => {
+          if (store.auth == true) {
+            if (store.cart !== [] && store.cart.length != 0) {
+              console.log(store.cart);
+              store.cart.filter((item) => {
+                if (producto_id == item?.producto_id) {
+                  setStore({ auxBuy: [item] });
                 }
-              };
+              });
 
-              setStore({ auxBuy: auxFunction() });
-              actions.update_cart(
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                "update_flux",
-                store.cart.filter((item, index) => {
-                  if (item !== store.auxBuy) {
-                    return item;
+              if (
+                producto_id ===
+                (store.auxBuy == undefined
+                  ? store.auxBuy
+                  : store.auxBuy[0]?.producto_id)
+              ) {
+                // si el producto ya existe en el carrito
+                console.log("Filtro exitoso");
+
+                console.log(store.auxBuy);
+                let auxFunction = () => {
+                  if (store.auxBuy != undefined) {
+                    let aux_aux = store.auxBuy.map((item) => {
+                      let aux_quantity = item.cantidad_carrito + 1;
+                      item.cantidad_carrito = aux_quantity;
+                      return item;
+                    });
+                    return aux_aux;
                   }
-                })
-              );
-              actions.update_total("initial", undefined);
+                };
+
+                setStore({ auxBuy: auxFunction() });
+
+                if (store.auxBuy != undefined) {
+                  if (
+                    store.auxBuy[0]?.cantidad_carrito >
+                    store.auxBuy[0]?.cantidad_producto
+                  ) {
+                    alert("Ya tienes la cantidad existente de este producto");
+                  } else {
+                    actions.update_cart(
+                      // update
+                      store.auxBuy[0]?.producto_id,
+                      (store.auxBuy[0].cantidad_carrito =
+                        store.auxBuy[0]?.cantidad_carrito >
+                        store.auxBuy[0]?.cantidad_producto
+                          ? store.auxBuy[0]?.cantidad_producto
+                          : store.auxBuy[0]?.cantidad_carrito),
+                      (store.auxBuy[0].total =
+                        store.auxBuy[0]?.cantidad_carrito >
+                        store.auxBuy[0]?.cantidad_producto
+                          ? store.auxBuy[0]?.precio_unitario *
+                            store.auxBuy[0]?.cantidad_producto
+                          : store.auxBuy[0]?.precio_unitario *
+                            store.auxBuy[0]?.cantidad_carrito),
+                      store.auxBuy[0]?.precio_unitario,
+                      "update"
+                    );
+                  }
+                }
+              } else {
+                try {
+                  const response = await axios
+                    .post(store.api_url + "cart/addProduct", {
+                      usuario_id: store?.profile?.id,
+                      producto_id: producto_id,
+                      cocina_id: cocina_id,
+                      cantidad: 1,
+                      precio_unitario: precio_unitario,
+                      total: precio_unitario,
+                    })
+                    .then(() => actions.getCart(store.profile?.id));
+                  console.log(response);
+                } catch (error) {
+                  console.log(error);
+                }
+              }
             } else {
               try {
-                const response = await axios.post(
-                  store.api_url + "cart/addProduct",
-                  {
+                const response = await axios
+                  .post(store.api_url + "cart/addProduct", {
                     usuario_id: store?.profile?.id,
                     producto_id: producto_id,
                     cocina_id: cocina_id,
                     cantidad: 1,
                     precio_unitario: precio_unitario,
                     total: precio_unitario,
-                  }
-                );
+                  })
+                  .then(() => actions.getCart(store.profile?.id));
                 console.log(response);
-                window.location.reload();
+                // window.location.reload();
               } catch (error) {
                 console.log(error);
               }
             }
           } else {
-            try {
-              const response = await axios.post(
-                store.api_url + "cart/addProduct",
-                {
-                  usuario_id: store?.profile?.id,
-                  producto_id: producto_id,
-                  cocina_id: cocina_id,
-                  cantidad: 1,
-                  precio_unitario: precio_unitario,
-                  total: precio_unitario,
-                }
-              );
-              console.log(response);
-              window.location.reload();
-            } catch (error) {
-              console.log(error);
-            }
+            alert("Precisas logearte para añadir productos al carrito");
           }
-        } else {
-          alert("Precisas logearte para añadir productos al carrito");
-        }
+        });
       },
       update_total: (operation, value) => {
         let store = getStore();
@@ -581,45 +601,46 @@ const getState = ({ getStore, getActions, setStore }) => {
       ) => {
         let store = getStore();
         const actions = getActions();
-        actions.validateToken();
-        if (operation == "update") {
-          try {
+        actions.validateToken().then(async () => {
+          if (operation == "update") {
+            try {
+              if (store.auth == true) {
+                const response = await axios.put(
+                  store.api_url + "cart/editProduct",
+                  {
+                    usuario_id: store?.profile?.id,
+                    producto_id: prod_id,
+                    cantidad: quantity,
+                    total: price,
+                    precio_unitario: unit_price,
+                  }
+                );
+                actions.getCart(store.profile?.id);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          if (operation == "initial") {
             if (store.auth == true) {
-              const response = await axios.put(
-                store.api_url + "cart/editProduct",
-                {
-                  usuario_id: store?.profile?.id,
-                  producto_id: prod_id,
-                  cantidad: quantity,
-                  total: price,
-                  precio_unitario: unit_price,
-                }
-              );
-              console.log(response);
+              if (value != []) {
+                setStore({ cart: value });
+              }
             }
-          } catch (error) {
-            console.log(error);
           }
-        }
-        if (operation == "initial") {
-          if (store.auth == true) {
-            if (value != []) {
+          if (operation == "update_flux") {
+            if (store.auth == true) {
               setStore({ cart: value });
+              console.log("cart modificado");
+              console.log(value);
             }
           }
-        }
-        if (operation == "update_flux") {
-          if (store.auth == true) {
-            setStore({ cart: value });
-            console.log("cart modificado");
-            console.log(value);
-          }
-        }
+        });
       },
 
       quit_product: async (prod, prod_id) => {
         let store = getStore();
-
+        let actions = getActions();
         try {
           const response = await fetch(
             store.api_url +
@@ -642,6 +663,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               cart: store.cart,
             });
+            actions.getCart(store.profile?.id);
           } else {
             window.location.reload();
           }

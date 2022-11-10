@@ -16,18 +16,28 @@ export const SingleProduct = () => {
       const response = await axios.get(
         store.api_url + "kitchen/" + store?.product?.cocina_id
       );
-      setKitchen(response?.data?.user_name);
+      if (kitchen != response?.data?.user_name) {
+        setKitchen(response?.data?.user_name);
+      }
     } catch (error) {
       // console.log(error);
     }
   };
 
-useEffect(() => {
-  window.scrollTo(0, 0);
-  actions.getProduct(params?.id);
-}, [params?.id]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    actions.getProduct(params?.id);
+  }, [params?.id]);
 
-kitchen_api()
+  kitchen_api();
+
+  const addCart = () => {
+    actions.buy_product(
+      store.product?.id,
+      store.product?.cocina_id,
+      store.product?.precio
+    );
+  };
 
   return (
     <>
@@ -60,9 +70,7 @@ kitchen_api()
                     <div className="card-body">
                       <h1 className="card-title">{store?.product?.nombre}</h1>
 
-                      <p className="card-text">
-                        {store?.product?.descripcion}
-                      </p>
+                      <p className="card-text">{store?.product?.descripcion}</p>
 
                       <div className="text-muted mb-2">
                         {" "}
@@ -77,6 +85,7 @@ kitchen_api()
 
                       <h2>$ {store?.product?.precio}</h2>
                       <button
+                        onClick={addCart}
                         type="button"
                         className="btn btn-primary me-2 mb-3"
                       >
