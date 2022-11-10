@@ -40,10 +40,10 @@ export const ProductCardHorizontalOrders = () => {
                       </p>
 
                       <h4>Total del pedido - $ 350</h4>
-                      <button type="button" className="btn btn-primary me-2">
+                      {/* <button type="button" className="btn btn-primary me-2">
                         <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
                         Repetir pedido
-                      </button>
+                      </button> */}
                       <button
                         type="button"
                         className="btn btn-outline-primary mt-2 mb-2"

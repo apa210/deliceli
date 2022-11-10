@@ -43,8 +43,12 @@ export const ProductCardHorizontalMenu = () => {
                       </div>
 
                       <h2>$ 350</h2>
-                      <button type="button" className="btn btn-primary me-2">
+                      <Link to="/pages/edit-product" className="btn btn-primary me-2">
                         Editar Producto
+                      </Link>
+
+                      <button type="button" className="btn btn-danger me-2">
+                        Eliminar Producto
                       </button>
                     </div>
                   </div>
