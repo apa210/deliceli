@@ -116,12 +116,17 @@ export const KitchenPlates = () => {
                       </li>
                     </ul>
                   </div>
-                </div>
+                  <button type="button" className="d-flex btn btn-primary mt-3 mb-3 align-items-end">
+                    Agrgegar nuevo producto
+                  </button> 
+                  
+                    </div>
               </nav>
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
 
-            
+           
+
               <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu />
