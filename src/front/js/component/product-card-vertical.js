@@ -9,26 +9,6 @@ import { Link } from "react-router-dom";
 export const ProductCardVertical = (props) => {
   const { store, actions } = useContext(Context);
 
-  // A CAMBIAR - pasarlo al flux; es una peticion a la API... consigue el nombre de la cocina
-  const [kitchen, setKitchen] = useState();
-  let kitchen_api = async () => {
-    try {
-      const response = await axios.get(
-        store.api_url + "kitchen/" + props?.obj?.cocina_id
-      );
-      if (kitchen != response?.data?.user_name) {
-        setKitchen(response?.data?.user_name);
-      }
-    } catch (error) {
-      setKitchen("ERROR: al cargar el nombre");
-    }
-  };
-
-  useEffect(() => {
-    kitchen_api();
-  }, [kitchen]);
-  // mudar al flux.js   ^^^^^^^^^^^
-
   // este "boton" llama a una funcion del flux.js... añade un producto al carrito
   // más detallado en el flux.js
   const addCart = () => {
@@ -56,7 +36,7 @@ export const ProductCardVertical = (props) => {
 
           <div className="text-muted mb-2">
             {" "}
-            {kitchen}
+            {props.obj?.user_name}
             <div>
               <i className="fa fa-star text-warning"></i>
               <i className="fa fa-star text-warning"></i>

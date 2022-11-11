@@ -10,21 +10,6 @@ export const SingleProduct = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
 
-  const [kitchen, setKitchen] = useState("");
-
-  let kitchen_api = async () => {
-    try {
-      const response = await axios.get(
-        store.api_url + "kitchen/" + store?.product?.cocina_id
-      );
-      if (kitchen != response?.data?.user_name) {
-        setKitchen(response?.data?.user_name);
-      }
-    } catch (error) {
-      setKitchen("ERROR: al cargar el nombre");
-    }
-  };
-
   const map_products = store?.AllProductsOfKitchen.map((item, index) => {
     if (store?.AllProductsOfKitchen != []) {
       return (
@@ -41,15 +26,16 @@ export const SingleProduct = () => {
     window.scrollTo(0, 0);
     actions
       .getProduct(params?.id)
-      .then(() => kitchen_api())
-      .then(() => actions.getAllProductsOfKitchen(store.product?.cocina_id));
+      .then(() =>
+        actions.getAllProductsOfKitchen(store.product?.User?.id_usuario)
+      );
   }, [params?.id]);
 
   const addCart = () => {
     actions.buy_product(
-      store.product?.id,
-      store.product?.cocina_id,
-      store.product?.precio
+      store.product?.product?.id,
+      store.product?.product?.cocina_id,
+      store.product?.product?.precio
     );
   };
 
@@ -58,7 +44,7 @@ export const SingleProduct = () => {
       <section>
         <div className="container bgimage-single-cocina p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-end">{store?.product?.nombre}</h1>
+            <h1 className="mt-5 text-end">{store?.product?.product?.nombre}</h1>
           </div>
         </div>
       </section>
@@ -76,19 +62,23 @@ export const SingleProduct = () => {
                 <div className="row g-0">
                   <div className="col-md-7">
                     <img
-                      src={store?.product?.foto_producto}
+                      src={store?.product?.product?.foto_producto}
                       className="img-fluid rounded-start"
                     />
                   </div>
                   <div className="col-md-5 p-3">
                     <div className="card-body">
-                      <h1 className="card-title">{store?.product?.nombre}</h1>
+                      <h1 className="card-title">
+                        {store?.product?.product?.nombre}
+                      </h1>
 
-                      <p className="card-text">{store?.product?.descripcion}</p>
+                      <p className="card-text">
+                        {store?.product?.product?.descripcion}
+                      </p>
 
                       <div className="text-muted mb-2">
                         {" "}
-                        {kitchen}
+                        {store.product?.User?.user_name}
                         <br />
                         <i className="fa fa-star text-warning"></i>
                         <i className="fa fa-star text-warning"></i>
@@ -97,7 +87,7 @@ export const SingleProduct = () => {
                         <i className="far fa-star text-warning"></i>
                       </div>
 
-                      <h2>$ {store?.product?.precio}</h2>
+                      <h2>$ {store?.product?.product?.precio}</h2>
                       <button
                         onClick={addCart}
                         type="button"
@@ -125,10 +115,12 @@ export const SingleProduct = () => {
       <section>
         <div className="p-5 bg-light ">
           <div className="p-2 text-center">
-            <h1 className="p-2 ">Productos de {store?.kitchen?.user_name}</h1>
+            <h1 className="p-2 ">
+              Productos de {store.product?.User?.user_name}
+            </h1>
             <p>
-              Encuentra las comidas que {store?.kitchen?.user_name} ha preparado
-              especialmente para ti
+              Encuentra las comidas que {store.product?.User?.user_name} ha
+              preparado especialmente para ti
             </p>
           </div>
         </div>
