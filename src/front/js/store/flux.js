@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       val: false,
       val_contact: false,
       val_category: false,
+      val_edit: false,
       // objetos; objetos que contienen datos obtenidos de las llamadas a la api para mostrar dichos datos en distintas partes de la web
       //    -> objetos; relacionadas al funcionamiento interno e independiente de la web:
       AllProducts: [],
@@ -27,10 +28,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       //    -> objetos; relacionados con el Usuario
       profile: {},
       cart: [],
+      menuKitchen: [],
+      // POINT
+      editProduct: {},
       // auxiliares; variables que son sirven de forma auxiliar
       total: "0", // relacionada al carrito, muestra el total a pagar por parte del Usuario
       auxBuy: undefined, // relacionada al carrito, sirve como auxiliar para el funcionamiento interno de algunas funciones.
       search: "", // relacionada al buscador
+      historyNav: "",
     },
     //
     //
@@ -676,6 +681,55 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (err) {
           console.log(err);
         }
+      },
+
+      getMenu: async () => {
+        const userToken = localStorage.getItem("token");
+        let store = getStore();
+        let actions = getActions();
+        actions.validateToken();
+        try {
+          if (store.auth == true) {
+            const response = await axios.get(store.api_url + "user/menu", {
+              headers: {
+                Authorization: "Bearer " + userToken,
+              },
+            });
+            setStore({ menuKitchen: response?.data });
+            if (response?.status != 200) {
+              window.location.reload();
+            }
+          } else {
+            window.location.reload();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      // POINT
+      editProduct: async (prod_id, kit_id, value) => {
+        let store = getStore();
+        let actions = getActions();
+        actions.validateToken();
+        if (store.auth == true) {
+          if (store.profile?.id === kit_id && store.profile?.rol === "cocina") {
+            setStore({ editProduct: value });
+            console.log(store.editProduct);
+            setStore({ val_edit: true });
+          } else {
+            setStore({ editProduct: {} });
+            setStore({ val_edit: false });
+            window.location.reload();
+          }
+        } else {
+          setStore({ editProduct: {} });
+          setStore({ val_edit: false });
+          window.location.reload();
+        }
+      },
+
+      modHistoryNav: (value) => {
+        setStore({ historyNav: value });
       },
     },
   };

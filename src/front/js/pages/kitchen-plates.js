@@ -2,12 +2,21 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { ProductCardHorizontalMenu } from "../component/product-card-horizontal-menu"
+import { ProductCardHorizontalMenu } from "../component/product-card-horizontal-menu";
 
 export const KitchenPlates = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const navigate = useNavigate();
+
+  // trae los productos de la store
+  const map_products = store?.menuKitchen.map((item, index) => {
+    return (
+      <div key={index + index + index + item}>
+        <ProductCardHorizontalMenu obj={item} />
+      </div>
+    );
+  });
 
   // Función para cerrar sesión
   const handleLogout = () => {
@@ -26,10 +35,20 @@ export const KitchenPlates = () => {
         navigate("/");
       }, 100);
     }
-
     // Al cargar la página, se desplaza hacia arriba
-    window.scrollTo(0, 0);
+    if (store.historyNav == "/pages/kitchen-account") {
+      actions.modHistoryNav(window.location.pathname);
+    } else if (store.historyNav == "/pages/kitchen-plates") {
+      actions.modHistoryNav(window.location.pathname);
+    } else if (store.historyNav == "/pages/kitchen-orders") {
+      actions.modHistoryNav(window.location.pathname);
+    } else {
+      window.scrollTo(0, 0);
+      actions.modHistoryNav(window.location.pathname);
+    }
   }, []);
+  let prevUrl = document.referrer;
+  console.log(prevUrl);
 
   return (
     <>
@@ -116,21 +135,20 @@ export const KitchenPlates = () => {
                       </li>
                     </ul>
                   </div>
-                  <button type="button" className="d-flex btn btn-primary mt-3 mb-3 align-items-end">
+                  <button
+                    type="button"
+                    className="d-flex btn btn-primary mt-3 mb-3 align-items-end"
+                  >
                     Agrgegar nuevo producto
-                  </button> 
-                  
-                    </div>
+                  </button>
+                </div>
               </nav>
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
-
-           
-
+              {map_products}
+              {/* <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu />
-              <ProductCardHorizontalMenu />
-              <ProductCardHorizontalMenu />
-            
+              <ProductCardHorizontalMenu /> */}
             </div>
           </div>
         </div>
