@@ -439,16 +439,54 @@ def get_rated_products(user_id):
 def get_user_menu(user_id):
     return jsonify("ok"), 200
 
+
+# ---------------------- Noe --------------------------------
             # Añadir un plato
 @api.route('/user/<int:user_id>/menu', methods=['POST'])
 def add_dish(user_id):
-    return jsonify("ok"), 200
+    body = json.loads(request.data)
+
+    #Se obtiene el maximo id de la tabla Productos
+    id = db.session.query(func.max(Productos.id)).scalar()
+    if id is None:
+        id = 1
+    else:
+        id = id + 1
+    print(id)
+
+    query_product = Productos.query.filter_by(cocina_id=user_id, nombre=body["nombre"]).first()
+
+    if query_product is None:
+        #guardar datos recibidos a la tabla Productos
+        new_product = Productos(id=id, nombre=body["nombre"], descripcion=body["descripcion"], precio=body["precio"], cantidad=body["cantidad"], foto=body["foto"], cocina_id=user_id)
+        db.session.add(new_product)
+        db.session.commit()
+        response_body = {
+                "msg": new_product.serialize()
+            }
+
+        return jsonify(response_body), 200
+
+    response_body = {
+            "msg": "Ya existe un producto con ese nombre"
+        }
+    return jsonify(response_body), 400
 
             # Quitar un plato
-@api.route('/user/<int:user_id>/menu', methods=['DELETE'])
-def remove_dish(user_id):
-    return jsonify("ok"), 200
+@api.route('/user/<int:user_id>/menu/<int:product_id>', methods=['DELETE'])
+def remove_dish(user_id, product_id):
+    product = Productos.query.filter_by(id=product_id).first()
 
+    if product is None:
+        raise APIException('No se encuentra un producto con esa ID', status_code=404)
+
+    db.session.delete(product)
+    db.session.commit()
+    response_body = {"msg": "El producto ha sido eliminado"}
+    return jsonify(response_body), 200
+    # return jsonify("ok"), 200
+
+# ------------------- Noe ----------------------------
             # Editar un plato
 @api.route('/user/<int:user_id>/menu', methods=['PUT'])
 def edit_dish(user_id):
