@@ -35,7 +35,7 @@ const ProductsCart = (props) => {
           setShowAlert("show");
           setTimeout(() => {
             setShowAlert("hidden");
-          }, 2000);
+          }, 3500);
         }
       }
     }
@@ -57,7 +57,7 @@ const ProductsCart = (props) => {
     <>
       <div>
         <p className={"ms-3 text-danger " + showAlert}>
-          No puedes agregar más productos de los que la cocina tiene
+          Se ha puesto un limite de pedidos a este producto por cliente
         </p>
         <div className="card mb-5">
           <div className="row g-0">

@@ -487,12 +487,16 @@ const getState = ({ getStore, getActions, setStore }) => {
               ) {
                 // si el producto ya existe en el carrito
                 console.log("Filtro exitoso");
-
+                console.log(store.auxBuy[0]?.producto_id);
                 console.log(store.auxBuy);
                 let auxFunction = () => {
                   if (store.auxBuy != undefined) {
                     let aux_aux = store.auxBuy.map((item) => {
-                      let aux_quantity = item.cantidad_carrito + 1;
+                      let aux_quantity =
+                        store.auxBuy[0]?.cantidad_carrito >=
+                        store.auxBuy[0]?.cantidad_producto
+                          ? store.auxBuy[0]?.cantidad_producto
+                          : store.auxBuy[0]?.cantidad_carrito + 1;
                       item.cantidad_carrito = aux_quantity;
                       return item;
                     });
@@ -504,21 +508,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 if (store.auxBuy != undefined) {
                   if (
-                    store.auxBuy[0]?.cantidad_carrito >
+                    store.auxBuy[0]?.cantidad_carrito ==
                     store.auxBuy[0]?.cantidad_producto
                   ) {
-                    alert("Ya tienes la cantidad existente de este producto");
+                    alert(
+                      "Se ha puesto un limite de pedidos a este producto por cliente"
+                    );
                   } else {
                     actions.update_cart(
                       // update
                       store.auxBuy[0]?.producto_id,
                       (store.auxBuy[0].cantidad_carrito =
-                        store.auxBuy[0]?.cantidad_carrito >
+                        store.auxBuy[0]?.cantidad_carrito >=
                         store.auxBuy[0]?.cantidad_producto
                           ? store.auxBuy[0]?.cantidad_producto
                           : store.auxBuy[0]?.cantidad_carrito),
                       (store.auxBuy[0].total =
-                        store.auxBuy[0]?.cantidad_carrito >
+                        store.auxBuy[0]?.cantidad_carrito >=
                         store.auxBuy[0]?.cantidad_producto
                           ? store.auxBuy[0]?.precio_unitario *
                             store.auxBuy[0]?.cantidad_producto
