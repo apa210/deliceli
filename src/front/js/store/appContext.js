@@ -41,11 +41,18 @@ const injectContext = (PassedComponent) => {
           .getProfile()
           .then(() => state.actions.getCart(state.store.profile?.id))
           .then(() => {
-            if (window.location.pathname !== "/pages/cart") {
+            if (
+              window.location.pathname !== "/pages/cart" &&
+              state.store.profile?.rol == "cliente"
+            ) {
               state.actions.update_total("initial", undefined);
             }
           })
-          .then(() => console.log(state.store.cart));
+          .then(() => {
+            if (state.store.profile?.rol == "cocina") {
+              state.actions.getMenu();
+            }
+          });
       }
     }, [state.store.auth]);
 

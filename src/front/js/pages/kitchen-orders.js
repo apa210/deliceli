@@ -26,9 +26,17 @@ export const KitchenOrders = () => {
         navigate("/");
       }, 100);
     }
-
     // Al cargar la página, se desplaza hacia arriba
-    window.scrollTo(0, 0);
+    if (store.historyNav == "/pages/kitchen-account") {
+      actions.modHistoryNav(window.location.pathname);
+    } else if (store.historyNav == "/pages/kitchen-plates") {
+      actions.modHistoryNav(window.location.pathname);
+    } else if (store.historyNav == "/pages/kitchen-orders") {
+      actions.modHistoryNav(window.location.pathname);
+    } else {
+      window.scrollTo(0, 0);
+      actions.modHistoryNav(window.location.pathname);
+    }
   }, []);
 
   return (
@@ -123,12 +131,11 @@ export const KitchenOrders = () => {
 
               {/* producto  */}
 
-            
               <ProductCardHorizontalKitchenOrders />
               <ProductCardHorizontalKitchenOrders />
               <ProductCardHorizontalKitchenOrders />
               <ProductCardHorizontalKitchenOrders />
-              
+
               {/* producto  */}
             </div>
           </div>

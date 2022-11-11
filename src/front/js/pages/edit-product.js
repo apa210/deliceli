@@ -2,32 +2,47 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import "../../styles/visibility.css";
 
 export const EditProduct = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const navigate = useNavigate();
 
-  //   // Función para cerrar sesión
-  //   const handleLogout = () => {
-  //     let onLogged = actions.logout();
-  //     if (!onLogged) {
-  //       setTimeout(() => {
-  //         navigate("/");
-  //       }, 100);
-  //     }
-  //   };
+  const [name, setName] = useState("");
+  const [limit, setLimit] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [img, setImg] = useState("");
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    let onLogged = actions.logout();
+    if (!onLogged) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  };
+
+  console.log(store.editProduct);
 
   useEffect(() => {
     // No da acceso a la cuenta de la cocina sin estar logueado
-    // if (store.auth == false) {
-    //   setTimeout(() => {
-    //     navigate("/");
-    //   }, 100);
-    // }
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    } else {
+      setName(store.editProduct?.nombre);
+      setLimit(store.editProduct?.cantidad_producto);
+      setPrice(store.editProduct?.precio);
+      setDescription(store.editProduct?.descripcion);
+      setImg(store.editProduct?.foto_producto);
+    }
 
     // Al cargar la página, se desplaza hacia arriba
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -130,11 +145,14 @@ export const EditProduct = () => {
                           {"TU MENÚ > Editar Producto"}
                         </h4>
 
-                        <div className="alert alert-success" role="alert">
+                        <div
+                          className="alert alert-success hidden"
+                          role="alert"
+                        >
                           El producto ha sido actualizado con éxito.
                         </div>
 
-                        <div className="alert alert-danger" role="alert">
+                        <div className="alert alert-danger hidden" role="alert">
                           Hay campos vacíos debes completar todos los campos.
                         </div>
                         {/* Nombre  */}
@@ -147,7 +165,8 @@ export const EditProduct = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Nombre del producto"
-                            defaultValue="Milanesas de pollo"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
                           />
                         </div>
                         {/* stock disponible  */}
@@ -156,10 +175,12 @@ export const EditProduct = () => {
                             Limite de venta por día
                           </label>
                           <input
-                            type="text"
+                            type="number"
                             className="form-control"
                             placeholder="Sin limite"
                             aria-label="Stock"
+                            onChange={(e) => setLimit(e.target.value)}
+                            value={limit}
                           />
                         </div>
 
@@ -174,11 +195,13 @@ export const EditProduct = () => {
                               $
                             </span>
                             <input
-                              type="text"
+                              type="number"
                               className="form-control"
-                              placeholder="00"
+                              placeholder="0000"
                               aria-label="Precio"
                               aria-describedby="basic-addon1"
+                              onChange={(e) => setPrice(e.target.value)}
+                              value={price}
                             />
                           </div>
                         </div>
@@ -192,7 +215,8 @@ export const EditProduct = () => {
                             className="form-control"
                             placeholder=""
                             aria-label="Descripcion"
-                            defaultValue=" Milanesas de pollo con ensalada."
+                            onChange={(e) => setDescription(e.target.value)}
+                            value={description}
                           />
                         </div>
                         {/*  Dirección  */}
@@ -209,8 +233,17 @@ export const EditProduct = () => {
                         <div className="text-center">
                           {/* subir foto  */}
 
-                          <div className="square position-relative display-2 mb-3">
-                            <i className="fas fa-fw fa-user position-absolute top-50 start-50 mt-4 mb-5 translate-middle text-secondary"></i>
+                          <div className="square position-relative display-2 mb-3 d-flex justify-content-center">
+                            {img == "" ? (
+                              <i className="fas fa-fw fa-user position-absolute top-50 start-50 mt-4 mb-5 translate-middle text-secondary"></i>
+                            ) : (
+                              <div className="col-md-4">
+                                <img
+                                  className="img-fluid rounded-start"
+                                  src={img}
+                                />
+                              </div>
+                            )}
                           </div>
                           {/* boton  */}
                           <div className="mt-5 pt-5">
@@ -220,7 +253,7 @@ export const EditProduct = () => {
                               name="file"
                               hidden=""
                             />
-                            <label
+                            {/* <label
                               className="btn btn-success-soft btn-block"
                               htmlFor="customFile"
                             >
@@ -231,7 +264,7 @@ export const EditProduct = () => {
                               className="btn btn-danger-soft"
                             >
                               Borrar foto
-                            </button>
+                            </button> */}
                           </div>
                           {/*Contenido */}
                           <p className="text-muted mt-3 mb-0">
