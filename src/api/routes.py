@@ -291,10 +291,6 @@ def login():
     access_token = create_access_token(identity=user.email)
     return jsonify({"user": {
             "id":str(user.id), 
-            # "email": str(user.email),
-            # "user_name": str(user.user_name),
-            # "first_name": str(user.first_name),
-            # "last_name": str(user.last_name),
             "rol": str(user.rol)
         }, 
         "access_token":access_token
@@ -362,6 +358,9 @@ def get_all_favorite():
     current_user = get_jwt_identity()
     login_user = Usuarios.query.filter_by(email=current_user).first()
 
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     favorites_user = Favoritos.query.filter_by(usuario_id=login_user.id).all()
 
     results = list(map(lambda item: {**item.serialize(),**item.serialize_cocinero(),**item.serialize_producto()}, favorites_user))
@@ -390,6 +389,10 @@ def get_profile():
 
     current_user = get_jwt_identity() #puede ir o no
     login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+        
     return jsonify(login_user.serialize()), 200
 
 
@@ -435,14 +438,31 @@ def get_rated_products(user_id):
         # Menu
 
             # Ver su menu
-@api.route('/user/<int:user_id>/menu', methods=['GET'])
-def get_user_menu(user_id):
-    return jsonify("ok"), 200
+@api.route('/user/menu', methods=['GET'])
+@jwt_required() # para proteger datos
+def get_user_menu():
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    menu = Productos.query.filter_by(cocina_id=login_user.id).all()
+    results = list(map(lambda item: item.serialize(), menu))
+
+    return jsonify(results), 200
 
 
             # Añadir un plato
-@api.route('/user/<int:user_id>/menu', methods=['POST'])
-def add_dish(user_id):
+@api.route('/user/menu', methods=['POST'])
+@jwt_required() # para proteger datos
+def add_dish():
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     body = json.loads(request.data)
 
     #Se obtiene el maximo id de la tabla Productos
@@ -451,13 +471,12 @@ def add_dish(user_id):
         id = 1
     else:
         id = id + 1
-    print(id)
 
-    query_product = Productos.query.filter_by(cocina_id=user_id, nombre=body["nombre"]).first()
+    query_product = Productos.query.filter_by(cocina_id=login_user.id, nombre=body["nombre"]).first()
 
     if query_product is None:
         #guardar datos recibidos a la tabla Productos
-        new_product = Productos(id=id, nombre=body["nombre"], descripcion=body["descripcion"], precio=body["precio"], cantidad=body["cantidad"], foto=body["foto"], cocina_id=user_id)
+        new_product = Productos(id=id, nombre=body["nombre"], descripcion=body["descripcion"], precio=body["precio"], cantidad=body["cantidad"], foto=body["foto"], cocina_id=login_user.id)
         db.session.add(new_product)
         db.session.commit()
         response_body = {
@@ -474,7 +493,10 @@ def add_dish(user_id):
 
             # Quitar un plato
 @api.route('/user/<int:user_id>/menu/<int:product_id>', methods=['DELETE'])
+@jwt_required() # para proteger datos
 def remove_dish(user_id, product_id):
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
     product = Productos.query.filter_by(id=product_id).first()
 
     if product is None:
