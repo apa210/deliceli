@@ -440,7 +440,6 @@ def get_user_menu(user_id):
     return jsonify("ok"), 200
 
 
-# ---------------------- Noe --------------------------------
             # Añadir un plato
 @api.route('/user/<int:user_id>/menu', methods=['POST'])
 def add_dish(user_id):
@@ -472,6 +471,7 @@ def add_dish(user_id):
         }
     return jsonify(response_body), 400
 
+
             # Quitar un plato
 @api.route('/user/<int:user_id>/menu/<int:product_id>', methods=['DELETE'])
 def remove_dish(user_id, product_id):
@@ -480,13 +480,15 @@ def remove_dish(user_id, product_id):
     if product is None:
         raise APIException('No se encuentra un producto con esa ID', status_code=404)
 
+    if product.cocina_id != user_id:
+        raise APIException('Este producto no pertenece a tu menú', status_code=404)
+
     db.session.delete(product)
     db.session.commit()
     response_body = {"msg": "El producto ha sido eliminado"}
     return jsonify(response_body), 200
-    # return jsonify("ok"), 200
 
-# ------------------- Noe ----------------------------
+
             # Editar un plato
 @api.route('/user/<int:user_id>/menu', methods=['PUT'])
 def edit_dish(user_id):
