@@ -8,15 +8,15 @@ export const EditProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-//   // Función para cerrar sesión
-//   const handleLogout = () => {
-//     let onLogged = actions.logout();
-//     if (!onLogged) {
-//       setTimeout(() => {
-//         navigate("/");
-//       }, 100);
-//     }
-//   };
+  //   // Función para cerrar sesión
+  //   const handleLogout = () => {
+  //     let onLogged = actions.logout();
+  //     if (!onLogged) {
+  //       setTimeout(() => {
+  //         navigate("/");
+  //       }, 100);
+  //     }
+  //   };
 
   useEffect(() => {
     // No da acceso a la cuenta de la cocina sin estar logueado
@@ -126,18 +126,22 @@ export const EditProduct = () => {
                   <div className="col-xxl-8 mb-5 mb-xxl-0">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
-                        <h4 className="mb-4 mt-0">TU MENÚ > Editar Producto</h4>
+                        <h4 className="mb-4 mt-0">
+                          {"TU MENÚ > Editar Producto"}
+                        </h4>
 
-                        <div class="alert alert-success" role="alert">
-El producto ha sido actualizado con éxito.
-</div>
+                        <div className="alert alert-success" role="alert">
+                          El producto ha sido actualizado con éxito.
+                        </div>
 
-<div class="alert alert-danger" role="alert">
-Hay campos vacíos debes completar todos los campos.
-</div>
+                        <div className="alert alert-danger" role="alert">
+                          Hay campos vacíos debes completar todos los campos.
+                        </div>
                         {/* Nombre  */}
                         <div className="col-md-6">
-                          <label className="form-label">Nombre del producto *</label>
+                          <label className="form-label">
+                            Nombre del producto *
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -146,30 +150,39 @@ Hay campos vacíos debes completar todos los campos.
                             defaultValue="Milanesas de pollo"
                           />
                         </div>
-                          {/* stock disponible  */}
-                          <div className="col-md-3">
-                          <label className="form-label">Stock disponible *</label>
+                        {/* stock disponible  */}
+                        <div className="col-md-3">
+                          <label className="form-label">
+                            Limite de venta por día
+                          </label>
                           <input
                             type="text"
                             className="form-control"
-                            placeholder=""
+                            placeholder="Sin limite"
                             aria-label="Stock"
-                            defaultValue="20 unidades"
                           />
                         </div>
-                        
+
                         {/* precio  */}
                         <div className="col-md-3">
-                          <label className="form-label">Precio $ *</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder=""
-                            aria-label="Precio"
-                            defaultValue="$ 200"
-                          />
+                          <label className="form-label">Precio *</label>
+                          <div className="d-flex">
+                            <span
+                              className="input-group-text"
+                              id="basic-addon1"
+                            >
+                              $
+                            </span>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="00"
+                              aria-label="Precio"
+                              aria-describedby="basic-addon1"
+                            />
+                          </div>
                         </div>
-                        
+
                         <div className="col-md-12">
                           <label className="form-label">
                             Descripción del producto *
@@ -192,7 +205,7 @@ Hay campos vacíos debes completar todos los campos.
                   <div className="col-xxl-4">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
-                        <h4 className="mb-4 mt-0">Foto del producto</h4>
+                        <h4 className="mb-4 mt-0">Foto del producto *</h4>
                         <div className="text-center">
                           {/* subir foto  */}
 
@@ -231,8 +244,7 @@ Hay campos vacíos debes completar todos los campos.
                   </div>
                 </div>{" "}
                 {/* fin de detalles de la cuenta  */}
-             
-             <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
+                <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
                   <button type="button" className="btn btn-danger btn-lg mb-3">
                     Eliminar producto
                   </button>
