@@ -79,11 +79,18 @@ def get_all_products_find_name(cadena):
 
 # ------------------- Carrito de compras -----------------
 
-@api.route('/cart/deleted/<int:user_id>', methods=['DELETE'])
-def delete_cart_user(user_id):
-    body = json.loads(request.data)
+@api.route('/cart/deleted', methods=['DELETE'])
+@jwt_required()
+def delete_cart_user():
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
 
-    query_carritos = Carritos.query.filter_by(usuario_id=user_id, confirmado=False).first()
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    body = json.loads(request.data)
+    query_carritos = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).first()
+
     print(query_carritos)
     
     if query_carritos is not None:
@@ -102,11 +109,19 @@ def delete_cart_user(user_id):
 
 
 
-@api.route('/cart/deletedProduct/<int:user_id>/<int:product_id>', methods=['DELETE'])
-def delete_product_cart_user(user_id,product_id):
+@api.route('/cart/deletedProduct/<int:product_id>', methods=['DELETE'])
+@jwt_required()
+def delete_product_cart_user(product_id):
+
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     body = json.loads(request.data)
 
-    query_carritos = Carritos.query.filter_by(usuario_id=user_id, producto_id=product_id, confirmado=False).first()
+    query_carritos = Carritos.query.filter_by(usuario_id=login_user.id, producto_id=product_id, confirmado=False).first()
     print(query_carritos)
     
     if query_carritos is not None:
@@ -129,7 +144,14 @@ def delete_product_cart_user(user_id,product_id):
 # Ejemplo Body JSON POST:
 # {"usuario_id":"2","producto_id": "1","cocina_id": "1","cantidad": "2","precio_unitario": "200","total": "400"}
 @api.route('/cart/addProduct', methods=['POST'])
+@jwt_required()
 def add_product_to_cart():
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     body = json.loads(request.data)
 
     #Se obtiene el maximo id
@@ -140,7 +162,7 @@ def add_product_to_cart():
         id = id + 1
 
     # Si existe un carrito activo para el usuario
-    query_cart = Carritos.query.filter_by(usuario_id=body["usuario_id"],confirmado=False).first()
+    query_cart = Carritos.query.filter_by(usuario_id=login_user.id,confirmado=False).first()
 
     if query_cart is None: # Nuevo carrito
         cart_id = db.session.query(func.max(Carritos.id_carrito)).scalar()
@@ -155,7 +177,7 @@ def add_product_to_cart():
     
     fecha_hora = datetime.now()
 
-    cart = Carritos(id=id, id_carrito=cart_id, usuario_id=body["usuario_id"], producto_id=body["producto_id"], cocina_id=body["cocina_id"], fecha=fecha_hora, cantidad=body["cantidad"], precio_unitario=body["precio_unitario"], total=body["total"], confirmado=False )
+    cart = Carritos(id=id, id_carrito=cart_id, usuario_id=login_user.id, producto_id=body["producto_id"], cocina_id=body["cocina_id"], fecha=fecha_hora, cantidad=body["cantidad"], precio_unitario=body["precio_unitario"], total=body["total"], confirmado=False )
 
     db.session.add(cart)
     db.session.commit()
@@ -166,12 +188,19 @@ def add_product_to_cart():
 
 
         # Ver todos los productos de un carrito de un usuario
-@api.route('/cart/productsCart/<int:user_id>', methods=['GET'])
-def get_all_products_cart_to_user(user_id):
+@api.route('/cart/productsCart', methods=['GET'])
+@jwt_required()
+def get_all_products_cart_to_user():
+
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
 
     # productos = db.session.query(Productos,Carritos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
 
-    carritos = Carritos.query.filter_by(usuario_id=user_id, confirmado=False).order_by(Carritos.producto_id).all()
+    carritos = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).order_by(Carritos.producto_id).all()
     print("$$$$$$$$Carritos: " + str(carritos))
 
     if carritos is None:
@@ -199,12 +228,20 @@ def get_all_products_cart_to_user(user_id):
 
         # Editar un producto de un carrito de un usuario
 # Ejemplo Body JSON PUT:
-# {"usuario_id":"2","producto_id": "2","cantidad": "333","precio_unitario": "250","total": "999"}
+# {"producto_id": "2","cantidad": "333","precio_unitario": "250","total": "999"}
 @api.route('/cart/editProduct', methods=['PUT'])
+@jwt_required()
 def edit_product_cart_user():
+
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     body = json.loads(request.data)
 
-    carrito = Carritos.query.filter_by(usuario_id=body["usuario_id"], producto_id=body["producto_id"], confirmado=False).first()
+    carrito = Carritos.query.filter_by(usuario_id=login_user.id, producto_id=body["producto_id"], confirmado=False).first()
     
     if carrito is not None:
         carrito.cantidad = body["cantidad"]
@@ -370,12 +407,26 @@ def get_all_favorite():
             # Agregar un favorito - POST
 
 @api.route('/user/favorite', methods=['POST'])
+@jwt_required()
 def add_favorite():
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     return jsonify("ok"), 200
 
             # Eliminar un favorito - DELETE
 @api.route('/user/favorite', methods=['DELETE'])
+@jwt_required()
 def add_remove():
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     return jsonify("ok"), 200
 
 
@@ -399,7 +450,14 @@ def get_profile():
 
     # Editar perfil
 @api.route('/user/<int:user_id>', methods=['PUT'])
+@jwt_required()
 def edit_username(user_id):
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
         # Crear condicional para deternimar que se está editando o que se editara:
             # Editar username
             # Editar email
@@ -492,17 +550,21 @@ def add_dish():
 
 
             # Quitar un plato
-@api.route('/user/<int:user_id>/menu/<int:product_id>', methods=['DELETE'])
+@api.route('/user/menu/<int:product_id>', methods=['DELETE'])
 @jwt_required() # para proteger datos
-def remove_dish(user_id, product_id):
+def remove_dish(product_id):
     current_user = get_jwt_identity() #puede ir o no
     login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     product = Productos.query.filter_by(id=product_id).first()
 
     if product is None:
         raise APIException('No se encuentra un producto con esa ID', status_code=404)
 
-    if product.cocina_id != user_id:
+    if product.cocina_id != login_user.id:
         raise APIException('Este producto no pertenece a tu menú', status_code=404)
 
     db.session.delete(product)
@@ -513,7 +575,14 @@ def remove_dish(user_id, product_id):
 
             # Editar un plato
 @api.route('/user/<int:user_id>/menu', methods=['PUT'])
+@jwt_required()
 def edit_dish(user_id):
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
     return jsonify("ok"), 200
 
 # ----------                                Others rutes                              ----------
