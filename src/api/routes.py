@@ -574,16 +574,44 @@ def remove_dish(product_id):
 
 
             # Editar un plato
-@api.route('/user/<int:user_id>/menu', methods=['PUT'])
+# Ejemplo Body JSON PUT:
+# {"producto_id": "2","nombre": "cupcake","descripcion": "chocolate","precio": 50,"cantidad": "10","foto": "" }
+@api.route('/user/menu', methods=['PUT'])
 @jwt_required()
-def edit_dish(user_id):
+def edit_dish():
     current_user = get_jwt_identity() #puede ir o no
     login_user = Usuarios.query.filter_by(email=current_user).first()
 
     if login_user is None:
         return jsonify({"status": False}), 404
 
-    return jsonify("ok"), 200
+    body = json.loads(request.data)
+
+    menu = Productos.query.filter_by(cocina_id=login_user.id, id=body["producto_id"]).first()
+    
+    if menu is not None:
+        if "nombre" in body:
+                menu.nombre = body["nombre"]
+        if "descripcion" in body:
+            menu.descripcion = body["descripcion"]
+        if "precio" in body:
+            menu.precio = body["precio"]
+        if "cantidad" in body:
+            menu.cantidad = body["cantidad"]
+        if "foto" in body:
+            menu.foto = body["foto"]
+
+        db.session.commit()
+        response_body = {
+            "msg": "update product"
+        }
+
+        return jsonify(response_body), 200
+
+    response_body = {
+            "msg": "Not exist"
+        }
+    return jsonify(response_body), 400
 
 # ----------                                Others rutes                              ----------
 
