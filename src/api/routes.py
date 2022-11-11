@@ -171,7 +171,7 @@ def get_all_products_cart_to_user(user_id):
 
     # productos = db.session.query(Productos,Carritos).join(Carritos).filter_by(usuario_id=user_id, confirmado=False)
 
-    carritos = Carritos.query.filter_by(usuario_id=user_id, confirmado=False).all()
+    carritos = Carritos.query.filter_by(usuario_id=user_id, confirmado=False).order_by(Carritos.producto_id).all()
     print("$$$$$$$$Carritos: " + str(carritos))
 
     if carritos is None:

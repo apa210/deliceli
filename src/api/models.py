@@ -61,6 +61,27 @@ class Usuarios(db.Model):
             "descripcion": self.descripcion,
             # do not serialize the password, its a security breach
         }
+    def serialize_producto_usuario(self):
+        return {
+            "id_usuario": self.id,
+            "user_name": self.user_name,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "telefono": self.telefono,
+            "rol": self.rol,
+            "foto_usuario": self.foto,
+            "direccion": self.direccion,
+            "facebook": self.facebook,
+            "twitter": self.twitter,
+            "linkedin": self.linkedin,
+            "instagram": self.instragram,
+            "dribble": self.dribble,
+            "pinterest": self.pinterest,
+            "descripcion_usuario": self.descripcion,
+            # do not serialize the password, its a security breach
+        }
+        
 
 class Productos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -88,7 +109,7 @@ class Productos(db.Model):
         }
     def serialize_cocinero(self):
         cocina = Usuarios.query.filter_by(id=self.cocina_id).first()
-        return cocina.serialize()
+        return cocina.serialize_producto_usuario()
 
 class Favoritos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
