@@ -40,7 +40,7 @@ export const Kitchens = () => {
               Nuestros Perfiles de Cocina Sin Gluten, Sin Lactosa, Vegana.
             </h1>
             <p>
-              Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
+              Buscamos facilitar la vida de las personas con celiaquía,
               intolerancia al gluten o alergias.
             </p>
             <div className="container text-center mt-5">

@@ -49,7 +49,7 @@ export const Home = () => {
               añadidos, sin gluten, vegana.
             </h1>
             <p className="mb-5">
-              Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
+              Buscamos facilitar la vida de las personas con celiaquía,
               intolerancia al gluten o alergias, y entregar lo mejor de nosotros
               mismos para atender cada desafío que la comunidad celíaca
               requiere, poniendo énfasis en ofrecer productos sanos y seguros.
@@ -79,8 +79,7 @@ export const Home = () => {
                     bio sin añadidos, sin gluten, vegana.
                   </h3>
                   <p className="card-text">
-                    Buscamos facilitar la vida de las personas con Enfermedad
-                    Celíaca, intolerancia al gluten o alergias, y entregar lo
+                    Buscamos facilitar la vida de las personas con celiaquía, intolerancia al gluten o alergias, y entregar lo
                     mejor de nosotros mismos para atender cada desafío que la
                     comunidad celíaca requiere, poniendo énfasis en ofrecer
                     productos sanos y seguros.
@@ -99,7 +98,7 @@ export const Home = () => {
               Nuestros Perfiles de Cocina Sin Gluten, Sin Lactosa, Vegana.
             </h1>
             <p>
-              Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
+              Buscamos facilitar la vida de las personas con celiaquía,
               intolerancia al gluten o alergias.
             </p>
             <div className="container text-center mt-5">
@@ -117,7 +116,7 @@ export const Home = () => {
           <div className="p-2 text-center">
             <h1 className="p-2 ">Productos Recientes</h1>
             <p>
-              Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
+              Buscamos facilitar la vida de las personas con celiaquía,
               intolerancia al gluten o alergias.
             </p>
           </div>
