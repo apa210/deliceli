@@ -547,21 +547,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                   }
                 }
               } else {
-                const userToken = localStorage.getItem("token");
                 try {
-                  const response = await axios
+                  let reqInstance = axios.create({
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  });
+                  const response = await reqInstance
                     .post(store.api_url + "cart/addProduct", {
-                      headers: {
-                        Authorization: "Bearer " + userToken,
-                      },
-                      body: {
-                        usuario_id: store?.profile?.id,
-                        producto_id: producto_id,
-                        cocina_id: cocina_id,
-                        cantidad: 1,
-                        precio_unitario: precio_unitario,
-                        total: precio_unitario,
-                      },
+                      usuario_id: store?.profile?.id,
+                      producto_id: producto_id,
+                      cocina_id: cocina_id,
+                      cantidad: 1,
+                      precio_unitario: precio_unitario,
+                      total: precio_unitario,
                     })
                     .then(() => actions.getCart(store.profile?.id));
                   console.log(response);
@@ -570,25 +569,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
               }
             } else {
-              const userToken = localStorage.getItem("token");
               try {
-                const response = await axios
+                let reqInstance = axios.create({
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                });
+                const response = await reqInstance
                   .post(store.api_url + "cart/addProduct", {
-                    headers: {
-                      Authorization: "Bearer " + userToken,
-                    },
-                    body: {
-                      usuario_id: store?.profile?.id,
-                      producto_id: producto_id,
-                      cocina_id: cocina_id,
-                      cantidad: 1,
-                      precio_unitario: precio_unitario,
-                      total: precio_unitario,
-                    },
+                    usuario_id: store?.profile?.id,
+                    producto_id: producto_id,
+                    cocina_id: cocina_id,
+                    cantidad: 1,
+                    precio_unitario: precio_unitario,
+                    total: precio_unitario,
                   })
                   .then(() => actions.getCart(store.profile?.id));
                 console.log(response);
-                // window.location.reload();
               } catch (error) {
                 console.log(error);
               }
@@ -634,7 +631,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (operation == "update") {
             try {
               if (store.auth == true) {
-                const response = await axios.put(
+                let reqInstance = axios.create({
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                });
+                const response = await reqInstance.put(
                   store.api_url + "cart/editProduct",
                   {
                     usuario_id: store?.profile?.id,
