@@ -187,13 +187,19 @@ const getState = ({ getStore, getActions, setStore }) => {
       // esta funcion realiza una peticion a la API para conseguir los productos del carrito actual del usuario logeado
       //
       getCart: async (user_id) => {
+        const userToken = localStorage.getItem("token");
         const store = getStore();
         const actions = getActions();
         actions.validateToken();
         try {
           if (store.auth == true) {
             const response = await axios.get(
-              store.api_url + "cart/productsCart/" + user_id
+              store.api_url + "cart/productsCart/",
+              {
+                headers: {
+                  Authorization: "Bearer " + userToken,
+                },
+              }
             );
             setStore({
               cart: response?.data,
@@ -541,15 +547,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                   }
                 }
               } else {
+                const userToken = localStorage.getItem("token");
                 try {
                   const response = await axios
                     .post(store.api_url + "cart/addProduct", {
-                      usuario_id: store?.profile?.id,
-                      producto_id: producto_id,
-                      cocina_id: cocina_id,
-                      cantidad: 1,
-                      precio_unitario: precio_unitario,
-                      total: precio_unitario,
+                      headers: {
+                        Authorization: "Bearer " + userToken,
+                      },
+                      body: {
+                        usuario_id: store?.profile?.id,
+                        producto_id: producto_id,
+                        cocina_id: cocina_id,
+                        cantidad: 1,
+                        precio_unitario: precio_unitario,
+                        total: precio_unitario,
+                      },
                     })
                     .then(() => actions.getCart(store.profile?.id));
                   console.log(response);
@@ -558,15 +570,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
               }
             } else {
+              const userToken = localStorage.getItem("token");
               try {
                 const response = await axios
                   .post(store.api_url + "cart/addProduct", {
-                    usuario_id: store?.profile?.id,
-                    producto_id: producto_id,
-                    cocina_id: cocina_id,
-                    cantidad: 1,
-                    precio_unitario: precio_unitario,
-                    total: precio_unitario,
+                    headers: {
+                      Authorization: "Bearer " + userToken,
+                    },
+                    body: {
+                      usuario_id: store?.profile?.id,
+                      producto_id: producto_id,
+                      cocina_id: cocina_id,
+                      cantidad: 1,
+                      precio_unitario: precio_unitario,
+                      total: precio_unitario,
+                    },
                   })
                   .then(() => actions.getCart(store.profile?.id));
                 console.log(response);
@@ -652,12 +670,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       quit_product: async (prod, prod_id) => {
         let store = getStore();
         let actions = getActions();
+        const userToken = localStorage.getItem("token");
         try {
           const response = await fetch(
             store.api_url +
               "cart/deletedProduct/" +
-              store?.profile?.id +
-              "/" +
+              // store?.profile?.id +
+              // "/" +
               prod_id,
             {
               method: "DELETE",
@@ -665,6 +684,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 prod_id: prod_id,
               }),
               headers: {
+                Authorization: "Bearer " + userToken,
                 "Content-Type": "application/json",
               },
             }
@@ -713,7 +733,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions.validateToken();
         if (store.auth == true) {
           if (operation == "edit") {
-            if (store.profile?.id === kit_id && store.profile?.rol === "cocina") {
+            if (
+              store.profile?.id === kit_id &&
+              store.profile?.rol === "cocina"
+            ) {
               setStore({ editProduct: value });
               console.log(store.editProduct);
               setStore({ val_edit: true });
@@ -722,15 +745,17 @@ const getState = ({ getStore, getActions, setStore }) => {
               setStore({ val_edit: false });
               window.location.reload();
             }
-          } 
+          }
           if (operation == "add") {
-            setStore({ editProduct: {
-              nombre: "",
-              cantidad_producto: "",
-              precio: "",
-              descripcion: "",
-              foto_producto: ""
-            } })
+            setStore({
+              editProduct: {
+                nombre: "",
+                cantidad_producto: "",
+                precio: "",
+                descripcion: "",
+                foto_producto: "",
+              },
+            });
             setStore({ val_edit: true });
           }
         } else {
