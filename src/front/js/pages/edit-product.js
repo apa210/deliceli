@@ -15,6 +15,10 @@ export const EditProduct = () => {
   const [description, setDescription] = useState("");
   const [img, setImg] = useState("");
 
+  const [alertText_err, set_alertText_err] = useState("hidden");
+  const [alertImg_err, set_alertImg_err] = useState("hidden");
+  const [alertSuccess, set_alertSuccess] = useState("hidden");
+
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -23,6 +27,53 @@ export const EditProduct = () => {
         navigate("/");
       }, 100);
     }
+  };
+
+  const uploadProduct = async () => {
+    if (name == "" && description == "" && price == "") {
+      if (alertText_err != "show") {
+        set_alertText_err("show");
+        setTimeout(() => {
+          set_alertText_err("hidden");
+        }, 3500);
+      }
+    } else if (img == "") {
+      if (alertImg_err != "show") {
+        set_alertImg_err("show");
+        setTimeout(() => {
+          set_alertImg_err("hidden");
+        }, 3500);
+      }
+    } else {
+      actions.uploadProduct(
+        name,
+        description,
+        price,
+        limit == "" ? "0000" : limit,
+        img
+      );
+      if (alertSuccess != "show") {
+        set_alertSuccess("show");
+        setTimeout(() => {
+          set_alertSuccess("hidden");
+        }, 3500);
+      }
+    }
+  };
+
+  const uploadImg = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "DeliCeli");
+
+    const res = await fetch(process.env.STORAGE_IMG, {
+      method: "POST",
+      body: data,
+    });
+
+    const file = await res.json();
+    setImg(file.secure_url);
   };
 
   useEffect(() => {
@@ -61,8 +112,8 @@ export const EditProduct = () => {
               <div className="my-5">
                 <h3>
                   {" "}
-                  <i className="fas fa-cog d-inline mx-2"></i> Datos de tu
-                  cuenta
+                  <i id="aux" className="fas fa-cog d-inline mx-2"></i> Datos de
+                  tu cuenta
                 </h3>
                 <hr />
               </div>
@@ -139,27 +190,16 @@ export const EditProduct = () => {
                   <div className="col-xxl-8 mb-5 mb-xxl-0">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
-                      {window.location.pathname == "/pages/edit-product"
-                      ?
-                        <h4 className="mb-4 mt-0">
-                          {"TU MENÚ > Editar Producto"}
-                        </h4>
-                      :
-                        <h4 className="mb-4 mt-0">
-                          {"TU MENÚ > Agregar Producto"}
-                        </h4>
-                      }
+                        {window.location.pathname == "/pages/edit-product" ? (
+                          <h4 className="mb-4 mt-0">
+                            {"TU MENÚ > Editar Producto"}
+                          </h4>
+                        ) : (
+                          <h4 className="mb-4 mt-0">
+                            {"TU MENÚ > Agregar Producto"}
+                          </h4>
+                        )}
 
-                        <div
-                          className="alert alert-success hidden"
-                          role="alert"
-                        >
-                          El producto ha sido actualizado con éxito.
-                        </div>
-
-                        <div className="alert alert-danger hidden" role="alert">
-                          Hay campos vacíos debes completar todos los campos.
-                        </div>
                         {/* Nombre  */}
                         <div className="col-md-6">
                           <label className="form-label">
@@ -256,7 +296,7 @@ export const EditProduct = () => {
                               type="file"
                               id="customFile"
                               name="file"
-                              hidden=""
+                              onChange={uploadImg}
                             />
                             {/* <label
                               className="btn btn-success-soft btn-block"
@@ -282,23 +322,58 @@ export const EditProduct = () => {
                   </div>
                 </div>{" "}
                 {/* fin de detalles de la cuenta  */}
-                {window.location.pathname == "/pages/edit-product"
-                ?
+                {window.location.pathname == "/pages/edit-product" ? (
                   <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
-                    <button type="button" className="btn btn-danger btn-lg mb-3">
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-lg mb-3"
+                    >
                       Eliminar producto
                     </button>
-                    <button type="button" className="btn btn-primary btn-lg mb-3">
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-lg mb-3"
+                    >
                       Actualizar producto
                     </button>
                   </div>
-                :
-                <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
-                    <button type="button" className="btn btn-primary btn-lg mb-3">
+                ) : (
+                  <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
+                    <button
+                      onClick={() => {
+                        uploadProduct(name, description, price, limit, img);
+                      }}
+                      type="button"
+                      className="btn btn-primary btn-lg mb-3"
+                    >
                       Guardar producto
                     </button>
                   </div>
-                }
+                )}
+                {/* alertas */}
+                <div
+                  className={"alert alert-success " + alertSuccess}
+                  role="alert"
+                >
+                  El producto ha sido{" "}
+                  {window.location.pathname == "/pages/edit-product"
+                    ? "actualizado"
+                    : "guardado"}{" "}
+                  con éxito.
+                </div>
+                <div
+                  className={"alert alert-danger " + alertText_err}
+                  role="alert"
+                >
+                  Hay campos vacíos, debes completar todos los campos
+                  obligatorios!
+                </div>
+                <div
+                  className={"alert alert-danger " + alertImg_err}
+                  role="alert"
+                >
+                  Necesitas subir una imagen del producto
+                </div>
               </form>{" "}
               {/*Form END  */}
             </div>

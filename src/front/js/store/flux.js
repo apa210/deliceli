@@ -7,8 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     // lugar especifico donde se almacenan "datos" en estado bruto o para tratar a traves de funciones
     store: {
       // la url-base de la API, utilizada en las llamadas de la api, completada en la misma llamada
-      api_url:
-        "https://3001-apa210-deliceli-cfusbv71ezu.ws-us75.gitpod.io/api/", // A CAMBIAR - USAR EL ARCHIVO ".env" para OCULTAR este dato
+      api_url: process.env.BACKEND_URL,
       // validaciones; variables que sirven para indicar "estados" dentro de la web
       auth: false,
       val: false,
@@ -770,6 +769,32 @@ const getState = ({ getStore, getActions, setStore }) => {
       modHistoryNav: (value) => {
         setStore({ historyNav: value });
       },
+
+      uploadProduct: async (name, description, price, quantity, img) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          // actions.uploadImg(img)
+
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.post(store.api_url + "user/menu", {
+            nombre: name,
+            descripcion: description,
+            precio: price,
+            cantidad: quantity,
+            foto: img,
+          });
+          console.log(response);
+        }
+      },
+
+      //
     },
   };
 };
