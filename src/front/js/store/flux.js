@@ -707,19 +707,31 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       // POINT
-      editProduct: async (prod_id, kit_id, value) => {
+      editProduct: async (prod_id, kit_id, value, operation) => {
         let store = getStore();
         let actions = getActions();
         actions.validateToken();
         if (store.auth == true) {
-          if (store.profile?.id === kit_id && store.profile?.rol === "cocina") {
-            setStore({ editProduct: value });
-            console.log(store.editProduct);
+          if (operation == "edit") {
+            if (store.profile?.id === kit_id && store.profile?.rol === "cocina") {
+              setStore({ editProduct: value });
+              console.log(store.editProduct);
+              setStore({ val_edit: true });
+            } else {
+              setStore({ editProduct: {} });
+              setStore({ val_edit: false });
+              window.location.reload();
+            }
+          } 
+          if (operation == "add") {
+            setStore({ editProduct: {
+              nombre: "",
+              cantidad_producto: "",
+              precio: "",
+              descripcion: "",
+              foto_producto: ""
+            } })
             setStore({ val_edit: true });
-          } else {
-            setStore({ editProduct: {} });
-            setStore({ val_edit: false });
-            window.location.reload();
           }
         } else {
           setStore({ editProduct: {} });
