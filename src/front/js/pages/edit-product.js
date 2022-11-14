@@ -142,7 +142,7 @@ export const EditProduct = () => {
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
                         <h4 className="mb-4 mt-0">
-                          {"TU MENÚ > Editar Producto"}
+                          {"TU MENÚ > Agregar nuevo Producto / Editar Producto"}
                         </h4>
 
                         <div

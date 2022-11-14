@@ -47,7 +47,7 @@ export const Products = () => {
         <div className="p-2 text-center">
           <h1 className="p-2">Productos</h1>
           <p>
-            Buscamos facilitar la vida de las personas con Enfermedad Celíaca,
+            Buscamos facilitar la vida de las personas con celiaquía,
             intolerancia al gluten o alergias.
           </p>
         </div>

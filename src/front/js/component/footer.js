@@ -22,10 +22,10 @@ export const Footer = () => {
             </div>
 
             <div className="col-lg-2 mt-5">
-              <h5> CUENTA</h5> <br />
+              {/* <h5> CUENTA</h5> <br />
               <Link to="/pages/client-account">Mi Cuenta</Link>
               <br />
-              <Link to="/pages/favorites">Favoritos</Link>
+              <Link to="/pages/favorites">Favoritos</Link> */}
             </div>
 
             <div className="col-lg-2 mt-5">
