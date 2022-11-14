@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 import { ProductCardVertical } from "../component/product-card-vertical";
@@ -7,7 +7,8 @@ import Footer_contact from "../component/footer_contact";
 
 export const Products = () => {
   const { store, actions } = useContext(Context);
-  
+
+
   // Al cargar la página, se desplaza hacia arriba
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,6 +53,8 @@ export const Products = () => {
           </p>
         </div>
 
+        
+
         <div className="container">
           <div className="row">
             {/* col sidebar  */}
@@ -61,8 +64,9 @@ export const Products = () => {
             {/* col sidebar  */}
 
             {/* col - productos  */}
-            <div className="col">
+            <div className="col mt-4">
               <div className="row">
+        
                 {/* Si se filtra aparecen los productos pertenecientes a esa categoría y
                    si no se filtra, aparecen todos los productos */}
                 {store.val_category == false
