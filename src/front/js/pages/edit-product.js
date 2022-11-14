@@ -24,8 +24,7 @@ export const EditProduct = () => {
       }, 100);
     }
   };
-  console.log(store.editProduct);
-  console.log(window.location.pathname);
+
   useEffect(() => {
     // No da acceso a la cuenta de la cocina sin estar logueado
     if (store.auth == false) {
