@@ -25,7 +25,7 @@ export const EditProduct = () => {
     }
   };
   console.log(store.editProduct);
-
+  console.log(window.location.pathname);
   useEffect(() => {
     // No da acceso a la cuenta de la cocina sin estar logueado
     if (store.auth == false) {
@@ -140,9 +140,16 @@ export const EditProduct = () => {
                   <div className="col-xxl-8 mb-5 mb-xxl-0">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
+                      {window.location.pathname == "/pages/edit-product"
+                      ?
                         <h4 className="mb-4 mt-0">
-                          {"TU MENÚ > Agregar nuevo Producto / Editar Producto"}
+                          {"TU MENÚ > Editar Producto"}
                         </h4>
+                      :
+                        <h4 className="mb-4 mt-0">
+                          {"TU MENÚ > Agregar Producto"}
+                        </h4>
+                      }
 
                         <div
                           className="alert alert-success hidden"
@@ -276,14 +283,23 @@ export const EditProduct = () => {
                   </div>
                 </div>{" "}
                 {/* fin de detalles de la cuenta  */}
+                {window.location.pathname == "/pages/edit-product"
+                ?
+                  <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
+                    <button type="button" className="btn btn-danger btn-lg mb-3">
+                      Eliminar producto
+                    </button>
+                    <button type="button" className="btn btn-primary btn-lg mb-3">
+                      Actualizar producto
+                    </button>
+                  </div>
+                :
                 <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
-                  <button type="button" className="btn btn-danger btn-lg mb-3">
-                    Eliminar producto
-                  </button>
-                  <button type="button" className="btn btn-primary btn-lg mb-3">
-                    Actualizar producto
-                  </button>
-                </div>
+                    <button type="button" className="btn btn-primary btn-lg mb-3">
+                      Guardar producto
+                    </button>
+                  </div>
+                }
               </form>{" "}
               {/*Form END  */}
             </div>
