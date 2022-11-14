@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import axios from "axios";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
@@ -9,21 +9,56 @@ import { Link } from "react-router-dom";
 export const ProductCardVertical = (props) => {
   const { store, actions } = useContext(Context);
 
+  // estado que guarda mensaje de error
+const [error, setError] = useState("");
+const [success, setSuccess] = useState("");
+
+// useRef que acciona alerta
+const showAlert = useRef("");
+const showSuccess = useRef("");
+  
   // este "boton" llama a una funcion del flux.js... añade un producto al carrito
   // más detallado en el flux.js
   const addCart = () => {
+   
+    if (store.auth==true) {
     actions.buy_product(
       props?.obj?.id,
       props?.obj?.cocina_id,
       props?.obj?.precio
     );
-  };
+
+    setTimeout(() => {
+      showSuccess.current.classList.add("d-none");
+    }, 3000);
+    showSuccess.current.classList.remove("d-none");
+    setSuccess("El producto fue añadido al carrito correctamente!");
+  }
+
+  else {
+
+    setTimeout(() => {
+      showAlert.current.classList.add("d-none");
+    }, 3000);
+    showAlert.current.classList.remove("d-none");
+    setError("Debe estar logueado para añadir productos al carrito!");
+
+
+   }
+
+}
+    
+
+
+
+
 
   return (
     <>
       {/* producto  */}
 
       <div className="card mt-4">
+   
         <img src={props?.obj?.foto_producto} className="card-img-top" />
         <div className="card-body p-3">
           <h5 className="card-title">{props?.obj?.nombre}</h5>
@@ -47,6 +82,11 @@ export const ProductCardVertical = (props) => {
           </div>
 
           <h2>$ {props?.obj?.precio}</h2>
+
+          <div className="d-none alert alert-danger" ref={showAlert} role="alert">{error}</div>
+
+        <div className="d-none alert alert-success"  ref={showSuccess} role="alert">{success} </div>
+
           <button
             onClick={addCart}
             type="button"
