@@ -449,23 +449,69 @@ def get_profile():
 
 
     # Editar perfil
-@api.route('/user/<int:user_id>', methods=['PUT'])
+# {"user_name": "", "first_name": "", "last_name": "", "old_password": "", "new_password": "", 
+# "email": "", "telefono": 1, "foto": "", "direccion": "", "facebook": "", "twitter": "", 
+# "linkedin": "", "instagram": "", "dribble": "", "pinterest": "", "descripcion": "" }
+@api.route('/user', methods=['PUT'])
 @jwt_required()
-def edit_username(user_id):
+def edit_username():
+
     current_user = get_jwt_identity() #puede ir o no
     login_user = Usuarios.query.filter_by(email=current_user).first()
 
-    if login_user is None:
-        return jsonify({"status": False}), 404
+    body = json.loads(request.data)
 
-        # Crear condicional para deternimar que se está editando o que se editara:
-            # Editar username
-            # Editar email
-            # Editar first name
-            # Editar last name
-            # Editar phone
-            # Editar password
-    return jsonify("ok"), 200
+    if login_user is not None:
+        if "user_name" in body:
+            login_user.user_name = body["user_name"]
+        if "first_name" in body:
+            login_user.first_name = body["first_name"]
+        if "last_name" in body:
+            login_user.last_name = body["last_name"]
+        if "old_password" in body:
+            if login_user.password == body["old_password"] and "new_password" in body:
+                login_user.password = body["new_password"]
+            else:
+                response_body = {"msg": "La contraseña actual no es correcta"}
+                return jsonify(response_body), 400
+        if "email" in body:
+            login_user.email = body["email"]
+        if "telefono" in body:
+            login_user.telefono = body["telefono"]
+        if "foto" in body:
+            login_user.foto = body["foto"]
+        if "direccion" in body:
+            login_user.direccion = body["direccion"]
+        if "facebook" in body:
+            login_user.facebook = body["facebook"]
+        if "twitter" in body:
+            login_user.twitter = body["twitter"]
+        if "linkedin" in body:
+            login_user.linkedin = body["linkedin"]
+        if "instagram" in body:
+            login_user.instragram = body["instagram"]
+        if "dribble" in body:
+            login_user.dribble = body["dribble"]
+        if "pinterest" in body:
+            login_user.pinterest = body["pinterest"]
+        if "descripcion" in body:
+            login_user.descripcion = body["descripcion"]
+
+        db.session.commit()
+
+        response_body = {
+            "msg": "update user"
+        }
+
+        return jsonify(response_body), 200
+
+    else:
+        response_body = {
+            "msg": "Debe loguearse para actualizar datos"
+        }
+        return jsonify(response_body), 404
+
+    
 
             # Recuperar la contraseña
                 # para completar !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
