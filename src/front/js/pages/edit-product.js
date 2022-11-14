@@ -24,7 +24,6 @@ export const EditProduct = () => {
       }, 100);
     }
   };
-
   console.log(store.editProduct);
 
   useEffect(() => {

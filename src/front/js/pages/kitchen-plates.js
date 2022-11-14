@@ -9,6 +9,14 @@ export const KitchenPlates = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  const buttonEdit = (operation) => {
+    actions.editProduct(undefined, undefined, undefined, operation).then(() => {
+      if (store.val_edit == true) {
+        navigate("/pages/add-product");
+      }
+    });
+  };
+
   // trae los productos de la store
   const map_products = store?.menuKitchen.map((item, index) => {
     return (
@@ -138,8 +146,13 @@ export const KitchenPlates = () => {
                   <button
                     type="button"
                     className="d-flex btn btn-primary mt-3 mb-3 align-items-end"
+                    onClick={() =>
+                      buttonEdit(
+                        "add"
+                      )
+                    }
                   >
-                    Agrgegar nuevo producto
+                    Agregar nuevo producto
                   </button>
                 </div>
               </nav>

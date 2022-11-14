@@ -9,8 +9,8 @@ export const ProductCardHorizontalMenu = (props) => {
 
   const navigate = useNavigate();
 
-  const buttonEdit = (prod_id, kit_id, value) => {
-    actions.editProduct(prod_id, kit_id, value).then(() => {
+  const buttonEdit = (prod_id, kit_id, value, operation) => {
+    actions.editProduct(prod_id, kit_id, value, operation).then(() => {
       if (store.val_edit == true) {
         navigate("/pages/edit-product");
       }
@@ -53,7 +53,8 @@ export const ProductCardHorizontalMenu = (props) => {
                     buttonEdit(
                       props?.obj?.id,
                       props?.obj?.cocina_id,
-                      props?.obj
+                      props?.obj,
+                      "edit"
                     )
                   }
                   className="btn btn-primary me-2"

@@ -66,6 +66,7 @@ const Layout = () => {
                         <Route element={<OrderConfirmed />} path="/pages/order-confirmed" />
                         <Route element={<Checkout />} path="/pages/checkout" />
                         <Route element={<EditProduct />} path="/pages/edit-product" />
+                        <Route element={<EditProduct />} path="/pages/add-product" />
                         
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
