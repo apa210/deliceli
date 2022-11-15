@@ -552,9 +552,26 @@ def get_user_menu():
         return jsonify({"status": False}), 404
 
     menu = Productos.query.filter_by(cocina_id=login_user.id).all()
+
+    results_id = list(map(lambda item: item.id, menu))
     results = list(map(lambda item: item.serialize(), menu))
 
-    return jsonify(results), 200
+    aux = []
+    num = 0
+    while num < len(results_id):
+        category = Categorias_Productos.query.filter_by(producto_id=results_id[num]).all()
+        results_category = list(map(lambda item: item.serialize(), category))
+        aux.append(results_category)
+        num+=1
+
+    data = []
+    num = 0
+    while num < len(aux):
+        results[num]['category'] = aux[num]
+        data.append(results[num])
+        num+=1
+
+    return jsonify(data), 200
 
 
             # Añadir un plato
@@ -583,8 +600,18 @@ def add_dish():
         new_product = Productos(id=id, nombre=body["nombre"], descripcion=body["descripcion"], precio=body["precio"], cantidad=body["cantidad"], foto=body["foto"], cocina_id=login_user.id)
         db.session.add(new_product)
         db.session.commit()
+
+        num = 0
+        while num < len(body["categoria"]):
+            product = Productos.query.filter_by(id = id).first()
+            category = Categorias.query.filter_by(id = body["categoria"][num]).first()
+            new_product_category = Categorias_Productos(categoria_id=category.id, producto_id=product.id)
+            db.session.add(new_product_category)
+            db.session.commit()
+            num+=1
+
         response_body = {
-                "msg": new_product.serialize()
+                "msg": "Nuevo producto añadido"
             }
 
         return jsonify(response_body), 200
