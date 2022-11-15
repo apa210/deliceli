@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -9,6 +9,38 @@ import { ProductCardVertical } from "../component/product-card-vertical";
 export const SingleProduct = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+  // estado que guarda mensaje de error
+  const [error, setError] = useState("");
+
+  // estado que guarda mensaje de éxito
+  const [success, setSuccess] = useState("");
+
+  // useRef que acciona alerta
+  const showAlert = useRef("");
+
+  // useRef que acciona alerta de éxito
+  const showSuccess = useRef("");
+
+  const addCart = () => {
+    if (store?.auth == true) {
+      actions.buy_product(
+        store.product?.product?.id,
+        store.product?.product?.cocina_id,
+        store.product?.product?.precio
+      );
+      setTimeout(() => {
+        showSuccess.current.classList.add("d-none");
+      }, 3000);
+      showSuccess.current.classList.remove("d-none");
+      setSuccess("Se han añadido los productos exitosamente!");
+    } else {
+      setTimeout(() => {
+        showAlert.current.classList.add("d-none");
+      }, 3000);
+      showAlert.current.classList.remove("d-none");
+      setError("Debes estar logueado para añadir productos al carrito.");
+    }
+  };
 
   const map_products = store?.AllProductsOfKitchen.map((item, index) => {
     if (store?.AllProductsOfKitchen != []) {
@@ -30,14 +62,6 @@ export const SingleProduct = () => {
         actions.getAllProductsOfKitchen(store.product?.User?.id_usuario)
       );
   }, [params?.id]);
-
-  const addCart = () => {
-    actions.buy_product(
-      store.product?.product?.id,
-      store.product?.product?.cocina_id,
-      store.product?.product?.precio
-    );
-  };
 
   return (
     <>
@@ -88,6 +112,24 @@ export const SingleProduct = () => {
                       </div>
 
                       <h2>$ {store?.product?.product?.precio}</h2>
+
+                      {/* alerta de error */}
+                      <div
+                        className="alert alert-danger d-none"
+                        ref={showAlert}
+                        role="alert"
+                      >
+                        {error}
+                      </div>
+                      {/* Alerta de éxito */}
+                      <div
+                        className="alert alert-success d-none"
+                        ref={showSuccess}
+                        role="alert"
+                      >
+                        {success}
+                      </div>
+
                       <button
                         onClick={addCart}
                         type="button"
