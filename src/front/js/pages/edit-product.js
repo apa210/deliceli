@@ -14,6 +14,7 @@ export const EditProduct = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [img, setImg] = useState("");
+  const aux = [];
 
   const [alertText_err, set_alertText_err] = useState("hidden");
   const [alertImg_err, set_alertImg_err] = useState("hidden");
@@ -28,6 +29,33 @@ export const EditProduct = () => {
       }, 100);
     }
   };
+  
+  const changeCategory = (e, aux_category) => {
+    console.log(e.target.checked);
+    console.log(aux_category);
+    if (e.target.checked == true) {
+      // localStorage.removeItem("aux")
+      aux.push(aux_category)
+    } else {
+      // localStorage.removeItem("aux")
+      aux = aux.filter((item) => {
+        if (item != aux_category) {
+          return item
+        }
+      })
+    }
+    // if (localStorage.getItem("aux") == null) {
+    //   console.log(aux);
+    //   let aux1 = aux.join()
+    //   console.log(aux1);
+    //   localStorage.setItem("aux", aux1)
+    // } else {
+    //   console.log(aux);
+    //   let aux1 = aux.join()
+    //   console.log(aux1);
+    //   localStorage.setItem("aux", aux1)
+    // }
+  }
 
   const uploadProduct = async () => {
     if (name == "" && description == "" && price == "") {
@@ -45,19 +73,26 @@ export const EditProduct = () => {
         }, 3500);
       }
     } else {
+      // let category = localStorage.getItem("aux");
+      // category = category.split(",")
       actions.uploadProduct(
         name,
         description,
         price,
         limit == "" ? "0000" : limit,
-        img
+        img,
+        category
       );
+      console.log(category);
       if (alertSuccess != "show") {
         set_alertSuccess("show");
         setTimeout(() => {
           set_alertSuccess("hidden");
         }, 3500);
       }
+      // if (localStorage.getItem("aux") != null) {
+      //   localStorage.removeItem("aux");
+      // }
     }
   };
 
@@ -93,6 +128,25 @@ export const EditProduct = () => {
     // Al cargar la página, se desplaza hacia arriba
     // window.scrollTo(0, 0);
   }, []);
+
+  // mapea un elemento del flux.js... este guarada las categorias ya establecidas
+  // que se registraron en la Base de Datos.
+  const map_categories = store?.categories.map((item, index) => {
+    return (
+      <div className="form-check form-check-inline col-2" key={item + index + index}>
+        <input
+          onClick={(e) => changeCategory(e, item?.id)}
+          className="form-check-input"
+          type="checkbox"
+          id={"inlineCheckbox1" + index}
+          value="option1"
+        />
+        <label className="form-check-label" htmlFor={"inlineCheckbox1" + index}>
+          {item?.nombre}
+        </label>
+      </div>
+    );
+  });
 
   return (
     <>
@@ -265,6 +319,31 @@ export const EditProduct = () => {
                           />
                         </div>
                         {/*  Dirección  */}
+                        {map_categories}
+                        {/* <div className="form-check form-check-inline col-2">
+                          <input
+                            onChange={(e) => changeCategory(e, 0)}
+                            className="form-check-input"
+                            type="checkbox"
+                            id="inlineCheckbox1"
+                            value="option1"
+                          />
+                          <label className="form-check-label" htmlFor="inlineCheckbox1">
+                            Categoria 1
+                          </label>
+                        </div>
+                        <div className="form-check form-check-inline col-2">
+                          <input
+                            onChange={(e) => changeCategory(e, 1)}
+                            className="form-check-input"
+                            type="checkbox"
+                            id="inlineCheckbox2"
+                            value="option2"
+                          />
+                          <label className="form-check-label" htmlFor="inlineCheckbox2">
+                            Categoria 2
+                          </label>
+                        </div> */}
                       </div>
 
                       {/* fin del formulario  */}

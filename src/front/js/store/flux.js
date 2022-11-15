@@ -770,7 +770,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ historyNav: value });
       },
 
-      uploadProduct: async (name, description, price, quantity, img) => {
+      uploadProduct: async (name, description, price, quantity, img, category) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
@@ -787,11 +787,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             precio: price,
             cantidad: quantity,
             foto: img,
+            categoria: category
           });
           await actions.getMenu();
         }
       },
-
       removeProduct: async (prod_id) => {
         let store = getStore();
         let actions = getActions();
