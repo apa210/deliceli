@@ -776,8 +776,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         await actions.validateToken();
 
         if (store.auth == true) {
-          // actions.uploadImg(img)
-
           let reqInstance = axios.create({
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -790,7 +788,25 @@ const getState = ({ getStore, getActions, setStore }) => {
             cantidad: quantity,
             foto: img,
           });
-          console.log(response);
+          await actions.getMenu();
+        }
+      },
+
+      removeProduct: async (prod_id) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.delete(
+            store.api_url + "user/menu/" + prod_id
+          );
+          actions.getMenu();
         }
       },
 

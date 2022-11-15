@@ -17,6 +17,12 @@ export const ProductCardHorizontalMenu = (props) => {
     });
   };
 
+  // console.log(props?.obj);
+
+  const buttonRemove = (prod_id) => {
+    actions.removeProduct(prod_id);
+  };
+
   return (
     <>
       <section>
@@ -63,7 +69,11 @@ export const ProductCardHorizontalMenu = (props) => {
                 </button>
                 {/* </Link> */}
 
-                <button type="button" className="btn btn-danger me-2">
+                <button
+                  onClick={() => buttonRemove(props?.obj?.id)}
+                  type="button"
+                  className="btn btn-danger me-2"
+                >
                   Eliminar Producto
                 </button>
               </div>
