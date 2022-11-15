@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import random
 import json
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias, Favoritos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -316,11 +316,14 @@ def login():
     # busca el usuario pedido en la tabla
     user = Usuarios.query.filter_by(email=body["email"]).first()
 
+    password_encrypted = current_app.bcrypt.check_password_hash(user.password, body["password"]) # returns True
+
     # comprueba si el usuario existe, en caso de que no exista le devuelve un error
     if user is None:
         raise APIException('The user does not exist', status_code=404)
     # comprueba que el email y la contraseña concuerden con las del usuario, devuelve error en el caso que no conincida alguno
-    elif body["email"] != user.email or body["password"] != user.password:
+    
+    elif body["email"] != user.email or not password_encrypted:
         raise APIException('Bad email or password', status_code=401)
 
     # si el codigo no fue interrumpido hasta ahora,
@@ -359,6 +362,7 @@ def signup():
     # ve que el email no exista en la tabla
     user = Usuarios.query.filter_by(email=body["email"]).first()
 
+    pw_hash = current_app.bcrypt.generate_password_hash(body["password"]).decode('utf-8')
     # si ese email no existe, crea un nuevo usuario
     if user is None:
         base_id = body["email"]
@@ -374,7 +378,7 @@ def signup():
             new_id = new_id
         else:
             new_id = new_id+len(str(new_id))+ int(str(new_id)[random.randint(0, len(str(new_id))-3)])
-        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=body["password"], email=body["email"], telefono=body["phone"], rol="cliente")
+        new_user = Usuarios(id=new_id, user_name=body["user_name"], first_name=body["first_name"], last_name=body["last_name"], password=pw_hash, email=body["email"], telefono=body["phone"], rol="cliente")
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"message": "Created user"}), 200
