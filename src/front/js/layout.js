@@ -22,6 +22,7 @@ import { Terminos } from "./pages/terminos.js";
 import { OrderConfirmed } from "./pages/order-confirmed.js";
 import { Checkout } from "./pages/checkout";
 import { EditProduct } from "./pages/edit-product.js";
+import { ChangePass } from "./pages/change-pass.js";
 
 
 
@@ -67,6 +68,7 @@ const Layout = () => {
                         <Route element={<Checkout />} path="/pages/checkout" />
                         <Route element={<EditProduct />} path="/pages/edit-product" />
                         <Route element={<EditProduct />} path="/pages/add-product" />
+                        <Route element={<ChangePass />} path="/pages/change-pass" />
                         
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
