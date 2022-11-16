@@ -114,12 +114,33 @@ export const Contact = () => {
                     <br />
                     Mail. hola@deliceli.uy
                   </p>
-                  <h4 className="pt-4 pb-4">
-                    <i className="fab fa-facebook m-2"></i>
+                  <div className="col">
+              <h4 className="pt-4 pb-4">
+                <ul className="list-group list-group-horizontal">
+                  <li className="list-group-item">
+
+                  <a href="https://facebook.com" target="_blank">
+                      <i className="fab fa-facebook m-2"></i>
+                    </a>
+                 </li>
+                  <li className="list-group-item">
+                  <a href="https://instagram.com" target="_blank">
                     <i className="fab fa-instagram m-2"></i>
-                    <i className="fab fa-linkedin m-2"></i>
-                    <i className="fab fa-whatsapp m-2"></i>
-                  </h4>
+                    </a>
+                  </li>
+                  <li className="list-group-item">
+                  <a href="https://linkedin.com" target="_blank">
+                     <i className="fab fa-linkedin m-2"></i>
+                     </a>
+                  </li>
+                  <li className="list-group-item">
+                  <a href="https://web.whatsapp.com/" target="_blank">
+                     <i className="fab fa-whatsapp m-2"></i>
+                     </a>
+                  </li>
+                </ul>
+              </h4>
+            </div>
                 </div>
               </div>
             </div>

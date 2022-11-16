@@ -45,7 +45,7 @@ export const SingleProduct = () => {
   const map_products = store?.AllProductsOfKitchen.map((item, index) => {
     if (store?.AllProductsOfKitchen != []) {
       return (
-        <div className="col-4" key={item + index + item}>
+        <div className="col-lg-4" key={item + index + item}>
           <ProductCardVertical obj={item} />
         </div>
       );
@@ -102,17 +102,13 @@ export const SingleProduct = () => {
 
                       <div className="text-muted mb-2">
                         {" "}
-                        {store.product?.User?.user_name}
-                        <br />
-                        <i className="fa fa-star text-warning"></i>
-                        <i className="fa fa-star text-warning"></i>
-                        <i className="fa fa-star text-warning"></i>
-                        <i className="far fa-star text-warning"></i>
-                        <i className="far fa-star text-warning"></i>
+                       La Cocina de <h3> {store.product?.User?.user_name} </h3>
+                    
+                       
                       </div>
-
-                      <h2>$ {store?.product?.product?.precio}</h2>
-
+                      
+                      <h1 className="text-success">$ {store?.product?.product?.precio}</h1>
+                      <br/>
                       {/* alerta de error */}
                       <div
                         className="alert alert-danger d-none"
@@ -153,12 +149,12 @@ export const SingleProduct = () => {
           </div>
         </div>
       </div>
-      <hr className="m-auto" style={{ width: "80%" }} />
-      <section>
-        <div className="p-5 bg-light ">
-          <div className="p-2 text-center">
-            <h1 className="p-2 ">
-              Productos de {store.product?.User?.user_name}
+   
+      <section className="bg-light pb-5">
+        <div className="mt-5">
+          <div className="p-2 pt-5 text-center">
+            <h1 className="p-2 pt-5">
+              Otros productos de {store.product?.User?.user_name}
             </h1>
             <p>
               Encuentra las comidas que {store.product?.User?.user_name} ha
@@ -166,7 +162,7 @@ export const SingleProduct = () => {
             </p>
           </div>
         </div>
-        <div className="container">
+        <div className="container p-5">
           <div className="row">{map_products}</div>
         </div>
       </section>

@@ -39,7 +39,7 @@ export const SingleKitchen = () => {
   const map_products = store?.AllProductsOfKitchen.map((item, index) => {
     if (store?.AllProductsOfKitchen != []) {
       return (
-        <div className="col-4" key={item + index + item}>
+        <div className="col-lg-4" key={item + index + item}>
           <ProductCardVertical obj={item} />
         </div>
       );

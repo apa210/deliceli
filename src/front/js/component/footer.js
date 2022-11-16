@@ -57,17 +57,25 @@ export const Footer = () => {
               <h4 className="pt-4 pb-4">
                 <ul className="list-group list-group-horizontal">
                   <li className="list-group-item">
-                    <i className="fab fa-facebook m-2"></i>
-                  </li>
+
+                  <a href="https://facebook.com" target="_blank">
+                      <i className="fab fa-facebook m-2"></i>
+                    </a>
+                 </li>
                   <li className="list-group-item">
-                    {" "}
+                  <a href="https://instagram.com" target="_blank">
                     <i className="fab fa-instagram m-2"></i>
+                    </a>
                   </li>
                   <li className="list-group-item">
-                    <i className="fab fa-linkedin m-2"></i>
+                  <a href="https://linkedin.com" target="_blank">
+                     <i className="fab fa-linkedin m-2"></i>
+                     </a>
                   </li>
                   <li className="list-group-item">
-                    <i className="fab fa-whatsapp m-2"></i>
+                  <a href="https://web.whatsapp.com/" target="_blank">
+                     <i className="fab fa-whatsapp m-2"></i>
+                     </a>
                   </li>
                 </ul>
               </h4>
