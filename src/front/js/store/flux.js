@@ -881,7 +881,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             pinterest: pinterest,
             descripcion: descripcion,
           });
-          console.log(response);
         }
       },
 

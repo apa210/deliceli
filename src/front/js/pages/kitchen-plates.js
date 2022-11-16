@@ -55,8 +55,6 @@ export const KitchenPlates = () => {
       actions.modHistoryNav(window.location.pathname);
     }
   }, []);
-  let prevUrl = document.referrer;
-  console.log(prevUrl);
 
   return (
     <>
@@ -146,11 +144,7 @@ export const KitchenPlates = () => {
                   <button
                     type="button"
                     className="d-flex btn btn-primary mt-3 mb-3 align-items-end"
-                    onClick={() =>
-                      buttonEdit(
-                        "add"
-                      )
-                    }
+                    onClick={() => buttonEdit("add")}
                   >
                     Agregar nuevo producto
                   </button>
@@ -159,10 +153,12 @@ export const KitchenPlates = () => {
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
               {map_products.length == 0 ? (
-                <h3 className="text-center my-5 py-3">No hay productos en tu menú</h3>
-              )
-              :
-              map_products}
+                <h3 className="text-center my-5 py-3">
+                  No hay productos en tu menú
+                </h3>
+              ) : (
+                map_products
+              )}
               {/* <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu /> */}

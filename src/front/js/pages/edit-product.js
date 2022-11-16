@@ -20,9 +20,6 @@ export const EditProduct = () => {
   const [alertImg_err, set_alertImg_err] = useState("hidden");
   const [alertSuccess, set_alertSuccess] = useState("hidden");
 
-  console.log(store?.editProduct);
-  // console.log(category);
-
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -67,7 +64,7 @@ export const EditProduct = () => {
         name,
         description,
         price,
-        limit == "" ? "0000" : limit,
+        limit == "" ? "0" : limit,
         img,
         category
       );
@@ -111,7 +108,9 @@ export const EditProduct = () => {
       }, 100);
     } else {
       setName(store.editProduct?.nombre);
-      setLimit(store.editProduct?.cantidad_producto);
+      store?.editProduct?.cantidad_producto == "0"
+        ? setLimit("")
+        : setLimit(store.editProduct?.cantidad_producto);
       setPrice(store.editProduct?.precio);
       setDescription(store.editProduct?.descripcion);
       setImg(store.editProduct?.foto_producto);
@@ -129,7 +128,6 @@ export const EditProduct = () => {
   // mapea un elemento del flux.js... este guarada las categorias ya establecidas
   // que se registraron en la Base de Datos.
   const map_categories = store?.categories.map((item, index) => {
-    console.log(category?.find((element) => element === item?.id));
     return (
       <div
         className="form-check form-check-inline col-2"

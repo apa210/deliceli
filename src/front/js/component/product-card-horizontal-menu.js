@@ -45,11 +45,6 @@ export const ProductCardHorizontalMenu = (props) => {
                 <div className="text-muted mb-2">
                   {" "}
                   {store.profile?.user_name}{" "}
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
                 </div>
 
                 <h2>$ {props?.obj?.precio}</h2>
