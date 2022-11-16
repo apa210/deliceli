@@ -20,6 +20,9 @@ export const EditProduct = () => {
   const [alertImg_err, set_alertImg_err] = useState("hidden");
   const [alertSuccess, set_alertSuccess] = useState("hidden");
 
+  // console.log(store?.editProduct);
+  // console.log(category);
+
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -102,6 +105,9 @@ export const EditProduct = () => {
       setPrice(store.editProduct?.precio);
       setDescription(store.editProduct?.descripcion);
       setImg(store.editProduct?.foto_producto);
+      setCategory(() => store?.editProduct?.category.map((item) => { 
+        return item?.categoria_id
+      } ))
     }
 
     // Al cargar la página, se desplaza hacia arriba
@@ -111,6 +117,7 @@ export const EditProduct = () => {
   // mapea un elemento del flux.js... este guarada las categorias ya establecidas
   // que se registraron en la Base de Datos.
   const map_categories = store?.categories.map((item, index) => {
+    console.log(category?.find(element => element === item?.id));
     return (
       <div className="form-check form-check-inline col-2" key={item + index + index}>
         <input
@@ -119,6 +126,10 @@ export const EditProduct = () => {
           type="checkbox"
           id={"inlineCheckbox1" + index}
           value="option1"
+          checked = {
+            category?.find(element => element === item?.id) !== undefined ? true : false
+           }
+           readOnly
         />
         <label className="form-check-label" htmlFor={"inlineCheckbox1" + index}>
           {item?.nombre}
