@@ -20,7 +20,7 @@ export const EditProduct = () => {
   const [alertImg_err, set_alertImg_err] = useState("hidden");
   const [alertSuccess, set_alertSuccess] = useState("hidden");
 
-  // console.log(store?.editProduct);
+  console.log(store?.editProduct);
   // console.log(category);
 
   // Función para cerrar sesión
@@ -74,6 +74,9 @@ export const EditProduct = () => {
         setTimeout(() => {
           set_alertSuccess("hidden");
         }, 3500);
+        setTimeout(() => {
+          navigate("/pages/kitchen-plates")
+        }, 4000);
       }
     }
   };
@@ -91,6 +94,11 @@ export const EditProduct = () => {
 
     const file = await res.json();
     setImg(file.secure_url);
+  };
+
+  const buttonRemove = (prod_id) => {
+    actions.removeProduct(prod_id);
+    navigate("/pages/kitchen-plates")
   };
 
   useEffect(() => {
@@ -310,30 +318,6 @@ export const EditProduct = () => {
                         </div>
                         {/*  Dirección  */}
                         {map_categories}
-                        {/* <div className="form-check form-check-inline col-2">
-                          <input
-                            onChange={(e) => changeCategory(e, 0)}
-                            className="form-check-input"
-                            type="checkbox"
-                            id="inlineCheckbox1"
-                            value="option1"
-                          />
-                          <label className="form-check-label" htmlFor="inlineCheckbox1">
-                            Categoria 1
-                          </label>
-                        </div>
-                        <div className="form-check form-check-inline col-2">
-                          <input
-                            onChange={(e) => changeCategory(e, 1)}
-                            className="form-check-input"
-                            type="checkbox"
-                            id="inlineCheckbox2"
-                            value="option2"
-                          />
-                          <label className="form-check-label" htmlFor="inlineCheckbox2">
-                            Categoria 2
-                          </label>
-                        </div> */}
                       </div>
 
                       {/* fin del formulario  */}
@@ -394,6 +378,7 @@ export const EditProduct = () => {
                 {window.location.pathname == "/pages/edit-product" ? (
                   <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
                     <button
+                      onClick={() => buttonRemove(store?.editProduct?.id)}
                       type="button"
                       className="btn btn-danger btn-lg mb-3"
                     >
