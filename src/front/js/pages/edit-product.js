@@ -14,7 +14,7 @@ export const EditProduct = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [img, setImg] = useState("");
-  const aux = [];
+  const [category, setCategory] = useState([]);
 
   const [alertText_err, set_alertText_err] = useState("hidden");
   const [alertImg_err, set_alertImg_err] = useState("hidden");
@@ -31,50 +31,33 @@ export const EditProduct = () => {
   };
   
   const changeCategory = (e, aux_category) => {
-    console.log(e.target.checked);
-    console.log(aux_category);
     if (e.target.checked == true) {
-      // localStorage.removeItem("aux")
-      aux.push(aux_category)
+      setCategory([...category, aux_category])
     } else {
-      // localStorage.removeItem("aux")
-      aux = aux.filter((item) => {
+      setCategory(() => category.filter((item) => {
         if (item != aux_category) {
           return item
         }
-      })
+      }))
     }
-    // if (localStorage.getItem("aux") == null) {
-    //   console.log(aux);
-    //   let aux1 = aux.join()
-    //   console.log(aux1);
-    //   localStorage.setItem("aux", aux1)
-    // } else {
-    //   console.log(aux);
-    //   let aux1 = aux.join()
-    //   console.log(aux1);
-    //   localStorage.setItem("aux", aux1)
-    // }
   }
 
   const uploadProduct = async () => {
-    if (name == "" && description == "" && price == "") {
-      if (alertText_err != "show") {
+    if (name === "" && description === "" && price === "") {
+      if (alertText_err !== "show") {
         set_alertText_err("show");
         setTimeout(() => {
           set_alertText_err("hidden");
         }, 3500);
       }
-    } else if (img == "") {
-      if (alertImg_err != "show") {
+    } else if (img === "") {
+      if (alertImg_err !== "show") {
         set_alertImg_err("show");
         setTimeout(() => {
           set_alertImg_err("hidden");
         }, 3500);
       }
     } else {
-      // let category = localStorage.getItem("aux");
-      // category = category.split(",")
       actions.uploadProduct(
         name,
         description,
@@ -83,16 +66,12 @@ export const EditProduct = () => {
         img,
         category
       );
-      console.log(category);
       if (alertSuccess != "show") {
         set_alertSuccess("show");
         setTimeout(() => {
           set_alertSuccess("hidden");
         }, 3500);
       }
-      // if (localStorage.getItem("aux") != null) {
-      //   localStorage.removeItem("aux");
-      // }
     }
   };
 

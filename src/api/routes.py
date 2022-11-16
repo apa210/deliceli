@@ -644,6 +644,14 @@ def remove_dish(product_id):
     if product.cocina_id != login_user.id:
         raise APIException('Este producto no pertenece a tu menú', status_code=404)
 
+    category = Categorias_Productos.query.filter_by(producto_id = product_id).all()
+
+    num = 0
+    while num < len(category):
+        db.session.delete(category[num])
+        db.session.commit()
+        num += 1
+
     db.session.delete(product)
     db.session.commit()
     response_body = {"msg": "El producto ha sido eliminado"}
