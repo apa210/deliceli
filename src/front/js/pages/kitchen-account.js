@@ -298,7 +298,7 @@ export const KitchenAccount = () => {
                 {/* fin de detalles de la cuenta  */}
                 {/* Redes sociales  */}
                 <div className="row mb-5 gx-5">
-                  <div className="col-xxl-6 mb-5 mb-xxl-0">
+                  <div className="col-xxl-12 mb-12 mb-xxl-0">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
                         <h4 className="mb-4 mt-0"> Redes Sociales </h4>
@@ -391,53 +391,7 @@ export const KitchenAccount = () => {
                     </div>
                   </div>
 
-                  {/* cambiar contraseña  */}
-                  <div className="col-xxl-6">
-                    <div className="bg-secondary-soft px-4 py-5 rounded">
-                      <div className="row g-3">
-                        <h4 className="my-4">Cambiar contraseña</h4>
-                        {/*Old password  */}
-                        <div className="col-md-6">
-                          <label htmlFor="contrasena" className="form-label">
-                            Contraseña anterior *
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="contrasena"
-                          />
-                        </div>
-                        {/*Nueva Contraseña  */}
-                        <div className="col-md-6">
-                          <label
-                            htmlFor="nueva-contrasena"
-                            className="form-label"
-                          >
-                            Nueva Contraseña *
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="nueva-contrasena"
-                          />
-                        </div>
-                        {/*Confirm password  */}
-                        <div className="col-md-12">
-                          <label
-                            htmlFor="econfirmar-contrasena"
-                            className="form-label"
-                          >
-                            Confirmar Contraseña*
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="confirmar-contrasena"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+               
                 </div>
                 <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
                   <button type="button" className="btn btn-danger btn-lg mb-3">
