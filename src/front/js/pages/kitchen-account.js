@@ -1,13 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const KitchenAccount = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
   const navigate = useNavigate();
+
+  const [user_name, set_user_name] = useState("");
+  const [first_name, set_first_name] = useState("");
+  const [last_name, set_last_name] = useState("");
+  const [email, set_email] = useState("");
+  const [telefono, set_telefono] = useState("");
   const [img, setImg] = useState("");
+  const [direccion, set_direccion] = useState("");
+  const [facebook, set_facebook] = useState("");
+  const [twitter, set_twitter] = useState("");
+  const [linkedin, set_linkedin] = useState("");
+  const [instagram, set_instagram] = useState("");
+  const [dribble, set_dribble] = useState("");
+  const [pinterest, set_pinterest] = useState("");
+  const [descripcion, set_descripcion] = useState("");
 
   // Función para cerrar sesión
   const handleLogout = () => {
@@ -17,6 +30,27 @@ export const KitchenAccount = () => {
         navigate("/");
       }, 100);
     }
+  };
+
+  const buttonUpdate = () => {
+    actions.uploadProfile(
+      user_name,
+      first_name,
+      last_name,
+      email,
+      telefono,
+      img,
+      direccion,
+      facebook,
+      twitter,
+      linkedin,
+      instagram,
+      dribble,
+      pinterest,
+      descripcion
+    );
+
+    alert("se ha actualizado tu perfil");
   };
 
   const uploadImg = async (e) => {
@@ -34,7 +68,6 @@ export const KitchenAccount = () => {
     setImg(file.secure_url);
   };
 
-
   useEffect(() => {
     // No da acceso a la cuenta de la cocina sin estar logueado
     if (store.auth == false) {
@@ -42,7 +75,20 @@ export const KitchenAccount = () => {
         navigate("/");
       }, 100);
     } else {
-      setImg(store?.profile?.foto_usuario)
+      set_user_name(store?.profile?.user_name);
+      set_first_name(store?.profile?.first_name);
+      set_last_name(store?.profile?.last_name);
+      set_email(store?.profile?.email);
+      set_telefono(store?.profile?.telefono);
+      setImg(store?.profile?.foto_usuario);
+      set_direccion(store?.profile?.direccion);
+      set_facebook(store?.profile?.facebook);
+      set_twitter(store?.profile?.twitter);
+      set_linkedin(store?.profile?.linkedin);
+      set_instagram(store?.profile?.instagram);
+      set_dribble(store.profile.dribble);
+      set_pinterest(store.profile.pinterest);
+      set_descripcion(store?.profile?.descripcion);
     }
     if (store.historyNav == "/pages/kitchen-account") {
       actions.modHistoryNav(window.location.pathname);
@@ -159,22 +205,22 @@ export const KitchenAccount = () => {
                         <div className="col-md-6">
                           <label className="form-label">Nombre *</label>
                           <input
+                            onChange={(e) => set_first_name(e.target.value)}
+                            value={first_name}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Nombre"
-                            defaultValue={store?.profile?.first_name}
                           />
                         </div>
                         {/* Apellido  */}
                         <div className="col-md-6">
                           <label className="form-label">Apellido *</label>
                           <input
+                            onChange={(e) => set_last_name(e.target.value)}
+                            value={last_name}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Apellido"
-                            defaultValue={store?.profile?.last_name}
                           />
                         </div>
                         {/* Nombre de Usuario  */}
@@ -183,22 +229,22 @@ export const KitchenAccount = () => {
                             Nombre de Usuario *
                           </label>
                           <input
+                            onChange={(e) => set_user_name(e.target.value)}
+                            value={user_name}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="NombreDeUsuario"
-                            defaultValue={store?.profile?.user_name}
                           />
                         </div>
                         {/* Celular  */}
                         <div className="col-md-6">
                           <label className="form-label">Celular *</label>
                           <input
+                            onChange={(e) => set_telefono(e.target.value)}
+                            value={telefono}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Celular"
-                            defaultValue={store?.profile?.telefono}
                           />
                         </div>
                         {/* Mail  */}
@@ -207,21 +253,22 @@ export const KitchenAccount = () => {
                             Mail *
                           </label>
                           <input
-                            type="email"
+                            onChange={(e) => set_email(e.target.value)}
+                            value={email}
+                            type="text"
                             className="form-control"
                             id="inputEmail4"
-                            defaultValue={store?.profile?.email}
                           />
                         </div>
                         {/*  Dirección  */}
                         <div className="col-md-6">
                           <label className="form-label">Dirección *</label>
                           <input
+                            onChange={(e) => set_direccion(e.target.value)}
+                            value={direccion}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Direccion"
-                            defaultValue={store?.profile?.direccion}
                           />
                         </div>
 
@@ -231,11 +278,12 @@ export const KitchenAccount = () => {
                             Descripción de tu empresa *
                           </label>
                           <textarea
+                            onChange={(e) => set_descripcion(e.target.value)}
+                            value={descripcion}
                             type="text"
                             className="form-control"
                             placeholder=""
                             aria-label="Descripcion"
-                            defaultValue={store?.profile?.descripcion}
                           />
                         </div>
                         {/*  Dirección  */}
@@ -272,18 +320,6 @@ export const KitchenAccount = () => {
                               name="file"
                               onChange={uploadImg}
                             />
-                            {/* <label
-                              className="btn btn-success-soft btn-block"
-                              htmlFor="customFile"
-                            >
-                              Subir foto
-                            </label>
-                            <button
-                              type="button"
-                              className="btn btn-danger-soft"
-                            >
-                              Borrar foto
-                            </button> */}
                           </div>
                           {/*Contenido */}
                           <p className="text-muted mt-3 mb-0">
@@ -309,11 +345,11 @@ export const KitchenAccount = () => {
                             Facebook *
                           </label>
                           <input
+                            onChange={(e) => set_facebook(e.target.value)}
+                            value={facebook}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Facebook"
-                            defaultValue={store?.profile?.facebook}
                           />
                         </div>
                         {/*Twitter  */}
@@ -323,11 +359,11 @@ export const KitchenAccount = () => {
                             Twitter *
                           </label>
                           <input
+                            onChange={(e) => set_twitter(e.target.value)}
+                            value={twitter}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Twitter"
-                            defaultValue={store?.profile?.twitter}
                           />
                         </div>
                         {/*Linkedin  */}
@@ -337,11 +373,11 @@ export const KitchenAccount = () => {
                             Linkedin *
                           </label>
                           <input
+                            onChange={(e) => set_linkedin(e.target.value)}
+                            value={linkedin}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Linkedin"
-                            defaultValue={store?.profile?.linkedin}
                           />
                         </div>
                         {/*Instagram  */}
@@ -351,11 +387,11 @@ export const KitchenAccount = () => {
                             Instagram *
                           </label>
                           <input
+                            onChange={(e) => set_instagram(e.target.value)}
+                            value={instagram}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Instagram"
-                            defaultValue={store?.profile?.instagram}
                           />
                         </div>
                         {/*Dribble  */}
@@ -365,11 +401,11 @@ export const KitchenAccount = () => {
                             Dribble *
                           </label>
                           <input
+                            onChange={(e) => set_dribble(e.target.value)}
+                            value={dribble}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Dribble"
-                            defaultValue={store.profile.dribble}
                           />
                         </div>
                         {/*Pinterest  */}
@@ -379,25 +415,27 @@ export const KitchenAccount = () => {
                             Pinterest *
                           </label>
                           <input
+                            onChange={(e) => set_pinterest(e.target.value)}
+                            value={pinterest}
                             type="text"
                             className="form-control"
-                            placeholder=""
                             aria-label="Pinterest"
-                            defaultValue={store.profile.pinterest}
                           />
                         </div>
                       </div>{" "}
                       {/* fin de redes  */}
                     </div>
                   </div>
-
-               
                 </div>
                 <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
                   <button type="button" className="btn btn-danger btn-lg mb-3">
                     Eliminar Cuenta
                   </button>
-                  <button type="button" className="btn btn-primary btn-lg mb-3">
+                  <button
+                    onClick={buttonUpdate}
+                    type="button"
+                    className="btn btn-primary btn-lg mb-3"
+                  >
                     Actualizar Cuenta
                   </button>
                 </div>

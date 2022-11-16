@@ -170,8 +170,30 @@ const getState = ({ getStore, getActions, setStore }) => {
                 Authorization: "Bearer " + userToken,
               },
             });
+            let data = response?.data;
+
+            data.user_name == null ? (data.user_name = "") : data.user_name;
+            data.first_name == null ? (data.first_name = "") : data.first_name;
+            data.last_name == null ? (data.last_name = "") : data.last_name;
+            data.email == null ? (data.email = "") : data.email;
+            data.telefono == null ? (data.telefono = "") : data.telefono;
+            data.foto_usuario == null
+              ? (data.foto_usuario = "")
+              : data.foto_usuario;
+            data.dirreccion == null ? (data.dirreccion = "") : data.dirreccion;
+            data.direccion == null ? (data.direccion = "") : data.direccion;
+            data.facebook == null ? (data.facebook = "") : data.facebook;
+            data.twitter == null ? (data.twitter = "") : data.twitter;
+            data.linkedin == null ? (data.linkedin = "") : data.linkedin;
+            data.instagram == null ? (data.instagram = "") : data.instagram;
+            data.dribble == null ? (data.dribble = "") : data.dribble;
+            data.pinterest == null ? (data.pinterest = "") : data.pinterest;
+            data.descripcion == null
+              ? (data.descripcion = "")
+              : data.descripcion;
+
             setStore({
-              profile: response?.data,
+              profile: data,
             });
           }
         } catch (error) {
@@ -754,7 +776,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 precio: "",
                 descripcion: "",
                 foto_producto: "",
-                category: []
+                category: [],
               },
             });
             setStore({ val_edit: true });
@@ -770,7 +792,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ historyNav: value });
       },
 
-      uploadProduct: async (name, description, price, quantity, img, category) => {
+      uploadProduct: async (
+        name,
+        description,
+        price,
+        quantity,
+        img,
+        category
+      ) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
@@ -787,7 +816,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             precio: price,
             cantidad: quantity,
             foto: img,
-            categoria: category
+            categoria: category,
           });
           await actions.getMenu();
         }
@@ -807,6 +836,52 @@ const getState = ({ getStore, getActions, setStore }) => {
             store.api_url + "user/menu/" + prod_id
           );
           actions.getMenu();
+        }
+      },
+
+      uploadProfile: async (
+        user_name,
+        first_name,
+        last_name,
+        email,
+        telefono,
+        foto,
+        direccion,
+        facebook,
+        twitter,
+        linkedin,
+        instagram,
+        dribble,
+        pinterest,
+        descripcion
+      ) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.put(store.api_url + "user", {
+            user_name: user_name,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            telefono: telefono,
+            foto: foto,
+            direccion: direccion,
+            facebook: facebook,
+            twitter: twitter,
+            linkedin: linkedin,
+            instagram: instagram,
+            dribble: dribble,
+            pinterest: pinterest,
+            descripcion: descripcion,
+          });
+          console.log(response);
         }
       },
 
