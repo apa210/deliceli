@@ -1,7 +1,7 @@
 .text-about {
-  margin-top: 30px;;
+  margin-top: 15px;
   display: block;
-  width: 200px;
+  width: 240px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -75,7 +75,7 @@ a {
   height: 240px;
   background: url("https://sintropia.com.uy/desarrollo/bg-t1.png");
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: right !important;
   background-size: cover;
   background-color: #f4f5f7;
 }
@@ -95,7 +95,7 @@ a {
   height: 240px;
   background: url("https://www.theculinaryacademy.org/wp-content/uploads/2020/02/shutterstock_562219663.jpg");
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: right;
   background-size: cover;
   background-color: #f4f5f7;
 }
@@ -115,7 +115,7 @@ a {
   height: 240px;
   background: url("https://sintropia.com.uy/desarrollo/bg-t1.png");
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: right;
   background-size: cover;
   background-color: #f4f5f7;
 }
