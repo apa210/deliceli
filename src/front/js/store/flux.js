@@ -754,6 +754,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 precio: "",
                 descripcion: "",
                 foto_producto: "",
+                category: []
               },
             });
             setStore({ val_edit: true });

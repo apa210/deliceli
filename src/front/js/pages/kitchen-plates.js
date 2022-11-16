@@ -158,7 +158,11 @@ export const KitchenPlates = () => {
               </nav>
               {/* navegación de usuario */}
               {/* Detalle de favoritos */}
-              {map_products}
+              {map_products.length == 0 ? (
+                <h3 className="text-center my-5 py-3">No hay productos en tu menú</h3>
+              )
+              :
+              map_products}
               {/* <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu />
               <ProductCardHorizontalMenu /> */}
