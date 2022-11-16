@@ -884,6 +884,41 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      updateProduct: async (
+        prod_id,
+        name,
+        description,
+        price,
+        quantity,
+        img,
+        category
+      ) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        // console.log(prod_id, name, description, price, quantity, img, category);
+
+        if (store.auth == true) {
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.put(store.api_url + "user/menu", {
+            producto_id: prod_id,
+            nombre: name,
+            descripcion: description,
+            precio: price,
+            cantidad: quantity,
+            foto: img,
+            categoria: category,
+          });
+          console.log(response);
+          await actions.getMenu();
+        }
+      },
+
       //
     },
   };

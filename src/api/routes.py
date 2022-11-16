@@ -713,7 +713,21 @@ def edit_dish():
             menu.cantidad = body["cantidad"]
         if "foto" in body:
             menu.foto = body["foto"]
-
+        if "categoria" in body:
+            category = Categorias_Productos.query.filter_by(producto_id = body["producto_id"]).all()
+            num = 0
+            while num < len(category):
+                db.session.delete(category[num])
+                db.session.commit()
+                num += 1
+            num = 0
+            while num < len(body["categoria"]):
+                product = Productos.query.filter_by(id = body["producto_id"]).first()
+                category = Categorias.query.filter_by(id = body["categoria"][num]).first()
+                new_product_category = Categorias_Productos(categoria_id=category.id, producto_id=product.id)
+                db.session.add(new_product_category)
+                db.session.commit()
+                num+=1
         db.session.commit()
         response_body = {
             "msg": "update product"

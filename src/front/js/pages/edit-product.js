@@ -44,6 +44,46 @@ export const EditProduct = () => {
     }
   };
 
+  // console.log(store.editProduct);
+
+  const updateProduct = () => {
+    if (name === "" && description === "" && price === "") {
+      if (alertText_err !== "show") {
+        set_alertText_err("show");
+        setTimeout(() => {
+          set_alertText_err("hidden");
+        }, 3500);
+      }
+    } else if (img === "") {
+      if (alertImg_err !== "show") {
+        set_alertImg_err("show");
+        setTimeout(() => {
+          set_alertImg_err("hidden");
+        }, 3500);
+      }
+    } else {
+      actions.updateProduct(
+        store?.editProduct?.id,
+        name,
+        description,
+        price,
+        limit == "" ? "0" : limit,
+        img,
+        category
+      );
+
+      if (alertSuccess != "show") {
+        set_alertSuccess("show");
+        setTimeout(() => {
+          set_alertSuccess("hidden");
+        }, 2000);
+        // setTimeout(() => {
+        //   navigate("/pages/kitchen-plates");
+        // }, 2000);
+      }
+    }
+  };
+
   const uploadProduct = async () => {
     if (name === "" && description === "" && price === "") {
       if (alertText_err !== "show") {
@@ -392,6 +432,7 @@ export const EditProduct = () => {
                       Eliminar producto
                     </button>
                     <button
+                      onClick={() => updateProduct()}
                       type="button"
                       className="btn btn-primary btn-lg mb-3"
                     >
