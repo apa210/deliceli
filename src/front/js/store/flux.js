@@ -28,7 +28,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       profile: {},
       cart: [],
       menuKitchen: [],
-      // POINT
       editProduct: {},
       // auxiliares; variables que son sirven de forma auxiliar
       total: "0", // relacionada al carrito, muestra el total a pagar por parte del Usuario
