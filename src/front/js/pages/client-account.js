@@ -121,10 +121,10 @@ export const ClientAccount = () => {
               </nav>
               {/* navegación de usuario */}
               {/* Detalles de contacto */}
-              <form className="file-upload">
-                <div className="row mb-5 gx-5">
+    
+           
                   {/*Contacto  */}
-                  <div className="col-xxl-8 mb-5 mb-xxl-0">
+                  <div className="col-xxl-12 mb-5 mb-xxl-0">
                     <div className="bg-secondary-soft px-4 py-5 rounded">
                       <div className="row g-3">
                         <h4 className="mb-4 mt-0">Detalles de contacto</h4>
@@ -203,47 +203,9 @@ export const ClientAccount = () => {
                     </div>
                   </div>
                   {/* Dirección  */}
-                  <div className="col-xxl-4">
-                    <div className="bg-secondary-soft px-4 py-5 rounded">
-                      <div className="row g-3">
-                        <h4 className="mb-4 mt-0">Tu foto de perfil</h4>
-                        <div className="text-center">
-                          {/* subir foto  */}
-
-                          <div className="square position-relative display-2 mb-3">
-                            <i className="fas fa-fw fa-user position-absolute top-50 start-50 mt-4 mb-5 translate-middle text-secondary"></i>
-                          </div>
-                          {/* boton  */}
-                          <div className="mt-5 pt-5">
-                            <input
-                              type="file"
-                              id="customFile"
-                              name="file"
-                              hidden=""
-                            />
-                            <label
-                              className="btn btn-success-soft btn-block"
-                              htmlFor="customFile"
-                            >
-                              Subir foto
-                            </label>
-                            <button
-                              type="button"
-                              className="btn btn-danger-soft"
-                            >
-                              Borrar foto
-                            </button>
-                          </div>
-                          {/*Contenido */}
-                          <p className="text-muted mt-3 mb-0">
-                            <span className="me-1">Nota:</span>Tamaño mínimo
-                            300px x 300px
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>{" "}
+                 
+         
+             
                 {/* fin de detalles de la cuenta  */}
                 {/* Redes sociales  */}
                 <div className="row mb-5 gx-5">
@@ -396,7 +358,7 @@ export const ClientAccount = () => {
                     Actualizar Cuenta
                   </button>
                 </div>
-              </form>{" "}
+          
               {/*Form END  */}
             </div>
           </div>
