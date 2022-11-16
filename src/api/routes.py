@@ -453,7 +453,7 @@ def get_profile():
 
 
     # Editar perfil
-# {"user_name": "", "first_name": "", "last_name": "", "old_password": "", "new_password": "", 
+# {"user_name": "", "first_name": "", "last_name": "", 
 # "email": "", "telefono": 1, "foto": "", "direccion": "", "facebook": "", "twitter": "", 
 # "linkedin": "", "instagram": "", "dribble": "", "pinterest": "", "descripcion": "" }
 @api.route('/user', methods=['PUT'])
@@ -472,12 +472,6 @@ def edit_username():
             login_user.first_name = body["first_name"]
         if "last_name" in body:
             login_user.last_name = body["last_name"]
-        if "old_password" in body:
-            if login_user.password == body["old_password"] and "new_password" in body:
-                login_user.password = body["new_password"]
-            else:
-                response_body = {"msg": "La contraseña actual no es correcta"}
-                return jsonify(response_body), 400
         if "email" in body:
             login_user.email = body["email"]
         if "telefono" in body:
@@ -515,6 +509,40 @@ def edit_username():
         }
         return jsonify(response_body), 404
 
+# ----------------------------------------------
+#  "old_password": "", "new_password": "",
+@api.route('/user/password', methods=['PUT'])
+@jwt_required()
+def edit_user_password():
+
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    body = json.loads(request.data)
+
+    if login_user is not None:
+        if "old_password" in body:
+            password_encrypted = current_app.bcrypt.check_password_hash(login_user.password, body["old_password"]) # returns True
+            if password_encrypted and "new_password" in body:
+                pw_hash = current_app.bcrypt.generate_password_hash(body["new_password"]).decode('utf-8')
+                login_user.password = pw_hash
+            else:
+                response_body = {"msg": "La contraseña actual no es correcta"}
+                return jsonify(response_body), 400
+        
+        db.session.commit()
+
+        response_body = {
+            "msg": "update password"
+        }
+
+        return jsonify(response_body), 200
+
+    else:
+        response_body = {
+            "msg": "Debe loguearse para actualizar la contraseña"
+        }
+        return jsonify(response_body), 404
     
 
             # Recuperar la contraseña
