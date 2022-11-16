@@ -7,6 +7,7 @@ export const KitchenAccount = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const navigate = useNavigate();
+  const [img, setImg] = useState("");
 
   // Función para cerrar sesión
   const handleLogout = () => {
@@ -18,14 +19,31 @@ export const KitchenAccount = () => {
     }
   };
 
+  const uploadImg = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "DeliCeli");
+
+    const res = await fetch(process.env.STORAGE_IMG, {
+      method: "POST",
+      body: data,
+    });
+
+    const file = await res.json();
+    setImg(file.secure_url);
+  };
+
+
   useEffect(() => {
     // No da acceso a la cuenta de la cocina sin estar logueado
     if (store.auth == false) {
       setTimeout(() => {
         navigate("/");
       }, 100);
+    } else {
+      setImg(store?.profile?.foto_usuario)
     }
-    // Al cargar la página, se desplaza hacia arriba
     if (store.historyNav == "/pages/kitchen-account") {
       actions.modHistoryNav(window.location.pathname);
     } else if (store.historyNav == "/pages/kitchen-plates") {
@@ -33,6 +51,7 @@ export const KitchenAccount = () => {
     } else if (store.historyNav == "/pages/kitchen-orders") {
       actions.modHistoryNav(window.location.pathname);
     } else {
+      // Al cargar la página, se desplaza hacia arriba
       window.scrollTo(0, 0);
       actions.modHistoryNav(window.location.pathname);
     }
@@ -233,8 +252,17 @@ export const KitchenAccount = () => {
                         <div className="text-center">
                           {/* subir foto  */}
 
-                          <div className="square position-relative display-2 mb-3">
-                            <i className="fas fa-fw fa-user position-absolute top-50 start-50 mt-4 mb-5 translate-middle text-secondary"></i>
+                          <div className="square position-relative display-2 mb-3 d-flex justify-content-center">
+                            {img == "" ? (
+                              <i className="fas fa-fw fa-user position-absolute top-50 start-50 mt-4 mb-5 translate-middle text-secondary"></i>
+                            ) : (
+                              <div className="col-md-4">
+                                <img
+                                  className="img-fluid rounded-start"
+                                  src={img}
+                                />
+                              </div>
+                            )}
                           </div>
                           {/* boton  */}
                           <div className="mt-5 pt-5">
@@ -242,9 +270,9 @@ export const KitchenAccount = () => {
                               type="file"
                               id="customFile"
                               name="file"
-                              hidden=""
+                              onChange={uploadImg}
                             />
-                            <label
+                            {/* <label
                               className="btn btn-success-soft btn-block"
                               htmlFor="customFile"
                             >
@@ -255,7 +283,7 @@ export const KitchenAccount = () => {
                               className="btn btn-danger-soft"
                             >
                               Borrar foto
-                            </button>
+                            </button> */}
                           </div>
                           {/*Contenido */}
                           <p className="text-muted mt-3 mb-0">
