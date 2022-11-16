@@ -269,7 +269,7 @@ export const EditProduct = () => {
                         {/* stock disponible  */}
                         <div className="col-md-3">
                           <label className="form-label">
-                            Limite de venta por día
+                            Stock del producto
                           </label>
                           <input
                             type="number"
