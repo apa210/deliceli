@@ -129,7 +129,7 @@ export const KitchenAccount = () => {
               {/* navegación de usuario */}
               <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
-                  <a className="navbar-brand" href="#">
+                  <a className="navbar-brand">
                     Hola, {store?.profile?.first_name}!
                   </a>
 
