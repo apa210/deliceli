@@ -20,17 +20,23 @@ export const ProductCardVertical = (props) => {
   // más detallado en el flux.js
   const addCart = () => {
     if (store.auth == true) {
-      actions.buy_product(
-        props?.obj?.id,
-        props?.obj?.cocina_id,
-        props?.obj?.precio
-      );
-
-      setTimeout(() => {
-        showSuccess.current.classList.add("d-none");
-      }, 3000);
-      showSuccess.current.classList.remove("d-none");
-      setSuccess("El producto fue añadido al carrito correctamente!");
+      actions
+        .buy_product(props?.obj?.id, props?.obj?.cocina_id, props?.obj?.precio)
+        .then(() => {
+          if (store.val_cartAdd === false) {
+            setTimeout(() => {
+              showAlert.current.classList.add("d-none");
+            }, 3000);
+            showAlert.current.classList.remove("d-none");
+            setError("Este producto ya esta en su carrito!");
+          } else if (store.val_cartAdd === true) {
+            setTimeout(() => {
+              showSuccess.current.classList.add("d-none");
+            }, 3000);
+            showSuccess.current.classList.remove("d-none");
+            setSuccess("El producto fue añadido al carrito correctamente!");
+          }
+        });
     } else {
       setTimeout(() => {
         showAlert.current.classList.add("d-none");

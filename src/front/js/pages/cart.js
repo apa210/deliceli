@@ -29,9 +29,11 @@ export const Cart = () => {
         showAlert.current.classList.add("d-none");
       }, 4000);
       showAlert.current.classList.remove("d-none");
-      setError("Debes estar logueado para añadir productos al carrito. Serás redirigido a Inicio.");
+      setError(
+        "Debes estar logueado para añadir productos al carrito. Serás redirigido a Inicio."
+      );
       setTimeout(() => {
-      navigate("/");
+        navigate("/");
       }, 5000);
     }
 
@@ -54,6 +56,7 @@ export const Cart = () => {
             nameKitchen={item?.user_name}
             quantityProduct={item?.cantidad_producto}
             quantityCart={item?.cantidad_carrito}
+            kitchen_id={item?.cocina_id}
           />
         </div>
       );
@@ -76,7 +79,11 @@ export const Cart = () => {
         <div className="container mb-5">
           <div className="row">
             <div className="col">
-              <div className="alert alert-danger d-none" ref={showAlert} role="alert">
+              <div
+                className="alert alert-danger d-none"
+                ref={showAlert}
+                role="alert"
+              >
                 {error}
               </div>
               {map_products}

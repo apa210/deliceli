@@ -1,15 +1,18 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import "../../styles/visibility.css";
 import { Context } from "../store/appContext";
 
 const ProductsCart = (props) => {
   const { store, actions } = useContext(Context);
   const [quantity, setQuantity] = useState(
-    String(
-      props?.quantityCart > props?.quantityProduct
-        ? props?.quantityProduct
-        : props?.quantityCart
-    )
+    props?.quantityProduct != "-10000"
+      ? String(
+          props?.quantityCart > props?.quantityProduct
+            ? props?.quantityProduct
+            : props?.quantityCart
+        )
+      : props?.quantityCart
   );
 
   const [showAlert, setShowAlert] = useState("hidden");
@@ -21,23 +24,30 @@ const ProductsCart = (props) => {
 
   const mod_quantity = (operation) => {
     if (operation == "addition") {
-      if (quantity < props.quantityProduct) {
-        setQuantity(String(parseInt(quantity) + 1));
-        actions.update_cart(
-          props?.id,
-          parseInt(quantity) + 1,
-          (parseInt(quantity) + 1) * props?.unitPrice,
-          props?.unitPrice,
-          "update"
-        );
-      } else {
-        if (showAlert != "show") {
-          setShowAlert("show");
-          setTimeout(() => {
-            setShowAlert("hidden");
-          }, 3500);
-        }
-      }
+      props?.quantityProduct != "-10000"
+        ? quantity < props.quantityProduct
+          ? (setQuantity(String(parseInt(quantity) + 1)),
+            actions.update_cart(
+              props?.id,
+              parseInt(quantity) + 1,
+              (parseInt(quantity) + 1) * props?.unitPrice,
+              props?.unitPrice,
+              "update"
+            ))
+          : showAlert != "show"
+          ? (setShowAlert("show"),
+            setTimeout(() => {
+              setShowAlert("hidden");
+            }, 3500))
+          : null
+        : (setQuantity(String(parseInt(quantity) + 1)),
+          actions.update_cart(
+            props?.id,
+            parseInt(quantity) + 1,
+            (parseInt(quantity) + 1) * props?.unitPrice,
+            props?.unitPrice,
+            "update"
+          ));
     }
     if (operation == "subtraction") {
       if (quantity > 1) {
@@ -57,7 +67,7 @@ const ProductsCart = (props) => {
     <>
       <div>
         <p className={"ms-3 text-danger " + showAlert}>
-          Se ha puesto un limite de pedidos a este producto por cliente
+          Se ha puesto un limite de pedidos segun el inventario a este producto
         </p>
         <div className="card mb-5">
           <div className="row g-0">
@@ -72,16 +82,15 @@ const ProductsCart = (props) => {
               <div className="card-body">
                 <h5 className="card-title">{props?.name}</h5>
 
-                <div className="text-muted mb-2">
+                <Link
+                  to={"/pages/single-kitchen/" + props.kitchen_id}
+                  className="text-muted mb-2"
+                  style={{ textDecoration: "none" }}
+                >
                   {" "}
                   {/* nombre de la cocina */}
                   {props?.nameKitchen}{" "}
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="fa fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                  <i className="far fa-star text-warning"></i>
-                </div>
+                </Link>
 
                 <h2>$ {props?.unitPrice}</h2>
 

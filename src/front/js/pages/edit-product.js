@@ -64,7 +64,7 @@ export const EditProduct = () => {
         name,
         description,
         price,
-        limit == "" ? "0" : limit,
+        limit == "" ? "-10000" : limit,
         img,
         category
       );
@@ -101,7 +101,7 @@ export const EditProduct = () => {
         name,
         description,
         price,
-        limit == "" ? "0" : limit,
+        limit == "" ? "-10000" : limit,
         img,
         category
       );
@@ -145,7 +145,7 @@ export const EditProduct = () => {
       }, 100);
     } else {
       setName(store.editProduct?.nombre);
-      store?.editProduct?.cantidad_producto == "0"
+      store?.editProduct?.cantidad_producto == "-10000"
         ? setLimit("")
         : setLimit(store.editProduct?.cantidad_producto);
       setPrice(store.editProduct?.precio);
