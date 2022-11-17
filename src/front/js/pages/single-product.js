@@ -20,6 +20,32 @@ export const SingleProduct = () => {
   // useRef que acciona alerta de éxito
   const showSuccess = useRef("");
 
+  const uploadFavorite = (product_id) => {
+    if (store.auth == true) {
+      actions.uploadFavorites(product_id).then(() => {
+        if (store.val_favoriteAdd === false) {
+          setTimeout(() => {
+            showAlert.current.classList.add("d-none");
+          }, 3000);
+          showAlert.current.classList.remove("d-none");
+          setError("Este producto ya esta en su lista de favoritos!");
+        } else if (store.val_favoriteAdd === true) {
+          setTimeout(() => {
+            showSuccess.current.classList.add("d-none");
+          }, 3000);
+          showSuccess.current.classList.remove("d-none");
+          setSuccess("El producto fue añadido a favoritos correctamente!");
+        }
+      });
+    } else {
+      setTimeout(() => {
+        showAlert.current.classList.add("d-none");
+      }, 3000);
+      showAlert.current.classList.remove("d-none");
+      setError("Debe estar logueado para añadir productos a favoritos!");
+    }
+  };
+
   const addCart = () => {
     if (store?.auth == true) {
       actions
@@ -142,9 +168,7 @@ export const SingleProduct = () => {
                       >
                         {success}
                       </div>
-                      {store?.profile?.rol == "cocina" ? (
-                        null
-                      ) : 
+                      {store?.profile?.rol == "cocina" ? null : (
                         <>
                           <button
                             onClick={addCart}
@@ -155,12 +179,16 @@ export const SingleProduct = () => {
                             Agregar al carrito
                           </button>
 
-                          <button type="button" className="btn btn-light mb-3">
+                          <button
+                            onClick={() => uploadFavorite(store?.product?.product?.id)}
+                            type="button"
+                            className="btn btn-light mb-3"
+                          >
                             <i className="fas fa-heart d-inline"></i> Agregar a
                             Favoritos
                           </button>
                         </>
-                      }
+                      )}
                     </div>
                   </div>
                 </div>

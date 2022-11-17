@@ -15,6 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       val_category: false,
       val_edit: false,
       val_cartAdd: false,
+      val_favoriteAdd: false,
       // objetos; objetos que contienen datos obtenidos de las llamadas a la api para mostrar dichos datos en distintas partes de la web
       //    -> objetos; relacionadas al funcionamiento interno e independiente de la web:
       AllProducts: [],
@@ -36,6 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       auxBuy: undefined, // relacionada al carrito, sirve como auxiliar para el funcionamiento interno de algunas funciones.
       search: "", // relacionada al buscador
       historyNav: "",
+      auxFavoritos: undefined,
     },
     //
     //
@@ -518,15 +520,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       //
 
+        // FUNCIONES PARA DOCUMENTAR
       changeAlerts: (operation) => {
         if (operation === "buy_repit") {
           setStore({ val_cartAdd: false });
         } else if (operation === "buy_new") {
           setStore({ val_cartAdd: true });
         }
+        if (operation === "favorite_repit") {
+          setStore({val_favoriteAdd: false})
+        } else if (operation === "favorite_new") {
+          setStore({ val_favoriteAdd: true });
+        }
       },
 
-      // FUNCIONES PARA DOCUMENTAR
       buy_product: async (producto_id, cocina_id, precio_unitario) => {
         let store = getStore();
         let actions = getActions();
@@ -947,6 +954,46 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      uploadFavorites: async (product_id) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+            if (store.allFavorites !== [] && store.allFavorites.length != 0) {
+              store.allFavorites.filter((item) => {
+                if (product_id == item?.producto_id) {
+                  setStore({ auxFavoritos: [item] });
+                }
+              });
+            }
+            if (
+              product_id ===
+              (store.auxFavoritos == undefined
+                ? store.auxFavoritos
+                : store.auxFavoritos[0]?.producto_id)
+            ) {
+              // si el producto ya existe en el carrito
+              await actions.changeAlerts("favorite_repit");
+            } else {
+              let reqInstance = axios.create({
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              });
+              const response = await reqInstance.post(
+                store.api_url + process.env.NEW_FAVORITE,
+                {
+                  producto_id: product_id,
+                }
+              );
+              await actions.getAllFavorites();
+              await actions.changeAlerts("favorite_new");
+            }
+
+
+        }
+      },
       //
     },
   };
