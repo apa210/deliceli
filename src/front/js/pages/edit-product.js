@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/visibility.css";
 
 export const EditProduct = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -20,9 +19,6 @@ export const EditProduct = () => {
   const [alertImg_err, set_alertImg_err] = useState("hidden");
   const [alertSuccess, set_alertSuccess] = useState("hidden");
 
-  console.log(store?.editProduct);
-  // console.log(category);
-
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -32,18 +28,58 @@ export const EditProduct = () => {
       }, 100);
     }
   };
-  
+
   const changeCategory = (e, aux_category) => {
     if (e.target.checked == true) {
-      setCategory([...category, aux_category])
+      setCategory([...category, aux_category]);
     } else {
-      setCategory(() => category.filter((item) => {
-        if (item != aux_category) {
-          return item
-        }
-      }))
+      setCategory(() =>
+        category.filter((item) => {
+          if (item != aux_category) {
+            return item;
+          }
+        })
+      );
     }
-  }
+  };
+
+  const updateProduct = () => {
+    if (name === "" && description === "" && price === "") {
+      if (alertText_err !== "show") {
+        set_alertText_err("show");
+        setTimeout(() => {
+          set_alertText_err("hidden");
+        }, 3500);
+      }
+    } else if (img === "") {
+      if (alertImg_err !== "show") {
+        set_alertImg_err("show");
+        setTimeout(() => {
+          set_alertImg_err("hidden");
+        }, 3500);
+      }
+    } else {
+      actions.updateProduct(
+        store?.editProduct?.id,
+        name,
+        description,
+        price,
+        limit == "" ? "0" : limit,
+        img,
+        category
+      );
+
+      if (alertSuccess != "show") {
+        set_alertSuccess("show");
+        setTimeout(() => {
+          set_alertSuccess("hidden");
+        }, 2000);
+        setTimeout(() => {
+          navigate("/pages/kitchen-plates");
+        }, 2000);
+      }
+    }
+  };
 
   const uploadProduct = async () => {
     if (name === "" && description === "" && price === "") {
@@ -65,7 +101,7 @@ export const EditProduct = () => {
         name,
         description,
         price,
-        limit == "" ? "0000" : limit,
+        limit == "" ? "0" : limit,
         img,
         category
       );
@@ -73,10 +109,10 @@ export const EditProduct = () => {
         set_alertSuccess("show");
         setTimeout(() => {
           set_alertSuccess("hidden");
-        }, 3500);
+        }, 2000);
         setTimeout(() => {
-          navigate("/pages/kitchen-plates")
-        }, 4000);
+          navigate("/pages/kitchen-plates");
+        }, 2000);
       }
     }
   };
@@ -98,7 +134,7 @@ export const EditProduct = () => {
 
   const buttonRemove = (prod_id) => {
     actions.removeProduct(prod_id);
-    navigate("/pages/kitchen-plates")
+    navigate("/pages/kitchen-plates");
   };
 
   useEffect(() => {
@@ -109,13 +145,17 @@ export const EditProduct = () => {
       }, 100);
     } else {
       setName(store.editProduct?.nombre);
-      setLimit(store.editProduct?.cantidad_producto);
+      store?.editProduct?.cantidad_producto == "0"
+        ? setLimit("")
+        : setLimit(store.editProduct?.cantidad_producto);
       setPrice(store.editProduct?.precio);
       setDescription(store.editProduct?.descripcion);
       setImg(store.editProduct?.foto_producto);
-      setCategory(() => store?.editProduct?.category.map((item) => { 
-        return item?.categoria_id
-      } ))
+      setCategory(() =>
+        store?.editProduct?.category.map((item) => {
+          return item?.categoria_id;
+        })
+      );
     }
 
     // Al cargar la página, se desplaza hacia arriba
@@ -125,19 +165,23 @@ export const EditProduct = () => {
   // mapea un elemento del flux.js... este guarada las categorias ya establecidas
   // que se registraron en la Base de Datos.
   const map_categories = store?.categories.map((item, index) => {
-    console.log(category?.find(element => element === item?.id));
     return (
-      <div className="form-check form-check-inline col-2" key={item + index + index}>
+      <div
+        className="form-check form-check-inline col-2"
+        key={item + index + index}
+      >
         <input
           onClick={(e) => changeCategory(e, item?.id)}
           className="form-check-input"
           type="checkbox"
           id={"inlineCheckbox1" + index}
           value="option1"
-          checked = {
-            category?.find(element => element === item?.id) !== undefined ? true : false
-           }
-           readOnly
+          checked={
+            category?.find((element) => element === item?.id) !== undefined
+              ? true
+              : false
+          }
+          readOnly
         />
         <label className="form-check-label" htmlFor={"inlineCheckbox1" + index}>
           {item?.nombre}
@@ -385,6 +429,7 @@ export const EditProduct = () => {
                       Eliminar producto
                     </button>
                     <button
+                      onClick={() => updateProduct()}
                       type="button"
                       className="btn btn-primary btn-lg mb-3"
                     >

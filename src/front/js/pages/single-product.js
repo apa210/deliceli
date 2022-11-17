@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import axios from "axios";
 import Footer_contact from "../component/footer_contact";
 import { ProductCardVertical } from "../component/product-card-vertical";
 
@@ -100,15 +99,22 @@ export const SingleProduct = () => {
                         {store?.product?.product?.descripcion}
                       </p>
 
-                      <div className="text-muted mb-2">
+                      <Link
+                        to={
+                          "/pages/single-kitchen/" +
+                          store.product?.product?.cocina_id
+                        }
+                        className="text-muted mb-2"
+                        style={{ textDecoration: "none" }}
+                      >
                         {" "}
-                       La Cocina de <h3> {store.product?.User?.user_name} </h3>
-                    
-                       
-                      </div>
-                      
-                      <h1 className="text-success">$ {store?.product?.product?.precio}</h1>
-                      <br/>
+                        La Cocina de <h3> {store.product?.User?.user_name} </h3>
+                      </Link>
+
+                      <h1 className="text-success">
+                        $ {store?.product?.product?.precio}
+                      </h1>
+                      <br />
                       {/* alerta de error */}
                       <div
                         className="alert alert-danger d-none"
@@ -149,7 +155,7 @@ export const SingleProduct = () => {
           </div>
         </div>
       </div>
-   
+
       <section className="bg-light pb-5">
         <div className="mt-5">
           <div className="p-2 pt-5 text-center">

@@ -1,5 +1,4 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
-import axios from "axios";
+import React, { useContext, useState, useRef } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
@@ -56,10 +55,14 @@ export const ProductCardVertical = (props) => {
 
           <p className="card-text text-about">{props?.obj?.descripcion}</p>
 
-          <div className="text-muted mb-2">
+          <Link
+            to={"/pages/single-kitchen/" + props.obj?.cocina_id}
+            className="text-muted mb-2"
+            style={{ textDecoration: "none" }}
+          >
             {" "}
             La Cocina de <h3>{props.obj?.user_name}</h3>
-            </div>
+          </Link>
 
           <h2>$ {props?.obj?.precio}</h2>
 

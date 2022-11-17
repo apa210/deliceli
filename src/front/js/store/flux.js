@@ -83,7 +83,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
 
         try {
-          const response = await axios.get(store.api_url + "products");
+          const response = await axios.get(
+            store.api_url + process.env.GET_ALL_PRODUCTS
+          );
           setStore({ AllProducts: response.data });
         } catch (error) {
           console.log(error);
@@ -99,7 +101,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
 
         try {
-          const response = await axios.get(store.api_url + "kitchens");
+          const response = await axios.get(
+            store.api_url + process.env.GET_ALL_KITCHENS
+          );
           setStore({ AllKitchens: response.data });
         } catch (error) {
           console.log(error);
@@ -114,7 +118,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       getCategories: async () => {
         let store = getStore();
         try {
-          const response = await axios.get(store.api_url + "category");
+          const response = await axios.get(
+            store.api_url + process.env.GET_ALL_CATEGORIES
+          );
           setStore({ categories: response?.data });
         } catch (error) {
           console.log(error);
@@ -133,11 +139,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         const userToken = localStorage.getItem("token");
         const store = getStore();
         try {
-          const response = await axios.get(store.api_url + "valid-token", {
-            headers: {
-              Authorization: "Bearer " + userToken,
-            },
-          });
+          const response = await axios.get(
+            store.api_url + process.env.VALIDATE_TOKEN,
+            {
+              headers: {
+                Authorization: "Bearer " + userToken,
+              },
+            }
+          );
           setStore({
             auth: response.data.status,
           });
@@ -162,16 +171,41 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         const actions = getActions();
         // valida si el "token sigue vigente", si "store.auth" sigue siendo true, hace la petición a la API
-        actions.validateToken();
+        await actions.validateToken();
         try {
           if (store.auth == true) {
-            const response = await axios.get(store.api_url + "user/profile", {
-              headers: {
-                Authorization: "Bearer " + userToken,
-              },
-            });
+            const response = await axios.get(
+              store.api_url + process.env.GET_PROFILE,
+              {
+                headers: {
+                  Authorization: "Bearer " + userToken,
+                },
+              }
+            );
+            let data = response?.data;
+
+            data.user_name == null ? (data.user_name = "") : data.user_name;
+            data.first_name == null ? (data.first_name = "") : data.first_name;
+            data.last_name == null ? (data.last_name = "") : data.last_name;
+            data.email == null ? (data.email = "") : data.email;
+            data.telefono == null ? (data.telefono = "") : data.telefono;
+            data.foto_usuario == null
+              ? (data.foto_usuario = "")
+              : data.foto_usuario;
+            data.dirreccion == null ? (data.dirreccion = "") : data.dirreccion;
+            data.direccion == null ? (data.direccion = "") : data.direccion;
+            data.facebook == null ? (data.facebook = "") : data.facebook;
+            data.twitter == null ? (data.twitter = "") : data.twitter;
+            data.linkedin == null ? (data.linkedin = "") : data.linkedin;
+            data.instagram == null ? (data.instagram = "") : data.instagram;
+            data.dribble == null ? (data.dribble = "") : data.dribble;
+            data.pinterest == null ? (data.pinterest = "") : data.pinterest;
+            data.descripcion == null
+              ? (data.descripcion = "")
+              : data.descripcion;
+
             setStore({
-              profile: response?.data,
+              profile: data,
             });
           }
         } catch (error) {
@@ -188,11 +222,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         const userToken = localStorage.getItem("token");
         const store = getStore();
         const actions = getActions();
-        actions.validateToken();
+        await actions.validateToken();
         try {
           if (store.auth == true) {
             const response = await axios.get(
-              store.api_url + "cart/productsCart/",
+              store.api_url + process.env.GET_CART,
               {
                 headers: {
                   Authorization: "Bearer " + userToken,
@@ -219,7 +253,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
 
         try {
-          const response = await axios.get(store.api_url + "product/" + id);
+          const response = await axios.get(
+            store.api_url + process.env.GET_PRODUCT + id
+          );
           setStore({ product: response.data });
         } catch (error) {
           console.log(error);
@@ -238,7 +274,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
 
         try {
-          const response = await axios.get(store.api_url + "kitchen/" + id);
+          const response = await axios.get(
+            store.api_url + process.env.GET_KITCHEN + id
+          );
           setStore({ kitchen: response.data });
         } catch (error) {
           console.log(error);
@@ -267,7 +305,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         } else {
           try {
             const response = await axios.get(
-              store.api_url + "productsCategory/" + category_id
+              store.api_url + process.env.GET_PRODUCTS_CATEGORY + category_id
             );
             setStore({ AllProductsOfCategory: response?.data });
             setStore({ val_category: true });
@@ -290,7 +328,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         try {
           const response = await axios.get(
-            store.api_url + "products/find/" + texto
+            store.api_url + process.env.SEARCH + texto
           );
           setStore({ searchResults: response.data });
           setStore({ search: texto });
@@ -309,7 +347,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       getAllProductsOfKitchen: async (kitchen_id) => {
         let store = getStore();
         try {
-          const response = await axios.get(store.api_url + "products");
+          const response = await axios.get(
+            store.api_url + process.env.GET_ALL_PRODUCTS
+          );
           const aux = response.data.map((item) => {
             if (item.cocina_id == kitchen_id) {
               return item;
@@ -343,14 +383,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       ) => {
         let store = getStore();
         try {
-          const response = await axios.post(store.api_url + "contact", {
-            nombre: nombre,
-            departamento: departamento,
-            telefono: telefono,
-            mail: mail,
-            opcion: opcion,
-            mensaje: mensaje,
-          });
+          const response = await axios.post(
+            store.api_url + process.env.CONTACT,
+            {
+              nombre: nombre,
+              departamento: departamento,
+              telefono: telefono,
+              mail: mail,
+              opcion: opcion,
+              mensaje: mensaje,
+            }
+          );
           if (response.status === 200) {
             setStore({
               val_contact: true,
@@ -382,7 +425,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ) => {
         let store = getStore();
         try {
-          const response = await axios.post(store.api_url + "signup", {
+          const response = await axios.post(store.api_url + process.env.SIGN, {
             first_name: first_name,
             last_name: last_name,
             email: email,
@@ -421,7 +464,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
 
         try {
-          const response = await axios.post(store.api_url + "login", {
+          const response = await axios.post(store.api_url + process.env.ENTER, {
             email: email,
             password: password,
           });
@@ -552,7 +595,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     },
                   });
                   const response = await reqInstance
-                    .post(store.api_url + "cart/addProduct", {
+                    .post(store.api_url + process.env.ADD_CART, {
                       usuario_id: store?.profile?.id,
                       producto_id: producto_id,
                       cocina_id: cocina_id,
@@ -574,7 +617,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   },
                 });
                 const response = await reqInstance
-                  .post(store.api_url + "cart/addProduct", {
+                  .post(store.api_url + process.env.ADD_CART, {
                     usuario_id: store?.profile?.id,
                     producto_id: producto_id,
                     cocina_id: cocina_id,
@@ -635,7 +678,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   },
                 });
                 const response = await reqInstance.put(
-                  store.api_url + "cart/editProduct",
+                  store.api_url + process.env.UPDATE_CART,
                   {
                     usuario_id: store?.profile?.id,
                     producto_id: prod_id,
@@ -660,8 +703,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (operation == "update_flux") {
             if (store.auth == true) {
               setStore({ cart: value });
-              console.log("cart modificado");
-              console.log(value);
             }
           }
         });
@@ -673,11 +714,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const userToken = localStorage.getItem("token");
         try {
           const response = await fetch(
-            store.api_url +
-              "cart/deletedProduct/" +
-              // store?.profile?.id +
-              // "/" +
-              prod_id,
+            store.api_url + process.env.QUIT_CART + prod_id,
             {
               method: "DELETE",
               body: JSON.stringify({
@@ -710,7 +747,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions.validateToken();
         try {
           if (store.auth == true) {
-            const response = await axios.get(store.api_url + "user/menu", {
+            const response = await axios.get(store.api_url + process.env.MENU, {
               headers: {
                 Authorization: "Bearer " + userToken,
               },
@@ -754,7 +791,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 precio: "",
                 descripcion: "",
                 foto_producto: "",
-                category: []
+                category: [],
               },
             });
             setStore({ val_edit: true });
@@ -770,7 +807,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ historyNav: value });
       },
 
-      uploadProduct: async (name, description, price, quantity, img, category) => {
+      uploadProduct: async (
+        name,
+        description,
+        price,
+        quantity,
+        img,
+        category
+      ) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
@@ -781,14 +825,17 @@ const getState = ({ getStore, getActions, setStore }) => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
-          const response = await reqInstance.post(store.api_url + "user/menu", {
-            nombre: name,
-            descripcion: description,
-            precio: price,
-            cantidad: quantity,
-            foto: img,
-            categoria: category
-          });
+          const response = await reqInstance.post(
+            store.api_url + process.env.MENU,
+            {
+              nombre: name,
+              descripcion: description,
+              precio: price,
+              cantidad: quantity,
+              foto: img,
+              categoria: category,
+            }
+          );
           await actions.getMenu();
         }
       },
@@ -804,9 +851,121 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           const response = await reqInstance.delete(
-            store.api_url + "user/menu/" + prod_id
+            store.api_url + process.env.QUIT_MENU_PRODUCT + prod_id
           );
           actions.getMenu();
+        }
+      },
+
+      uploadProfile: async (
+        user_name,
+        first_name,
+        last_name,
+        email,
+        telefono,
+        foto,
+        direccion,
+        facebook,
+        twitter,
+        linkedin,
+        instagram,
+        dribble,
+        pinterest,
+        descripcion
+      ) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.put(
+            store.api_url + process.env.EDIT_PROFILE,
+            {
+              user_name: user_name,
+              first_name: first_name,
+              last_name: last_name,
+              email: email,
+              telefono: telefono,
+              foto: foto,
+              direccion: direccion,
+              facebook: facebook,
+              twitter: twitter,
+              linkedin: linkedin,
+              instagram: instagram,
+              dribble: dribble,
+              pinterest: pinterest,
+              descripcion: descripcion,
+            }
+          );
+          await actions.getProfile();
+        }
+      },
+
+      updateProduct: async (
+        prod_id,
+        name,
+        description,
+        price,
+        quantity,
+        img,
+        category
+      ) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.put(
+            store.api_url + process.env.MENU,
+            {
+              producto_id: prod_id,
+              nombre: name,
+              descripcion: description,
+              precio: price,
+              cantidad: quantity,
+              foto: img,
+              categoria: category,
+            }
+          );
+          console.log(response);
+          await actions.getMenu();
+        }
+      },
+
+      changePassword: async (old_password, new_password, repit_password) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+        if (new_password === repit_password) {
+          console.log(old_password, new_password);
+          if (store.auth == true) {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.put(
+              store.api_url + process.env.CHANGE_PASSWORD,
+              {
+                old_password: old_password,
+                new_password: new_password,
+              }
+            );
+            console.log(response);
+            setTimeout(() => {
+              window.location.reload;
+            }, 2000);
+          }
         }
       },
 

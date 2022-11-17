@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Footer_contact from "../component/footer_contact";
 
@@ -14,9 +14,10 @@ export const SingleKitchen = () => {
   const [instagram, setInstagram] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [twitter, setTwitter] = useState("");
+  const [dribble, setDribble] = useState("");
+  const [pinterest, setPinterest] = useState("");
 
   let num_max = 3;
-  const scrollRef = useRef(null);
 
   useEffect(() => {
     // Al cargar la página, se desplaza hacia arriba
@@ -33,7 +34,9 @@ export const SingleKitchen = () => {
       setInstagram(store?.kitchen?.instagram);
       setLinkedin(store?.kitchen?.linkedin);
       setTwitter(store?.kitchen?.twitter);
-    }, 1000);
+      setDribble(store?.kitchen?.dribble);
+      setPinterest(store?.kitchen?.pinterest);
+    }, 100);
   }, [store.kitchen]);
 
   const map_products = store?.AllProductsOfKitchen.map((item, index) => {
@@ -51,7 +54,7 @@ export const SingleKitchen = () => {
   const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
     if (index < num_max) {
       return (
-        <div className="col" key={item + index}>
+        <div className="col-lg-4" key={item + index}>
           <KitchenCardProfile obj={item} />
         </div>
       );
@@ -60,7 +63,7 @@ export const SingleKitchen = () => {
 
   return (
     <>
-      <section ref={scrollRef}>
+      <section>
         <div className="container bgimage-single-cocina2 p-5 align-baseline mt-5">
           <div className="container">
             <h1 className="mt-5 text-light text-end">
@@ -87,22 +90,46 @@ export const SingleKitchen = () => {
                   <br />
 
                   <p className="card-text">{store?.kitchen?.descripcion}</p>
-                  <h4 className="pt-4 pb-4">
-                    Sigue a {store?.kitchen?.user_name} en redes
-                    <br />
-                    <a href={facebook}>
-                      <i className="fab fa-facebook m-2"></i>
-                    </a>
-                    <a href={instagram}>
-                      <i className="fab fa-instagram m-2"></i>
-                    </a>
-                    <a href={linkedin}>
-                      <i className="fab fa-linkedin m-2"></i>
-                    </a>
-                    <a href={twitter}>
-                      <i className="fab fa-twitter-square m-2"></i>
-                    </a>
-                  </h4>
+                  <br />
+                  {facebook === "" &&
+                  instagram === "" &&
+                  linkedin === "" &&
+                  twitter === "" ? null : (
+                    <h4 className="pt-4 pb-4">
+                      Sigue a {store?.kitchen?.user_name} en redes
+                      <br />
+                      {facebook === "" ? null : (
+                        <a href={facebook} target="_blank">
+                          <i className="fab fa-facebook m-2"></i>
+                        </a>
+                      )}
+                      {instagram === "" ? null : (
+                        <a href={instagram} target="_blank">
+                          <i className="fab fa-instagram m-2"></i>
+                        </a>
+                      )}
+                      {linkedin === "" ? null : (
+                        <a href={linkedin} target="_blank">
+                          <i className="fab fa-linkedin m-2"></i>
+                        </a>
+                      )}
+                      {twitter === "" ? null : (
+                        <a href={twitter} target="_blank">
+                          <i className="fab fa-twitter-square m-2"></i>
+                        </a>
+                      )}
+                      {dribble === "" ? null : (
+                        <a href={dribble} target="_blank">
+                          <i className="fas fa-fw fa-basketball-ball text-dribbble me-2"></i>
+                        </a>
+                      )}
+                      {pinterest === "" ? null : (
+                        <a href={pinterest} target="_blank">
+                          <i className="fab fa-fw fa-pinterest text-pinterest"></i>
+                        </a>
+                      )}
+                    </h4>
+                  )}
                 </div>
               </div>
             </div>
