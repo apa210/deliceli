@@ -30,6 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       cart: [],
       menuKitchen: [],
       editProduct: {},
+      allFavorites: [],	
       // auxiliares; variables que son sirven de forma auxiliar
       total: "0", // relacionada al carrito, muestra el total a pagar por parte del Usuario
       auxBuy: undefined, // relacionada al carrito, sirve como auxiliar para el funcionamiento interno de algunas funciones.
@@ -483,7 +484,6 @@ const getState = ({ getStore, getActions, setStore }) => {
               },
             });
           } else {
-            alert("Wrong email or password");
             setStore({
               auth: false,
             });
@@ -519,13 +519,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       //
 
       changeAlerts: (operation) => {
-        let store = getStore();
         if (operation === "buy_repit") {
           setStore({ val_cartAdd: false });
-          console.log(operation, store.val_cartAdd, "if");
         } else if (operation === "buy_new") {
           setStore({ val_cartAdd: true });
-          console.log(operation, store.val_cartAdd, "else if");
         }
       },
 
@@ -536,7 +533,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         await actions.validateToken().then(async () => {
           if (store.auth == true) {
             if (store.cart !== [] && store.cart.length != 0) {
-              console.log(store.cart);
               store.cart.filter((item) => {
                 if (producto_id == item?.producto_id) {
                   setStore({ auxBuy: [item] });
@@ -595,9 +591,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log(error);
               }
             }
-          } else {
-            alert("Precisas logearte para añadir productos al carrito");
-          }
+          } 
         });
       },
       update_total: (operation, value) => {
@@ -739,7 +733,6 @@ const getState = ({ getStore, getActions, setStore }) => {
               store.profile?.rol === "cocina"
             ) {
               setStore({ editProduct: value });
-              console.log(store.editProduct);
               setStore({ val_edit: true });
             } else {
               setStore({ editProduct: {} });
@@ -901,7 +894,6 @@ const getState = ({ getStore, getActions, setStore }) => {
               categoria: category,
             }
           );
-          console.log(response);
           await actions.getMenu();
         }
       },
@@ -911,7 +903,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         let actions = getActions();
         await actions.validateToken();
         if (new_password === repit_password) {
-          console.log(old_password, new_password);
           if (store.auth == true) {
             let reqInstance = axios.create({
               headers: {
@@ -925,11 +916,34 @@ const getState = ({ getStore, getActions, setStore }) => {
                 new_password: new_password,
               }
             );
-            console.log(response);
             setTimeout(() => {
               window.location.reload;
             }, 2000);
           }
+        }
+      },
+
+      getAllFavorites: async () => {
+        const userToken = localStorage.getItem("token");
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+        try {
+          if (store.auth == true) {
+            const response = await axios.get(store.api_url + process.env.GET_FAVORITES, {
+              headers: {
+              Authorization: "Bearer " + userToken,
+              },
+            });
+            setStore({allFavorites: response?.data });
+            if (response?.status != 200) {
+              window.location.reload();
+            }
+          } else {
+          window.location.reload();
+          }
+        } catch (error) {
+          console.log(error);
         }
       },
 

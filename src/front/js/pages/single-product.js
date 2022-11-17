@@ -22,16 +22,27 @@ export const SingleProduct = () => {
 
   const addCart = () => {
     if (store?.auth == true) {
-      actions.buy_product(
-        store.product?.product?.id,
-        store.product?.product?.cocina_id,
-        store.product?.product?.precio
-      );
-      setTimeout(() => {
-        showSuccess.current.classList.add("d-none");
-      }, 3000);
-      showSuccess.current.classList.remove("d-none");
-      setSuccess("Se han añadido los productos exitosamente!");
+      actions
+        .buy_product(
+          store.product?.product?.id,
+          store.product?.product?.cocina_id,
+          store.product?.product?.precio
+        )
+        .then(() => {
+          if (store.val_cartAdd === false) {
+            setTimeout(() => {
+              showAlert.current.classList.add("d-none");
+            }, 3000);
+            showAlert.current.classList.remove("d-none");
+            setError("Este producto ya esta en su carrito!");
+          } else if (store.val_cartAdd === true) {
+            setTimeout(() => {
+              showSuccess.current.classList.add("d-none");
+            }, 3000);
+            showSuccess.current.classList.remove("d-none");
+            setSuccess("El producto fue añadido al carrito correctamente!");
+          }
+        });
     } else {
       setTimeout(() => {
         showAlert.current.classList.add("d-none");
@@ -131,20 +142,25 @@ export const SingleProduct = () => {
                       >
                         {success}
                       </div>
+                      {store?.profile?.rol == "cocina" ? (
+                        null
+                      ) : 
+                        <>
+                          <button
+                            onClick={addCart}
+                            type="button"
+                            className="btn btn-primary me-2 mb-3"
+                          >
+                            <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
+                            Agregar al carrito
+                          </button>
 
-                      <button
-                        onClick={addCart}
-                        type="button"
-                        className="btn btn-primary me-2 mb-3"
-                      >
-                        <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
-                        Agregar al carrito
-                      </button>
-
-                      <button type="button" className="btn btn-light mb-3">
-                        <i className="fas fa-heart d-inline"></i> Agregar a
-                        Favoritos
-                      </button>
+                          <button type="button" className="btn btn-light mb-3">
+                            <i className="fas fa-heart d-inline"></i> Agregar a
+                            Favoritos
+                          </button>
+                        </>
+                      }
                     </div>
                   </div>
                 </div>

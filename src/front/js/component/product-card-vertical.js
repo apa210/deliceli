@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 // y a favoritos.
 export const ProductCardVertical = (props) => {
   const { store, actions } = useContext(Context);
-
   // estado que guarda mensaje de error
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -54,11 +53,13 @@ export const ProductCardVertical = (props) => {
         <img src={props?.obj?.foto_producto} className="card-img-top" />
         <div className="card-body p-3">
           <h5 className="card-title">{props?.obj?.nombre}</h5>
-          <button type="button" className="btn btn-light">
-            {" "}
-            <i className="fas fa-heart mx-2"></i>AGREGAR A FAVORITOS{" "}
-          </button>
 
+          {store?.profile?.rol == "cocina" ? null : (
+            <button type="button" className="btn btn-light">
+              {" "}
+              <i className="fas fa-heart mx-2"></i>AGREGAR A FAVORITOS{" "}
+            </button>
+          )}
           <p className="card-text text-about">{props?.obj?.descripcion}</p>
 
           <Link
@@ -70,7 +71,7 @@ export const ProductCardVertical = (props) => {
             La Cocina de <h3>{props.obj?.user_name}</h3>
           </Link>
 
-          <h2  className="text-success">$ {props?.obj?.precio}</h2>
+          <h2 className="text-success">$ {props?.obj?.precio}</h2>
 
           <div
             className="d-none alert alert-danger"
@@ -87,15 +88,16 @@ export const ProductCardVertical = (props) => {
           >
             {success}{" "}
           </div>
-
-          <button
-            onClick={addCart}
-            type="button"
-            className="btn btn-primary me-2"
-          >
-            <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al
-            carrito
-          </button>
+          {store?.profile?.rol == "cocina" ? null : (
+            <button
+              onClick={addCart}
+              type="button"
+              className="btn btn-primary me-2"
+            >
+              <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar al
+              carrito
+            </button>
+          )}
           <Link
             to={"/pages/single-product/" + props?.obj?.id}
             className="btn btn-outline-primary mt-2 mb-2"
