@@ -407,33 +407,92 @@ def get_all_favorite():
     results = list(map(lambda item: {**item.serialize(),**item.serialize_cocinero(),**item.serialize_producto()}, favorites_user))
 
     return jsonify(results), 200
+
+             # Ver un favorito
+@api.route('/user/favorites/<int:favorite_id>', methods=['GET'])
+@jwt_required()
+def get_favorite(favorite_id):
+
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+		
+    favorite = Favoritos.query.filter_by(id=favorite_id).first()
+	
+    if favorite.usuario_id != login_user.id:
+        raise APIException('Este favorito no pertenece a tu lista', status_code=404)
+
+    return jsonify(favorite.serialize()), 200
         
             # Agregar un favorito - POST
 
-@api.route('/user/favorite', methods=['POST'])
+@api.route('/user/favorite/new', methods=['POST'])
 @jwt_required()
 def add_favorite():
+
     current_user = get_jwt_identity() #puede ir o no
     login_user = Usuarios.query.filter_by(email=current_user).first()
 
     if login_user is None:
         return jsonify({"status": False}), 404
 
-    return jsonify("ok"), 200
+    body = json.loads(request.data)
+	
+	#Se obtiene el maximo id
+    id = db.session.query(func.max(Favoritos.id)).scalar()
+    if id is None:
+        id = 1
+    else:
+        id = id + 1
+
+    query_favorite = Favoritos.query.filter_by(usuario_id = login_user.id, producto_id = body["producto_id"]).first()
+    query_kitchen = Productos.query.filter_by(id = body["producto_id"]).first()
+    
+    if query_favorite is None:
+        if query_kitchen is not None:
+            new_favorite = Favoritos(id=id, usuario_id = login_user.id, producto_id = body["producto_id"], cocina_id = query_kitchen.cocina_id)
+
+            db.session.add(new_favorite)
+            db.session.commit()
+            response_body = {
+                    "msg": "created favorite"
+                }
+            return jsonify(response_body), 200
+        
+        response_body = {
+                "msg": "product not found"
+            }
+        return jsonify(response_body), 404
+
+    response_body = {
+                "msg": "existed favorite"
+            }
+    return jsonify(response_body), 400
 
             # Eliminar un favorito - DELETE
-@api.route('/user/favorite', methods=['DELETE'])
+@api.route('/user/favorite/<int:product_id>', methods=['DELETE'])
 @jwt_required()
-def add_remove():
+def add_remove(product_id):
     current_user = get_jwt_identity() #puede ir o no
     login_user = Usuarios.query.filter_by(email=current_user).first()
 
     if login_user is None:
         return jsonify({"status": False}), 404
 
-    return jsonify("ok"), 200
+    favorite = Favoritos.query.filter_by(usuario_id=login_user.id, producto_id=product_id).first()
 
-
+    if favorite is None:
+        raise APIException('Favorite not found', status_code=404)
+		
+    if favorite.usuario_id != login_user.id:
+        raise APIException('Este favorito no pertenece a tu lista', status_code=404)
+		
+    db.session.delete(favorite)
+    db.session.commit()
+    response_body = {"msg": "Se ha eliminado el favorito"}
+    return jsonify(response_body), 200
 
 # ------------------------ Profile ------------------------
 
