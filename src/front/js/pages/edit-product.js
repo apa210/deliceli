@@ -296,6 +296,36 @@ export const EditProduct = () => {
                           </h4>
                         )}
 
+
+   {/* alertas */}
+   <div
+                  className={"alert alert-success " + alertSuccess}
+                  role="alert"
+                >
+                  El producto ha sido{" "}
+                  {window.location.pathname == "/pages/edit-product"
+                    ? "actualizado"
+                    : "guardado"}{" "}
+                  con éxito.
+                </div>
+                <div
+                  className={"alert alert-danger " + alertText_err}
+                  role="alert"
+                >
+                  Hay campos vacíos, debes completar todos los campos
+                  obligatorios!
+                </div>
+                <div
+                  className={"alert alert-danger " + alertImg_err}
+                  role="alert"
+                >
+                  Necesitas subir una imagen del producto
+                </div>
+
+
+
+
+
                         {/* Nombre  */}
                         <div className="col-md-6">
                           <label className="form-label">
@@ -449,30 +479,7 @@ export const EditProduct = () => {
                     </button>
                   </div>
                 )}
-                {/* alertas */}
-                <div
-                  className={"alert alert-success " + alertSuccess}
-                  role="alert"
-                >
-                  El producto ha sido{" "}
-                  {window.location.pathname == "/pages/edit-product"
-                    ? "actualizado"
-                    : "guardado"}{" "}
-                  con éxito.
-                </div>
-                <div
-                  className={"alert alert-danger " + alertText_err}
-                  role="alert"
-                >
-                  Hay campos vacíos, debes completar todos los campos
-                  obligatorios!
-                </div>
-                <div
-                  className={"alert alert-danger " + alertImg_err}
-                  role="alert"
-                >
-                  Necesitas subir una imagen del producto
-                </div>
+             
               </form>{" "}
               {/*Form END  */}
             </div>
