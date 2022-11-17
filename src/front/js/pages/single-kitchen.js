@@ -54,7 +54,7 @@ export const SingleKitchen = () => {
   const map_kitchens = store?.AllKitchens.reverse().map((item, index) => {
     if (index < num_max) {
       return (
-        <div className="col" key={item + index}>
+        <div className="col-lg-4" key={item + index}>
           <KitchenCardProfile obj={item} />
         </div>
       );
@@ -90,6 +90,7 @@ export const SingleKitchen = () => {
                   <br />
 
                   <p className="card-text">{store?.kitchen?.descripcion}</p>
+                  <br />
                   {facebook === "" &&
                   instagram === "" &&
                   linkedin === "" &&
