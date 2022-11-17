@@ -15,6 +15,35 @@ export const ProductCardVertical = (props) => {
   const showAlert = useRef("");
   const showSuccess = useRef("");
 
+  const uploadFavorite = (product_id) => {
+    if (store.auth == true) {
+      actions.uploadFavorites(product_id)
+        .then(() => {
+          if (store.val_favoriteAdd === false) {
+            setTimeout(() => {
+              showAlert.current.classList.add("d-none");
+            }, 3000);
+            showAlert.current.classList.remove("d-none");
+            setError("Este producto ya esta en su lista de favoritos!");
+          } else if (store.val_favoriteAdd === true) {
+            setTimeout(() => {
+              showSuccess.current.classList.add("d-none");
+            }, 3000);
+            showSuccess.current.classList.remove("d-none");
+            setSuccess("El producto fue añadido a favoritos correctamente!");
+          }
+        });
+    } else {
+      setTimeout(() => {
+        showAlert.current.classList.add("d-none");
+      }, 3000);
+      showAlert.current.classList.remove("d-none");
+      setError("Debe estar logueado para añadir productos a favoritos!");
+    }
+    
+  }
+
+
   // este "boton" llama a una funcion del flux.js... añade un producto al carrito
   // más detallado en el flux.js
   const addCart = () => {
@@ -55,7 +84,7 @@ export const ProductCardVertical = (props) => {
           <h5 className="card-title">{props?.obj?.nombre}</h5>
 
           {store?.profile?.rol == "cocina" ? null : (
-            <button type="button" className="btn btn-light">
+            <button onClick={() => uploadFavorite(props?.obj?.id)} type="button" className="btn btn-light">
               {" "}
               <i className="fas fa-heart mx-2"></i>AGREGAR A FAVORITOS{" "}
             </button>
