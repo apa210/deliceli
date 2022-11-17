@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 // actualmente no se esta usando
 // pensado usar para: la cuenta de usuario -> historial de pedidos y favoritos -> platos del producto, etc
 export const ProductCardHorizontalFavorites = (props) => {
-  console.log(props?.obj);
+  const { store, actions } = useContext(Context);
   return (
     <>
       <section>
@@ -41,7 +42,7 @@ export const ProductCardHorizontalFavorites = (props) => {
                 >
                   Leer mas{" "}
                 </Link>
-                <button type="button" className="btn btn-light m-2">
+                <button onClick={() => actions?.removeFavorite(props?.obj?.id)} type="button" className="btn btn-light m-2">
                   {" "}
                   <i className="fas fa-heart mx-2"></i> ELIMINAR DE FAVORITOS{" "}
                 </button>

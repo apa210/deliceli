@@ -409,7 +409,7 @@ def get_all_favorite():
     return jsonify(results), 200
 
              # Ver un favorito
-@api.route('/user/favorites/<int:favorite_id>', methods=['GET'])
+@api.route('/user/favorite/<int:favorite_id>', methods=['GET'])
 @jwt_required()
 def get_favorite(favorite_id):
 
@@ -428,7 +428,7 @@ def get_favorite(favorite_id):
         
             # Agregar un favorito - POST
 
-@api.route('/user/favorite/new', methods=['POST'])
+@api.route('/user/favorites/new', methods=['POST'])
 @jwt_required()
 def add_favorite():
 

@@ -973,7 +973,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 ? store.auxFavoritos
                 : store.auxFavoritos[0]?.producto_id)
             ) {
-              // si el producto ya existe en el carrito
               await actions.changeAlerts("favorite_repit");
             } else {
               let reqInstance = axios.create({
@@ -990,10 +989,27 @@ const getState = ({ getStore, getActions, setStore }) => {
               await actions.getAllFavorites();
               await actions.changeAlerts("favorite_new");
             }
-
-
         }
       },
+
+      removeFavorite: async (prod_id) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          let reqInstance = axios.create({
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const response = await reqInstance.delete(
+            store.api_url + process.env.REMOVE_FAVORITE + prod_id
+          );
+          await actions.getAllFavorites();
+        }
+      },
+
       //
     },
   };
