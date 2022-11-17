@@ -135,8 +135,9 @@ export const Checkout = () => {
                         id="accordion1btn"
                       >
                         <input
-                          className="form-check-input chkAll me-2"
-                          type="checkbox"
+                          className="form-check-input me-2"
+                          type="radio"
+                          name="tipos-pago"
                           value=""
                           id="chkAccordion1All"
                         />
@@ -168,8 +169,9 @@ export const Checkout = () => {
                       >
                         <div className="form-check mt-1">
                           <input
-                            className="form-check-input chkAll"
-                            type="checkbox"
+                            className="form-check-input"
+                            type="radio"
+                            name="tipos-pago"
                             value=""
                             id="chkAccordion2All"
                           />
@@ -206,8 +208,9 @@ export const Checkout = () => {
                       >
                         <div className="form-check mt-1">
                           <input
-                            className="form-check-input chkAll"
-                            type="checkbox"
+                            className="form-check-input"
+                            type="radio"
+                            name="tipos-pago"
                             value=""
                             id="chkAccordion3All"
                           />
