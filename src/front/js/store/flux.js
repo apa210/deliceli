@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       val_contact: false,
       val_category: false,
       val_edit: false,
+      val_cartAdd: false,
       // objetos; objetos que contienen datos obtenidos de las llamadas a la api para mostrar dichos datos en distintas partes de la web
       //    -> objetos; relacionadas al funcionamiento interno e independiente de la web:
       AllProducts: [],
@@ -517,11 +518,22 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       //
 
+      changeAlerts: (operation) => {
+        let store = getStore();
+        if (operation === "buy_repit") {
+          setStore({ val_cartAdd: false });
+          console.log(operation, store.val_cartAdd, "if");
+        } else if (operation === "buy_new") {
+          setStore({ val_cartAdd: true });
+          console.log(operation, store.val_cartAdd, "else if");
+        }
+      },
+
       // FUNCIONES PARA DOCUMENTAR
       buy_product: async (producto_id, cocina_id, precio_unitario) => {
         let store = getStore();
         let actions = getActions();
-        actions.validateToken().then(async () => {
+        await actions.validateToken().then(async () => {
           if (store.auth == true) {
             if (store.cart !== [] && store.cart.length != 0) {
               console.log(store.cart);
@@ -538,55 +550,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   : store.auxBuy[0]?.producto_id)
               ) {
                 // si el producto ya existe en el carrito
-                console.log("Filtro exitoso");
-                console.log(store.auxBuy[0]?.producto_id);
-                console.log(store.auxBuy);
-                let auxFunction = () => {
-                  if (store.auxBuy != undefined) {
-                    let aux_aux = store.auxBuy.map((item) => {
-                      let aux_quantity =
-                        store.auxBuy[0]?.cantidad_carrito >=
-                        store.auxBuy[0]?.cantidad_producto
-                          ? store.auxBuy[0]?.cantidad_producto
-                          : store.auxBuy[0]?.cantidad_carrito + 1;
-                      item.cantidad_carrito = aux_quantity;
-                      return item;
-                    });
-                    return aux_aux;
-                  }
-                };
-
-                setStore({ auxBuy: auxFunction() });
-
-                if (store.auxBuy != undefined) {
-                  if (
-                    store.auxBuy[0]?.cantidad_carrito ==
-                    store.auxBuy[0]?.cantidad_producto
-                  ) {
-                    alert(
-                      "Se ha puesto un limite de pedidos a este producto por cliente"
-                    );
-                  } else {
-                    actions.update_cart(
-                      // update
-                      store.auxBuy[0]?.producto_id,
-                      (store.auxBuy[0].cantidad_carrito =
-                        store.auxBuy[0]?.cantidad_carrito >=
-                        store.auxBuy[0]?.cantidad_producto
-                          ? store.auxBuy[0]?.cantidad_producto
-                          : store.auxBuy[0]?.cantidad_carrito),
-                      (store.auxBuy[0].total =
-                        store.auxBuy[0]?.cantidad_carrito >=
-                        store.auxBuy[0]?.cantidad_producto
-                          ? store.auxBuy[0]?.precio_unitario *
-                            store.auxBuy[0]?.cantidad_producto
-                          : store.auxBuy[0]?.precio_unitario *
-                            store.auxBuy[0]?.cantidad_carrito),
-                      store.auxBuy[0]?.precio_unitario,
-                      "update"
-                    );
-                  }
-                }
+                await actions.changeAlerts("buy_repit");
               } else {
                 try {
                   let reqInstance = axios.create({
@@ -604,7 +568,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                       total: precio_unitario,
                     })
                     .then(() => actions.getCart(store.profile?.id));
-                  console.log(response);
+                  await actions.changeAlerts("buy_new");
                 } catch (error) {
                   console.log(error);
                 }
@@ -626,7 +590,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     total: precio_unitario,
                   })
                   .then(() => actions.getCart(store.profile?.id));
-                console.log(response);
+                await actions.changeAlerts("buy_new");
               } catch (error) {
                 console.log(error);
               }
@@ -787,7 +751,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               editProduct: {
                 nombre: "",
-                cantidad_producto: "",
+                cantidad_producto: "-10000",
                 precio: "",
                 descripcion: "",
                 foto_producto: "",
