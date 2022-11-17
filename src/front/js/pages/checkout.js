@@ -261,7 +261,7 @@ export const Checkout = () => {
             </div>
             {/* Detalles de contacto */}
           </div>
-        </div>
+        </div> 
       </section>
 
       <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5"></div>
