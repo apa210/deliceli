@@ -74,9 +74,9 @@ export const EditProduct = () => {
         setTimeout(() => {
           set_alertSuccess("hidden");
         }, 2000);
-        // setTimeout(() => {
-        //   navigate("/pages/kitchen-plates");
-        // }, 2000);
+        setTimeout(() => {
+          navigate("/pages/kitchen-plates");
+        }, 2000);
       }
     }
   };

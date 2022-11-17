@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import "../../styles/visibility.css";
 
 export const KitchenAccount = () => {
   const { store, actions } = useContext(Context);
@@ -22,6 +23,9 @@ export const KitchenAccount = () => {
   const [pinterest, set_pinterest] = useState("");
   const [descripcion, set_descripcion] = useState("");
 
+  const [alertText_err, set_alertText_err] = useState("hidden");
+  const [alertSuccess, set_alertSuccess] = useState("hidden");
+
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -33,24 +37,42 @@ export const KitchenAccount = () => {
   };
 
   const buttonUpdate = () => {
-    actions.uploadProfile(
-      user_name,
-      first_name,
-      last_name,
-      email,
-      telefono,
-      img,
-      direccion,
-      facebook,
-      twitter,
-      linkedin,
-      instagram,
-      dribble,
-      pinterest,
-      descripcion
-    );
-
-    alert("se ha actualizado tu perfil");
+    if (
+      user_name === "" &&
+      first_name === "" &&
+      last_name === "" &&
+      email === ""
+    ) {
+      if (alertText_err !== "show") {
+        set_alertText_err("show");
+        setTimeout(() => {
+          set_alertText_err("hidden");
+        }, 3500);
+      }
+    } else {
+      actions.uploadProfile(
+        user_name,
+        first_name,
+        last_name,
+        email,
+        telefono,
+        img,
+        direccion,
+        facebook,
+        twitter,
+        linkedin,
+        instagram,
+        dribble,
+        pinterest,
+        descripcion
+      );
+      if (alertSuccess != "show") {
+        set_alertSuccess("show");
+        setTimeout(() => {
+          set_alertSuccess("hidden");
+        }, 2000);
+      }
+    }
   };
 
   const uploadImg = async (e) => {
@@ -438,6 +460,19 @@ export const KitchenAccount = () => {
                   >
                     Actualizar Cuenta
                   </button>
+                </div>
+                <div
+                  className={"alert alert-success " + alertSuccess}
+                  role="alert"
+                >
+                  Se ha guardado con exito los cambios de la cuenta
+                </div>
+                <div
+                  className={"alert alert-danger " + alertText_err}
+                  role="alert"
+                >
+                  Hay campos vacíos, debes completar todos los campos
+                  obligatorios!
                 </div>
               </form>{" "}
               {/*Form END  */}
