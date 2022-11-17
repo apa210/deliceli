@@ -46,6 +46,7 @@ const injectContext = (PassedComponent) => {
               state.store.profile?.rol == "cliente"
             ) {
               state.actions.update_total("initial", undefined);
+              state.actions.getAllFavorites();
             }
           })
           .then(() => {

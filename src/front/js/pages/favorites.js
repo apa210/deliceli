@@ -9,6 +9,15 @@ export const Favorites = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  // trae los productos de la store
+  const map_favorites = store?.allFavorites.map((item, index) => {
+    return (
+      <div key={index + index + index + item}>
+        <ProductCardHorizontalFavorites obj={item} />
+      </div>
+    );
+  });
+
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -124,10 +133,18 @@ export const Favorites = () => {
 
               {/* producto  */}
 
+              {map_favorites.length == 0 ? (
+                <h3 className="text-center my-5 py-3">
+                  No hay productos favoritos
+                </h3>
+              ) : (
+                map_favorites
+              )}
+
+              {/* <ProductCardHorizontalFavorites />
              <ProductCardHorizontalFavorites />
              <ProductCardHorizontalFavorites />
-             <ProductCardHorizontalFavorites />
-             <ProductCardHorizontalFavorites />
+             <ProductCardHorizontalFavorites /> */}
 
               {/* producto  */}
             </div>
