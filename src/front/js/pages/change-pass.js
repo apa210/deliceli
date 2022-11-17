@@ -1,32 +1,49 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const ChangePass = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
 
   const navigate = useNavigate();
 
-//   // Función para cerrar sesión
-//   const handleLogout = () => {
-//     let onLogged = actions.logout();
-//     if (!onLogged) {
-//       setTimeout(() => {
-//         navigate("/");
-//       }, 100);
-//     }
-//   };
+  const [old_password, set_old_password] = useState("");
+  const [new_password, set_new_password] = useState("");
+  const [repit_password, set_repit_password] = useState("");
 
- useEffect(() => {
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    let onLogged = actions.logout();
+    if (!onLogged) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  };
 
-//     // No da acceso a la cuenta del cliente sin estar logueado
-//     if (store.auth == false) {
-//       setTimeout(() => {
-//         navigate("/");
-//       }, 100);
-//     }
+  const changePassword = () => {
+    if (new_password != repit_password) {
+      alert("la nueva contraseña y el repetir la contraseña deben ser iguales");
+    } else if (
+      old_password === "" ||
+      new_password === "" ||
+      repit_password === ""
+    ) {
+      alert("no puedes dejar campos sin completar");
+    } else {
+      actions.changePassword(old_password, new_password, repit_password);
+      alert("se ha cambiado la contraseña");
+    }
+  };
+
+  useEffect(() => {
+    // No da acceso a la cuenta del cliente sin estar logueado
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
 
     // Al cargar la página, se desplaza hacia arriba
     window.scrollTo(0, 0);
@@ -50,7 +67,8 @@ export const ChangePass = () => {
               <div className="my-5">
                 <h3>
                   {" "}
-                  <i className="fas fa-cog d-inline mx-2"></i> Cambiar contraseña
+                  <i className="fas fa-cog d-inline mx-2"></i> Cambiar
+                  contraseña
                 </h3>
                 <hr />
               </div>
@@ -121,72 +139,73 @@ export const ChangePass = () => {
               </nav>
               {/* navegación de usuario */}
               {/* Detalles de contacto */}
-    
-           
-             
-                 
-         
-             
-                {/* fin de detalles de la cuenta  */}
-                {/* Redes sociales  */}
-                <div className="row mb-5 gx-5">
-              
 
-                  {/* cambiar contraseña  */}
-                  <div className="col-xxl-6">
-                    <div className="bg-secondary-soft px-4 py-5 rounded">
-                      <div className="row g-3">
-                        <h4 className="my-4">Cambiar contraseña</h4>
-                        {/*Old password  */}
-                        <div className="col-md-6">
-                          <label htmlFor="contrasena" className="form-label">
-                            Contraseña anterior *
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="contrasena"
-                          />
-                        </div>
-                        {/*Nueva Contraseña  */}
-                        <div className="col-md-6">
-                          <label
-                            htmlFor="nueva-contrasena"
-                            className="form-label"
-                          >
-                            Nueva Contraseña *
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="nueva-contrasena"
-                          />
-                        </div>
-                        {/*Confirm password  */}
-                        <div className="col-md-12">
-                          <label
-                            htmlFor="econfirmar-contrasena"
-                            className="form-label"
-                          >
-                            Confirmar Contraseña*
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            id="confirmar-contrasena"
-                          />
+              {/* fin de detalles de la cuenta  */}
+              {/* Redes sociales  */}
+              <div className="row mb-5 gx-5">
+                {/* cambiar contraseña  */}
+                <div className="col-xxl-6">
+                  <div className="bg-secondary-soft px-4 py-5 rounded">
+                    <div className="row g-3">
+                      <h4 className="my-4">Cambiar contraseña</h4>
+                      {/*Old password  */}
+                      <div className="col-md-6">
+                        <label htmlFor="contrasena" className="form-label">
+                          Contraseña anterior *
+                        </label>
+                        <input
+                          onChange={(e) => set_old_password(e.target.value)}
+                          value={old_password}
+                          type="password"
+                          className="form-control"
+                          id="contrasena"
+                        />
+                      </div>
+                      {/*Nueva Contraseña  */}
+                      <div className="col-md-6">
+                        <label
+                          htmlFor="nueva-contrasena"
+                          className="form-label"
+                        >
+                          Nueva Contraseña *
+                        </label>
+                        <input
+                          onChange={(e) => set_new_password(e.target.value)}
+                          value={new_password}
+                          type="password"
+                          className="form-control"
+                          id="nueva-contrasena"
+                        />
+                      </div>
+                      {/*Confirm password  */}
+                      <div className="col-md-12">
+                        <label
+                          htmlFor="econfirmar-contrasena"
+                          className="form-label"
+                        >
+                          Confirmar Contraseña *
+                        </label>
+                        <input
+                          onChange={(e) => set_repit_password(e.target.value)}
+                          value={repit_password}
+                          type="password"
+                          className="form-control"
+                          id="confirmar-contrasena"
+                        />
 
-<button type="button" className="btn btn-primary mt-3 mb-3">
-                 Guardar contraseña
-                  </button>
-                        </div>
-                       
+                        <button
+                          onClick={() => changePassword()}
+                          type="button"
+                          className="btn btn-primary mt-3 mb-3"
+                        >
+                          Guardar contraseña
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-              
+              </div>
+
               {/*Form END  */}
             </div>
           </div>

@@ -919,8 +919,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         let actions = getActions();
         await actions.validateToken();
 
-        // console.log(prod_id, name, description, price, quantity, img, category);
-
         if (store.auth == true) {
           let reqInstance = axios.create({
             headers: {
@@ -941,6 +939,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           console.log(response);
           await actions.getMenu();
+        }
+      },
+
+      changePassword: async (old_password, new_password, repit_password) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+        if (new_password === repit_password) {
+          console.log(old_password, new_password);
+          if (store.auth == true) {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.put(
+              store.api_url + process.env.CHANGE_PASSWORD,
+              {
+                old_password: old_password,
+                new_password: new_password,
+              }
+            );
+            console.log(response);
+            setTimeout(() => {
+              window.location.reload;
+            }, 2000);
+          }
         }
       },
 

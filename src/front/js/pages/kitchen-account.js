@@ -450,6 +450,11 @@ export const KitchenAccount = () => {
                   </div>
                 </div>
                 <div className="gap-3 d-md-flex justify-content-md-end text-center mb-5">
+                  <Link to={"/pages/change-pass"}>
+                    <button className="btn btn-secondary btn-lg mb-3">
+                      Cambiar contraseña
+                    </button>
+                  </Link>
                   <button type="button" className="btn btn-danger btn-lg mb-3">
                     Eliminar Cuenta
                   </button>
