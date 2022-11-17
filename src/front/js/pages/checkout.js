@@ -91,14 +91,14 @@ export const Checkout = () => {
                 defaultValue={store.profile.direccion}
               />
 
-              <label className="form-label">Departamento *</label>
+              {/* <label className="form-label">Departamento *</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder=""
                 aria-label="Direccion"
                 defaultValue={store.profile.direccion}
-              />
+              /> */}
 
               <label className="form-label">Comentarios del envio </label>
               <textarea

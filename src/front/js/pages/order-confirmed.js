@@ -89,7 +89,7 @@ export const OrderConfirmed = (props) => {
                           <div className="alert alert-primary" role="alert">
                           Aparicio Baptista<br/>
                           Calle 13 - Numero 34 - Piso 2, esq. Calle 4
-                          <br/>La Paloma , Rocha Uruguay
+                          {/* <br/>La Paloma , Rocha Uruguay */}
                           
 </div>
                          
@@ -97,9 +97,10 @@ export const OrderConfirmed = (props) => {
                          
                           <br/>
                           Precio: $48.98 <br/>
-                          Subtotal: $97.96<br/>
+                          {/* Subtotal: $97.96<br/> */}
                           Gastos de envío: $7.99<br/> 
-                          Descuento: $-24.50 <br/><hr/>
+                          {/* Descuento: $-24.50 <br/> */}
+                          <hr/>
                           Total: $81.45 <br/>
                      
                         </p>
