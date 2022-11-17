@@ -881,6 +881,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             pinterest: pinterest,
             descripcion: descripcion,
           });
+          await actions.getProfile();
         }
       },
 

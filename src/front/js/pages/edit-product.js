@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/visibility.css";
 
 export const EditProduct = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -43,8 +42,6 @@ export const EditProduct = () => {
       );
     }
   };
-
-  // console.log(store.editProduct);
 
   const updateProduct = () => {
     if (name === "" && description === "" && price === "") {
