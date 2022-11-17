@@ -1,3 +1,10 @@
+.form-check .form-check-input {
+  float: left;
+  margin-right: 20px;
+  margin-left: 3px;
+}
+
+
 .text-about {
   margin-top: 15px;
   display: block;

@@ -138,6 +138,26 @@ export const Checkout = () => {
                   >
                     <div className="accordion-body">
                       <img src="https://sintropia.com.uy/desarrollo/mpago.png" />
+
+                      <br />
+                      <br />
+                      <div className="form-check  alert alert-secondary">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="flexCheckDefault"
+                        />
+                        <label
+                          className="form-check-label "
+                          for="flexCheckDefault"
+                        >
+                          SELECCIONAR MERCADO PAGO
+                        </label>
+                      </div>
+
+
+
                     </div>
                   </div>
                 </div>
@@ -165,6 +185,22 @@ export const Checkout = () => {
                       y pagar sin tarjeta. <br />
                       <br /> Realiza depósitos en efectivo en agencias o agentes
                       o pagá tu entrega al repartidor.
+                      <br />
+                      <br />
+                      <div className="form-check  alert alert-secondary">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="flexCheckDefault"
+                        />
+                        <label
+                          className="form-check-label "
+                          for="flexCheckDefault"
+                        >
+                          SELECCIONAR PAGO EN EFECTIVO
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -196,7 +232,22 @@ export const Checkout = () => {
                       pago y envía foto del comprobante de depósito a nuestro
                       whatsapp. <br /> <br />
                       Tu pedido no se procesará hasta que se haya recibido el
-                      importe en nuestra cuenta.
+                      importe en nuestra cuenta.<br />
+                      <br />
+                      <div className="form-check  alert alert-secondary">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="flexCheckDefault"
+                        />
+                        <label
+                          className="form-check-label "
+                          for="flexCheckDefault"
+                        >
+                          SELECCIONAR PAGO TRANSFERENCIA BANCARIA
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
