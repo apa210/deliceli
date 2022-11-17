@@ -30,7 +30,7 @@ export const ProductCardHorizontalMenu = (props) => {
 
         <div className="card mb-5 mt-5">
           <div className="row g-0">
-            <div className="col-md-4">
+            <div className="col-md-3">
               <img
                 src={props?.obj?.foto_producto}
                 className="img-fluid rounded-start"
@@ -47,7 +47,7 @@ export const ProductCardHorizontalMenu = (props) => {
                   {store.profile?.user_name}{" "}
                 </div>
 
-                <h2>$ {props?.obj?.precio}</h2>
+                <h2  className="text-success">$ {props?.obj?.precio}</h2>
                 {/* <Link to="/pages/edit-product" className="btn btn-primary me-2"> */}
                 <button
                   onClick={() =>

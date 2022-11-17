@@ -70,7 +70,7 @@ export const ProductCardVertical = (props) => {
             La Cocina de <h3>{props.obj?.user_name}</h3>
           </Link>
 
-          <h2>$ {props?.obj?.precio}</h2>
+          <h2  className="text-success">$ {props?.obj?.precio}</h2>
 
           <div
             className="d-none alert alert-danger"
