@@ -340,13 +340,55 @@ def view_orders_kitchen():
     pedidos = Pedidos.query.filter_by(cocina_id=login_user.id).all()
 
     if pedidos is not None:
-        results = list(map(lambda item: item.serialize(), pedidos))
-        return jsonify(results), 200
+        result = []
+        num = 0
+        while num < len(pedidos):
+            carrito = Carritos.query.filter_by(id=pedidos[num].carrito_id).first()
+            cliente = Usuarios.query.filter_by(id=pedidos[num].usuario_id).first()
+            aux = {}
+            aux["pedido"] = pedidos[num].serialize()
+            aux["carrito"] = carrito.serialize()
+            aux["cliente"] = cliente.serialize()
+            result.append(aux)
+            num +=1
 
+        return jsonify(result), 200
 
     return jsonify({"msg": "Not exist"}), 400
 
 # ver los pedidos para el usuario (historial)
+
+@api.route('/user/client/orders', methods=['GET'])
+@jwt_required()
+def view_orders_client():
+
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    pedidos = Pedidos.query.filter_by(usuario_id=login_user.id).all()
+
+    if pedidos is not None:
+        result=[]
+        num = 0
+        while num < len(pedidos):
+            carrito = Carritos.query.filter_by(id=pedidos[num].carrito_id).first()
+            cocina = Usuarios.query.filter_by(id=pedidos[num].cocina_id).first()
+            aux = {}
+            aux["pedido"] = pedidos[num].serialize()
+            aux["carrito"] = carrito.serialize()
+            aux["cocina"] = cocina.serialize()
+            result.append(aux)
+            num +=1
+        
+
+        return jsonify(result), 200
+
+
+    return jsonify({"msg": "Not exist"}), 400
+
 
 # editar el estado (cocina) (accion)
 
