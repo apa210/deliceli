@@ -254,3 +254,36 @@ class Contactos(db.Model):
             "mensaje": self.mensaje,
             # do not serialize the password, its a security breach
         }
+
+class Pedidos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    id_carrito = db.Column(db.Integer, db.ForeignKey("carritos.id"))
+    carrito_id = db.Column(db.Integer, nullable=False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
+    cocina_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
+    fecha = db.Column(db.DateTime, nullable=False)
+    comentario = db.Column(db.String(250), nullable=True)
+    metodo = db.Column(db.String(250), nullable=True)
+    estado = db.Column(db.String(250), nullable=True)
+    destino = db.Column(db.String(250), nullable=True)
+    id_carritos = db.relationship('Carritos', foreign_keys='Pedidos.id_carrito')
+    usuarios = db.relationship('Usuarios', foreign_keys='Pedidos.usuario_id')
+    cocinas = db.relationship('Usuarios', foreign_keys='Pedidos.cocina_id')
+
+    def __repr__(self):
+        return '<Pedidos %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_carrito": self.id_carrito,
+            "carrito_id": self.carrito_id,
+            "usuario_id": self.usuario_id,
+            "cocina_id": self.cocina_id,
+            "fecha": self.fecha,
+            "comentario": self.comentario,
+            "metodo": self.metodo,
+            "estado": self.estado,
+            "destino": self.destino,
+            # do not serialize the password, its a security breach
+        }
