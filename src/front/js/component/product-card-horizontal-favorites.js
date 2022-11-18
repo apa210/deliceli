@@ -32,10 +32,6 @@ export const ProductCardHorizontalFavorites = (props) => {
                   {props?.obj?.user_name}{" "}
                 </Link>
                 <h2>$ {props?.obj?.precio}</h2>
-                <button type="button" className="btn btn-primary me-2">
-                  <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i> Agregar
-                  al carrito
-                </button>
                 <Link
                   to={"/pages/single-product/" + props?.obj?.id}
                   className="btn btn-outline-primary mt-2 mb-2"
