@@ -20,6 +20,7 @@ flask-admin = "*"
 flask-jwt-extended = "*"
 translate = "*"
 flask-bcrypt = "*"
+mercadopago = "*"
 
 [requires]
 python_version = "3.8"

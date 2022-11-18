@@ -16,6 +16,57 @@ api = Blueprint('api', __name__)
 
 # ----------                                Web app rutes                           ----------
 
+# ------------- mercado pago --------------------
+
+# SDK de Mercado Pago
+import mercadopago
+# Agrega credenciales
+sdk = mercadopago.SDK(os.getenv('PROD_ACCESS_TOKEN'))
+
+
+@api.route('/createPreference', methods=['POST'])
+def createPreference():
+    body = json.loads(request.data)
+# Crea un ítem en la preferencia 
+
+
+    preference_data = {
+#Los items estan hardcordeados para la prueba 
+
+    "items": 
+    [
+    {
+    "title": "deliceli", 
+    "quantity": 1,
+    "unit_price": 100,
+    } ],
+
+    # Adonde te re-dirige en caso de éxito total / o no 
+    
+    "back_urls": 
+        {
+        "success": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed",
+        "failure": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed",
+        "pending": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed"
+        },
+    
+    "auto_return": "approved"
+        }
+
+    preference_response = sdk.preference().create(preference_data) 
+    preference = preference_response["response"]
+    return preference
+
+
+
+
+# ------------- final de mercado pago --------------------
+
+
+
+
+
+
 # ------------- Cocinas --------------------
         # Ver todas las cocinas - GET
 @api.route('/kitchens', methods=['GET'])
