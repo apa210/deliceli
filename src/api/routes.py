@@ -261,7 +261,6 @@ def edit_product_cart_user():
 
 
         # Confirmar compra
-        #Ejemplo: {"usuario_id":"3"}
 @api.route('/cart/confirmPurchase', methods=['PUT'])
 @jwt_required()
 def confirm_purchase_cart():
@@ -274,7 +273,6 @@ def confirm_purchase_cart():
 
     body = json.loads(request.data)
 
-    #carrito = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).first()
     carrito = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).all()
 
     if body is None:
@@ -303,6 +301,7 @@ def confirm_purchase_cart():
                 new_id = new_id
             else:
                 new_id = new_id+len(str(new_id))+ int(str(new_id)[random.randint(0, len(str(new_id))-3)])
+
             carrito_id = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False, id = carrito[num].id).first()
             carrito_id.confirmado = True
 
@@ -389,10 +388,67 @@ def view_orders_client():
 
     return jsonify({"msg": "Not exist"}), 400
 
+@api.route('/user/kitchen/orders', methods=['PUT'])
+@jwt_required()
+def edit_order_kitchen():
 
-# editar el estado (cocina) (accion)
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    body = json.loads(request.data)
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    elif 'pedido_id' not in body:
+        raise APIException("You need to specify the pedido_id", status_code=400)
+    elif 'estado' not in body:
+        raise APIException("You need to specify the estado", status_code=400)
+
+
+    pedido = Pedidos.query.filter_by(id=body["pedido_id"], cocina_id=login_user.id).first()
+
+    if pedido is not None:
+        pedido.estado = body["estado"]
+        db.session.commit()
+
+        return jsonify("ok"), 200
+
+
+    return jsonify({"msg": "Not exist"}), 400
 
 # cancelar el pedido (usuario: estado=> cancelado) (accion)
+
+@api.route('/user/client/orders/cancel', methods=['PUT'])
+@jwt_required()
+def edit_order_client():
+
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    body = json.loads(request.data)
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    elif 'pedido_id' not in body:
+        raise APIException("You need to specify the pedido_id", status_code=400)
+
+
+    pedido = Pedidos.query.filter_by(id=body["pedido_id"], usuario_id=login_user.id).first()
+
+    if pedido is not None:
+        pedido.estado = "cancelado_user"
+        db.session.commit()
+
+        return jsonify("ok"), 200
+
+
+    return jsonify({"msg": "Not exist"}), 400
 
 
 
