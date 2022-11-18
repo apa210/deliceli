@@ -327,6 +327,25 @@ def confirm_purchase_cart():
 
 # ver los pedidos para la cocina (historial)
 
+@api.route('/user/kitchen/orders', methods=['GET'])
+@jwt_required()
+def view_orders_kitchen():
+
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    pedidos = Pedidos.query.filter_by(cocina_id=login_user.id).all()
+
+    if pedidos is not None:
+        results = list(map(lambda item: item.serialize(), pedidos))
+        return jsonify(results), 200
+
+
+    return jsonify({"msg": "Not exist"}), 400
+
 # ver los pedidos para el usuario (historial)
 
 # editar el estado (cocina) (accion)
