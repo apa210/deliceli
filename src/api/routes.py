@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import random
 import json
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
-from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias, Favoritos
+from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias, Favoritos, Pedidos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -263,27 +263,52 @@ def edit_product_cart_user():
         # Confirmar compra
         #Ejemplo: {"usuario_id":"3"}
 @api.route('/cart/confirmPurchase', methods=['PUT'])
-#@jwt_required()
+@jwt_required()
 def confirm_purchase_cart():
 
-    # current_user = get_jwt_identity() #puede ir o no
-    # login_user = Usuarios.query.filter_by(email=current_user).first()
+    current_user = get_jwt_identity()
+    login_user = Usuarios.query.filter_by(email=current_user).first()
 
-    # if login_user is None:
-    #     return jsonify({"status": False}), 404
+    if login_user is None:
+        return jsonify({"status": False}), 404
 
     body = json.loads(request.data)
 
     #carrito = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).first()
-    carrito = Carritos.query.filter_by(usuario_id=body["usuario_id"], confirmado=False).all()
-    print("$$$$$$$$Carrito: " + str(carrito))
-    
+    carrito = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).all()
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    elif 'comentario' not in body:
+        raise APIException("You need to specify the comentario", status_code=400)
+    elif 'metodo' not in body:
+        raise APIException("You need to specify the metodo", status_code=400)
+    elif 'destino' not in body:
+        raise APIException("You need to specify the destino", status_code=400)
+
     if carrito is not None:
 
         num = 0
         while num < len(carrito):
-            carrito_id = Carritos.query.filter_by(usuario_id=body["usuario_id"], confirmado=False, id = carrito[num].id).first()
+            base_id = "Lorem ipsum dolor sit amet consectetur adipiscing, elit rutrum aenean in hendrerit massa, vel odio pellentesque sociosqu justo. Nullam mauris ultrices litora at aliquet, eleifend suspendisse aenean nascetur porttitor praesent, lectus vehicula volutpat maecenas. Laoreet est a facilisis vitae dictum nisl hac, duis ultrices aenean cras nec lectus rutrum senectus, lacus potenti semper risus cubilia ornare. Phasellus turpis facilisi blandit a vel arcu vulputate, id hac sociosqu leo quis imperdiet, dui fames hendrerit odio nullam ultricies. Purus luctus ultricies bibendum iaculis nascetur commodo nisi ullamcorper netus, penatibus pharetra neque interdum risus euismod scelerisque.Morbi eget per habitasse mi ad at sollicitudin neque felis euismod parturient, blandit rutrum luctus curae himenaeos purus duis et egestas vitae convallis, metus feugiat pretium aenean vivamus porttitor facilisi quisque class lacus. Vivamus ridiculus dictum dis congue himenaeos lectus dapibus ut, venenatis cum a non torquent dui mauris facilisis, vulputate id ante nascetur aptent egestas suspendisse. Consequat et egestas mus sapien cum auctor aptent curabitur eros ultrices ornare ridiculus purus, sagittis dui rutrum porttitor semper placerat libero molestie lobortis cursus dignissim.Iaculis vel penatibus mus id eget molestie risus nisi orci dapibus vivamus senectus magna magnis metus, tellus sodales nam ultrices eu fermentum proin mollis nisl rutrum morbi tempor tortor. Venenatis gravida sociis cubilia ac condimentum euismod posuere, cras dictumst rhoncus nascetur nam volutpat sagittis, odio magnis sed conubia lectus natoque. Vivamus eros taciti volutpat nisi magna a orci et augue, ridiculus nam risus tortor justo platea auctor pretium fermentum netus, maecenas litora semper felis diam tristique consequat cubilia."
+            list_aux = []
+            for item_aux in base_id:
+                list_aux.append(str(ord(item_aux) - 96))
+            new_aux = ''.join(list_aux)
+            new_aux = new_aux.split("-")
+            new_id = ''.join(new_aux)
+            new_id = int(new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)]+new_id[random.randint(0, len(new_id)-3)])
+            user_id = Usuarios.query.filter_by(id=new_id).first()
+            if user_id is None:
+                new_id = new_id
+            else:
+                new_id = new_id+len(str(new_id))+ int(str(new_id)[random.randint(0, len(str(new_id))-3)])
+            carrito_id = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False, id = carrito[num].id).first()
             carrito_id.confirmado = True
+
+            date_purchase = datetime.now()
+            new_purchase = Pedidos(id=new_id,id_carrito=carrito_id.id_carrito, carrito_id=carrito[num].id, usuario_id=carrito_id.usuario_id, cocina_id=carrito_id.cocina_id, fecha=date_purchase, comentario=body["comentario"], metodo=body["metodo"], estado="pendiente", destino=body["destino"])
+            db.session.add(new_purchase)
             db.session.commit()
             num+=1
 
@@ -297,6 +322,16 @@ def confirm_purchase_cart():
             "msg": "Not exist"
         }
     return jsonify(response_body), 400
+
+
+
+# ver los pedidos para la cocina (historial)
+
+# ver los pedidos para el usuario (historial)
+
+# editar el estado (cocina) (accion)
+
+# cancelar el pedido (usuario: estado=> cancelado) (accion)
 
 
 
