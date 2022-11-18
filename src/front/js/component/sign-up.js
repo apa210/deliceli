@@ -53,7 +53,6 @@ export const SignUp = () => {
   const button_signup = (value) => {
     // Verifica si las contraseñas coinciden
     if (value.password === value.repitPassword) {
-      console.log(value);
       actions
         .signup(
           value?.firstName,
@@ -89,7 +88,6 @@ export const SignUp = () => {
     }
     // Mensaje de alerta de error, si las contraseñas no son iguales
     else {
-      console.log(showAlert.current.classList);
       setTimeout(() => {
         showAlert.current.classList.add("d-none");
       }, 5000);
@@ -160,8 +158,6 @@ export const SignUp = () => {
                   validationSchema={SignupSchema}
                   onSubmit={(values) => {
                     // same shape as initial values
-                    console.log(values);
-                    console.log(Yup);
                     button_signup(values);
                   }}
                 >

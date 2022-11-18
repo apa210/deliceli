@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       cart: [],
       menuKitchen: [],
       editProduct: {},
-      allFavorites: [],	
+      allFavorites: [],
       // auxiliares; variables que son sirven de forma auxiliar
       total: "0", // relacionada al carrito, muestra el total a pagar por parte del Usuario
       auxBuy: undefined, // relacionada al carrito, sirve como auxiliar para el funcionamiento interno de algunas funciones.
@@ -409,6 +409,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         } catch (error) {
           console.log(error);
+          setStore({
+            val_contact: false,
+          });
         }
       },
       //
@@ -520,7 +523,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       //
 
-        // FUNCIONES PARA DOCUMENTAR
+      // FUNCIONES PARA DOCUMENTAR
       changeAlerts: (operation) => {
         if (operation === "buy_repit") {
           setStore({ val_cartAdd: false });
@@ -528,7 +531,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ val_cartAdd: true });
         }
         if (operation === "favorite_repit") {
-          setStore({val_favoriteAdd: false})
+          setStore({ val_favoriteAdd: false });
         } else if (operation === "favorite_new") {
           setStore({ val_favoriteAdd: true });
         }
@@ -598,7 +601,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log(error);
               }
             }
-          } 
+          }
         });
       },
       update_total: (operation, value) => {
@@ -937,17 +940,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         await actions.validateToken();
         try {
           if (store.auth == true) {
-            const response = await axios.get(store.api_url + process.env.GET_FAVORITES, {
-              headers: {
-              Authorization: "Bearer " + userToken,
-              },
-            });
-            setStore({allFavorites: response?.data });
+            const response = await axios.get(
+              store.api_url + process.env.GET_FAVORITES,
+              {
+                headers: {
+                  Authorization: "Bearer " + userToken,
+                },
+              }
+            );
+            setStore({ allFavorites: response?.data });
             if (response?.status != 200) {
               window.location.reload();
             }
           } else {
-          window.location.reload();
+            window.location.reload();
           }
         } catch (error) {
           console.log(error);
@@ -960,35 +966,35 @@ const getState = ({ getStore, getActions, setStore }) => {
         await actions.validateToken();
 
         if (store.auth == true) {
-            if (store.allFavorites !== [] && store.allFavorites.length != 0) {
-              store.allFavorites.filter((item) => {
-                if (product_id == item?.producto_id) {
-                  setStore({ auxFavoritos: [item] });
-                }
-              });
-            }
-            if (
-              product_id ===
-              (store.auxFavoritos == undefined
-                ? store.auxFavoritos
-                : store.auxFavoritos[0]?.producto_id)
-            ) {
-              await actions.changeAlerts("favorite_repit");
-            } else {
-              let reqInstance = axios.create({
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              });
-              const response = await reqInstance.post(
-                store.api_url + process.env.NEW_FAVORITE,
-                {
-                  producto_id: product_id,
-                }
-              );
-              await actions.getAllFavorites();
-              await actions.changeAlerts("favorite_new");
-            }
+          if (store.allFavorites !== [] && store.allFavorites.length != 0) {
+            store.allFavorites.filter((item) => {
+              if (product_id == item?.producto_id) {
+                setStore({ auxFavoritos: [item] });
+              }
+            });
+          }
+          if (
+            product_id ===
+            (store.auxFavoritos == undefined
+              ? store.auxFavoritos
+              : store.auxFavoritos[0]?.producto_id)
+          ) {
+            await actions.changeAlerts("favorite_repit");
+          } else {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.post(
+              store.api_url + process.env.NEW_FAVORITE,
+              {
+                producto_id: product_id,
+              }
+            );
+            await actions.getAllFavorites();
+            await actions.changeAlerts("favorite_new");
+          }
         }
       },
 
