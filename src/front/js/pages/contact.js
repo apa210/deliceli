@@ -2,18 +2,33 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
+const ContactSchema = Yup.object().shape({
+  nombre: Yup.string()
+    .min(2, "Muy corto!")
+    .max(20, "Muy extenso!")
+    .required("Este campo es obligatorio"),
+  departamento: Yup.string()
+    .min(2, "Muy corto!")
+    .max(20, "Muy extenso!")
+    .required("Este campo es obligatorio"),
+  telefono: Yup.string()
+    .min(9, "Muy corto!")
+    .max(10, "Muy extenso!")
+    .required("Este campo es obligatorio"),
+  mail: Yup.string()
+    .email("Email invalido")
+    .required("Este campo es obligatorio"),
+  mensaje: Yup.string().max(250, "Muy extenso!"),
+});
 
 export const Contact = () => {
   const { store, actions } = useContext(Context);
 
   const navigate = useNavigate();
-
-  const [nombre, setNombre] = useState("");
-  const [departamento, setDepartamento] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [mail, setMail] = useState("");
   const [opcion, setOpcion] = useState("");
-  const [mensaje, setMensaje] = useState("");
 
   // estado que guarda mensaje de error
   const [loginError, setLoginError] = useState("");
@@ -27,54 +42,44 @@ export const Contact = () => {
   // useRef que acciona alerta de éxito
   const showAlertEnd = useRef("");
 
-  const button_submit = () => {
-    // Verifica si hay campos vacíos
-    if (
-      nombre != "" &&
-      departamento != "" &&
-      telefono != "" &&
-      mail != "" &&
-      opcion != "" &&
-      mensaje != ""
-    ) {
-      console.log(nombre, departamento, telefono, mail, opcion, mensaje);
+  const button_submit = (value) => {
+    if (opcion != "") {
       actions
-        .savedContact(nombre, departamento, telefono, mail, opcion, mensaje)
+        .savedContact(
+          value.nombre,
+          value.departamento,
+          value.telefono,
+          value.mail,
+          opcion,
+          value.mensaje
+        )
         .then(() => {
           if (store.val_contact == true) {
-            // limpieza de inputs
-            setNombre("");
-            setDepartamento("");
-            setTelefono("");
-            setMail("");
-            setOpcion("");
-            setMensaje("");
-
-            // Mensaje de alerta de éxito por el registro 
+            // Mensaje de alerta de éxito por el registro
             setTimeout(() => {
               showAlertEnd.current.classList.add("d-none");
               navigate("/");
             }, 5000);
             showAlertEnd.current.classList.remove("d-none");
             setLoginEnd("Se ha registrado exitosamente su contacto");
-          } 
+          }
           // Mensaje de alerta por email ya registrado
           else {
             setTimeout(() => {
               showAlert.current.classList.add("d-none");
             }, 3000);
             showAlert.current.classList.remove("d-none");
-            setLoginError("Este email ya ha enviado su contacto");
+            setLoginError(
+              "Este email ya ha enviado su contacto y sigue en revisión"
+            );
           }
         });
-    } 
-    // Mensaje de alerta si hay campos sin completar
-    else {
+    } else {
       setTimeout(() => {
         showAlert.current.classList.add("d-none");
       }, 3000);
       showAlert.current.classList.remove("d-none");
-      setLoginError("Hay campos sin completar!");
+      setLoginError("Tienes que elegir una opcion!!");
     }
   };
 
@@ -115,32 +120,31 @@ export const Contact = () => {
                     Mail. hola@deliceli.uy
                   </p>
                   <div className="col">
-              <h4 className="pt-4 pb-4">
-                <ul className="list-group list-group-horizontal">
-                  <li className="list-group-item">
-
-                  <a href="https://facebook.com" target="_blank">
-                      <i className="fab fa-facebook m-2"></i>
-                    </a>
-                 </li>
-                  <li className="list-group-item">
-                  <a href="https://instagram.com" target="_blank">
-                    <i className="fab fa-instagram m-2"></i>
-                    </a>
-                  </li>
-                  <li className="list-group-item">
-                  <a href="https://linkedin.com" target="_blank">
-                     <i className="fab fa-linkedin m-2"></i>
-                     </a>
-                  </li>
-                  <li className="list-group-item">
-                  <a href="https://web.whatsapp.com/" target="_blank">
-                     <i className="fab fa-whatsapp m-2"></i>
-                     </a>
-                  </li>
-                </ul>
-              </h4>
-            </div>
+                    <h4 className="pt-4 pb-4">
+                      <ul className="list-group list-group-horizontal">
+                        <li className="list-group-item">
+                          <a href="https://facebook.com" target="_blank">
+                            <i className="fab fa-facebook m-2"></i>
+                          </a>
+                        </li>
+                        <li className="list-group-item">
+                          <a href="https://instagram.com" target="_blank">
+                            <i className="fab fa-instagram m-2"></i>
+                          </a>
+                        </li>
+                        <li className="list-group-item">
+                          <a href="https://linkedin.com" target="_blank">
+                            <i className="fab fa-linkedin m-2"></i>
+                          </a>
+                        </li>
+                        <li className="list-group-item">
+                          <a href="https://web.whatsapp.com/" target="_blank">
+                            <i className="fab fa-whatsapp m-2"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -210,93 +214,118 @@ export const Contact = () => {
 
                       <hr />
 
-                      <div className="mt-2">
-                        <div className="form pb-3">
-                          <label>
-                            <i className="fa fa-user  d-inline mx-2 "></i>Nombre
-                            Completo
-                          </label>
-                          <input
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            type="text"
-                            className="form-control"
-                          />
-                        </div>
-                      </div>
+                      <Formik
+                        initialValues={{
+                          nombre: "",
+                          departamento: "",
+                          telefono: "",
+                          mail: "",
+                          mensaje: "",
+                        }}
+                        validationSchema={ContactSchema}
+                        onSubmit={(values) => {
+                          button_submit(values);
+                        }}
+                      >
+                        {({ errors, touched }) => (
+                          <Form>
+                            <div className="mt-2">
+                              <div className="form pb-3">
+                                <label>
+                                  <i className="fa fa-user  d-inline mx-2 "></i>
+                                  Nombre Completo
+                                </label>
+                                <Field name="nombre" className="form-control" />
+                                {errors.nombre && touched.nombre ? (
+                                  <div className="text-danger">
+                                    {errors.nombre}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
 
-                      <div className="mt-2 pb-3">
-                        <div className="form">
-                          <label>
-                            <i className="fa fa-map  d-inline mx-2"></i>
-                            Departamento
-                          </label>
-                          <input
-                            value={departamento}
-                            onChange={(e) => setDepartamento(e.target.value)}
-                            type="text"
-                            className="form-control"
-                          />
-                        </div>
-                      </div>
+                            <div className="mt-2 pb-3">
+                              <div className="form">
+                                <label>
+                                  <i className="fa fa-map  d-inline mx-2"></i>
+                                  Departamento
+                                </label>
+                                <Field
+                                  name="departamento"
+                                  className="form-control"
+                                />
+                                {errors.departamento && touched.departamento ? (
+                                  <div className="text-danger">
+                                    {errors.departamento}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
 
-                      <div className="mt-2 pb-3">
-                        <div className="form">
-                          <label>
-                            <i className="fa fa-phone  d-inline mx-2"></i>
-                            Teléfono
-                          </label>
-                          <div className="phone">
-                            <input
-                              value={telefono}
-                              onChange={(e) => setTelefono(e.target.value)}
-                              type="text"
-                              className="form-control"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                            <div className="mt-2 pb-3">
+                              <div className="form">
+                                <label>
+                                  <i className="fa fa-phone  d-inline mx-2"></i>
+                                  Teléfono
+                                </label>
+                                <div className="phone">
+                                  <Field
+                                    name="telefono"
+                                    className="form-control"
+                                  />
+                                  {errors.telefono && touched.telefono ? (
+                                    <div className="text-danger">
+                                      {errors.telefono}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
 
-                      <div className="mt-2 pb-3">
-                        <div className="form">
-                          <label>
-                            <i className="fa fa-envelope  d-inline mx-2"></i>
-                            Mail
-                          </label>
-                          <div className="mail pb-3">
-                            <input
-                              value={mail}
-                              onChange={(e) => setMail(e.target.value)}
-                              type="text"
-                              className="form-control"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                            <div className="mt-2 pb-3">
+                              <div className="form">
+                                <label>
+                                  <i className="fa fa-envelope  d-inline mx-2"></i>
+                                  Correo Electrónico
+                                </label>
+                                <div className="mail pb-3">
+                                  <Field name="mail" className="form-control" />
+                                  {errors.mail && touched.mail ? (
+                                    <div className="text-danger">
+                                      {errors.mail}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
 
-                      <div className="col-md-12 pb-2">
-                        <label>
-                          <i className="fa fa-comment  d-inline mx-2"></i>
-                          Mensaje
-                        </label>
-                        <textarea
-                          value={mensaje}
-                          onChange={(e) => setMensaje(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          aria-label="Descripcion"
-                          placeholder="Escribi acá tu mensaje ..."
-                        />
-                      </div>
+                            <div className="col-md-12 pb-2">
+                              <label>
+                                <i className="fa fa-comment  d-inline mx-2"></i>
+                                Mensaje
+                              </label>
+                              <Field
+                                name="mensaje"
+                                className="form-control"
+                                placeholder="Escribe un mensaje"
+                              />
+                              {errors.mensaje && touched.mensaje ? (
+                                <div className="text-danger">
+                                  {errors.mensaje}
+                                </div>
+                              ) : null}
+                            </div>
 
-                      <div className="mt-3">
-                        <button
-                          onClick={button_submit}
-                          className="button btn btn-primary w-100 d-flex justify-content-center align-items-center"
-                        >
-                          <span>Enviar mensaje</span>
-                        </button>
-                      </div>
+                            <button
+                              className="btn btn-primary text-center"
+                              type="submit"
+                            >
+                              Enviar Contacto
+                            </button>
+                          </Form>
+                        )}
+                      </Formik>
+
                       {/* Contacto */}
                     </div>
                   </div>
