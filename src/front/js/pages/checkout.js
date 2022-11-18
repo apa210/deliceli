@@ -1,15 +1,62 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
+const PaySchema = Yup.object().shape({
+  direccion: Yup.string().min(3, "Dirreccion muy corta").required(),
+  mensaje: Yup.string().max(250, "Mensaje muy largo!").required(),
+});
 
 export const Checkout = () => {
   const { store, actions } = useContext(Context);
-  const params = useParams();
+
+  // estado que guarda mensaje de error
+  const [loginError, setLoginError] = useState("");
+
+  // useRef que acciona alerta de error
+  const showAlert = useRef("");
 
   const navigate = useNavigate();
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [option, setOption] = useState("");
+
+  const pay = async (value) => {
+    if (option != "") {
+      console.log(option);
+      console.log(value);
+      // navigate("/pages/order-confirmed");
+
+      //
+
+      //
+    } else {
+      setTimeout(() => {
+        showAlert.current.classList.add("d-none");
+      }, 3000);
+      showAlert.current.classList.remove("d-none");
+      setLoginError("Tienes que elegir una opcion de pago!!");
+    }
+  };
+
   useEffect(() => {
+    if (store.auth == false) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    } else {
+      setFirstName(store.profile.first_name);
+      setLastName(store.profile.last_name);
+      setPhone(store.profile.telefono);
+      setEmail(store.profile.email);
+    }
     // Al cargar la página, se desplaza hacia arriba
     window.scrollTo(0, 0);
   }, []);
@@ -35,82 +82,104 @@ export const Checkout = () => {
 
               {/* Nombre  */}
 
-              <label className="form-label">Nombre *</label>
+              <label className="form-label">Nombre</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder=""
-                aria-label="Nombre"
-                defaultValue={store.profile.first_name}
+                defaultValue={firstName}
+                disabled
               />
 
               {/* Apellido  */}
 
-              <label className="form-label">Apellido *</label>
+              <label className="form-label">Apellido</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder=""
-                aria-label="Apellido"
-                defaultValue={store.profile.last_name}
+                defaultValue={lastName}
+                disabled
               />
 
               {/* Nombre de usuario  */}
 
               {/* Celular  */}
 
-              <label className="form-label">Celular *</label>
+              <label className="form-label">Celular</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder=""
-                aria-label="Celular"
-                defaultValue={store.profile.telefono}
+                defaultValue={phone}
+                disabled
               />
 
               {/* Mail  */}
 
               <label htmlFor="inputEmail4" className="form-label">
-                Mail *
+                Correo Electrónico
               </label>
               <input
                 type="email"
                 className="form-control"
-                id="inputEmail4"
-                defaultValue={store.profile.email}
+                defaultValue={email}
+                disabled
               />
 
               {/*  Dirección  */}
 
-              <label className="form-label">Dirección *</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder=""
-                aria-label="Direccion"
-                defaultValue={store.profile.direccion}
-              />
+              <Formik
+                initialValues={{
+                  direccion: store?.profile?.direccion,
+                  mensaje: "",
+                }}
+                validationSchema={PaySchema}
+                onSubmit={(values) => {
+                  pay(values);
+                }}
+              >
+                {({ errors, touched }) => (
+                  <Form>
+                    <label className="form-label">Dirección *</label>
+                    <Field
+                      name="direccion"
+                      type="text"
+                      className="form-control"
+                    />
+                    {errors.direccion && touched.direccion ? (
+                      <div className="text-danger">{errors.direccion}</div>
+                    ) : null}
 
-              {/* <label className="form-label">Departamento *</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder=""
-                aria-label="Direccion"
-                defaultValue={store.profile.direccion}
-              /> */}
+                    <label className="form-label">
+                      Comentarios del envio *
+                    </label>
+                    <Field
+                      name="mensaje"
+                      type="text"
+                      className="form-control"
+                      placeholder="Escribi acá tu mensaje ..."
+                    />
+                    {errors.mensaje && touched.mensaje ? (
+                      <div className="text-danger">{errors.mensaje}</div>
+                    ) : null}
 
-              <label className="form-label">Comentarios del envio </label>
-              <textarea
-                type="text"
-                className="form-control"
-                aria-label="Descripcion"
-                placeholder="Escribi acá tu mensaje ..."
-              />
-
-              {/* fin del formulario  */}
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-lg mb-3 mt-4"
+                    >
+                      Realizar pago
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             </div>
-            {/* Detalles de contacto */}
+
+            {/* alerta */}
+            <div
+              className="alert alert-danger d-none"
+              ref={showAlert}
+              role="alert"
+            >
+              {loginError}
+            </div>
 
             {/* Detalles de contacto */}
             <div className="col">
@@ -138,8 +207,10 @@ export const Checkout = () => {
                           className="form-check-input me-2"
                           type="radio"
                           name="tipos-pago"
-                          value=""
                           id="chkAccordion1All"
+                          onChange={() => {
+                            setOption("mercadoPago");
+                          }}
                         />
                         Pago con tarjetas mediante MERCADO PAGO
                       </button>
@@ -172,8 +243,10 @@ export const Checkout = () => {
                             className="form-check-input"
                             type="radio"
                             name="tipos-pago"
-                            value=""
                             id="chkAccordion2All"
+                            onChange={() => {
+                              setOption("efectivo");
+                            }}
                           />
                         </div>
                         Pago Efectivo
@@ -211,8 +284,10 @@ export const Checkout = () => {
                             className="form-check-input"
                             type="radio"
                             name="tipos-pago"
-                            value=""
                             id="chkAccordion3All"
+                            onChange={() => {
+                              setOption("transferenciaBancaria");
+                            }}
                           />
                         </div>
                         Transferencia bancaria directa
@@ -239,15 +314,6 @@ export const Checkout = () => {
                   </div>
                 </div>
               </div>
-
-              {/* _________ */}
-
-              <button
-                type="button"
-                className="btn btn-primary btn-lg mb-3 mt-4"
-              >
-                Realizar pago
-              </button>
             </div>
             {/* Detalles de contacto */}
           </div>
