@@ -74,7 +74,7 @@ export const SingleKitchen = () => {
       </section>
 
       <section className="pt-5">
-        <div className="container mt-3 mb-5 p-5 p-2 ">
+        <div className="container mt-3 mb-5 p-4 ">
           <div className="card mb-3">
             <div className="row g-0">
               <div className="col-md-6">
@@ -87,7 +87,7 @@ export const SingleKitchen = () => {
                 <div className="card-body  ">
                   <h1 className="card-title">{store?.kitchen?.user_name}</h1>
                   <hr />
-                  <br />
+                 
 
                   <p className="card-text">{store?.kitchen?.descripcion}</p>
                   <br />
@@ -95,9 +95,10 @@ export const SingleKitchen = () => {
                   instagram === "" &&
                   linkedin === "" &&
                   twitter === "" ? null : (
-                    <h4 className="pt-4 pb-4">
+                    <h4>
                       Sigue a {store?.kitchen?.user_name} en redes
-                      <br />
+                      <br /> 
+                      <h1>
                       {facebook === "" ? null : (
                         <a href={facebook} target="_blank">
                           <i className="fab fa-facebook m-2"></i>
@@ -128,7 +129,7 @@ export const SingleKitchen = () => {
                           <i className="fab fa-fw fa-pinterest text-pinterest"></i>
                         </a>
                       )}
-                    </h4>
+                    </h1></h4>
                   )}
                 </div>
               </div>

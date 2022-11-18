@@ -38,9 +38,15 @@ export const ProductCardHorizontalKitchenOrders = () => {
 
                       <h4>Total del pedido - $ 350</h4>
                       <button type="button" className="btn btn-danger me-2">
+                        Pedido Cancelado
+                      </button>
+                   
+                      <button type="button" className="btn btn-outline-secondary me-2">
                         Pedido Pendiente
                       </button>
-                      <button
+                      
+                      
+                         <button
                         type="button"
                         className="btn btn-outline-warning me-2 mt-2 mb-2"
                       >
