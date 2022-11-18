@@ -260,6 +260,43 @@ def edit_product_cart_user():
     return jsonify(response_body), 400
 
 
+        # Confirmar compra
+        #Ejemplo: {"usuario_id":"3"}
+@api.route('/cart/confirmPurchase', methods=['PUT'])
+#@jwt_required()
+def confirm_purchase_cart():
+
+    # current_user = get_jwt_identity() #puede ir o no
+    # login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    # if login_user is None:
+    #     return jsonify({"status": False}), 404
+
+    body = json.loads(request.data)
+
+    #carrito = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).first()
+    carrito = Carritos.query.filter_by(usuario_id=body["usuario_id"], confirmado=False).all()
+    print("$$$$$$$$Carrito: " + str(carrito))
+    
+    if carrito is not None:
+
+        num = 0
+        while num < len(carrito):
+            carrito_id = Carritos.query.filter_by(usuario_id=body["usuario_id"], confirmado=False, id = carrito[num].id).first()
+            carrito_id.confirmado = True
+            db.session.commit()
+            num+=1
+
+        response_body = {
+                "msg": "confirm purchase cart"
+            }
+
+        return jsonify(response_body), 200
+
+    response_body = {
+            "msg": "Not exist"
+        }
+    return jsonify(response_body), 400
 
 
 
