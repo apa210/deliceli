@@ -58,8 +58,7 @@ def createPreference():
     "back_urls": 
         {
         "success": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed",
-        "failure": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed",
-        "pending": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed"
+        "failure": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-failure"
         },
     
     "auto_return": "approved"
