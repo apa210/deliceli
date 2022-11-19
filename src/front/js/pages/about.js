@@ -134,7 +134,7 @@ export const About = () => {
 
                 <div className="card border-0">
                   <img
-                    src="https://ca.slack-edge.com/T0BFXMWMV-U0426RW6CR5-a53ac16aaa20-512"
+                    src="https://sintropia.com.uy/desarrollo/elias.png"
                     className="card-img-top p-4 rounded-circle"
                   />
                   <div className="card-body">
