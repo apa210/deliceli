@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import random
-import json
+import json, os
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.models import db, Usuarios, Productos, Categorias_Productos, Carritos, Contactos, Categorias, Favoritos, Pedidos
 from api.utils import generate_sitemap, APIException
@@ -25,23 +25,35 @@ sdk = mercadopago.SDK(os.getenv('PROD_ACCESS_TOKEN'))
 
 
 @api.route('/createPreference', methods=['POST'])
+@jwt_required()
 def createPreference():
-    body = json.loads(request.data)
+    current_user = get_jwt_identity() #puede ir o no
+    login_user = Usuarios.query.filter_by(email=current_user).first()
+
+    if login_user is None:
+        return jsonify({"status": False}), 404
+
+    # body = json.loads(request.data)
+    carrito = Carritos.query.filter_by(usuario_id=login_user.id, confirmado=False).all()
+
+    results = []
+    if carrito is not None:
+        num = 0
+        while num < len(carrito):
+            aux = {}
+            product = carrito[num].serialize_producto()
+            aux["title"] = product["nombre"]
+            aux["quantity"] = carrito[num].cantidad
+            aux["unit_price"] = product["precio"]
+            results.append(aux)
+            num+=1
+        # print(json.loads(dict(results)))
+
 # Crea un ítem en la preferencia 
 
+    preference_data = {"items": results,
 
-    preference_data = {
-#Los items estan hardcordeados para la prueba 
-
-    "items": 
-    [
-    {
-    "title": "deliceli", 
-    "quantity": 1,
-    "unit_price": 100,
-    } ],
-
-    # Adonde te re-dirige en caso de éxito total / o no 
+#     # Adonde te re-dirige en caso de éxito total / o no 
     
     "back_urls": 
         {
@@ -51,8 +63,7 @@ def createPreference():
         },
     
     "auto_return": "approved"
-        }
-
+    }
     preference_response = sdk.preference().create(preference_data) 
     preference = preference_response["response"]
     return preference

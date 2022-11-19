@@ -58,6 +58,7 @@ export const KitchenAccount = () => {
   };
 
   const buttonUpdate = (values) => {
+    console.log(values);
     actions.uploadProfile(
       values.user_name,
       values.first_name,
