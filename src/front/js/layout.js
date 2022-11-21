@@ -23,6 +23,7 @@ import { OrderConfirmed } from "./pages/order-confirmed.js";
 import { Checkout } from "./pages/checkout";
 import { EditProduct } from "./pages/edit-product.js";
 import { ChangePass } from "./pages/change-pass.js";
+import { OrderRejected } from "./pages/order-rejected.js";
 
 
 
@@ -69,6 +70,7 @@ const Layout = () => {
                         <Route element={<EditProduct />} path="/pages/edit-product" />
                         <Route element={<EditProduct />} path="/pages/add-product" />
                         <Route element={<ChangePass />} path="/pages/change-pass" />
+                        <Route element={<OrderRejected />} path="/pages/order-rejected" />
                         
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
