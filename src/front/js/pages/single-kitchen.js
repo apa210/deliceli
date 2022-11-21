@@ -87,7 +87,6 @@ export const SingleKitchen = () => {
                 <div className="card-body  ">
                   <h1 className="card-title">{store?.kitchen?.user_name}</h1>
                   <hr />
-                 
 
                   <p className="card-text">{store?.kitchen?.descripcion}</p>
                   <br />
@@ -95,41 +94,42 @@ export const SingleKitchen = () => {
                   instagram === "" &&
                   linkedin === "" &&
                   twitter === "" ? null : (
-                    <h4>
-                      Sigue a {store?.kitchen?.user_name} en redes
-                      <br /> 
+                    <div>
+                      <h4>Sigue a {store?.kitchen?.user_name} en redes</h4>
+                      <br />
                       <h1>
-                      {facebook === "" ? null : (
-                        <a href={facebook} target="_blank">
-                          <i className="fab fa-facebook m-2"></i>
-                        </a>
-                      )}
-                      {instagram === "" ? null : (
-                        <a href={instagram} target="_blank">
-                          <i className="fab fa-instagram m-2"></i>
-                        </a>
-                      )}
-                      {linkedin === "" ? null : (
-                        <a href={linkedin} target="_blank">
-                          <i className="fab fa-linkedin m-2"></i>
-                        </a>
-                      )}
-                      {twitter === "" ? null : (
-                        <a href={twitter} target="_blank">
-                          <i className="fab fa-twitter-square m-2"></i>
-                        </a>
-                      )}
-                      {dribble === "" ? null : (
-                        <a href={dribble} target="_blank">
-                          <i className="fas fa-fw fa-basketball-ball text-dribbble me-2"></i>
-                        </a>
-                      )}
-                      {pinterest === "" ? null : (
-                        <a href={pinterest} target="_blank">
-                          <i className="fab fa-fw fa-pinterest text-pinterest"></i>
-                        </a>
-                      )}
-                    </h1></h4>
+                        {facebook === "" ? null : (
+                          <a href={facebook} target="_blank">
+                            <i className="fab fa-facebook m-2"></i>
+                          </a>
+                        )}
+                        {instagram === "" ? null : (
+                          <a href={instagram} target="_blank">
+                            <i className="fab fa-instagram m-2"></i>
+                          </a>
+                        )}
+                        {linkedin === "" ? null : (
+                          <a href={linkedin} target="_blank">
+                            <i className="fab fa-linkedin m-2"></i>
+                          </a>
+                        )}
+                        {twitter === "" ? null : (
+                          <a href={twitter} target="_blank">
+                            <i className="fab fa-twitter-square m-2"></i>
+                          </a>
+                        )}
+                        {dribble === "" ? null : (
+                          <a href={dribble} target="_blank">
+                            <i className="fas fa-fw fa-basketball-ball text-dribbble me-2"></i>
+                          </a>
+                        )}
+                        {pinterest === "" ? null : (
+                          <a href={pinterest} target="_blank">
+                            <i className="fab fa-fw fa-pinterest text-pinterest"></i>
+                          </a>
+                        )}
+                      </h1>
+                    </div>
                   )}
                 </div>
               </div>

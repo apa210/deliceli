@@ -34,11 +34,18 @@ export const Checkout = () => {
       console.log(value);
 
       if (option == "mercadoPago") {
+        await actions.confirmPurchase(value.mensaje, option, value.direccion)
         await actions.pagoMercadoPago();
-        // navigate(store.mercadopago?.init_point);
         window.location.href = store.mercadopago?.init_point;
       }
-
+      else if (option == "efectivo") {
+        await actions.confirmPurchase(value.mensaje, option, value.direccion)
+        navigate("/pages/order-confirmed")
+      }
+      else if (option == "transferenciaBancaria") {
+        await actions.confirmPurchase(value.mensaje, option, value.direccion)
+        navigate("/pages/order-confirmed")
+      }
       //
 
       //

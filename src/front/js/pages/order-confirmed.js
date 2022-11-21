@@ -21,7 +21,9 @@ export const OrderConfirmed = (props) => {
       <section>
         <div className="container bgimage-contacto p-5 align-baseline mt-5">
           <div className="container">
-            <h1 className="mt-5 text-center">Tu pedido se ralizó con éxito!</h1>
+            <h1 className="mt-5 text-center">
+              Tu pedido se realizó con éxito!
+            </h1>
           </div>
         </div>
       </section>
@@ -37,8 +39,8 @@ export const OrderConfirmed = (props) => {
                   className="card-img-top"
                 />
                 <div className="card-body p-5">
-                <h2>¡ Gracias por tu pedido en deliceli.uy! </h2>
-                <h5>Está en camino! </h5>
+                  <h2>¡ Gracias por tu pedido en deliceli.uy! </h2>
+                  <h5>Está en camino! </h5>
                   <p className="card-text">
                     Alimentación bio sin añadidos, sin gluten, vegana.
                     <br />
@@ -58,63 +60,58 @@ export const OrderConfirmed = (props) => {
               </div>
             </div>
 
-            <div className="col-8 mt-4">
+            <Link to="/pages/orders" className="col-8 mt-4 text-decoration-none">
+              Tu pedido se realizó con éxito!!
+              <br/>
+              Puedes verlo presionando esta alerta
+            </Link>
+            {/* <div className="col-8 mt-4">
               <div className="container">
                 <div className="row d-flex justify-content-center">
                   <div>
                     <div className="card p-5">
                       <div className="text-left">
                         <h2> Número de pedido: #R562904483</h2>
-                        <p>
-                          Tenemos una noticia que te va a
-                          encantar: nuestra paloma mensajera se dirige rauda y
-                          veloz a su destino. Ahora mismo está viajando hacia la
-                          dirección de envío y debería llegar el:<br/><br/>
-                         
+                        <div>
+                          Tenemos una noticia que te va a encantar: nuestra
+                          paloma mensajera se dirige rauda y veloz a su destino.
+                          Ahora mismo está viajando hacia la dirección de envío
+                          y debería llegar el:
+                          <br />
+                          <br />
                           <div className="alert alert-primary" role="alert">
-                         2 de marzo de
-                          2022.  Pedido #R562904483 
-</div>
-
-                          
-                          
-                          <br/>
-                          
-                          <h2> Dirección de envío de tu
-                          pedido.</h2> 
-                          
-                          Enviaremos tu pedido a:<br/><br/>
-                         
-                         
+                            2 de marzo de 2022. Pedido #R562904483
+                          </div>
+                          <br />
+                          <h2> Dirección de envío de tu pedido.</h2>
+                          Enviaremos tu pedido a:
+                          <br />
+                          <br />
                           <div className="alert alert-primary" role="alert">
-                          Aparicio Baptista<br/>
-                          Calle 13 - Numero 34 - Piso 2, esq. Calle 4
-                          {/* <br/>La Paloma , Rocha Uruguay */}
-                          
-</div>
-                         
-                         
-                         
-                          <br/>
-                          Precio: $48.98 <br/>
-                          {/* Subtotal: $97.96<br/> */}
-                          Gastos de envío: $7.99<br/> 
-                          {/* Descuento: $-24.50 <br/> */}
-                          <hr/>
-                          Total: $81.45 <br/>
-                     
-                        </p>
+                            Aparicio Baptista
+                            <br />
+                            Calle 13 - Numero 34 - Piso 2, esq. Calle 4
+                            <br/>La Paloma , Rocha Uruguay
+                          </div>
+                          <br />
+                          Precio: $48.98 <br />
+                          Subtotal: $97.96<br/>
+                          Gastos de envío: $7.99
+                          <br />
+                          Descuento: $-24.50 <br/>
+                          <hr />
+                          Total: $81.45 <br />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
       <Footer_contact />
-  
     </>
   );
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { object } from "prop-types";
 
 // funcion relacionada con el appContext.js... "guarda" variables y funciones que se "utilizan" en "muchos" y "diversos" componentes
 // de la web y que necesitan mantenerse "sincronizados". Aqui es donde se sincronizan.
@@ -1065,9 +1066,14 @@ const getState = ({ getStore, getActions, setStore }) => {
               },
             });
             const response = await reqInstance.put(
-              store.api_url + process.env.PAY_CONFIRM
+              store.api_url + process.env.PAY_CONFIRM, {
+                comentario: comentario,
+                metodo: metodo,
+                destino: destino
+              }
             );
             console.log(response);
+            await actions.getCart()
           } catch (error) {
             console.log(error);
           }
@@ -1130,7 +1136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      viewOrdersKitchen: async () => {
+      viewOrdersClient: async () => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
@@ -1146,7 +1152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               store.api_url + process.env.VIEW_ORDERS_CLIENT
             );
             console.log(response);
-            setStore({ ordersClient: undefined });
+            setStore({ ordersClient: response?.data });
           } catch (error) {
             console.log(error);
           }
@@ -1174,6 +1180,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               }
             );
             console.log(response);
+            await actions.viewOrdersClient()
           } catch (error) {
             console.log(error);
           }
