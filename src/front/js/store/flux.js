@@ -1098,7 +1098,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               store.api_url + process.env.VIEW_ORDERS_KITCHEN
             );
             console.log(response);
-            setStore({ ordersKitchen: undefined });
+            setStore({ ordersKitchen: response?.data });
           } catch (error) {
             console.log(error);
           }
@@ -1128,6 +1128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               }
             );
             console.log(response);
+            actions.viewOrdersKitchen()
           } catch (error) {
             console.log(error);
           }
