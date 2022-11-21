@@ -2,7 +2,7 @@ import axios from "axios";
 
 // funcion relacionada con el appContext.js... "guarda" variables y funciones que se "utilizan" en "muchos" y "diversos" componentes
 // de la web y que necesitan mantenerse "sincronizados". Aqui es donde se sincronizan.
-const getState = ({ getStore, getActions, setStore, }) => {
+const getState = ({ getStore, getActions, setStore }) => {
   return {
     // lugar especifico donde se almacenan "datos" en estado bruto o para tratar a traves de funciones
     store: {
@@ -1017,29 +1017,34 @@ const getState = ({ getStore, getActions, setStore, }) => {
         }
       },
 
-//MERCADO PAGO//
+      //MERCADO PAGO//
 
+      pagoMercadoPago: async () => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
 
-pagoMercadoPago: async ( /*aca deberian ir los productos
-*/ ) => {
+        if (store.auth == true) {
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.post(
+              store.api_url + "createPreference"
+            );
+            setStore({
+              mercadopago: response.data,
+            });
+            console.log(store.mercadopago);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      },
 
-  try {
-    const response = await axios.post( store.api_url + "/api/createPreference", {}
-     );
-    setStore({
-    mercadopago: response.data,
-    }); console.log(response.data);
-
-  } catch (error) { console.log(error);
-  } },
-
-
-  //fin de mercado pago//
-
-
-
-
-
+      //fin de mercado pago//
 
       //
     },
