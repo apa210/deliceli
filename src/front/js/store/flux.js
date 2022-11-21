@@ -2,7 +2,7 @@ import axios from "axios";
 
 // funcion relacionada con el appContext.js... "guarda" variables y funciones que se "utilizan" en "muchos" y "diversos" componentes
 // de la web y que necesitan mantenerse "sincronizados". Aqui es donde se sincronizan.
-const getState = ({ getStore, getActions, setStore, }) => {
+const getState = ({ getStore, getActions, setStore }) => {
   return {
     // lugar especifico donde se almacenan "datos" en estado bruto o para tratar a traves de funciones
     store: {
@@ -26,13 +26,15 @@ const getState = ({ getStore, getActions, setStore, }) => {
       categories: [],
       AllProductsOfCategory: [],
       searchResults: [],
-      mercadopago: [],
       //    -> objetos; relacionados con el Usuario
       profile: {},
       cart: [],
       menuKitchen: [],
       editProduct: {},
       allFavorites: [],
+      mercadopago: [],
+      ordersKitchen: [],
+      ordersClient: [],
       // auxiliares; variables que son sirven de forma auxiliar
       total: "0", // relacionada al carrito, muestra el total a pagar por parte del Usuario
       auxBuy: undefined, // relacionada al carrito, sirve como auxiliar para el funcionamiento interno de algunas funciones.
@@ -1017,31 +1019,168 @@ const getState = ({ getStore, getActions, setStore, }) => {
         }
       },
 
-//MERCADO PAGO//
+      //MERCADO PAGO//
 
+      pagoMercadoPago: async () => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
 
-pagoMercadoPago: async ( /*aca deberian ir los productos
-*/ ) => {
+        if (store.auth == true) {
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.post(
+              store.api_url + process.env.PAY
+            );
+            setStore({
+              mercadopago: response.data,
+            });
+            console.log(store.mercadopago);
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          window.location.reload();
+        }
+      },
 
-  try {
-    const response = await axios.post( store.api_url + "/api/createPreference", {}
-     );
-    setStore({
-    mercadopago: response.data,
-    }); console.log(response.data);
+      //fin de mercado pago//
 
-  } catch (error) { console.log(error);
-  } },
+      confirmPurchase: async (comentario, metodo, destino) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
 
+        if (store.auth == true) {
+          console.log(comentario, metodo, destino);
 
-  //fin de mercado pago//
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.put(
+              store.api_url + process.env.PAY_CONFIRM
+            );
+            console.log(response);
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          window.location.reload();
+        }
+      },
 
+      viewOrdersKitchen: async () => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
 
+        if (store.auth == true) {
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.get(
+              store.api_url + process.env.VIEW_ORDERS_KITCHEN
+            );
+            console.log(response);
+            setStore({ ordersKitchen: undefined });
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          window.location.reload();
+        }
+      },
 
+      modOrdersKitchen: async (pedido_id, estado) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
 
+        if (store.auth == true) {
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
 
+            const response = await reqInstance.put(
+              store.api_url + process.env.VIEW_ORDERS_KITCHEN,
+              {
+                pedido_id: pedido_id,
+                estado: estado,
+              }
+            );
+            console.log(response);
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          window.location.reload();
+        }
+      },
 
-      //
+      viewOrdersKitchen: async () => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.get(
+              store.api_url + process.env.VIEW_ORDERS_CLIENT
+            );
+            console.log(response);
+            setStore({ ordersClient: undefined });
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          window.location.reload();
+        }
+      },
+
+      cancelOrderClient: async (pedido_id) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+
+        if (store.auth == true) {
+          try {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.put(
+              store.api_url + process.env.CANCEL_ORDER_CLIENT,
+              {
+                pedido_id: pedido_id,
+              }
+            );
+            console.log(response);
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          window.location.reload();
+        }
+      },
     },
   };
 };

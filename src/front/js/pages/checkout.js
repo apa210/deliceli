@@ -32,7 +32,12 @@ export const Checkout = () => {
     if (option != "") {
       console.log(option);
       console.log(value);
-      // navigate("/pages/order-confirmed");
+
+      if (option == "mercadoPago") {
+        await actions.pagoMercadoPago();
+        // navigate(store.mercadopago?.init_point);
+        window.location.href = store.mercadopago?.init_point;
+      }
 
       //
 
