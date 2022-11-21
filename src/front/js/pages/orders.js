@@ -26,11 +26,17 @@ export const Orders = () => {
       setTimeout(() => {
         navigate("/");
       }, 100);
+    } else {
+      actions.viewOrdersClient()
     }
 
     // Al cargar la página, se desplaza hacia arriba
     window.scrollTo(0, 0);
   }, []);
+
+  const mapHistoryClient = store?.ordersClient.map((item, index) => {
+    return <ProductCardHorizontalOrders key={item + index + item + index} obj={item} />
+  })
 
   return (
     <>
@@ -124,11 +130,7 @@ export const Orders = () => {
 
               {/* producto  */}
 
-              <ProductCardHorizontalOrders />
-
-              <ProductCardHorizontalOrders />
-
-              <ProductCardHorizontalOrders />
+              { mapHistoryClient }
 
               {/* producto  */}
             </div>
