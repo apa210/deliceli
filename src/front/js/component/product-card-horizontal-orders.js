@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 export const ProductCardHorizontalOrders = (props) => {
-  console.log(props.obj);
   const { store, actions } = useContext(Context);
 
   const cancelOrder = () => {
@@ -28,6 +27,10 @@ export const ProductCardHorizontalOrders = (props) => {
                 >
                   <h4>{props?.obj?.cocina?.user_name}</h4>
                 </Link>
+                <div className="mb-2 col-6">
+                    {" "}
+                    Teléfono: {props.obj?.cocina?.telefono}{" "}
+                  </div>
                 <ul className="card-text">
                   <li>Nombre del producto: {props?.obj?.producto?.nombre}</li>
                   <li>Cantidad: {props?.obj?.carrito?.cantidad_carrito}</li>

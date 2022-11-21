@@ -25,6 +25,8 @@ export const KitchenOrders = () => {
       setTimeout(() => {
         navigate("/");
       }, 100);
+    } else {
+      actions.viewOrdersKitchen()
     }
     // Al cargar la página, se desplaza hacia arriba
     if (store.historyNav == "/pages/kitchen-account") {
@@ -38,6 +40,10 @@ export const KitchenOrders = () => {
       actions.modHistoryNav(window.location.pathname);
     }
   }, []);
+
+const mapHistoryKitchen = store?.ordersKitchen.map((item, index) => {
+  return <ProductCardHorizontalKitchenOrders key={item + index + item + index} obj={item} />
+})
 
   return (
     <>
@@ -130,12 +136,7 @@ export const KitchenOrders = () => {
               {/* Detalle de favoritos */}
 
               {/* producto  */}
-
-              <ProductCardHorizontalKitchenOrders />
-              <ProductCardHorizontalKitchenOrders />
-              <ProductCardHorizontalKitchenOrders />
-              <ProductCardHorizontalKitchenOrders />
-
+                {mapHistoryKitchen}
               {/* producto  */}
             </div>
           </div>

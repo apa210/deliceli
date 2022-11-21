@@ -397,7 +397,7 @@ def view_orders_kitchen():
     if login_user is None:
         return jsonify({"status": False}), 404
 
-    pedidos = Pedidos.query.filter_by(cocina_id=login_user.id).all()
+    pedidos = Pedidos.query.filter_by(cocina_id=login_user.id).order_by(Pedidos.id_carrito).all()
 
     if pedidos is not None:
         result = []
@@ -409,6 +409,7 @@ def view_orders_kitchen():
             aux["pedido"] = pedidos[num].serialize()
             aux["carrito"] = carrito.serialize()
             aux["cliente"] = cliente.serialize()
+            aux["producto"] = carrito.serialize_producto()
             result.append(aux)
             num +=1
 
