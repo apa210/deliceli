@@ -57,8 +57,8 @@ def createPreference():
     
     "back_urls": 
         {
-        "success": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-confirmed",
-        "failure": "https://3000-apa210-deliceli-mwhbi3wnss5.ws-us74.gitpod.io/pages/order-failure"
+        "success": os.getenv('FRONTEND_URL') + os.getenv('PAY_SUCCESS'),
+        "failure": os.getenv('FRONTEND_URL') + os.getenv('PAY_FAILURE')
         },
     
     "auto_return": "approved"
