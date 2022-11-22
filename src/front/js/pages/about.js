@@ -112,7 +112,7 @@ export const About = () => {
 
                 <div className="card border-0">
                   <img
-                    src="https://talentosremotos.uy/wp-content/uploads/avatars/348/60e338e57840d-bpfull.jpg"
+                    src="https://res.cloudinary.com/dfrxcfjha/image/upload/v1669128583/samples/Web/NoeliaIrace_offl3m.jpg"
                     className="card-img-top p-4 rounded-circle"
                   />
                   <div className="card-body">
