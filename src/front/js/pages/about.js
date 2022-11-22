@@ -35,10 +35,11 @@ export const About = () => {
                     bio sin añadidos, sin gluten, vegana.
                   </h3>
                   <p className="card-text">
-                    Buscamos facilitar la vida de las personas con celiaquía, intolerancia al gluten o alergias, y entregar lo
-                    mejor de nosotros mismos para atender cada desafío que la
-                    comunidad celíaca requiere, poniendo énfasis en ofrecer
-                    productos sanos y seguros.
+                    Buscamos facilitar la vida de las personas con celiaquía,
+                    intolerancia al gluten o alergias, y entregar lo mejor de
+                    nosotros mismos para atender cada desafío que la comunidad
+                    celíaca requiere, poniendo énfasis en ofrecer productos
+                    sanos y seguros.
                   </p>
                 </div>
               </div>
@@ -139,14 +140,16 @@ export const About = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">Elías Fernández</h5>
-                    <p className="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      In congue consequat diam, sed dictum nisl molestie ac.
-                    </p>
+                    <p className="card-text"></p>
 
-                    <p className="card-text">
+                    <a
+                      href="https://github.com/01-ERFA"
+                      className="card-text"
+                      style={{ textDecoration: "none" }}
+                      target="_blanck"
+                    >
                       <small className="text-muted">Seguir en Github</small>
-                    </p>
+                    </a>
                   </div>
                 </div>
 
