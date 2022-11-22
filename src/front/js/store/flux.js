@@ -96,6 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           setStore({ AllProducts: response.data });
         } catch (error) {
+          alert("Servidores en mantenimiento")
           console.log(error);
         }
       },
@@ -114,6 +115,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           setStore({ AllKitchens: response.data });
         } catch (error) {
+          alert("Servidores en mantenimiento")
           console.log(error);
         }
       },
@@ -131,6 +133,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           setStore({ categories: response?.data });
         } catch (error) {
+          alert("Servidores en mantenimiento")
           console.log(error);
         }
       },
@@ -217,6 +220,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             });
           }
         } catch (error) {
+          alert("No se pudo obtener su perfil, intente en otro momento")
           console.log(error);
         }
       },
@@ -247,6 +251,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             actions.update_total("initial");
           }
         } catch (error) {
+          alert("No se pudo conseguir su carrito, intente en otro momento")
           console.log(error);
         }
       },
@@ -266,6 +271,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           setStore({ product: response.data });
         } catch (error) {
+          alert("No se pudo conseguir el producto, intente en otro momento")
           console.log(error);
         }
       },
@@ -287,6 +293,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           setStore({ kitchen: response.data });
         } catch (error) {
+          alert("No se pudo conseguir este perfil, intente en otro momento")
           console.log(error);
         }
       },
@@ -318,6 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ AllProductsOfCategory: response?.data });
             setStore({ val_category: true });
           } catch (error) {
+            alert("No se pudo conseguir los productos de esta categoría")
             console.log(error);
             setStore({ val_category: false });
           }
@@ -341,6 +349,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ searchResults: response.data });
           setStore({ search: texto });
         } catch (error) {
+          alert("No se puede buscar el producto")
           console.log(error);
         }
       },
@@ -370,6 +379,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           setStore({ AllProductsOfKitchen: result });
         } catch (error) {
+          alert("No se pudo conseguir los productos de este perfil, intente en otro momento")
           console.log(error);
         }
       },
@@ -580,6 +590,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(() => actions.getCart(store.profile?.id));
                   await actions.changeAlerts("buy_new");
                 } catch (error) {
+                  alert("Fallo al agregar producto al carrito, intente en otro momento")
                   console.log(error);
                 }
               }
@@ -602,6 +613,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   .then(() => actions.getCart(store.profile?.id));
                 await actions.changeAlerts("buy_new");
               } catch (error) {
+                alert("Fallo al agregar producto al carrito, intente en otro momento")
                 console.log(error);
               }
             }
@@ -662,6 +674,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 actions.getCart(store.profile?.id);
               }
             } catch (error) {
+              alert("Fallo al actualizar el producto, intente en otro momento")
               console.log(error);
             }
           }
@@ -708,6 +721,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             window.location.reload();
           }
         } catch (err) {
+          alert("Fallo al quitar producto, intente en otro momento")
           console.log(err);
         }
       },
@@ -732,6 +746,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             window.location.reload();
           }
         } catch (error) {
+          alert("Fallo al cargar su menu, intente en otro momento")
           console.log(error);
         }
       },
@@ -739,7 +754,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       editProduct: async (prod_id, kit_id, value, operation) => {
         let store = getStore();
         let actions = getActions();
-        actions.validateToken();
+        await actions.validateToken();
         if (store.auth == true) {
           if (operation == "edit") {
             if (
@@ -789,43 +804,50 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
-        if (store.auth == true) {
-          let reqInstance = axios.create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          const response = await reqInstance.post(
-            store.api_url + process.env.MENU,
-            {
-              nombre: name,
-              descripcion: description,
-              precio: price,
-              cantidad: quantity,
-              foto: img,
-              categoria: category,
+        try {
+          if (store.auth == true) {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.post(
+              store.api_url + process.env.MENU,
+              {
+                nombre: name,
+                descripcion: description,
+                precio: price,
+                cantidad: quantity,
+                foto: img,
+                categoria: category,
+              }
+              );
+              await actions.getMenu();
             }
-          );
-          await actions.getMenu();
-        }
-      },
-      removeProduct: async (prod_id) => {
+          } catch (error) {
+            alert("Fallo al guardar un producto, intente en otro momento")
+            console.log(error);
+          }
+          },
+          removeProduct: async (prod_id) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
-        if (store.auth == true) {
-          let reqInstance = axios.create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          const response = await reqInstance.delete(
-            store.api_url + process.env.QUIT_MENU_PRODUCT + prod_id
-          );
-          actions.getMenu();
-        }
+        try {
+          if (store.auth == true) {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.delete(
+              store.api_url + process.env.QUIT_MENU_PRODUCT + prod_id
+              );
+              actions.getMenu();
+            }
+          } catch (error) {
+            alert("Fallo al eliminar producto, intente en otro momento")
+          }
       },
 
       uploadProfile: async (
@@ -847,36 +869,39 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
-        if (store.auth == true) {
-          let reqInstance = axios.create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          const response = await reqInstance.put(
-            store.api_url + process.env.EDIT_PROFILE,
-            {
-              user_name: user_name,
-              first_name: first_name,
-              last_name: last_name,
-              email: email,
-              telefono: telefono,
-              foto: foto,
-              direccion: direccion,
-              facebook: facebook,
-              twitter: twitter,
-              linkedin: linkedin,
-              instagram: instagram,
-              dribble: dribble,
-              pinterest: pinterest,
-              descripcion: descripcion,
+        try {
+          if (store.auth == true) {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.put(
+              store.api_url + process.env.EDIT_PROFILE,
+              {
+                user_name: user_name,
+                first_name: first_name,
+                last_name: last_name,
+                email: email,
+                telefono: telefono,
+                foto: foto,
+                direccion: direccion,
+                facebook: facebook,
+                twitter: twitter,
+                linkedin: linkedin,
+                instagram: instagram,
+                dribble: dribble,
+                pinterest: pinterest,
+                descripcion: descripcion,
+              }
+              );
+              await actions.getProfile();
             }
-          );
-          await actions.getProfile();
-        }
-      },
-
+          } catch (error) {
+            alert("Fallo al actualizar perfil, intente en otro momento")
+          }
+          },
+          
       updateProduct: async (
         prod_id,
         name,
@@ -889,34 +914,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
-        if (store.auth == true) {
-          let reqInstance = axios.create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          const response = await reqInstance.put(
-            store.api_url + process.env.MENU,
-            {
-              producto_id: prod_id,
-              nombre: name,
-              descripcion: description,
-              precio: price,
-              cantidad: quantity,
-              foto: img,
-              categoria: category,
-            }
-          );
-          await actions.getMenu();
-        }
-      },
-
-      changePassword: async (old_password, new_password, repit_password) => {
-        let store = getStore();
-        let actions = getActions();
-        await actions.validateToken();
-        if (new_password === repit_password) {
+        try {
           if (store.auth == true) {
             let reqInstance = axios.create({
               headers: {
@@ -924,17 +922,51 @@ const getState = ({ getStore, getActions, setStore }) => {
               },
             });
             const response = await reqInstance.put(
-              store.api_url + process.env.CHANGE_PASSWORD,
+              store.api_url + process.env.MENU,
               {
-                old_password: old_password,
-                new_password: new_password,
+                producto_id: prod_id,
+                nombre: name,
+                descripcion: description,
+                precio: price,
+                cantidad: quantity,
+                foto: img,
+                categoria: category,
               }
             );
-            setTimeout(() => {
-              window.location.reload;
-            }, 2000);
+            await actions.getMenu();
           }
+        } catch (error) {
+          alert("Fallo al actualizar producto, intente en otro momento")
         }
+      },
+
+      changePassword: async (old_password, new_password, repit_password) => {
+        let store = getStore();
+        let actions = getActions();
+        await actions.validateToken();
+        try {
+          if (new_password === repit_password) {
+            if (store.auth == true) {
+              let reqInstance = axios.create({
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              });
+              const response = await reqInstance.put(
+                store.api_url + process.env.CHANGE_PASSWORD,
+                {
+                  old_password: old_password,
+                  new_password: new_password,
+                }
+                );
+                setTimeout(() => {
+                  window.location.reload;
+                }, 2000);
+              }
+            }
+          } catch (error) {
+            alert("Fallo al cambiar contraseña, intente en otro momento")
+          }
       },
 
       getAllFavorites: async () => {
@@ -960,6 +992,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             window.location.reload();
           }
         } catch (error) {
+          alert("Fallo al conseguir los favoritos, intente en otro momento")
           console.log(error);
         }
       },
@@ -968,37 +1001,40 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
-        if (store.auth == true) {
-          if (store.allFavorites !== [] && store.allFavorites.length != 0) {
-            store.allFavorites.filter((item) => {
-              if (product_id == item?.producto_id) {
-                setStore({ auxFavoritos: [item] });
-              }
-            });
+        try {
+          if (store.auth == true) {
+            if (store.allFavorites !== [] && store.allFavorites.length != 0) {
+              store.allFavorites.filter((item) => {
+                if (product_id == item?.producto_id) {
+                  setStore({ auxFavoritos: [item] });
+                }
+              });
+            }
+            if (
+              product_id ===
+              (store.auxFavoritos == undefined
+                ? store.auxFavoritos
+                : store.auxFavoritos[0]?.producto_id)
+            ) {
+              await actions.changeAlerts("favorite_repit");
+            } else {
+              let reqInstance = axios.create({
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              });
+              const response = await reqInstance.post(
+                store.api_url + process.env.NEW_FAVORITE,
+                {
+                  producto_id: product_id,
+                }
+              );
+              await actions.getAllFavorites();
+              await actions.changeAlerts("favorite_new");
+            }
           }
-          if (
-            product_id ===
-            (store.auxFavoritos == undefined
-              ? store.auxFavoritos
-              : store.auxFavoritos[0]?.producto_id)
-          ) {
-            await actions.changeAlerts("favorite_repit");
-          } else {
-            let reqInstance = axios.create({
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            });
-            const response = await reqInstance.post(
-              store.api_url + process.env.NEW_FAVORITE,
-              {
-                producto_id: product_id,
-              }
-            );
-            await actions.getAllFavorites();
-            await actions.changeAlerts("favorite_new");
-          }
+        } catch (error) {
+          alert("Fallo al agregar favorito, intente en otro momento")
         }
       },
 
@@ -1006,18 +1042,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
-        if (store.auth == true) {
-          let reqInstance = axios.create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          const response = await reqInstance.delete(
-            store.api_url + process.env.REMOVE_FAVORITE + prod_id
-          );
-          await actions.getAllFavorites();
-        }
+        try {
+          if (store.auth == true) {
+            let reqInstance = axios.create({
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+            const response = await reqInstance.delete(
+              store.api_url + process.env.REMOVE_FAVORITE + prod_id
+              );
+              await actions.getAllFavorites();
+            }
+          } catch (error) {
+            alert("Fallo al eliminar favorito, intente en otro momento")
+          }
       },
 
       //MERCADO PAGO//
@@ -1026,7 +1065,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         let store = getStore();
         let actions = getActions();
         await actions.validateToken();
-
         if (store.auth == true) {
           try {
             let reqInstance = axios.create({
@@ -1042,6 +1080,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             });
             console.log(store.mercadopago);
           } catch (error) {
+            alert("Fallo en la conexion con Mercado Pago, intente en otro momento")
             console.log(error);
           }
         } else {
@@ -1075,6 +1114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(response);
             await actions.getCart()
           } catch (error) {
+            alert("Fallo en la solicitud de su pedido, intente en otro momento")
             console.log(error);
           }
         } else {
@@ -1100,6 +1140,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(response);
             setStore({ ordersKitchen: response?.data });
           } catch (error) {
+            alert("Fallo al conseguir las ordenes de su perfil, intente en otro momento")
             console.log(error);
           }
         } else {
@@ -1130,6 +1171,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(response);
             actions.viewOrdersKitchen()
           } catch (error) {
+            alert("Fallo al cambiar el estado del pedido, intente en otro momento")
             console.log(error);
           }
         } else {
@@ -1155,6 +1197,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(response);
             setStore({ ordersClient: response?.data });
           } catch (error) {
+            alert("Fallo al conseguir las ordenes de su perfil, intente en otro momento")
             console.log(error);
           }
         } else {
@@ -1183,6 +1226,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(response);
             await actions.viewOrdersClient()
           } catch (error) {
+            alert("Fallo al cancelar el pedido, intente en otro momento")
             console.log(error);
           }
         } else {
