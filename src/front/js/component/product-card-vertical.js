@@ -89,7 +89,12 @@ export const ProductCardVertical = (props) => {
               <i className="fas fa-heart mx-2"></i>AGREGAR A FAVORITOS{" "}
             </button>
           )}
-          <p className="card-text text-about">{props?.obj?.descripcion}</p>
+          <p className="card-text">
+          {props?.obj?.descripcion.substring(0, 50)}
+           {props?.obj?.descripcion.length <
+          50
+            ? null
+            : "..."}</p>
 
           <Link
             to={"/pages/single-kitchen/" + props.obj?.cocina_id}
