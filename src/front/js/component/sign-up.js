@@ -190,7 +190,7 @@ export const SignUp = () => {
                       <Field
                         name="email"
                         type="email"
-                        className="form-control mb-3"
+                        className="form-control"
                         placeholder="Correo electrónico"
                       />
                       {errors.email && touched.email ? (
@@ -198,7 +198,7 @@ export const SignUp = () => {
                       ) : null}
 
                       <div className="input-group mb-3">
-                        <div className="me-3">
+                        <div className="me-3 mt-3">
                           <Field
                             name="user_name"
                             placeholder="Nombre de Usuario"
@@ -210,7 +210,7 @@ export const SignUp = () => {
                             </div>
                           ) : null}
                         </div>
-                        <div>
+                        <div className="mt-3">
                           <Field
                             name="phone"
                             placeholder="Telefono"
@@ -225,7 +225,7 @@ export const SignUp = () => {
                       <Field
                         name="password"
                         type="password"
-                        className="form-control mb-3"
+                        className="form-control"
                         placeholder="Contraseña"
                       />
                       {errors.password && touched.password ? (
@@ -235,7 +235,7 @@ export const SignUp = () => {
                       <Field
                         name="repitPassword"
                         type="password"
-                        className="form-control mb-3"
+                        className="form-control mt-3"
                         placeholder="Repita la contraseña"
                       />
                       {errors.repitPassword && touched.repitPassword ? (
@@ -245,7 +245,7 @@ export const SignUp = () => {
                       ) : null}
 
                       {/* Inicio de link para abrir modal de inicio sesión */}
-                      <div>
+                      <div className="mt-3">
                         <label className="mt-2">¿Ya tienes una cuenta?</label>{" "}
                         <Link
                           data-bs-target="#staticBackdrop"

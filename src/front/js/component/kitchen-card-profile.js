@@ -12,7 +12,13 @@ export const KitchenCardProfile = (props) => {
       />
       <div className="card-body p-5">
         <h5 className="card-title">{props?.obj?.user_name}</h5>
-        <p className="card-text">{props?.obj?.descripcion}</p>
+        <p className="card-text">
+          {props?.obj?.descripcion.substring(0, 70)}
+           {props?.obj?.descripcion.length <
+          70
+            ? null
+            : "..."}
+        </p>
         <Link
           to={"/pages/single-kitchen/" + props?.obj?.id}
           className="btn btn-primary me-2"
