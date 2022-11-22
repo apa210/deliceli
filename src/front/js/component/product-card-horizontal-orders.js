@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 export const ProductCardHorizontalOrders = (props) => {
   const { store, actions } = useContext(Context);
 
   const cancelOrder = () => {
-    actions?.cancelOrderClient(props?.obj?.pedido?.id)
-  }
+    actions?.cancelOrderClient(props?.obj?.pedido?.id);
+  };
   return (
     <>
       <section>
@@ -28,9 +28,9 @@ export const ProductCardHorizontalOrders = (props) => {
                   <h4>{props?.obj?.cocina?.user_name}</h4>
                 </Link>
                 <div className="mb-2 col-6">
-                    {" "}
-                    Teléfono: {props.obj?.cocina?.telefono}{" "}
-                  </div>
+                  {" "}
+                  Teléfono: {props.obj?.cocina?.telefono}{" "}
+                </div>
                 <ul className="card-text">
                   <li>Nombre del producto: {props?.obj?.producto?.nombre}</li>
                   <li>Cantidad: {props?.obj?.carrito?.cantidad_carrito}</li>
@@ -85,8 +85,13 @@ export const ProductCardHorizontalOrders = (props) => {
                   </button>
                 ) : null}
 
-                {props?.obj?.pedido?.estado === "cancelado_user" ? null : (
-                  <button onClick={() => cancelOrder() } type="button" className="btn btn-outline-danger">
+                {props?.obj?.pedido?.estado === "cancelado_user" ||
+                props?.obj?.pedido?.estado !== "pendiente" ? null : (
+                  <button
+                    onClick={() => cancelOrder()}
+                    type="button"
+                    className="btn btn-outline-danger"
+                  >
                     Cancelar Pedido
                   </button>
                 )}
