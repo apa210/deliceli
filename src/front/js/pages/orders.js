@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { ProductCardHorizontalOrders } from "../component/product-card-horizontal-orders"
+import { ProductCardHorizontalOrders } from "../component/product-card-horizontal-orders";
 
 export const Orders = () => {
   const { store, actions } = useContext(Context);
@@ -27,7 +27,7 @@ export const Orders = () => {
         navigate("/");
       }, 100);
     } else {
-      actions.viewOrdersClient()
+      actions.viewOrdersClient();
     }
 
     // Al cargar la página, se desplaza hacia arriba
@@ -35,8 +35,15 @@ export const Orders = () => {
   }, []);
 
   const mapHistoryClient = store?.ordersClient.map((item, index) => {
-    return <ProductCardHorizontalOrders key={item + index + item + index} obj={item} />
-  })
+    return (
+      <div className="col-lg-6 col-md-12">
+        <ProductCardHorizontalOrders
+          key={item + index + item + index}
+          obj={item}
+        />
+       </div>
+    );
+  });
 
   return (
     <>
@@ -129,9 +136,10 @@ export const Orders = () => {
               {/* Detalle de favoritos */}
 
               {/* producto  */}
-
-              { mapHistoryClient }
-
+              <div className="row">
+                {/* <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(50ch, 1fr))" }}> */}
+                {mapHistoryClient}
+              </div>
               {/* producto  */}
             </div>
           </div>

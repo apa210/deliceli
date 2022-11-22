@@ -117,14 +117,15 @@ export const About = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">Noelia Irace</h5>
-                    <p className="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      In congue consequat diam, sed dictum nisl molestie ac.
-                    </p>
 
-                    <p className="card-text">
+                    <a
+                      href="https://github.com/Nosoir"
+                      className="card-text"
+                      style={{ textDecoration: "none" }}
+                      target="_blanck"
+                    >
                       <small className="text-muted">Seguir en Github</small>
-                    </p>
+                    </a>
                   </div>
                 </div>
 

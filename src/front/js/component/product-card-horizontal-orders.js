@@ -12,7 +12,7 @@ export const ProductCardHorizontalOrders = (props) => {
       <section>
         <div className="card mb-5 mt-5">
           <div className="row g-0">
-            <div className="col-md-9">
+            <div className="col-md-9 col-lg-12">
               <div className="card-body p-4">
                 <h3 className="card-title">
                   Número de pedido: #R{props?.obj?.pedido?.id}
@@ -92,7 +92,7 @@ export const ProductCardHorizontalOrders = (props) => {
                     type="button"
                     className="btn btn-outline-danger"
                   >
-                    Cancelar Pedido
+                    Cancelar
                   </button>
                 )}
               </div>
