@@ -319,6 +319,7 @@ export const ClientAccount = () => {
                                 name="facebook"
                                 type="text"
                                 className="form-control"
+                                placeholder="https://www.facebook.com/"
                               />
                               {errors.facebook && touched.facebook ? (
                                 <div className="text-danger">
@@ -336,6 +337,7 @@ export const ClientAccount = () => {
                                 name="twitter"
                                 type="text"
                                 className="form-control"
+                                placeholder="https://www.twitter.com/"
                               />
                               {errors.twitter && touched.twitter ? (
                                 <div className="text-danger">
@@ -353,6 +355,7 @@ export const ClientAccount = () => {
                                 name="linkedin"
                                 type="text"
                                 className="form-control"
+                                placeholder="https://www.linkedin.com/"
                               />
                               {errors.linkedin && touched.linkedin ? (
                                 <div className="text-danger">
@@ -370,6 +373,7 @@ export const ClientAccount = () => {
                                 name="instagram"
                                 type="text"
                                 className="form-control"
+                                placeholder="https://www.instagram.com/"
                               />
                               {errors.instagram && touched.instagram ? (
                                 <div className="text-danger">
@@ -387,6 +391,7 @@ export const ClientAccount = () => {
                                 name="dribble"
                                 type="text"
                                 className="form-control"
+                                placeholder="https://www.dribble.com/"
                               />
                               {errors.dribble && touched.dribble ? (
                                 <div className="text-danger">
@@ -404,6 +409,7 @@ export const ClientAccount = () => {
                                 name="pinterest"
                                 type="text"
                                 className="form-control"
+                                placeholder="https://www.pinterest.com/"
                               />
                               {errors.pinterest && touched.pinterest ? (
                                 <div className="text-danger">
