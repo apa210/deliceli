@@ -13,7 +13,7 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const [name, setName] = useState("sin nombre");
   const [total, setTotal] = useState("");
-  
+
   // Función para cerrar sesión
   const handleLogout = () => {
     let onLogged = actions.logout();
@@ -21,7 +21,7 @@ export const Navbar = () => {
       navigate("/");
     }
   };
-  
+
   // activa función del flux.js, donde elimina un producto segú su ID
   const delete_product = (prod, prod_id) => {
     actions?.quit_product(prod, prod_id);
@@ -31,7 +31,6 @@ export const Navbar = () => {
   useEffect(() => {
     setTotal(store.total);
   }, [store.total]);
-
 
   // trae el nombre del perfil y lo guarda en el estado setName
   useEffect(() => {
@@ -131,24 +130,43 @@ export const Navbar = () => {
                       <i className="fa fa-cart-plus d-inline mx-2"></i> Carrito
                     </Link>
 
-                    <ul className="dropdown-menu dropdown-menu dropdown-menu-end">
+                    <ul className="dropdown-menu dropdown-menu dropdown-menu-end p-3">
                       {map_cart}
 
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
-                      <li className="dropdown-item">Total - $ {total}</li>
+                      <li className="dropdown-item text-end"><h5> Total - $ {total} </h5></li>
 
-                      <Link className="nav-link" to="pages/cart">
-                        {" "}
-                        <button
-                          type="button"
-                          className="btn btn-primary mt-2 ms-4 mb-2 ps-2 pe-4"
-                        >
-                          <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
-                          Ver carrito
-                        </button>
-                      </Link>
+ <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <div className="container text-center">
+                        <div className="row">
+                          <div className="col d-grid gap-2">
+                            <Link className="nav-link" to="pages/cart">
+                              {" "}
+                              <button type="button" className="btn btn-primary px-4 pe-4">
+                                <i className="fa fa-cart-plus d-inline mt-2 mb-2"></i>{" "}
+                                Ver carrito
+                              </button>
+                            </Link>
+                          </div>
+
+
+                          <div className="col d-grid gap-2">
+                            <Link className="nav-link" to="pages/checkout">
+                              {" "}
+                              <button type="button" className="btn btn-primary px-5 pe-5">
+                                <i className="fas fa-money-check d-inline mt-2 mb-2"></i>{" "}
+                               Pagar
+                              </button>
+                            </Link>
+                          </div>
+
+
+                        </div>
+                      </div>
                     </ul>
                   </li>
                   <li className="nav-item dropdown">

@@ -60,81 +60,11 @@ export const About = () => {
 
           <div className="container text-center mt-5 mb-5">
             <div className="row mt-5">
-              <div className="col-lg-3 mb-5 ">
-                {/* Inicio de perfil de Analía */}
-
-                <div className="card border-0">
-                  <img
-                    src="https://sintropia.design/wp-content/uploads/2022/08/analia.png"
-                    className="card-img-top p-4 rounded-circle"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Analía Corcino</h5>
-                    <p className="card-text">
-                      Diseñadora Industrial especializada en Branding, Diseño
-                      Web y Experiencias Digitales. Actualmente cursando una
-                      especialización en Full Stack Developer.
-                    </p>
-
-                    <p className="card-text">
-                      <small className="text-muted">Seguir en Github</small>
-                    </p>
-                  </div>
-                </div>
-
-                {/* fIN de perfil de Analía  */}
-              </div>
-              <div className="col-lg-3 mb-5">
-                {/* Inicio de perfil de Aparicio  */}
-
-                <div className="card border-0">
-                  <img
-                    src="https://ca.slack-edge.com/T0BFXMWMV-U04202NMD99-af3997d0b29b-512"
-                    className="card-img-top p-4 rounded-circle"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Aparicio Baptista</h5>
-                    <p className="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      In congue consequat diam, sed dictum nisl molestie ac.
-                    </p>
-
-                    <p className="card-text">
-                      <small className="text-muted">Seguir en Github</small>
-                    </p>
-                  </div>
-                </div>
-
-                {/* fIN de perfil de Aparicio  */}
-              </div>
-              <div className="col-lg-3 mb-5">
-                {/* Inicio de perfil de Noelia  */}
-
-                <div className="card border-0">
-                  <img
-                    src="https://res.cloudinary.com/dfrxcfjha/image/upload/v1669128583/samples/Web/NoeliaIrace_offl3m.jpg"
-                    className="card-img-top p-4 rounded-circle"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Noelia Irace</h5>
-
-                    <a
-                      href="https://github.com/Nosoir"
-                      className="card-text"
-                      style={{ textDecoration: "none" }}
-                      target="_blanck"
-                    >
-                      <small className="text-muted">Seguir en Github</small>
-                    </a>
-                  </div>
-                </div>
-
-                {/*  fIN de perfil de Noelia  */}
-              </div>
-              <div className="col-lg-3 mb-5">
+            
+            <div className="col-lg-3 mb-5">
                 {/*  Inicio de perfil de Elías  */}
 
-                <div className="card border-0">
+                <div className="card border-0 pt-5 pb-5">
                   <img
                     src="https://sintropia.com.uy/desarrollo/elias.png"
                     className="card-img-top p-4 rounded-circle"
@@ -147,7 +77,7 @@ export const About = () => {
                       href="https://github.com/01-ERFA"
                       className="card-text"
                       style={{ textDecoration: "none" }}
-                      target="_blanck"
+                      target="_blank"
                     >
                       <small className="text-muted">Seguir en Github</small>
                     </a>
@@ -156,6 +86,84 @@ export const About = () => {
 
                 {/* fIN de perfil de Elías  */}
               </div>
+            
+              <div className="col-lg-3 mb-5">
+                {/* Inicio de perfil de Noelia  */}
+
+                <div className="card border-0  pt-5 pb-5">
+                  <img
+                    src="https://res.cloudinary.com/dfrxcfjha/image/upload/v1669128583/samples/Web/NoeliaIrace_offl3m.jpg"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Noelia Irace</h5>
+
+                    <a
+                      href="https://github.com/Nosoir"
+                      className="card-text"
+                      style={{ textDecoration: "none" }}
+                      target="_blank"
+                    >
+                      <small className="text-muted">Seguir en Github</small>
+                    </a>
+                  </div>
+                </div>
+
+                {/*  fIN de perfil de Noelia  */}
+              </div>
+            
+            
+              <div className="col-lg-3 mb-5 ">
+                {/* Inicio de perfil de Analía */}
+
+                <div className="card border-0 pt-5 pb-5">
+                  <img
+                    src="https://sintropia.design/wp-content/uploads/2022/08/analia.png"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Analía Corcino</h5>
+                    
+
+                    <a
+                      href="https://github.com/analiacorcino"
+                      className="card-text"
+                      style={{ textDecoration: "none" }}
+                      target="_blank"
+                    >
+                      <small className="text-muted">Seguir en Github</small>
+                    </a>
+                  </div>
+                </div>
+
+                {/* fIN de perfil de Analía  */}
+              </div>
+              <div className="col-lg-3 mb-5">
+                {/* Inicio de perfil de Aparicio  */}
+
+                <div className="card border-0  pt-5 pb-5">
+                  <img
+                    src="https://ca.slack-edge.com/T0BFXMWMV-U04202NMD99-af3997d0b29b-512"
+                    className="card-img-top p-4 rounded-circle"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Aparicio Baptista</h5>
+                    
+                    <a
+                      href="https://github.com/apa210/"
+                      className="card-text"
+                      style={{ textDecoration: "none" }}
+                      target="_blank"
+                    >
+                      <small className="text-muted">Seguir en Github</small>
+                    </a>
+                  </div>
+                </div>
+
+                {/* fIN de perfil de Aparicio  */}
+              </div>
+        
+            
             </div>
           </div>
         </div>
