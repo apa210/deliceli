@@ -52,14 +52,21 @@ export const OrderConfirmed = () => {
               </div>
             </div>
 
-            <Link to="/pages/orders" className="alert alert-success col-8 mt-4 text-decoration-none" style={{maxHeight: "180px"}}  role="alert">
-              <h4 className="alert-heading">Tu pedido se realizó con éxito!</h4>
+            <Link to="/pages/orders" className="alert alert-success col-8 mt-4 text-decoration-none p-5" style={{maxHeight: "280px"}}  role="alert">
+              <h4 className="alert-heading">Tu pedido se realizó con éxito!</h4><hr/>
               <p>
                 Hemos recibido tu pedido, puedes verificar su estado y conseguir
                 el contacto de la cocina en la vista de tus pedidos
               </p>
-              <hr />
-              <p className="mb-0">Puedes verlo presionando esta alerta.</p>
+
+              <button className="btn btn-primary btn-lg mb-3 mt-1">
+                    Ver detalles del pedido.
+                    </button> 
+              
+
+
+           
+
             </Link>
           </div>
         </div>

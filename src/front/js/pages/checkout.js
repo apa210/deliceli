@@ -86,115 +86,8 @@ export const Checkout = () => {
       <section>
         <div className="container">
           <div className="row">
-            {/* Detalles de contacto */}
-            <div className="col-6">
-              {/*Contacto  */}
-
-              <h4 className="mb-4 mt-5">Detalles de contacto</h4>
-
-              {/* Nombre  */}
-
-              <label className="form-label">Nombre</label>
-              <input
-                type="text"
-                className="form-control"
-                defaultValue={firstName}
-                disabled
-              />
-
-              {/* Apellido  */}
-
-              <label className="form-label">Apellido</label>
-              <input
-                type="text"
-                className="form-control"
-                defaultValue={lastName}
-                disabled
-              />
-
-              {/* Nombre de usuario  */}
-
-              {/* Celular  */}
-
-              <label className="form-label">Celular</label>
-              <input
-                type="text"
-                className="form-control"
-                defaultValue={phone}
-                disabled
-              />
-
-              {/* Mail  */}
-
-              <label htmlFor="inputEmail4" className="form-label">
-                Correo Electrónico
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                defaultValue={email}
-                disabled
-              />
-
-              {/*  Dirección  */}
-
-              <Formik
-                initialValues={{
-                  direccion: store?.profile?.direccion,
-                  mensaje: "",
-                }}
-                validationSchema={PaySchema}
-                onSubmit={(values) => {
-                  pay(values);
-                }}
-              >
-                {({ errors, touched }) => (
-                  <Form>
-                    <label className="form-label">Dirección *</label>
-                    <Field
-                      name="direccion"
-                      type="text"
-                      className="form-control"
-                    />
-                    {errors.direccion && touched.direccion ? (
-                      <div className="text-danger">{errors.direccion}</div>
-                    ) : null}
-
-                    <label className="form-label">
-                      Comentarios del envio *
-                    </label>
-                    <Field
-                      name="mensaje"
-                      type="text"
-                      className="form-control"
-                      placeholder="Escribi acá tu mensaje ..."
-                    />
-                    {errors.mensaje && touched.mensaje ? (
-                      <div className="text-danger">{errors.mensaje}</div>
-                    ) : null}
-
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-lg mb-3 mt-4"
-                    >
-                      Realizar pago
-                    </button>
-                  </Form>
-                )}
-              </Formik>
-            </div>
-
-            {/* alerta */}
-            <div
-              className="alert alert-danger d-none"
-              ref={showAlert}
-              role="alert"
-            >
-              {loginError}
-            </div>
-
-            {/* Detalles de contacto */}
-            <div className="col">
+          
+            <div className="col-12 col-md-6 col-lg-6">
               <h4 className="mb-4 mt-5">Formas de pago</h4>
 
               {/* _________ */}
@@ -328,6 +221,122 @@ export const Checkout = () => {
               </div>
             </div>
             {/* Detalles de contacto */}
+
+
+              {/* Detalles de contacto */}
+              <div className="col-12 col-md-6 col-lg-6">
+              {/*Contacto  */}
+
+              <h4 className="mb-4 mt-5">Detalles de contacto</h4>
+
+              {/* Nombre  */}
+
+              <label className="form-label">Nombre</label>
+              <input
+                type="text"
+                className="form-control"
+                defaultValue={firstName}
+                disabled
+              />
+
+              {/* Apellido  */}
+
+              <label className="form-label">Apellido</label>
+              <input
+                type="text"
+                className="form-control"
+                defaultValue={lastName}
+                disabled
+              />
+
+              {/* Nombre de usuario  */}
+
+              {/* Celular  */}
+
+              <label className="form-label">Celular</label>
+              <input
+                type="text"
+                className="form-control"
+                defaultValue={phone}
+                disabled
+              />
+
+              {/* Mail  */}
+
+              <label htmlFor="inputEmail4" className="form-label">
+                Correo Electrónico
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                defaultValue={email}
+                disabled
+              />
+
+              {/*  Dirección  */}
+
+              <Formik
+                initialValues={{
+                  direccion: store?.profile?.direccion,
+                  mensaje: "",
+                }}
+                validationSchema={PaySchema}
+                onSubmit={(values) => {
+                  pay(values);
+                }}
+              >
+                {({ errors, touched }) => (
+                  <Form>
+                    <label className="form-label">Dirección *</label>
+                    <Field
+                      name="direccion"
+                      type="text"
+                      className="form-control"
+                    />
+                    {errors.direccion && touched.direccion ? (
+                      <div className="text-danger">{errors.direccion}</div>
+                    ) : null}
+
+                    <label className="form-label">
+                      Comentarios del envio *
+                    </label>
+                    <Field
+                      name="mensaje"
+                      type="text"
+                      className="form-control"
+                      placeholder="Escribi acá tu mensaje ..."
+                    />
+                    {errors.mensaje && touched.mensaje ? (
+                      <div className="text-danger">{errors.mensaje}</div>
+                    ) : null}
+
+                   <div className="text-end"> <button
+                      type="submit"
+                      className="btn btn-primary btn-lg mb-3 mt-4"
+                    >
+                      Realizar pago
+                    </button> 
+
+                    </div>
+
+                      {/* alerta */}
+            <div
+              className="alert alert-danger d-none"
+              ref={showAlert}
+              role="alert"
+            >
+              {loginError}
+            </div>
+
+                  </Form>
+                )}
+              </Formik>
+            </div>
+
+          
+            {/* Detalles de contacto */}
+
+
           </div>
         </div>
       </section>

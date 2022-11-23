@@ -102,7 +102,7 @@ export const Contact = () => {
         <div className="container mt-5 mb-5">
           <div className="row">
             {/* Inicio de datos de DeliCeli  */}
-            <div className="col mt-4">
+            <div className="col-12 col-md-4 col-lg-4 mt-4">
               <div className="card">
                 <img
                   src="https://cdn.winsightmedia.com/platform/files/public/800x420/chef-demo-cooking-saucing-dish.jpg"
