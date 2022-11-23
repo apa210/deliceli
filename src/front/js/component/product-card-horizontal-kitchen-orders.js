@@ -62,48 +62,85 @@ export const ProductCardHorizontalKitchenOrders = (props) => {
         <div className="card mb-5 mt-5">
           <div className="row g-0">
             <div className="col-md-12">
-              <div className="card-body p-4">
-                <h2 className="card-title">
-                  Número de pedido: #R{props?.obj?.pedido?.id}
-                </h2>
+              <div className="card-header bg-dark text-light">
+                <h5> Número de pedido: #R{props?.obj?.pedido?.id}</h5>
+              </div>
 
-                <div className="text-muted mb-2">
-                  <h6>{props?.obj?.pedido?.fecha}</h6>
-                </div>
-                <div className="col-12">
-                  <h4 className="mb-2 col-6">
-                    {" "}
-                    Pedido de {props.obj?.cliente?.user_name}
-                  </h4>
-                  <div className="mb-2 col-6">
-                    {" "}
-                    Teléfono: {props.obj?.cliente?.telefono}{" "}
+              <div className="card-body p-4">
+                <div className="container">
+                  <div className="row">
+                  
+                  <div className="col-1">
+                  <img src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png" width="80"/>
+                      </div>
+                      
+                      
+                        <div className="col">
+                   
+                   
+
+                    
+                      <h2 className="card-title">
+                        {" "}
+                        Pedido de {props.obj?.cliente?.user_name}
+                      </h2>
+                      <div className="text-muted mb-2">
+                        {" "}
+                        Teléfono: {props.obj?.cliente?.telefono}{" "}
+                      </div>
+                    </div>
+                    <div className="col-2">
+                      <div className="alert alert-success" role="alert">
+                        <h6>{props?.obj?.pedido?.fecha}</h6>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <ul className="card-text">
-                  <li>Nombre del producto: {props?.obj?.producto?.nombre}</li>
-                  <li>Cantidad: {props?.obj?.carrito?.cantidad_carrito}</li>
-                  <li>
-                    Precio unitario: {props?.obj?.carrito?.precio_unitario}
-                  </li>
-                </ul>
 
-                <h4>Total del pedido - $ {props?.obj?.carrito?.total}</h4>
-                <ul className="card-text">
-                  <li>Detalles del Pedido:</li>
-                  <li>
-                    Método de Pago:{" "}
-                    {props?.obj?.pedido?.metodo === "mercadoPago"
-                      ? "Mercado Pago"
-                      : props?.obj?.pedido?.metodo === "efectivo"
-                      ? "Efectivo"
-                      : "Trasferencia Bancaria"}
-                  </li>
-                  <li>Dirección de entrega: {props?.obj?.pedido?.destino}</li>
-                  <li>
-                    Comentario del Cliente: {props?.obj?.pedido?.comentario}
-                  </li>
-                </ul>
+                <hr/>
+
+                <div className="col-12">
+                  <h4 className="mb-2 col-6"></h4>
+                  <div className="mb-2 col-6"></div>
+                </div>
+
+                <div className="container">
+                  <div className="row">
+                    <div className="col">
+                      <ul className="card-text">
+                        <li>Producto: {props?.obj?.producto?.nombre}</li>
+                        <li>
+                          Cantidad: {props?.obj?.carrito?.cantidad_carrito}
+                        </li>
+                        <li>
+                          Precio unitario:{" "}
+                          {props?.obj?.carrito?.precio_unitario}
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="col">
+                      <ul className="card-text">
+                        <li>
+                          Método de Pago:{" "}
+                          {props?.obj?.pedido?.metodo === "mercadoPago"
+                            ? "Mercado Pago"
+                            : props?.obj?.pedido?.metodo === "efectivo"
+                            ? "Efectivo"
+                            : "Trasferencia Bancaria"}
+                        </li>
+                        <li>
+                          Dirección de entrega: {props?.obj?.pedido?.destino}
+                        </li>
+                        <li>
+                          Comentario del Cliente:{" "}
+                          {props?.obj?.pedido?.comentario}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <hr/>
 
                 <span> ESTADO DEL PEDIDO: </span>
                 <button
@@ -136,6 +173,10 @@ export const ProductCardHorizontalKitchenOrders = (props) => {
                 >
                   Pedido Entregado
                 </button>
+              </div>
+
+              <div className="card-footer text-end">
+                <h5>Total del pedido - $ {props?.obj?.carrito?.total}</h5>
               </div>
             </div>
           </div>
