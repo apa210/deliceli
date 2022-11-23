@@ -34,8 +34,8 @@ export const Checkout = () => {
       console.log(value);
 
       if (option == "mercadoPago") {
-        await actions.confirmPurchase(value.mensaje, option, value.direccion)
         await actions.pagoMercadoPago();
+        await actions.confirmPurchase(value.mensaje, option, value.direccion)
         window.location.href = store.mercadopago?.init_point;
       }
       else if (option == "efectivo") {
