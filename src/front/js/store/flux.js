@@ -1078,7 +1078,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               mercadopago: response.data,
             });
-            console.log(store.mercadopago);
           } catch (error) {
             alert("Fallo en la conexion con Mercado Pago, intente en otro momento")
             console.log(error);
@@ -1096,8 +1095,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         await actions.validateToken();
 
         if (store.auth == true) {
-          console.log(comentario, metodo, destino);
-
           try {
             let reqInstance = axios.create({
               headers: {
@@ -1111,7 +1108,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 destino: destino
               }
             );
-            console.log(response);
             await actions.getCart()
           } catch (error) {
             alert("Fallo en la solicitud de su pedido, intente en otro momento")
@@ -1137,7 +1133,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             const response = await reqInstance.get(
               store.api_url + process.env.VIEW_ORDERS_KITCHEN
             );
-            console.log(response);
             setStore({ ordersKitchen: response?.data });
           } catch (error) {
             alert("Fallo al conseguir las ordenes de su perfil, intente en otro momento")
@@ -1168,7 +1163,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 estado: estado,
               }
             );
-            console.log(response);
             actions.viewOrdersKitchen()
           } catch (error) {
             alert("Fallo al cambiar el estado del pedido, intente en otro momento")
@@ -1194,7 +1188,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             const response = await reqInstance.get(
               store.api_url + process.env.VIEW_ORDERS_CLIENT
             );
-            console.log(response);
             setStore({ ordersClient: response?.data });
           } catch (error) {
             alert("Fallo al conseguir las ordenes de su perfil, intente en otro momento")
@@ -1223,7 +1216,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 pedido_id: pedido_id,
               }
             );
-            console.log(response);
             await actions.viewOrdersClient()
           } catch (error) {
             alert("Fallo al cancelar el pedido, intente en otro momento")

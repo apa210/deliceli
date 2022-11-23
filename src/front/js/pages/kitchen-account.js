@@ -24,7 +24,7 @@ const EditKitchenSchema = Yup.object().shape({
     .required("Este campo es obligatorio"),
   telefono: Yup.string()
     .min(9, "Muy corto!")
-    .max(10, "Muy extenso!")
+    .max(25, "Muy extenso!")
     .required("Este campo es obligatorio"),
   direccion: Yup.string()
     .min(10, "Muy corto!")
@@ -36,7 +36,7 @@ const EditKitchenSchema = Yup.object().shape({
   instagram: Yup.string().min(25, "Muy corto!").max(200, "Muy extenso!"),
   dribble: Yup.string().min(25, "Muy corto!").max(200, "Muy extenso!"),
   pinterest: Yup.string().min(25, "Muy corto!").max(200, "Muy extenso!"),
-  descripcion: Yup.string().max(250, "Muy extenso!"),
+  descripcion: Yup.string().max(1000, "Muy extenso!"),
 });
 
 export const KitchenAccount = () => {
