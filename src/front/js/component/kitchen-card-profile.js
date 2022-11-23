@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // es una card que se imprime atraves de map's situados en varias Vistas
 // esta card se llena con el perfil del cocinero o chef o empresa que vende.
 export const KitchenCardProfile = (props) => {
+  console.log(props?.obj?.descripcion);
   return (
     <div className="card mb-5">
       <img
@@ -13,9 +14,12 @@ export const KitchenCardProfile = (props) => {
       <div className="card-body p-5">
         <h5 className="card-title">{props?.obj?.user_name}</h5>
         <p className="card-text">
-          {props?.obj?.descripcion.substring(0, 70)}
-           {props?.obj?.descripcion.length <
-          70
+          {props?.obj?.descripcion === null
+            ? null
+            : props?.obj?.descripcion.substring(0, 70)}
+          {props?.obj?.descripcion === null
+            ? null
+            : props?.obj?.descripcion.length < 70
             ? null
             : "..."}
         </p>
