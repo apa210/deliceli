@@ -20,15 +20,15 @@ export const ProductCardHorizontalOrders = (props) => {
               </div>
 
               <div className="card-body p-4">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-2">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-2">
                       <img
                         src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png"
                         width="80"
                       />
                     </div>
-                    <div class="col">
+                    <div className="col">
                     
                       <Link
                         to={"/pages/single-kitchen/" + props.obj?.cocina?.id}
@@ -120,7 +120,7 @@ export const ProductCardHorizontalOrders = (props) => {
                 )}
               </div>
 
-              <div class="card-footer text-end">
+              <div className="card-footer text-end">
                 <h4>Total del pedido - $ {props?.obj?.carrito?.total}</h4>
               </div>
             </div>

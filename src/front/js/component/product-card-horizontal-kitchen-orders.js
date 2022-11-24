@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const ProductCardHorizontalKitchenOrders = (props) => {
-  console.log(props.obj);
 
   const { store, actions } = useContext(Context);
   const [cancelado, setCancelado] = useState("btn-outline-danger");

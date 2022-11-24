@@ -30,9 +30,6 @@ export const Checkout = () => {
 
   const pay = async (value) => {
     if (option != "") {
-      console.log(option);
-      console.log(value);
-
       if (option == "mercadoPago") {
         await actions.pagoMercadoPago();
         await actions.confirmPurchase(value.mensaje, option, value.direccion)
