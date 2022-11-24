@@ -9,7 +9,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-from sqlalchemy import func, text
+from sqlalchemy import func, text, desc
 from datetime import datetime
 
 api = Blueprint('api', __name__)
@@ -397,7 +397,7 @@ def view_orders_kitchen():
     if login_user is None:
         return jsonify({"status": False}), 404
 
-    pedidos = Pedidos.query.filter_by(cocina_id=login_user.id).order_by(Pedidos.id_carrito).all()
+    pedidos = Pedidos.query.filter_by(cocina_id=login_user.id).order_by(desc(Pedidos.carrito_id)).all()
 
     if pedidos is not None:
         result = []
@@ -429,7 +429,7 @@ def view_orders_client():
     if login_user is None:
         return jsonify({"status": False}), 404
 
-    pedidos = Pedidos.query.filter_by(usuario_id=login_user.id).order_by(Pedidos.id_carrito).all()
+    pedidos = Pedidos.query.filter_by(usuario_id=login_user.id).order_by(desc(Pedidos.carrito_id)).all()
 
     if pedidos is not None:
         result=[]

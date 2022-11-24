@@ -17,8 +17,6 @@ export const ProductCardHorizontalMenu = (props) => {
     });
   };
 
-  // console.log(props?.obj);
-
   const buttonRemove = (prod_id) => {
     actions.removeProduct(prod_id);
   };

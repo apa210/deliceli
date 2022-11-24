@@ -22,7 +22,7 @@ const SignupSchema = Yup.object().shape({
     .required("Este campo es obligatorio"),
   phone: Yup.string()
     .min(9, "Muy corto!")
-    .max(10, "Muy extenso!")
+    .max(25, "Muy extenso!")
     .required("Este campo es obligatorio"),
   password: Yup.string()
     .min(8, "Muy corto!")
